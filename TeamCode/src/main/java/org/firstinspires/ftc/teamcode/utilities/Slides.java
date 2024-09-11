@@ -31,16 +31,19 @@ public class Slides {
 
     public Slides(HardwareMap hmap){
         this.slideMotor = hmap.dcMotor.get(CONFIG.slide);
+        this.slideRotator = hmap.dcMotor.get(CONFIG.slide);
         this.state = this.pos = 0;
 
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
         slideMotor.setZeroPowerBehavior(BRAKE);
+
+        slideRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slideRotator.setZeroPowerBehavior(BRAKE);
     }
     DcMotor slideMotor;
-
+    DcMotor slideRotator;
     public int getEncoder(){
         return -slideMotor.getCurrentPosition();
     }
@@ -149,4 +152,9 @@ public class Slides {
         setPower(-0.6);
 
     }
+    //slide rotator code from now on
+    public int getPosition1(){
+        return slideRotator.getCurrentPosition();
+    }
+
 }
