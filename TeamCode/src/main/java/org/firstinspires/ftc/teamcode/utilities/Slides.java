@@ -16,7 +16,8 @@ public class Slides {
     // Positive power is counter clockwise,
 
     //position at initial
-    int pos;
+    int pos;//up and down motor position
+    int rotPos; // rotator position
     //Current state of slide. 0 - idle, 1 - up, 2 - down
     //TODO: consider using an enum
     int state;
@@ -156,5 +157,40 @@ public class Slides {
     public int getPosition1(){
         return slideRotator.getCurrentPosition();
     }
+    public void rightHold(){
+        slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pos = getEncoder();
+        if (pos >= maxheight){
+            setPower(0);
+            return;
+        }
+        if (state == 1 && pos >= midheight + 15){
+            setPower(1);
+            pos = getEncoder();
+            return;
+        }
+        if (state == 1){
+            return;
+        }
+        state = 1;
+        setPower(1);
+    }
 
+    public void leftHold() {
+        slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pos = getEncoder();
+
+        if (state == 2 && pos <= 1800) {
+            setPower(-0.4);
+            pos = getEncoder();
+            return;
+        }
+
+        if (state == 2) {
+            return;
+        }
+        state = 2;
+        setPower(-0.6);
+
+    }
 }
