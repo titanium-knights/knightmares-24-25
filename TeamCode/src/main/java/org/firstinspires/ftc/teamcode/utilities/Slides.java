@@ -63,7 +63,7 @@ public class Slides {
     public int getTarget(){
         return slideMotor.getTargetPosition();
     }
-    public int getRotTarget(){a
+    public int getRotTarget(){
         return slideRotator.getTargetPosition();
     }
     //get runmode?
