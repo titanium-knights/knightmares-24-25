@@ -40,7 +40,13 @@ public class Teleop extends OpMode {
         SLIDE_MEDIUM,
         SLIDE_HIGH
     };
+    public enum RotatorState {
+        SLIDE_DOWN,
+        SLIDE_UP,
+        SLIDE_STOP
+    };
     SlideState slideState = SlideState.SLIDE_BOTTOM;
+    RotatorState rotatorState = RotatorState.SLIDE_DOWN;
 
     public enum PullUpState {
         NEUTRAL,
@@ -56,6 +62,7 @@ public class Teleop extends OpMode {
         UNPRESSED // its not pressed
     }
     ButtonPressState slideButton;
+    ButtonPressState rotatorButton;
 
     ButtonPressState slideManual;
     ButtonPressState slideManualUp;
@@ -146,9 +153,34 @@ public class Teleop extends OpMode {
 //        }
 
         // SLIDES & INTAKE
+        switch (rotatorState) {
+            case SLIDE_DOWN:
+                if (Math.abs(slides.getRotatorEncoder() - 0) < 10) {
+                    if (rotatorButton == ButtonPressState.PRESSED_GOOD) {
+                        rotatorState = RotatorState.SLIDE_UP;
+                        telemetry.addData("rot", slides.getRotatorEncoder());
+                        telemetry.update();
+                        slides.up();
+                    }
+                }
+            case SLIDE_UP:
+                if (Math.abs(slides.getRotatorEncoder() - 30) < 10) {
+                    if (rotatorButton == ButtonPressState.PRESSED_GOOD) {
+                        rotatorState = RotatorState.SLIDE_DOWN;
+                        telemetry.addData("rot", slides.getRotatorEncoder());
+                        telemetry.update();
+                        slides.down();
+                    }
+                }
+            default:
+                rotatorState = RotatorState.SLIDE_DOWN;
+                telemetry.addLine("default");
+                telemetry.update();
+
+        }
         switch (slideState) {
             case SLIDE_BOTTOM:
-                if (Math.abs(slides.getEncoder() - 0) < 10) { // drop height
+                if (Math.abs(slides.getEncoder() - 30) < 10) { // drop height
                     if (slideButton==ButtonPressState.PRESSED_GOOD) {
                         slideState = SlideState.SLIDE_HIGH;
                         telemetry.addData("pos", slides.getEncoder());
