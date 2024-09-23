@@ -63,7 +63,7 @@ public class Slides {
     public int getTarget(){
         return slideMotor.getTargetPosition();
     }
-    public int getRotTarget(){
+    public int getRotTarget(){a
         return slideRotator.getTargetPosition();
     }
     //get runmode?
@@ -163,6 +163,16 @@ public class Slides {
         setTarget(maxheight);
         runToPosition();
         pos = getEncoder();
+    }
+    public void up(){
+        setRotTarget(maxrot);
+        runRotToPosition();
+        rot = getRotatorEncoder();
+    }
+    public void down(){
+        setRotTarget(lowrot);
+        runRotToPosition();
+        rot = getRotatorEncoder();
     }
 
     public void upHold(){
