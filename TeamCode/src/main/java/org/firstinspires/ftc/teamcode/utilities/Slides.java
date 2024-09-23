@@ -31,6 +31,9 @@ public class Slides {
     int lowheight = 10; // 1472
     int dropheight = 800;
 
+    int maxrot = 25; // 3481
+    int midrot = 20; // 2424
+    int lowrot = 10; // 1472
 
     public Slides(HardwareMap hmap){
         this.slideMotor = hmap.dcMotor.get(CONFIG.slide);
