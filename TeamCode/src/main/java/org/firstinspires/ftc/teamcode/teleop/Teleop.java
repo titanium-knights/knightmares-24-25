@@ -9,13 +9,17 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
+import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
+
+
 
 @Config
 @TeleOp(name="DriveTrain Teleop")
 public class Teleop extends OpMode {
     Slides slides;
     PullUp pullup;
+    Claw claw;
     SimpleMecanumDrive drive;
 
     //Set normal power constant to 1, no point in slowing the robot down
@@ -241,5 +245,18 @@ public class Teleop extends OpMode {
         double multiplier = normalPower;
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
 
+
+
+        //claw open/close dpad
+        if (gamepad1.dpad_up) {
+            claw.close();
+        }
+        if (gamepad1.dpad_down) {
+            claw.open();
+        }
+
+        // Claw rotation left/right dpad
+
+        
     }
 }
