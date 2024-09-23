@@ -248,15 +248,20 @@ public class Teleop extends OpMode {
 
 
         //claw open/close dpad
-        if (gamepad1.dpad_up) {
+        if (gamepad1.dpad_left) {
             claw.close();
         }
-        if (gamepad1.dpad_down) {
+        if (gamepad1.dpad_right) {
             claw.open();
         }
 
-        // Claw rotation left/right dpad
+        // Claw tilt left/right dpad
+        if (gamepad1.dpad_up) {
+            claw.tiltForward();
+        }
+        if (gamepad1.dpad_down) {
+            claw.tiltBack();
+        }
 
-        
     }
 }
