@@ -17,7 +17,7 @@ public class Slides {
 
     //position at initial
     int pos;//up and down motor position
-    int rot; // left and right rotator mosition
+    int rot; // left and right rotator position
     int rotPos; // rotator position
     //Current state of slide. 0 - idle, 1 - up, 2 - down
     //TODO: consider using an enum
