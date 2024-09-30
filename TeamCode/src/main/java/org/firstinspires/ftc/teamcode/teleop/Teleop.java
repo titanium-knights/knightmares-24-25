@@ -278,7 +278,8 @@ public class Teleop extends OpMode {
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
 
 
-//        CLAW
+        //  CLAW
+
         //claw open/close dpad
         if (gamepad1.dpad_left) {
             claw.close();
@@ -295,7 +296,7 @@ public class Teleop extends OpMode {
             claw.tiltBack();
         }
 
-//        ROTATING SLIDES
+        //  ROTATING SLIDES
         if (gamepad1.b) {
             slides.rightHold();
         }
