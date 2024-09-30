@@ -13,21 +13,6 @@ public class CONFIG {
     //slide motor
     public static String slide = "slides";
 
-    public static String pullUpMotor1 = "pl1";
-    public static String pullUpMotor2 = "pl2";
-    //intake
-    public static String intake = "intake";
-
-    //plane launcher
-    public static String planeServo = "plane";
-
-    //bay
-    public static String bayLeft = "bL";
-    public static String bayRight = "bR";
-
-    //stick
-    public static String stick = "stick";
-
-    //spinny thing
-    public static String spinny = "spinny";
+    //public static String pullUpMotor1 = "pl1";
+    //public static String pullUpMotor2 = "pl2";
 }
