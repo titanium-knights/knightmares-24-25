@@ -17,8 +17,6 @@ public class Claw {
     Servo clawLeft;
     Servo clawRight;
     Servo clawTilt;
-    DistanceSensor ds;
-
 
     // TODO: TUNE VALUES !!
     public static double closedPosLeft = 0.25;
