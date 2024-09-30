@@ -13,6 +13,6 @@ public class CONFIG {
     //slide motor
     public static String slide = "slides";
 
-    public static String pullUpMotor1 = "pl1";
-    public static String pullUpMotor2 = "pl2";
+    //public static String pullUpMotor1 = "pl1";
+    //public static String pullUpMotor2 = "pl2";
 }
