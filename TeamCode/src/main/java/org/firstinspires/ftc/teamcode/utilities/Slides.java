@@ -35,6 +35,10 @@ public class Slides {
     int midrot = 20; // 2424
     int lowrot = 10; // 1472
 
+    //assign motors to slide motors and slide rotator motors
+    DcMotor slideMotor;
+    DcMotor slideRotator;
+
     public Slides(HardwareMap hmap){
         this.slideMotor = hmap.dcMotor.get(CONFIG.slide);
         this.slideRotator = hmap.dcMotor.get(CONFIG.slide);
@@ -48,37 +52,9 @@ public class Slides {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slideRotator.setZeroPowerBehavior(BRAKE);
     }
-    //assign motors to slide motors and slide rotator motors
-    DcMotor slideMotor;
-    DcMotor slideRotator;
 
-    //getters for encoders
-    public int getEncoder(){
-        return -slideMotor.getCurrentPosition();
-    }
-    public int getRotatorEncoder(){
-        return -slideRotator.getCurrentPosition();
-    }
-    //getting target (idk what that is)
-    public int getTarget(){
-        return slideMotor.getTargetPosition();
-    }
-    public int getRotTarget(){
-        return slideRotator.getTargetPosition();
-    }
-    //get runmode?
-    //TODO: put one for rotator
-    public DcMotor.RunMode getMode(){
-        return slideMotor.getMode();
-    }
 
-    //set power
-    public void setPower(double power){
-        slideMotor.setPower(-0.95*power); // constant removed
-    }
-    public void setRotPower(double power){
-        slideRotator.setPower(-0.10*power); // constant removed
-    }
+
     //stop motors
     public void stop(){
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -141,7 +117,6 @@ public class Slides {
         setTarget(dropheight);
         runToPosition();
     }
-    //to zero
     public void tozero() {
         setTarget(0);
         runToPosition();
@@ -153,7 +128,6 @@ public class Slides {
         runToPosition();
         pos = getEncoder();
     }
-
     public void middle(){
         setTarget(midheight);
         runToPosition();
@@ -164,6 +138,7 @@ public class Slides {
         runToPosition();
         pos = getEncoder();
     }
+
     public void up(){
         setRotTarget(maxrot);
         runRotToPosition();
@@ -193,7 +168,6 @@ public class Slides {
         state = 1;
         setPower(1);
     }
-
     public void downHold() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
@@ -210,10 +184,6 @@ public class Slides {
         state = 2;
         setPower(-0.6);
 
-    }
-    //slide rotator code from now on
-    public int getPosition1(){
-        return slideRotator.getCurrentPosition();
     }
     public void rightHold(){
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -233,7 +203,6 @@ public class Slides {
         rotState = 1;
         setPower(1);
     }
-
     public void leftHold() {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
@@ -243,12 +212,40 @@ public class Slides {
             rot = getRotatorEncoder();
             return;
         }
-
         if (rotState == 2) {
             return;
         }
         rotState = 2;
         setPower(-0.6);
+    }
 
+    public int getEncoder() {
+        return -slideMotor.getCurrentPosition();
+    }
+    public int getRotatorEncoder() {
+        return -slideRotator.getCurrentPosition();
+    }
+    //slide rotator code from now on
+    public int getPosition1(){
+        return slideRotator.getCurrentPosition();
+    }
+    //getting target (idk what that is)
+    public int getTarget() {
+        return slideMotor.getTargetPosition();
+    }
+    public int getRotTarget() {
+        return slideRotator.getTargetPosition();
+    }
+    //get runmode?
+    public DcMotor.RunMode getMode(){
+        return slideMotor.getMode();
+    }
+
+    //set power
+    public void setPower(double power){
+        slideMotor.setPower(-0.95*power); // constant removed
+    }
+    public void setRotPower(double power){
+        slideRotator.setPower(-0.10*power); // constant removed
     }
 }
