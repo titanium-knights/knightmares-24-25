@@ -29,10 +29,10 @@ public class Claw {
     
     
 
-//    public Claw(HardwareMap hmap) {
-//        this.clawLeft = hmap.servo.get(CONFIG.clawLeft);
-//        this.clawRight = hmap.servo.get(CONFIG.clawRight);
-//    }
+    public Claw(HardwareMap hmap) {
+        this.clawLeft = hmap.servo.get(CONFIG.clawLeft);
+        this.clawRight = hmap.servo.get(CONFIG.clawRight);
+    }
     
     public void open() {
         clawLeft.setPosition(openPosLeft);

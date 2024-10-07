@@ -65,7 +65,7 @@ public class Teleop extends OpMode {
     ButtonPressState slideManual;
     ButtonPressState slideManualUp;
 
-    boolean intakeRunning = false;
+    // boolean intakeRunning = false;
     @Override
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
@@ -263,18 +263,15 @@ public class Teleop extends OpMode {
 //                pullupstate = PullUpState.NEUTRAL;
 //        }
 
-    }
-
-    public void move(float x, float y, float turn) {
-        // if the stick movement is negligible, set STICK_MARGIN to 0
-        if (Math.abs(x) <= STICK_MARGIN) x = .0f;
-        if (Math.abs(y) <= STICK_MARGIN) y = .0f;
-        if (Math.abs(turn) <= STICK_MARGIN) turn = .0f;
-
-        //Notation of a ? b : c means if a is true do b, else do c.
-        double multiplier = normalPower;
-        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
-
+//    public void move(float x, float y, float turn) {
+//        // if the stick movement is negligible, set STICK_MARGIN to 0
+//        if (Math.abs(x) <= STICK_MARGIN) x = .0f;
+//        if (Math.abs(y) <= STICK_MARGIN) y = .0f;
+//        if (Math.abs(turn) <= STICK_MARGIN) turn = .0f;
+//
+//        //Notation of a ? b : c means if a is true do b, else do c.
+//        double multiplier = normalPower;
+//        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
 
         //  CLAW
 
