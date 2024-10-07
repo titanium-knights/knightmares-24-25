@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.Slides;
-import org.firstinspires.ftc.teamcode.utilities.PullUp;
+//import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 @TeleOp(name="DriveTrain Teleop")
 public class Teleop extends OpMode {
     Slides slides;
-    PullUp pullup;
+    // PullUp pullup;
     Claw claw;
     SimpleMecanumDrive drive;
 
@@ -70,7 +70,7 @@ public class Teleop extends OpMode {
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
         this.slides = new Slides(hardwareMap);
-        this.pullup = new PullUp(hardwareMap);
+        // this.pullup = new PullUp(hardwareMap);
 
         this.slideButton = ButtonPressState.UNPRESSED;
         this.slideManual = ButtonPressState.UNPRESSED;
