@@ -10,8 +10,6 @@ import org.firstinspires.ftc.teamcode.utilities.Slides;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
-
-
 @Config
 @TeleOp(name="DriveTrain Teleop")
 public class Teleop extends OpMode {
@@ -263,31 +261,29 @@ public class Teleop extends OpMode {
 //                pullupstate = PullUpState.NEUTRAL;
 //        }
 
-//    public void move(float x, float y, float turn) {
-//        // if the stick movement is negligible, set STICK_MARGIN to 0
-//        if (Math.abs(x) <= STICK_MARGIN) x = .0f;
-//        if (Math.abs(y) <= STICK_MARGIN) y = .0f;
-//        if (Math.abs(turn) <= STICK_MARGIN) turn = .0f;
-//
-//        //Notation of a ? b : c means if a is true do b, else do c.
-//        double multiplier = normalPower;
-//        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
-
         //  CLAW
 
         //claw open/close dpad
         if (gamepad1.dpad_left) {
+            telemetry.addLine("claw close");
+            telemetry.update();
             claw.close();
         }
         if (gamepad1.dpad_right) {
             claw.open();
+            telemetry.addLine("claw open");
+            telemetry.update();
         }
 
         // Claw tilt left/right dpad
         if (gamepad1.dpad_up) {
+            telemetry.addLine("claw tilt forward");
+            telemetry.update();
             claw.tiltForward();
         }
         if (gamepad1.dpad_down) {
+            telemetry.addLine("claw titl backwards");
+            telemetry.update();
             claw.tiltBack();
         }
 
@@ -299,6 +295,15 @@ public class Teleop extends OpMode {
             slides.leftHold();
         }
 
+    }
+    public void move(float x, float y, float turn) {
+        // if the stick movement is negligible, set STICK_MARGIN to 0
+        if (Math.abs(x) <= STICK_MARGIN) x = .0f;
+        if (Math.abs(y) <= STICK_MARGIN) y = .0f;
+        if (Math.abs(turn) <= STICK_MARGIN) turn = .0f;
 
+        //Notation of a ? b : c means if a is true do b, else do c.
+        double multiplier = normalPower;
+        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
     }
 }

@@ -15,6 +15,7 @@ public class CONFIG {
 
     public static String clawLeft = "clawl";
     public static String clawRight = "clawr";
+    public static String clawTilt = "clawtilt";
     //public static String pullUpMotor1 = "pl1";
     //public static String pullUpMotor2 = "pl2";
 }
