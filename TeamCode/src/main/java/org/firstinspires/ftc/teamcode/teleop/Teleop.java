@@ -100,9 +100,9 @@ public class Teleop extends OpMode {
         } else if (!gamepad1.left_bumper) slideManualUp = ButtonPressState.UNPRESSED;
 
         if (gamepad1.right_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
-            slides.downHold();
+            slides.retract();
         } else if (gamepad1.left_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
-            slides.upHold();
+            slides.extend();
         } else {
             slides.stop();
         }
@@ -292,12 +292,12 @@ public class Teleop extends OpMode {
         if (gamepad1.b) {
             telemetry.addLine("slides right");
             telemetry.update();
-            slides.rightHold();
+            slides.rotateRight();
         }
         if (gamepad1.x) {
             telemetry.addLine("slides left");
             telemetry.update();
-            slides.leftHold();
+            slides.rotateLeft();
         }
 
     }

@@ -150,9 +150,10 @@ public class Slides {
         rot = getRotatorEncoder();
     }
 
-    public void upHold(){
+    public void extend(){
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
+        // max limit
         if (pos >= maxheight){
             setPower(0);
             return;
@@ -168,10 +169,11 @@ public class Slides {
         state = 1;
         setPower(1);
     }
-    public void downHold() {
+    public void retract() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
 
+        // slower retract closer down
         if (state == 2 && pos <= 1800) {
             setPower(-0.4);
             pos = getEncoder();
@@ -181,19 +183,23 @@ public class Slides {
         if (state == 2) {
             return;
         }
+
         state = 2;
         setPower(-0.6);
 
     }
-    public void rightHold(){
+    public void rotateRight(){
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getRotatorEncoder();
-        if (rot >= maxrot){
+
+        // rotate limits
+        if (rot >= maxrot) {
             setPower(0);
             return;
         }
+        //
         if (rotState == 1 && rot >= midrot + 15){
-            setPower(1);
+            setPower(0.4);
             rot = getRotatorEncoder();
             return;
         }
@@ -201,9 +207,9 @@ public class Slides {
             return;
         }
         rotState = 1;
-        setPower(1);
+        setPower(0.6);
     }
-    public void leftHold() {
+    public void rotateLeft() {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
 
