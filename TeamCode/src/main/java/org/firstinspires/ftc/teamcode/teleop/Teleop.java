@@ -1,24 +1,20 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
-import android.widget.Button;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.Slides;
-import org.firstinspires.ftc.teamcode.utilities.PullUp;
+//import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
-
-
 
 @Config
 @TeleOp(name="DriveTrain Teleop")
 public class Teleop extends OpMode {
     Slides slides;
-    PullUp pullup;
+    // PullUp pullup;
     Claw claw;
     SimpleMecanumDrive drive;
 
@@ -67,12 +63,12 @@ public class Teleop extends OpMode {
     ButtonPressState slideManual;
     ButtonPressState slideManualUp;
 
-    boolean intakeRunning = false;
+    // boolean intakeRunning = false;
     @Override
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
         this.slides = new Slides(hardwareMap);
-        this.pullup = new PullUp(hardwareMap);
+        // this.pullup = new PullUp(hardwareMap);
 
         this.slideButton = ButtonPressState.UNPRESSED;
         this.slideManual = ButtonPressState.UNPRESSED;
@@ -265,8 +261,41 @@ public class Teleop extends OpMode {
 //                pullupstate = PullUpState.NEUTRAL;
 //        }
 
-    }
+        //  CLAW
 
+        //claw open/close dpad
+        if (gamepad1.dpad_left) {
+            telemetry.addLine("claw close");
+            telemetry.update();
+            claw.close();
+        }
+        if (gamepad1.dpad_right) {
+            claw.open();
+            telemetry.addLine("claw open");
+            telemetry.update();
+        }
+
+        // Claw tilt left/right dpad
+        if (gamepad1.dpad_up) {
+            telemetry.addLine("claw tilt forward");
+            telemetry.update();
+            claw.tiltForward();
+        }
+        if (gamepad1.dpad_down) {
+            telemetry.addLine("claw titl backwards");
+            telemetry.update();
+            claw.tiltBack();
+        }
+
+        //  ROTATING SLIDES
+        if (gamepad1.b) {
+            slides.rightHold();
+        }
+        if (gamepad1.x) {
+            slides.leftHold();
+        }
+
+    }
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
         if (Math.abs(x) <= STICK_MARGIN) x = .0f;
@@ -276,33 +305,5 @@ public class Teleop extends OpMode {
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
-
-
-//        CLAW
-        //claw open/close dpad
-        if (gamepad1.dpad_left) {
-            claw.close();
-        }
-        if (gamepad1.dpad_right) {
-            claw.open();
-        }
-
-        // Claw tilt left/right dpad
-        if (gamepad1.dpad_up) {
-            claw.tiltForward();
-        }
-        if (gamepad1.dpad_down) {
-            claw.tiltBack();
-        }
-
-//        ROTATING SLIDES
-        if (gamepad1.b) {
-            slides.rightHold();
-        }
-        if (gamepad1.x) {
-            slides.leftHold();
-        }
-
-
     }
 }
