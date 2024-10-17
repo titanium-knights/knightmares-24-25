@@ -5,18 +5,16 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
+//import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
-
-
 
 @Config
 @TeleOp(name="DriveTrain Teleop")
 public class Teleop extends OpMode {
     Slides slides;
-    PullUp pullup;
+    // PullUp pullup;
     Claw claw;
     SimpleMecanumDrive drive;
 
@@ -65,16 +63,18 @@ public class Teleop extends OpMode {
     ButtonPressState slideManual;
     ButtonPressState slideManualUp;
 
-    boolean intakeRunning = false;
+    // boolean intakeRunning = false;
     @Override
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
         this.slides = new Slides(hardwareMap);
-        this.pullup = new PullUp(hardwareMap);
+        // this.pullup = new PullUp(hardwareMap);
 
         this.slideButton = ButtonPressState.UNPRESSED;
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
+
+        slides.startPosition();
     }
 
     @Override
@@ -102,9 +102,9 @@ public class Teleop extends OpMode {
         } else if (!gamepad1.left_bumper) slideManualUp = ButtonPressState.UNPRESSED;
 
         if (gamepad1.right_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
-            slides.downHold();
+            slides.retract();
         } else if (gamepad1.left_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
-            slides.upHold();
+            slides.extend();
         } else {
             slides.stop();
         }
@@ -151,31 +151,31 @@ public class Teleop extends OpMode {
 //        }
 
         // SLIDES & INTAKE
-        switch (rotatorState) {
-            case SLIDE_DOWN:
-                if (Math.abs(slides.getRotatorEncoder() - 0) < 10) {
-                    if (rotatorButton == ButtonPressState.PRESSED_GOOD) {
-                        rotatorState = RotatorState.SLIDE_UP;
-                        telemetry.addData("rot", slides.getRotatorEncoder());
-                        telemetry.update();
-                        slides.up();
-                    }
-                }
-            case SLIDE_UP:
-                if (Math.abs(slides.getRotatorEncoder() - 30) < 10) {
-                    if (rotatorButton == ButtonPressState.PRESSED_GOOD) {
-                        rotatorState = RotatorState.SLIDE_DOWN;
-                        telemetry.addData("rot", slides.getRotatorEncoder());
-                        telemetry.update();
-                        slides.down();
-                    }
-                }
-            default:
-                rotatorState = RotatorState.SLIDE_DOWN;
-                telemetry.addLine("default");
-                telemetry.update();
+//        switch (rotatorState) {
+//            case SLIDE_DOWN:
+//                if (Math.abs(slides.getRotatorEncoder() - 0) < 10) {
+//                    if (rotatorButton == ButtonPressState.PRESSED_GOOD) {
+//                        rotatorState = RotatorState.SLIDE_UP;
+//                        telemetry.addData("rot", slides.getRotatorEncoder());
+//                        telemetry.update();
+//                        slides.up();
+//                    }
+//                }
+//            case SLIDE_UP:
+//                if (Math.abs(slides.getRotatorEncoder() - 30) < 10) {
+//                    if (rotatorButton == ButtonPressState.PRESSED_GOOD) {
+//                        rotatorState = RotatorState.SLIDE_DOWN;
+//                        telemetry.addData("rot", slides.getRotatorEncoder());
+//                        telemetry.update();
+//                        slides.down();
+//                    }
+//                }
+//            default:
+//                rotatorState = RotatorState.SLIDE_DOWN;
+//                telemetry.addLine("default");
+//                telemetry.update();
+//        }
 
-        }
         switch (slideState) {
             case SLIDE_BOTTOM:
                 if (Math.abs(slides.getEncoder() - 30) < 10) { // drop height
@@ -263,8 +263,46 @@ public class Teleop extends OpMode {
 //                pullupstate = PullUpState.NEUTRAL;
 //        }
 
-    }
+        //  CLAW
 
+        //claw open/close dpad
+        if (gamepad1.dpad_left) {
+            telemetry.addLine("claw close");
+            telemetry.update();
+            claw.close();
+        }
+        if (gamepad1.dpad_right) {
+            claw.open();
+            telemetry.addLine("claw open");
+            telemetry.update();
+        }
+
+        // Claw tilt left/right dpad
+        if (gamepad1.dpad_up) {
+            telemetry.addLine("claw tilt forward");
+            telemetry.update();
+            telemetry.addLine(claw.toString());
+            claw.tiltForward();
+        }
+        if (gamepad1.dpad_down) {
+            telemetry.addLine("claw titl backwards");
+            telemetry.update();
+            claw.tiltBack();
+        }
+
+        //  ROTATING SLIDES
+        if (gamepad1.b) {
+            telemetry.addLine("slides right");
+            telemetry.update();
+            slides.rotateRight();
+        }
+        if (gamepad1.x) {
+            telemetry.addLine("slides left");
+            telemetry.update();
+            slides.rotateLeft();
+        }
+
+    }
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
         if (Math.abs(x) <= STICK_MARGIN) x = .0f;
@@ -274,34 +312,5 @@ public class Teleop extends OpMode {
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
-
-
-        //  CLAW
-
-        //claw open/close dpad
-        if (gamepad1.dpad_left) {
-            claw.close();
-        }
-        if (gamepad1.dpad_right) {
-            claw.open();
-        }
-
-        // Claw tilt left/right dpad
-        if (gamepad1.dpad_up) {
-            claw.tiltForward();
-        }
-        if (gamepad1.dpad_down) {
-            claw.tiltBack();
-        }
-
-        //  ROTATING SLIDES
-        if (gamepad1.b) {
-            slides.rightHold();
-        }
-        if (gamepad1.x) {
-            slides.leftHold();
-        }
-
-
     }
 }
