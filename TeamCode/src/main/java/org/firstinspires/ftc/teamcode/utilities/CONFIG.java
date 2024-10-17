@@ -11,12 +11,11 @@ public class CONFIG {
     public static String BACK_RIGHT = "br"; //ch 1
 
     //slide motor
-    public static String slideRot = "sr";
-    public static String slide = "s";
+    public static String slide = "slides";
 
-    public static String clawLeft = "clawl";
-    public static String clawRight = "clawr";
-    public static String clawTilt = "clawtilt";
-    //public static String pullUpMotor1 = "pl1";
-    //public static String pullUpMotor2 = "pl2";
+    public static String pullUpMotor1 = "pl1";
+    public static String pullUpMotor2 = "pl2";
+
+    //claw motor
+    public static String clawMotor = "cm";
 }
