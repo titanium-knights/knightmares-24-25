@@ -279,6 +279,7 @@ public class Teleop extends OpMode {
         if (gamepad1.dpad_up) {
             telemetry.addLine("claw tilt forward");
             telemetry.update();
+            telemetry.addLine(claw.toString());
             claw.tiltForward();
         }
         if (gamepad1.dpad_down) {
@@ -289,9 +290,13 @@ public class Teleop extends OpMode {
 
         //  ROTATING SLIDES
         if (gamepad1.b) {
+            telemetry.addLine("slides right");
+            telemetry.update();
             slides.rightHold();
         }
         if (gamepad1.x) {
+            telemetry.addLine("slides left");
+            telemetry.update();
             slides.leftHold();
         }
 

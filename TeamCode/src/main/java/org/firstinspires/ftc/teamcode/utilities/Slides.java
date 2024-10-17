@@ -31,7 +31,7 @@ public class Slides {
     int lowheight = 10; // 1472
     int dropheight = 800;
 
-    int maxrot = 25; // 3481
+    int maxrot = 100; // 3481 proviously 25
     int midrot = 20; // 2424
     int lowrot = 10; // 1472
 
@@ -41,7 +41,7 @@ public class Slides {
 
     public Slides(HardwareMap hmap){
         this.slideMotor = hmap.dcMotor.get(CONFIG.slide);
-        this.slideRotator = hmap.dcMotor.get(CONFIG.slide);
+        this.slideRotator = hmap.dcMotor.get(CONFIG.slideRot);
         this.state = this.pos = 0;
 
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -207,7 +207,7 @@ public class Slides {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
 
-        if (rotState == 2 && rot <= 1800) {
+        if (rot <= 1800) { //if (rotState == 2 && rot <= 1800) {
             setPower(-0.4);
             rot = getRotatorEncoder();
             return;
