@@ -29,7 +29,10 @@ public class Slides {
     int maxheight = 25; // 3481
     int midheight = 20; // 2424
     int lowheight = 10; // 1472
+    int minheight = 5;
     int dropheight = 800;
+
+    int startheight = 5;
 
     int maxrot = 100; // 3481 proviously 25
     int midrot = 20; // 2424
@@ -53,7 +56,9 @@ public class Slides {
         slideRotator.setZeroPowerBehavior(BRAKE);
     }
 
-
+    public void startPosition() {
+        setTarget(startheight);
+    }
 
     //stop motors
     public void stop(){
@@ -138,17 +143,17 @@ public class Slides {
         runToPosition();
         pos = getEncoder();
     }
-
-    public void up(){
-        setRotTarget(maxrot);
-        runRotToPosition();
-        rot = getRotatorEncoder();
-    }
-    public void down(){
-        setRotTarget(lowrot);
-        runRotToPosition();
-        rot = getRotatorEncoder();
-    }
+//
+//    public void up(){
+//        setRotTarget(maxrot);
+//        runRotToPosition();
+//        rot = getRotatorEncoder();
+//    }
+//    public void down(){
+//        setRotTarget(lowrot);
+//        runRotToPosition();
+//        rot = getRotatorEncoder();
+//    }
 
     public void extend(){
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -172,6 +177,12 @@ public class Slides {
     public void retract() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
+
+        // TODO: add limits
+        if (pos < minheight){
+            setPower(0);
+            return;
+        }
 
         // slower retract closer down
         if (state == 2 && pos <= 1800) {
