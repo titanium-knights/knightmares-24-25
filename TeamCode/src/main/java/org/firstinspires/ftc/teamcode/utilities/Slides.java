@@ -186,7 +186,7 @@ public class Slides {
 
         // slower retract closer down
         if (state == 2 && pos <= 1800) {
-            setPower(-0.4);
+            setPower(-5);
             pos = getEncoder();
             return;
         }
@@ -196,7 +196,7 @@ public class Slides {
         }
 
         state = 2;
-        setPower(-0.6);
+        setPower(-8);
 
     }
     public void rotateRight(){
@@ -210,7 +210,7 @@ public class Slides {
         }
         //
         if (rotState == 1 && rot >= midrot + 15){
-            setPower(0.4);
+            setPower(8);
             rot = getRotatorEncoder();
             return;
         }
@@ -218,7 +218,7 @@ public class Slides {
             return;
         }
         rotState = 1;
-        setPower(0.6);
+        setPower(5);
     }
     public void rotateLeft() {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
