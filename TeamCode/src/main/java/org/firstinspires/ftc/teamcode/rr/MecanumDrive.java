@@ -109,11 +109,13 @@ public final class MecanumDrive {
 
     public final DcMotorEx leftFront, leftBack, rightBack, rightFront;
 
+    public final ThreeDeadWheelLocalizer localizer = ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
+
     public final VoltageSensor voltageSensor;
 
     public final LazyImu lazyImu;
 
-    public final Localizer localizer;
+    //public final Localizer localizer;
     public Pose2d pose;
 
     private final LinkedList<Pose2d> poseHistory = new LinkedList<>();
