@@ -15,11 +15,20 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Config
 public class Claw {
+
     Servo clawLeft;
     Servo clawRight;
     Servo clawTilt;
 
     // TODO: TUNE VALUES !!
+
+    public Claw(HardwareMap hmap, Telemetry telemetry) {
+        this.clawLeft = hmap.servo.get(CONFIG.clawLeft);
+        this.clawRight = hmap.servo.get(CONFIG.clawRight);
+        this.clawTilt = hmap.servo.get(CONFIG.clawTilt);
+        this.telemetry = telemetry;
+    }
+
     public static double closedPosLeft = 0.25;
     public static double openPosLeft = 1;
     public static double closedPosRight = 1;
@@ -29,15 +38,6 @@ public class Claw {
     public static double backwardPos = 1;
 
     public static Telemetry telemetry;
-    
-    
-
-    public Claw(HardwareMap hmap, Telemetry telemetry) {
-        this.clawLeft = hmap.servo.get(CONFIG.clawLeft);
-        this.clawRight = hmap.servo.get(CONFIG.clawRight);
-        this.clawTilt = hmap.servo.get(CONFIG.clawTilt);
-        this.telemetry = telemetry;
-    }
     
     public void open() {
         telemetry.addLine("open claw");

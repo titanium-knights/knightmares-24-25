@@ -11,7 +11,8 @@ public class CONFIG {
     public static String BACK_RIGHT = "br"; //ch 1
 
     //slide motor
-    public static String slide = "slides";
+    public static String slideRot = "sr";
+    public static String slide = "s";
 
     public static String clawLeft = "clawl";
     public static String clawRight = "clawr";
