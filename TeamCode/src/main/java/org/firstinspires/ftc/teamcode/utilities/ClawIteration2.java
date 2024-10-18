@@ -14,7 +14,7 @@ public class ClawIteration2 {
 
 
 
-    public DcMotor clawMotor;
+    public static DcMotor clawMotor;
 
     public ClawIteration2(HardwareMap hmap) {
         this.clawMotor = hmap.dcMotor.get(CONFIG.clawMotor);
@@ -35,7 +35,7 @@ public class ClawIteration2 {
         return clawMotor.getMode();
     }
 
-    public void setPower(double power) {
+    public static void setPower(double power) {
         clawMotor.setPower(-0.95 * power);
     }
 
@@ -65,12 +65,12 @@ public class ClawIteration2 {
     }
 
 
-  public void inside(){
+  public static void inside(){
     clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     setPower(1);
     }
 
-    public void outside(){
+    public static void outside(){
         clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setPower(-1);
     }
