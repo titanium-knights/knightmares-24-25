@@ -116,7 +116,7 @@ public final class MecanumDrive {
 
     public final LazyImu lazyImu;
 
-    //public final Localizer localizer;
+    public final Localizer localizer;
     public Pose2d pose;
 
     private final LinkedList<Pose2d> poseHistory = new LinkedList<>();
@@ -140,7 +140,7 @@ public final class MecanumDrive {
             rightBack = new OverflowEncoder(new RawEncoder(MecanumDrive.this.rightBack));
             rightFront = new OverflowEncoder(new RawEncoder(MecanumDrive.this.rightFront));
 
-            localizer = ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
+            //localizer = ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
 
             imu = lazyImu.get();
 
