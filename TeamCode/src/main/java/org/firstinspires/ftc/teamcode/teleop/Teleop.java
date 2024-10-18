@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 //import org.firstinspires.ftc.teamcode.utilities.PullUp;
-import org.firstinspires.ftc.teamcode.utilities.Claw;
+import org.firstinspires.ftc.teamcode.utilities.ClawIteration2;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
 @Config
@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 public class Teleop extends OpMode {
     Slides slides;
     // PullUp pullup;
-    Claw claw;
+    // Claw claw;
     SimpleMecanumDrive drive;
 
     //Set normal power constant to 1, no point in slowing the robot down
@@ -265,30 +265,30 @@ public class Teleop extends OpMode {
 
         //  CLAW
 
-        //claw open/close dpad
-        if (gamepad1.dpad_left) {
-            telemetry.addLine("claw close");
-            telemetry.update();
-            claw.close();
-        }
-        if (gamepad1.dpad_right) {
-            claw.open();
-            telemetry.addLine("claw open");
-            telemetry.update();
-        }
-
-        // Claw tilt left/right dpad
-        if (gamepad1.dpad_up) {
-            telemetry.addLine("claw tilt forward");
-            telemetry.update();
-            telemetry.addLine(claw.toString());
-            claw.tiltForward();
-        }
-        if (gamepad1.dpad_down) {
-            telemetry.addLine("claw titl backwards");
-            telemetry.update();
-            claw.tiltBack();
-        }
+        // OLD CLAW CODE
+//        if (gamepad1.dpad_left) {
+//            telemetry.addLine("claw close");
+//            telemetry.update();
+//            claw.close();
+//        }
+//        if (gamepad1.dpad_right) {
+//            claw.open();
+//            telemetry.addLine("claw open");
+//            telemetry.update();
+//        }
+//
+//        // Claw tilt left/right dpad
+//        if (gamepad1.dpad_up) {
+//            telemetry.addLine("claw tilt forward");
+//            telemetry.update();
+//            telemetry.addLine(claw.toString());
+//            claw.tiltForward();
+//        }
+//        if (gamepad1.dpad_down) {
+//            telemetry.addLine("claw titl backwards");
+//            telemetry.update();
+//            claw.tiltBack();
+//        }
 
         //  ROTATING SLIDES
         if (gamepad1.b) {
