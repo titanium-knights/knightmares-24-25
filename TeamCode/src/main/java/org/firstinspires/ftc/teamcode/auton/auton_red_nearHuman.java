@@ -49,7 +49,7 @@ public class auton_red_nearHuman extends LinearOpMode {
         //stop for amount, change number later
 
         //slightly move to the side so nock spesimen
-        drivetrain.move(10, , 0);
+        drivetrain.move(10, 0, 0); //added random y value to get rid of error
         telemetry.addLine("did it make it behind the first spesimen");
         telemetry.update();
 
