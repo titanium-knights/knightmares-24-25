@@ -109,13 +109,14 @@ public final class MecanumDrive {
 
     public final DcMotorEx leftFront, leftBack, rightBack, rightFront;
 
-    //public final ThreeDeadWheelLocalizer localizer = ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
+    //public final ThreeDeadWheelLocalizer localizer;
+
 
     public final VoltageSensor voltageSensor;
 
     public final LazyImu lazyImu;
 
-    public final Localizer localizer;
+    //public final Localizer localizer;
     public Pose2d pose;
 
     private final LinkedList<Pose2d> poseHistory = new LinkedList<>();
@@ -138,6 +139,8 @@ public final class MecanumDrive {
             leftBack = new OverflowEncoder(new RawEncoder(MecanumDrive.this.leftBack));
             rightBack = new OverflowEncoder(new RawEncoder(MecanumDrive.this.rightBack));
             rightFront = new OverflowEncoder(new RawEncoder(MecanumDrive.this.rightFront));
+
+            localizer = ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
 
             imu = lazyImu.get();
 
