@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.utilities;
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 
 //NEGATIVE IS UP
-import static java.lang.Thread.sleep;
 //Code credited to Shawn Mendes the handsome ;)
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
