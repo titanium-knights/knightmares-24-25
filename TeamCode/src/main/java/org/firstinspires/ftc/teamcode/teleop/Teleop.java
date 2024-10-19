@@ -312,12 +312,12 @@ public class Teleop extends OpMode {
 
         //  ROTATING SLIDES
         if (gamepad1.b) {
-            telemetry.addLine("slides right");
+            telemetry.addLine("slides rotate right");
             telemetry.update();
             slides.rotateRight();
         }
         if (gamepad1.x) {
-            telemetry.addLine("slides left");
+            telemetry.addLine("slides rotate left");
             telemetry.update();
             slides.rotateLeft();
         }
