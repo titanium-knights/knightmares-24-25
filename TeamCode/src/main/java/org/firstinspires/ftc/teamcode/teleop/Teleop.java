@@ -16,6 +16,7 @@ public class Teleop extends OpMode {
     Slides slides;
     // PullUp pullup;
    // Claw claw;
+    ClawIteration2 claw;
     SimpleMecanumDrive drive;
 
     //Set normal power constant to 1, no point in slowing the robot down
@@ -63,22 +64,30 @@ public class Teleop extends OpMode {
     ButtonPressState slideManual;
     ButtonPressState slideManualUp;
 
+    boolean started = false;
+
     // boolean intakeRunning = false;
     @Override
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
-        this.slides = new Slides(hardwareMap);
+        this.slides = new Slides(hardwareMap, telemetry);
         // this.pullup = new PullUp(hardwareMap);
 
         this.slideButton = ButtonPressState.UNPRESSED;
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
 
-        slides.startPosition();
+        // slides.startPosition();
     }
 
     @Override
     public void loop() {
+
+        if (!started) {
+            slides.startPosition();
+            started = true;
+        }
+
         //VALIDATE
 //        if (gamepad1.dpad_up) {++validatecount;}
 //        if (validatecount > 5) {validate = true;}
@@ -89,22 +98,23 @@ public class Teleop extends OpMode {
             slideButton = ButtonPressState.DEPRESSED;
         } else if (gamepad1.left_trigger<0.1f) slideButton = ButtonPressState.UNPRESSED;
 
-        if (gamepad1.right_bumper && slideManual == ButtonPressState.UNPRESSED) {
-            slideManual = ButtonPressState.PRESSED_GOOD;
-        } else if (gamepad1.right_bumper && slideManual==ButtonPressState.PRESSED_GOOD) {
-            slideManual = ButtonPressState.DEPRESSED;
-        } else if (!gamepad1.right_bumper) slideManual = ButtonPressState.UNPRESSED;
-
-        if (gamepad1.left_bumper && slideManualUp == ButtonPressState.UNPRESSED) {
-            slideManualUp = ButtonPressState.PRESSED_GOOD;
-        } else if (gamepad1.left_bumper && slideManualUp==ButtonPressState.PRESSED_GOOD) {
-            slideManualUp = ButtonPressState.DEPRESSED;
-        } else if (!gamepad1.left_bumper) slideManualUp = ButtonPressState.UNPRESSED;
+//        if (gamepad1.right_bumper && slideManual == ButtonPressState.UNPRESSED) {
+//            slideManual = ButtonPressState.PRESSED_GOOD;
+//        } else if (gamepad1.right_bumper && slideManual==ButtonPressState.PRESSED_GOOD) {
+//            slideManual = ButtonPressState.DEPRESSED;
+//        } else if (!gamepad1.right_bumper) slideManual = ButtonPressState.UNPRESSED;
+//
+//        if (gamepad1.left_bumper && slideManualUp == ButtonPressState.UNPRESSED) {
+//            slideManualUp = ButtonPressState.PRESSED_GOOD;
+//        } else if (gamepad1.left_bumper && slideManualUp==ButtonPressState.PRESSED_GOOD) {
+//            slideManualUp = ButtonPressState.DEPRESSED;
+//        } else if (!gamepad1.left_bumper) slideManualUp = ButtonPressState.UNPRESSED;
 
         if (gamepad1.right_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
             slides.retract();
         } else if (gamepad1.left_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
             slides.extend();
+            telemetry.addLine("extending");
         } else {
             slides.stop();
         }
@@ -183,7 +193,7 @@ public class Teleop extends OpMode {
                         slideState = SlideState.SLIDE_HIGH;
                         telemetry.addData("pos", slides.getEncoder());
                         telemetry.update();
-                        slides.high();
+                        // slides.high();
                     }
                 }
                 break;
@@ -267,13 +277,13 @@ public class Teleop extends OpMode {
         if(gamepad1.dpad_left){
             telemetry.addLine("claw pull");
                     telemetry.update();
-                    ClawIteration2.inside();
+                    claw.inside();
         }
 
-        if(gamepad1.dpad_left){
+        if(gamepad1.dpad_right){
             telemetry.addLine("claw drop");
             telemetry.update();
-            ClawIteration2.outside();
+            claw.outside();
         }
         //claw open/close dpad
         //if (gamepad1.dpad_left) {
