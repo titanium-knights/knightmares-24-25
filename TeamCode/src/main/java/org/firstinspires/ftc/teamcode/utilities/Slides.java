@@ -205,12 +205,12 @@ public class Slides {
 
         // rotate limits
         if (rot >= maxrot) {
-            setPower(0);
+            setRotPower(0);
             return;
         }
         //
         if (rotState == 1 && rot >= midrot + 15){
-            setPower(8);
+            setRotPower(8);
             rot = getRotatorEncoder();
             return;
         }
@@ -218,14 +218,14 @@ public class Slides {
             return;
         }
         rotState = 1;
-        setPower(5);
+        setRotPower(5);
     }
     public void rotateLeft() {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
 
         if (rot <= 1800) { //if (rotState == 2 && rot <= 1800) {
-            setPower(-0.4);
+            setRotPower(-0.4);
             rot = getRotatorEncoder();
             return;
         }
@@ -233,7 +233,7 @@ public class Slides {
             return;
         }
         rotState = 2;
-        setPower(-0.6);
+        setRotPower(-0.6);
     }
 
     public int getEncoder() {
