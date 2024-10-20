@@ -24,31 +24,31 @@ public class auton_red_nearHuman extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        //go diagonally towards the first spesimen,
-        // a little more x so we behind the spesiment
+        //go diagonally towards the first specimen,
+        // a little more x so we behind the speciment
         drivetrain.move(10, 8, 0);
-        telemetry.addLine("did it make it behind the first spesimen");
+        telemetry.addLine("did it make it behind the first specimen");
         telemetry.update();
 
         sleep(2000);
         //stop for amount, change number later
 
-        // do a 90 degree turn, so the side with nothing pushes the spesimen
+        // do a 90 degree turn, so the side with nothing pushes the specimen
         drivetrain.move(0, 0, 10);
         sleep(2000);
         //stop for amount, change number later
 
-        //push 1st spesimen
+        //push 1st specimen
         drivetrain.move(0, 20, 0);
-        telemetry.addLine("push first spesimen in human ");
+        telemetry.addLine("push first specimen in human ");
         telemetry.update();
 
         sleep(2000);
         //stop for amount, change number later
 
-        //slightly move to the side so nock spesimen
+        //slightly move to the side so nock specimen
         drivetrain.move(10, 0, 0); //added random y value to get rid of error
-        telemetry.addLine("did it make it behind the first spesimen");
+        telemetry.addLine("did it make it behind the first specimen");
         telemetry.update();
 
         sleep(2000);
