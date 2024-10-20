@@ -39,7 +39,6 @@ public class Slides {
     int startheight = 6;
 
     int maxrot = 100; // 3481 proviously 25
-    int midrot = 20; // 2424
     int lowrot = 10; // 1472
     public static Telemetry telemetry;
 
@@ -211,12 +210,12 @@ public class Slides {
 //            setRotPower(0);
 //            return;
 //        }
-        //
-        if (rotState == 1 && rot >= midrot + 15){
-            setRotPower(8);
-            rot = getRotatorEncoder();
-            return;
-        }
+//        //id
+//        if (rotState == 1 && rot >= 35){
+//            setRotPower(8);
+//            rot = getRotatorEncoder();
+//            return;
+//        }
         if (rotState == 1){
             return;
         }
@@ -228,11 +227,11 @@ public class Slides {
         rot = getRotatorEncoder();
         telemetry.addLine(String.valueOf(rot));
 
-        if (rot <= 1800) { //if (rotState == 2 && rot <= 1800) {
-            setRotPower(-5);
-            rot = getRotatorEncoder();
-            return;
-        }
+//        if (rot <= 1800) { //if (rotState == 2 && rot <= 1800) {
+//            setRotPower(-5);
+//            rot = getRotatorEncoder();
+//            return;
+//        }
         if (rotState == 2) {
             return;
         }
