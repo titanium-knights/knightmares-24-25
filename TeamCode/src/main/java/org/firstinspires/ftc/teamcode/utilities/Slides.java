@@ -164,7 +164,7 @@ public class Slides {
 //            setPower(0);
 //            return;
 //        }
-        if (state == 1 && pos >= 35){
+        if (state == 1 && pos <= 35){
             setPower(-3);
             pos = getEncoder();
             return;
@@ -175,18 +175,20 @@ public class Slides {
         state = 1;
         setPower(-5);
     }
+
+
     public void retract() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
         telemetry.addLine(String.valueOf(pos));
 
-        if (pos < -0.2){
+        if (pos > 2200){
             setPower(0);
             return;
         }
 
         // slower retract closer down
-        if (state == 2 && pos <= 1800) {
+        if (state == 2 && pos >= 1800) {
             setPower(3);
             pos = getEncoder();
             return;
