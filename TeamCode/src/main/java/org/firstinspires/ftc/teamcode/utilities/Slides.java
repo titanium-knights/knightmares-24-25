@@ -36,8 +36,6 @@ public class Slides {
 
     int lowheight = 10; // 1472 for low bar
 
-    int startheight = 6;
-
     int maxrot = 100; // 3481 proviously 25
     int lowrot = 10; // 1472
     public static Telemetry telemetry;
@@ -59,13 +57,6 @@ public class Slides {
         slideRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slideRotator.setZeroPowerBehavior(BRAKE);
-    }
-
-    public void startPosition() {
-
-        setTarget(startheight);
-        runToPosition();
-        telemetry.addLine("at start height");
     }
 
     //stop motors
