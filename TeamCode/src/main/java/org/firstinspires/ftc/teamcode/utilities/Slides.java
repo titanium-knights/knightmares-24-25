@@ -134,7 +134,7 @@ public class Slides {
         runToPosition();
         pos = getEncoder();
     }
-//
+
 //    public void up(){
 //        setRotTarget(maxrot);
 //        runRotToPosition();
