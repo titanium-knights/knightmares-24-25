@@ -85,11 +85,6 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
 
-        if (!started) {
-            slides.startPosition();
-            started = true;
-        }
-
         //VALIDATE
 //        if (gamepad1.dpad_up) {++validatecount;}
 //        if (validatecount > 5) {validate = true;}
