@@ -173,10 +173,10 @@ public class Slides {
         pos = getEncoder();
         telemetry.addLine(String.valueOf(pos));
 
-        if (pos > 2200){
-            setPower(0);
-            return;
-        }
+//        if (pos < -0.2){
+//            setPower(0);
+//            return;
+//        }
 
         // slower retract closer down
         if (state == 2 && pos <= 1800) {
