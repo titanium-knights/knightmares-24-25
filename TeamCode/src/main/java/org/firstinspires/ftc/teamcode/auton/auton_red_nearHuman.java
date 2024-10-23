@@ -54,5 +54,5 @@ public class auton_red_nearHuman extends LinearOpMode {
         sleep(2000);
         //stop for amount, change number later
 
-    }
+    } //I definitely did work today! :P -Sal
 }
