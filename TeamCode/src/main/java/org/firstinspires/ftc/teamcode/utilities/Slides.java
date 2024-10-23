@@ -151,12 +151,12 @@ public class Slides {
         pos = getEncoder();
         telemetry.addLine(String.valueOf(pos));
         // max limit
-//        if (pos >= maxheight){
-//            setPower(0);
-//            return;
-//        }
-        if (state == 1 && pos >= 35){
-            setPower(-3);
+        if (pos <= -3000){
+            setPower(0);
+            return;
+        }
+        if (state == 1 && pos <= -1800){
+            setPower(-1);
             pos = getEncoder();
             return;
         }
@@ -164,7 +164,7 @@ public class Slides {
             return;
         }
         state = 1;
-        setPower(-5);
+        setPower(-3);
     }
 
 
@@ -179,8 +179,13 @@ public class Slides {
 //        }
 
         // slower retract closer down
-        if (state == 2 && pos <= 1800) {
-            setPower(3);
+        if (pos >= -500){
+            setPower(0);
+            pos = getEncoder();
+            return;
+        }
+        if (state == 2 && pos >= -900) {
+            setPower(1);
             pos = getEncoder();
             return;
         }
@@ -190,19 +195,18 @@ public class Slides {
         }
 
         state = 2;
-        setPower(5);
+        setPower(3);
 
     }
-    public void rotateRight(){
+    public void rotateRight(){ //slide rotates outwards (up)
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pos = getRotatorEncoder();
-        telemetry.addLine(String.valueOf(pos));
+        rot = getRotatorEncoder();
+        telemetry.addLine(String.valueOf(rot));
+        if (rot >= 460){
+            setRotPower(0);
+            return;
+        }
 
-        // rotate limits
-//        if (rot >= maxrot) {
-//            setRotPower(0);
-//            return;
-//        }
 //        //id
 //        if (rotState == 1 && rot >= 35){
 //            setRotPower(8);
@@ -215,7 +219,9 @@ public class Slides {
         rotState = 1;
         setRotPower(5);
     }
-    public void rotateLeft() {
+    //TODO: add rotator limit @ 400
+
+    public void rotateLeft() { // slide rotates inwards (down)
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
         telemetry.addLine(String.valueOf(rot));
@@ -229,7 +235,7 @@ public class Slides {
             return;
         }
         rotState = 2;
-        setRotPower(-8);
+        setRotPower(-5);
     }
 
     public int getEncoder() {
