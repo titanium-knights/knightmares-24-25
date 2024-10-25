@@ -163,7 +163,7 @@ public class Slides {
         if (state == 1){
             return;
         }
-        state = 1;`
+        state = 1;
         setPower(-3);
     }
 
