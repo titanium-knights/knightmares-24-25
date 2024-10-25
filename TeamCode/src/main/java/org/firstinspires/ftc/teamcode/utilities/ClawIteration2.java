@@ -17,7 +17,7 @@ public class ClawIteration2 {
     public static DcMotor clawMotor;
 
     public ClawIteration2(HardwareMap hmap, Telemetry telemetry) {
-        this.clawMotor = hmap.dcMotor.get(CONFIG.clawMotor);
+        this.clawMotor = hmap.dcMotor.get(CONFIG.claw);
 
         clawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

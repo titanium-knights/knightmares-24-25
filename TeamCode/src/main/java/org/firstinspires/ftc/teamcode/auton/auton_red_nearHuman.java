@@ -24,6 +24,7 @@ public class auton_red_nearHuman extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+
         //TODO add this if we can go diagolanly and not hit stuff (to save time)
         //go diagonally towards the first specimen,
         // a little more x so we behind the speciment
@@ -31,14 +32,14 @@ public class auton_red_nearHuman extends LinearOpMode {
 //        telemetry.addLine("did it make it behind the first specimen");
 //        telemetry.update();
 
-        // move right
-        drivetrain.move(10, 0, 0);
-        telemetry.addLine("move right");
+        //push INITIAL spesimen (given)
+        drivetrain.move(0, 10, 0);
+        telemetry.addLine("Push INITIAL spesimen in human zone");
         telemetry.update();
         sleep(2000);
 
         //move up
-        drivetrain.move(0, 30, 0);
+        drivetrain.move(30, 0, 0);
         telemetry.addLine("move up");
         telemetry.update();
         sleep(2000);
@@ -50,7 +51,7 @@ public class auton_red_nearHuman extends LinearOpMode {
         sleep(2000);
 
         //push 1st specimen
-        drivetrain.move(0, -20, 0);
+        drivetrain.move(0, 20, 0);
         telemetry.addLine("push first specimen in human");
         telemetry.update();
         sleep(2000);
@@ -85,15 +86,26 @@ public class auton_red_nearHuman extends LinearOpMode {
         telemetry.update();
         sleep(2000);
 
-        //push 3rd specimen AND
-        drivetrain.move(0, -30, 0);
+        //push 3rd specimen
+        drivetrain.move(0, -20, 0);
         telemetry.addLine("push THIRD specimen in human");
         telemetry.update();
         sleep(2000);
-        // TODO UNTIL AUTON ENDS
+
+        // Parking (turn toward Observation zone)
+        drivetrain.move(0, 0, 15);
+        telemetry.addLine("PARKING IN OBSERVATION(TURN)");
+        telemetry.update();
+        sleep(2000);
+
+        //move forward
+        drivetrain.move(30, 0, 0);
+        telemetry.addLine("PARKING IN OBSERVATION(MOVE)");
+        telemetry.update();
+        sleep(1000000);
         telemetry.addLine("STAY AT HUMAN UNTIL ROUND END");
         telemetry.update();
 
-        //im trying to find if park is human (im preety sure it is)
+
     }
 }
