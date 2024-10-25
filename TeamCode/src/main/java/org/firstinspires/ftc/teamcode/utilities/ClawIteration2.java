@@ -73,6 +73,8 @@ public class ClawIteration2 {
     public void outside(){
         clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setPower(-1);
+
+        //rn crying over loosing two code
     }
 
 }
