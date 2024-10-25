@@ -163,7 +163,7 @@ public class Slides {
         if (state == 1){
             return;
         }
-        state = 1;
+        state = 1;`
         setPower(-3);
     }
 
@@ -179,7 +179,7 @@ public class Slides {
 //        }
 
         // slower retract closer down
-        if (pos >= -500){
+        if (pos >= -100){
             setPower(0);
             pos = getEncoder();
             return;
