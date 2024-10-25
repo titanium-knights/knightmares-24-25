@@ -179,7 +179,7 @@ public class Slides {
 //        }
 
         // slower retract closer down
-        if (pos >= -500){
+        if (pos >= -100){
             setPower(0);
             pos = getEncoder();
             return;
