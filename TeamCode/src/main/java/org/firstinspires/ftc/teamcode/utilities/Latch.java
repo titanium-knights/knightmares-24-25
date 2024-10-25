@@ -27,7 +27,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             latchServo.setPosition(latched);
         }
         public void latchOff() {
-            telemetry.addLine("latch off");
+            telemetry.addLine("FUCK MICHAEL HERNANDEZ - Junho");
             latchServo.setPosition(unlatched);
         }
         public double getPosition() {

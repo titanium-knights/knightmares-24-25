@@ -16,6 +16,7 @@ public class Teleop extends OpMode {
     Slides slides;
     // PullUp pullup;
     Claw claw;
+    Latch latch;
     // ClawIteration2 claw;
     SimpleMecanumDrive drive;
 
@@ -78,6 +79,7 @@ public class Teleop extends OpMode {
         this.slideManualUp = ButtonPressState.UNPRESSED;
 
         this.claw = new Claw(hardwareMap, telemetry);
+        this.latch = new Latch(hardwareMap, telemetry);
 
         // slides.startPosition();
     }
@@ -308,17 +310,24 @@ public class Teleop extends OpMode {
 
         //  ROTATING SLIDES
         if (gamepad1.b) {
+            // LATCH ON
+            if (slides.getRotatorEncoder() >= 460 && latch.getPosition() == Latch.unlatched) {
+                latch.latchOn();
+            }
             telemetry.addLine("slides rotate right");
             telemetry.update();
             slides.rotateRight();
         } else if (gamepad1.x) {
+            // LATCH OFF
+            if (latch.getPosition() == Latch.latched) {
+                latch.latchOff();
+            }
             telemetry.addLine("slides rotate left");
             telemetry.update();
             slides.rotateLeft();
         } else {
             slides.stopRotator();
         }
-
 
     }
     public void move(float x, float y, float turn) {
