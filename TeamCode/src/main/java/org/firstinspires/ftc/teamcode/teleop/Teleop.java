@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 //import org.firstinspires.ftc.teamcode.utilities.PullUp;
-import org.firstinspires.ftc.teamcode.utilities.ClawIteration2;
+import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
 @Config
@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 public class Teleop extends OpMode {
     Slides slides;
     // PullUp pullup;
-   // Claw claw;
-    ClawIteration2 claw;
+    Claw claw;
+    // ClawIteration2 claw;
     SimpleMecanumDrive drive;
 
     //Set normal power constant to 1, no point in slowing the robot down
@@ -77,16 +77,13 @@ public class Teleop extends OpMode {
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
 
+        this.claw = new Claw(hardwareMap, telemetry);
+
         // slides.startPosition();
     }
 
     @Override
     public void loop() {
-
-        if (!started) {
-            slides.startPosition();
-            started = true;
-        }
 
         //VALIDATE
 //        if (gamepad1.dpad_up) {++validatecount;}
@@ -273,17 +270,16 @@ public class Teleop extends OpMode {
 //                pullupstate = PullUpState.NEUTRAL;
 //        }
 
-        //  CLAWIteration2Code
         if(gamepad1.dpad_left){
-            telemetry.addLine("claw pull");
+            telemetry.addLine("claw open");
                     telemetry.update();
-                    claw.inside();
+                    claw.open();
         }
 
         if(gamepad1.dpad_right){
-            telemetry.addLine("claw drop");
+            telemetry.addLine("claw close");
             telemetry.update();
-            claw.outside();
+            claw.close();
         }
         //claw open/close dpad
         //if (gamepad1.dpad_left) {
@@ -312,15 +308,17 @@ public class Teleop extends OpMode {
 
         //  ROTATING SLIDES
         if (gamepad1.b) {
-            telemetry.addLine("slides right");
+            telemetry.addLine("slides rotate right");
             telemetry.update();
             slides.rotateRight();
-        }
-        if (gamepad1.x) {
-            telemetry.addLine("slides left");
+        } else if (gamepad1.x) {
+            telemetry.addLine("slides rotate left");
             telemetry.update();
             slides.rotateLeft();
+        } else {
+            slides.stopRotator();
         }
+
 
     }
     public void move(float x, float y, float turn) {

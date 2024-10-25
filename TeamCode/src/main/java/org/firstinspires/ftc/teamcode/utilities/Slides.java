@@ -36,10 +36,7 @@ public class Slides {
 
     int lowheight = 10; // 1472 for low bar
 
-    int startheight = 6;
-
     int maxrot = 100; // 3481 proviously 25
-    int midrot = 20; // 2424
     int lowrot = 10; // 1472
     public static Telemetry telemetry;
 
@@ -60,13 +57,6 @@ public class Slides {
         slideRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slideRotator.setZeroPowerBehavior(BRAKE);
-    }
-
-    public void startPosition() {
-
-        setTarget(startheight);
-        runToPosition();
-        telemetry.addLine("at start height");
     }
 
     //stop motors
@@ -144,7 +134,7 @@ public class Slides {
         runToPosition();
         pos = getEncoder();
     }
-//
+
 //    public void up(){
 //        setRotTarget(maxrot);
 //        runRotToPosition();
@@ -161,12 +151,12 @@ public class Slides {
         pos = getEncoder();
         telemetry.addLine(String.valueOf(pos));
         // max limit
-//        if (pos >= maxheight){
-//            setPower(0);
-//            return;
-//        }
-        if (state == 1 && pos >= 35){
-            setPower(-3);
+        if (pos <= -3000){
+            setPower(0);
+            return;
+        }
+        if (state == 1 && pos <= -1800){
+            setPower(-1);
             pos = getEncoder();
             return;
         }
@@ -174,21 +164,28 @@ public class Slides {
             return;
         }
         state = 1;
-        setPower(-5);
+        setPower(-3);
     }
+
+
     public void retract() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
         telemetry.addLine(String.valueOf(pos));
 
-//        if (pos < minheight){
+//        if (pos < -0.2){
 //            setPower(0);
 //            return;
 //        }
 
         // slower retract closer down
-        if (state == 2 && pos <= 1800) {
-            setPower(3);
+        if (pos >= -500){
+            setPower(0);
+            pos = getEncoder();
+            return;
+        }
+        if (state == 2 && pos >= -900) {
+            setPower(1);
             pos = getEncoder();
             return;
         }
@@ -198,44 +195,47 @@ public class Slides {
         }
 
         state = 2;
-        setPower(5);
+        setPower(3);
 
     }
-    public void rotateRight(){
+    public void rotateRight(){ //slide rotates outwards (up)
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pos = getRotatorEncoder();
-
-        // rotate limits
-        if (rot >= maxrot) {
+        rot = getRotatorEncoder();
+        telemetry.addLine(String.valueOf(rot));
+        if (rot >= 460){
             setRotPower(0);
             return;
         }
-        //
-        if (rotState == 1 && rot >= midrot + 15){
-            setRotPower(8);
-            rot = getRotatorEncoder();
-            return;
-        }
+
+//        //id
+//        if (rotState == 1 && rot >= 35){
+//            setRotPower(8);
+//            rot = getRotatorEncoder();
+//            return;
+//        }
         if (rotState == 1){
             return;
         }
         rotState = 1;
         setRotPower(5);
     }
-    public void rotateLeft() {
+    //TODO: add rotator limit @ 400
+
+    public void rotateLeft() { // slide rotates inwards (down)
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
+        telemetry.addLine(String.valueOf(rot));
 
-        if (rot <= 1800) { //if (rotState == 2 && rot <= 1800) {
-            setRotPower(-0.4);
-            rot = getRotatorEncoder();
-            return;
-        }
+//        if (rot <= 1800) { //if (rotState == 2 && rot <= 1800) {
+//            setRotPower(-5);
+//            rot = getRotatorEncoder();
+//            return;
+//        }
         if (rotState == 2) {
             return;
         }
         rotState = 2;
-        setRotPower(-0.6);
+        setRotPower(-5);
     }
 
     public int getEncoder() {

@@ -18,5 +18,6 @@ public class CONFIG {
     public static String pullUpMotor2 = "pl2";
 
     //claw motor
-    public static String clawMotor = "cm";
+    // public static String clawMotor = "cm";
+    public static String claw = "claw";
 }
