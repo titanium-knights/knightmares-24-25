@@ -27,6 +27,8 @@ public class Teleop extends OpMode {
     // in case of joystick drift, ignore very small values
     final float STICK_MARGIN = 0.5f;
 
+    public boolean isLatched = false;
+
     //Prevents irreversible things such as pullup and plane launcher from running before this button is pressed
     // (will add later)
     // boolean validate = false;
@@ -311,20 +313,28 @@ public class Teleop extends OpMode {
 
         //  ROTATING SLIDES
         if (gamepad1.b) {
+            // going up
             // LATCH ON
-            if (slides.getRotatorEncoder() >= 460 && latch.getPosition() == Latch.unlatched) {
+            if (slides.getRotatorEncoder() >= 460 && !isLatched) {
                 latch.latchOn();
+                isLatched = true;
+                telemetry.addLine("latch on");
+                telemetry.update();
             }
-            telemetry.addLine("slides rotate right");
-            telemetry.update();
+//            telemetry.addLine("slides rotate right");
+//            telemetry.update();
             slides.rotateRight();
         } else if (gamepad1.x) {
+            // going down
             // LATCH OFF
-            if (latch.getPosition() == Latch.latched) {
+            if (isLatched) {
                 latch.latchOff();
+                isLatched = false;
+                telemetry.addLine("latch off");
+                telemetry.update();
             }
-            telemetry.addLine("slides rotate left");
-            telemetry.update();
+//            telemetry.addLine("slides rotate left");
+//            telemetry.update();
             slides.rotateLeft();
         } else {
             slides.stopRotator();
