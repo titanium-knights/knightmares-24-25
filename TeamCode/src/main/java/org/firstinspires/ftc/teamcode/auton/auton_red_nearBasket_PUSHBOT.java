@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
 public class auton_red_nearBasket_PUSHBOT extends LinearOpMode {
     //check what this does (just next line)
+    public final double POWER = 0.5;
     public void runOpMode() throws InterruptedException {
         telemetry.addLine("STARTING! (hopfully)");
         telemetry.update();
@@ -35,103 +36,79 @@ public class auton_red_nearBasket_PUSHBOT extends LinearOpMode {
         //TODO they said we can place anywhere thats touching
         // the walls so imagen we set it up on the 5th mat
 
-        //push INITIAL sample (given)
-        drivetrain.move(0, -10, 0);
+        //push INITIAL sample (given, closer to basket)
+        drivetrain.move(POWER, 0, 0);
         telemetry.addLine("Push INITIAL sample in basket zone");
         telemetry.update();
-        sleep(2000);
+        sleep(1500);
 
-        //move back to original area
-        drivetrain.move(0, 10, 0);
+        //move up behind the 3 samples
+
+        // i defined power to be 0.5 in this case, and its mostly just means speed (i think?)
+        // so im setting a speed for y and nothing for x and turn cuz i just want it to go forward
+        // later on i used 0.4 instead of POWER because i was paranoid the robot would run over the sample so i made it slightly slower
+        // i think a negative x value means going right and a positive x value means going left (from the perspective of the robot) for some reason
+        // y is normal
+        // idfk how to do turn we'll deal with it when we have to
+        drivetrain.move(0, POWER, 0);
+        // printing text to the phone, just useful for keeping track of what the robots doing
         telemetry.addLine("move back to original area");
         telemetry.update();
-        sleep(2000);
+        // this just means how long i want the drivetrain.move() command to run for according to aubrey
+        // this is the main value youre tuning
+        sleep(2200);
 
 
-        //move up
-        drivetrain.move(30, 0, 0);
-        telemetry.addLine("move up(near first sample");
+        // move up directly behind the first sample
+        drivetrain.move(POWER, 0, 0);
+        telemetry.addLine("move behind the first sample");
         telemetry.update();
-        sleep(2000);
+        sleep(500);
 
 
-        // do a 90 degree turn, so the side with nothing pushes the sample
-        //TODO the angel nymber is negetive of what it was in auton_red_nearHuman
-        drivetrain.move(0, 0, -10);
-        telemetry.addLine("turn 90 Degree");
+        // push the first sample
+        drivetrain.move(0, -POWER, 0);
+        telemetry.addLine("pushing first sample");
         telemetry.update();
-        sleep(2000);
+        sleep(1900);
+
+        // go back to sample area
+        drivetrain.move(0, POWER, 0);
+        telemetry.addLine("pushing first sample");
+        telemetry.update();
+        sleep(1900);
 
         //Slightly move near the second sample
         //TODO the x is negetive of what it was in auton_red_nearHuman
-        drivetrain.move(-5, 0, 0);
+        drivetrain.move(POWER, 0, 0);
         telemetry.addLine("move beside second sample");
         telemetry.update();
-        sleep(2000);
+        sleep(700);
 
-        //push 1st sample
-        //TODO I feel like if we push this one straight,
-        // it might not make it in the triangle,
-        // so try tuning with it going straight
-        // but if it doesn't work we should add a slight x number
-        // and change some code after this
-        drivetrain.move(0, -20, 0);
-        telemetry.addLine("push first sample in human");
+        //push 2nt sample
+        drivetrain.move(0, -0.4, 0);
+        telemetry.addLine("push second sample in human");
         telemetry.update();
         sleep(2000);
 
         //Go back to samples area
-        drivetrain.move(0, 20, 0);
+        drivetrain.move(0, 0.4, 0);
         telemetry.addLine("Go back to samples (up)");
         telemetry.update();
         sleep(2000);
 
-        //Slightly move near the second sample
+        //Slightly move near the third sample
         //TODO the x is negetive of what it was in auton_red_nearHuman
-        drivetrain.move(-5, 0, 0);
-        telemetry.addLine("move beside second sample");
+        drivetrain.move(POWER, 0, 0);
+        telemetry.addLine("move beside third sample");
         telemetry.update();
-        sleep(2000);
-
-        //push 2nd sample
-        drivetrain.move(0, -20, 0);
-        telemetry.addLine("push SECOND sample in human");
-        telemetry.update();
-        sleep(2000);
-
-        //Go back to samples area
-        drivetrain.move(0, 20, 0);
-        telemetry.addLine("Go back to samples (up)");
-        telemetry.update();
-        sleep(2000);
-
-        //Slightly move near the second sample
-        drivetrain.move(-5, 0, 0);
-        //TODO the x is negetive of what it was in auton_red_nearHuman
-        telemetry.addLine("move beside second sample");
-        telemetry.update();
-        sleep(2000);
+        sleep(600);
 
         //push 3rd sample
-        drivetrain.move(0, -20, 0);
+        drivetrain.move(0, -0.4, 0);
         telemetry.addLine("push THIRD sample in human");
         telemetry.update();
-        sleep(2000);
-
-        // Parking (turn toward ascent zone)
-        //TODO multiply the turn # by neteive of what it is on auton_red_nearHuman
-        drivetrain.move(0, 0, 15);
-        telemetry.addLine("PARKING IN OBSERVATION(TURN)");
-        telemetry.update();
-        sleep(2000);
-
-        //move forward
-        drivetrain.move(30, 0, 0);
-        telemetry.addLine("PARKING IN OBSERVATION(MOVE)");
-        telemetry.update();
-        sleep(1000000);
-        telemetry.addLine("STAY AT HUMAN UNTIL ROUND END");
-        telemetry.update();
+        sleep(1900);
 
 
     }

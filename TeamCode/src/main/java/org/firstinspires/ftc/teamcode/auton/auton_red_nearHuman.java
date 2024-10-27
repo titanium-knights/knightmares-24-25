@@ -92,7 +92,7 @@ public class auton_red_nearHuman extends LinearOpMode {
 
         //Slightly move near the third sample
         drivetrain.move(-POWER, 0, 0);
-        telemetry.addLine("move beside second sample");
+        telemetry.addLine("move beside third sample");
         telemetry.update();
         sleep(600);
 
@@ -101,20 +101,6 @@ public class auton_red_nearHuman extends LinearOpMode {
         telemetry.addLine("push THIRD sample in human");
         telemetry.update();
         sleep(2000);
-
-        // Parking (turn toward ascent zone)
-        drivetrain.move(0, 0, 0.4);
-        telemetry.addLine("PARKING IN OBSERVATION(TURN)");
-        telemetry.update();
-        sleep(2000);
-
-        //move forward
-        drivetrain.move(POWER, 0, 0);
-        telemetry.addLine("PARKING IN OBSERVATION(MOVE)");
-        telemetry.update();
-        sleep(1000000);
-        telemetry.addLine("STAY AT HUMAN UNTIL ROUND END");
-        telemetry.update();
 
 
     }
