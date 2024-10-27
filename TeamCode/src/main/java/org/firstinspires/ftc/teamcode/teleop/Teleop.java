@@ -315,7 +315,7 @@ public class Teleop extends OpMode {
         if (gamepad1.b) {
             // going up
             // LATCH ON
-            if (slides.getRotatorEncoder() >= 460 && !isLatched) {
+            if (slides.getRotatorEncoder() >= 470 && !isLatched) {
                 latch.latchOn();
                 isLatched = true;
                 telemetry.addLine("latch on");

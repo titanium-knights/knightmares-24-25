@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
-@Autonomous(name="pray to rng-sus(that was sal, but pls actually pray-ipek)", group="Linear OpMode")
+@Autonomous(name="redBasket", group="Linear OpMode")
 @Config
 
 public class auton_red_nearBasket_PUSHBOT extends LinearOpMode {

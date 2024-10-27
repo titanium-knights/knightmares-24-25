@@ -8,11 +8,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
-@Autonomous(name="pray to rng-sus(that was sal, but pls actually pray-ipek)", group="Linear OpMode")
+@Autonomous(name="redHuman", group="Linear OpMode")
 @Config
 
 public class auton_red_nearHuman extends LinearOpMode {
     //check what this does (just next line)
+    public final double POWER = 0.5;
     public void runOpMode() throws InterruptedException {
         telemetry.addLine("STARTING! (hopfully)");
         telemetry.update();
@@ -33,79 +34,82 @@ public class auton_red_nearHuman extends LinearOpMode {
 //        telemetry.update();
 
         //push INITIAL sample (given)
-        drivetrain.move(0, 10, 0);
+        drivetrain.move(-POWER, 0, 0);
         telemetry.addLine("Push INITIAL sample in human zone");
         telemetry.update();
-        sleep(2000);
+        sleep(1500);
 
         //move up
-        drivetrain.move(30, 0, 0);
+        drivetrain.move(0, POWER, 0);
         telemetry.addLine("move up");
         telemetry.update();
-        sleep(2000);
+        sleep(2200);
 
         // do a 90 degree turn, so the side with nothing pushes the sample
-        drivetrain.move(0, 0, 10);
-        telemetry.addLine("turn 90 Degree");
-        telemetry.update();
-        sleep(2000);
+//        drivetrain.move(0, 0, -POWER);
+//        telemetry.addLine("turn 90 Degree");
+//        telemetry.update();
+//        sleep(2700);
+//        // 2000 - 45 degrees
+//        // 3000 - 100 degrees
+//        // 4000 - 135 degrees
 
         //Slightly move near the first sample
-        drivetrain.move(5, 0, 0);
+        drivetrain.move(-POWER, 0, 0);
         telemetry.addLine("move beside first sample");
         telemetry.update();
-        sleep(2000);
+        sleep(500);
 
         //push 1st sample
-        drivetrain.move(0, -20, 0);
+        drivetrain.move(0, -POWER, 0);
         telemetry.addLine("push first sample in human");
         telemetry.update();
-        sleep(2000);
+        sleep(1900);
 
         //Go back to samples area
-        drivetrain.move(0, 20, 0);
+        drivetrain.move(0, POWER, 0);
         telemetry.addLine("Go back to samples (up)");
         telemetry.update();
-        sleep(2000);
+        sleep(1900);
 
         //Slightly move near the second sample
-        drivetrain.move(5, 0, 0);
+        drivetrain.move(-POWER, 0, 0);
         telemetry.addLine("move beside second sample");
         telemetry.update();
-        sleep(2000);
+        sleep(700);
 
         //push 2nd sample
-        drivetrain.move(0, -20, 0);
+        drivetrain.move(0, -0.4, 0);
         telemetry.addLine("push SECOND sample in human");
         telemetry.update();
         sleep(2000);
 
         //Go back to samples area
-        drivetrain.move(0, 20, 0);
+        drivetrain.move(0, 0.4, 0);
         telemetry.addLine("Go back to samples (up)");
         telemetry.update();
         sleep(2000);
 
-        //Slightly move near the second sample
-        drivetrain.move(5, 0, 0);
+        //Slightly move near the third sample
+        drivetrain.move(-POWER, 0, 0);
         telemetry.addLine("move beside second sample");
         telemetry.update();
-        sleep(2000);
+        sleep(600);
 
         //push 3rd sample
-        drivetrain.move(0, -20, 0);
+        drivetrain.move(0, -0.4, 0);
         telemetry.addLine("push THIRD sample in human");
         telemetry.update();
         sleep(2000);
 
         // Parking (turn toward ascent zone)
-        drivetrain.move(0, 0, 15);
+        drivetrain.move(0, 0, 0.4);
         telemetry.addLine("PARKING IN OBSERVATION(TURN)");
         telemetry.update();
         sleep(2000);
 
         //move forward
-        drivetrain.move(30, 0, 0);
+        drivetrain.move(POWER, 0, 0);
         telemetry.addLine("PARKING IN OBSERVATION(MOVE)");
         telemetry.update();
         sleep(1000000);
