@@ -64,7 +64,7 @@ public class Teleop extends OpMode {
     }
     ButtonPressState slideButton;
     ButtonPressState rotatorButton;
-
+    ButtonPressState latchButton;
     ButtonPressState slideManual;
     ButtonPressState slideManualUp;
 
@@ -76,7 +76,7 @@ public class Teleop extends OpMode {
         this.drive = new SimpleMecanumDrive(hardwareMap);
         this.slides = new Slides(hardwareMap, telemetry);
         // this.pullup = new PullUp(hardwareMap);
-
+        this.latchButton = ButtonPressState.UNPRESSED;
         this.slideButton = ButtonPressState.UNPRESSED;
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
@@ -315,24 +315,13 @@ public class Teleop extends OpMode {
         if (gamepad1.b) {
             // going up
             // LATCH ON
-            if (slides.getRotatorEncoder() >= 470 && !isLatched) {
-                latch.latchOn();
-                isLatched = true;
-                telemetry.addLine("latch on");
-                telemetry.update();
-            }
+
 //            telemetry.addLine("slides rotate right");
 //            telemetry.update();
             slides.rotateRight();
         } else if (gamepad1.x) {
             // going down
             // LATCH OFF
-            if (isLatched) {
-                latch.latchOff();
-                isLatched = false;
-                telemetry.addLine("latch off");
-                telemetry.update();
-            }
 //            telemetry.addLine("slides rotate left");
 //            telemetry.update();
             slides.rotateLeft();
@@ -340,6 +329,22 @@ public class Teleop extends OpMode {
             slides.stopRotator();
         }
 
+        if (gamepad1.y && (latchButton == ButtonPressState.UNPRESSED) && !isLatched) {
+            latchButton = ButtonPressState.PRESSED_GOOD;
+            latch.latchOn();
+            isLatched = true;
+            telemetry.addLine("latch on");
+            telemetry.update();
+
+        } else if (gamepad1.y && (latchButton == ButtonPressState.UNPRESSED) && isLatched) {
+            latchButton = ButtonPressState.PRESSED_GOOD;
+            latch.latchOff();
+            isLatched = false;
+            telemetry.addLine("latch off");
+            telemetry.update();
+        } else if (!(gamepad1.y) && (latchButton == ButtonPressState.PRESSED_GOOD)){
+            latchButton = ButtonPressState.UNPRESSED;
+        }
     }
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
@@ -349,7 +354,7 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
-        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
+        drive.move(-x * multiplier, y * multiplier, turn * multiplier);
     }
 
 

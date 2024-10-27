@@ -202,22 +202,18 @@ public class Slides {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
         telemetry.addLine(String.valueOf(rot));
-        if (rot >= 460){
-            setRotPower(0);
+
+        //id
+        if (rotState == 1 && rot >= 200){
+            setRotPower(5);
+            rot = getRotatorEncoder();
             return;
         }
-
-//        //id
-//        if (rotState == 1 && rot >= 35){
-//            setRotPower(8);
-//            rot = getRotatorEncoder();
-//            return;
-//        }
         if (rotState == 1){
             return;
         }
         rotState = 1;
-        setRotPower(5);
+        setRotPower(8);
     }
     //TODO: add rotator limit @ 400
 
@@ -226,16 +222,16 @@ public class Slides {
         rot = getRotatorEncoder();
         telemetry.addLine(String.valueOf(rot));
 
-//        if (rot <= 1800) { //if (rotState == 2 && rot <= 1800) {
-//            setRotPower(-5);
-//            rot = getRotatorEncoder();
-//            return;
-//        }
+        if  (rotState == 2 && rot <= 200) {
+            setRotPower(-4);
+            rot = getRotatorEncoder();
+            return;
+        }
         if (rotState == 2) {
             return;
         }
         rotState = 2;
-        setRotPower(-5);
+        setRotPower(-9);
     }
 
     public int getEncoder() {

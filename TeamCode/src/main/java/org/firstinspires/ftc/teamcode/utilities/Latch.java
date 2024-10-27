@@ -18,8 +18,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             this.latchServo = hmap.servo.get(CONFIG.latch);
             this.telemetry = telemetry;
         }
-        public static double latched = -0.35;
-        public static double unlatched = 0.25;
+        public static double latched = -0.70;
+        public static double unlatched = 0.12;
 
         public static Telemetry telemetry;
 
