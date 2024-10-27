@@ -208,16 +208,16 @@ public class Slides {
         }
 
 //        //id
-//        if (rotState == 1 && rot >= 35){
-//            setRotPower(8);
-//            rot = getRotatorEncoder();
-//            return;
-//        }
+        if (rotState == 1 && rot >= 200){
+            setRotPower(5);
+            rot = getRotatorEncoder();
+            return;
+        }
         if (rotState == 1){
             return;
         }
         rotState = 1;
-        setRotPower(5);
+        setRotPower(8);
     }
     //TODO: add rotator limit @ 400
 

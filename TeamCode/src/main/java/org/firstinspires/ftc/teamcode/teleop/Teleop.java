@@ -315,7 +315,7 @@ public class Teleop extends OpMode {
         if (gamepad1.b) {
             // going up
             // LATCH ON
-            if (slides.getRotatorEncoder() >= 470 && !isLatched) {
+            if (slides.getRotatorEncoder() >= 550 && !isLatched) {
                 latch.latchOn();
                 isLatched = true;
                 telemetry.addLine("latch on");
@@ -349,7 +349,7 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
-        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
+        drive.move(-x * multiplier, y * multiplier, -turn * multiplier);
     }
 
 
