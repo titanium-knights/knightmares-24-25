@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
-@Autonomous(name="redHuman", group="Linear OpMode")
+@Autonomous(name="blueHuman", group="Linear OpMode")
 @Config
 
 public class auton_blue_nearHuman extends LinearOpMode {
