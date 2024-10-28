@@ -22,4 +22,5 @@ public class CONFIG {
     public static String claw = "claw";
     //latch servo
     public static String latch = "latch";
+    public static String clawRotator = "clawRotator";
 }
