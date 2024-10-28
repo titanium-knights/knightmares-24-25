@@ -117,9 +117,9 @@ public class Teleop extends OpMode {
 //            slideManualUp = ButtonPressState.DEPRESSED;
 //        } else if (!gamepad1.left_bumper) slideManualUp = ButtonPressState.UNPRESSED;
 
-        if (gamepad1.right_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
+        if (gamepad1.left_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
             slides.retract();
-        } else if (gamepad1.left_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
+        } else if (gamepad1.right_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
             slides.extend();
             telemetry.addLine("extending");
         } else {
@@ -291,7 +291,7 @@ public class Teleop extends OpMode {
             telemetry.update();
             latch.latchOff();
         }
-        //claw open/close dpad
+        // open/close dpad
         //if (gamepad1.dpad_left) {
             //telemetry.addLine("claw close");
             //telemetry.update();
@@ -317,14 +317,14 @@ public class Teleop extends OpMode {
         //}
 
         //  ROTATING SLIDES
-        if (gamepad1.b) {
+        if (gamepad1.left_trigger > 0.5) {
             // going up
             // LATCH ON
 
 //            telemetry.addLine("slides rotate right");
 //            telemetry.update();
             slides.rotateRight();
-        } else if (gamepad1.x) {
+        } else if (gamepad1.right_trigger > 0.5){
             // going down
             // LATCH OFF
 //            telemetry.addLine("slides rotate left");
@@ -334,37 +334,37 @@ public class Teleop extends OpMode {
             slides.stopRotator();
         }
 
-        if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED) && !clawState) {
+        if (gamepad1.b && (clawButton == ButtonPressState.UNPRESSED) && !clawState) {
             clawButton = ButtonPressState.PRESSED_GOOD;
             claw.open();
             clawState = true;
             telemetry.addLine("claw open");
             telemetry.update();
 
-        } else if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED) && clawState) {
+        } else if (gamepad1.b && (clawButton == ButtonPressState.UNPRESSED) && clawState) {
             clawButton = ButtonPressState.PRESSED_GOOD;
             claw.close();
             clawState = false;
             telemetry.addLine("claw closed");
             telemetry.update();
-        } else if (!(gamepad1.y) && (clawButton == ButtonPressState.PRESSED_GOOD)){
+        } else if (!(gamepad1.b) && (clawButton == ButtonPressState.PRESSED_GOOD)){
             clawButton = ButtonPressState.UNPRESSED;
 
         }
-        if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorState) {
+        if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorState) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toDrop();
             cRotatorState = true;
             telemetry.addLine("claw drop");
             telemetry.update();
 
-        } else if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorState) {
+        } else if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorState) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toPick();
             cRotatorState = false;
             telemetry.addLine("claw pick");
             telemetry.update();
-        } else if (!(gamepad1.a) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
+        } else if (!(gamepad1.y) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
             cRotatorButton = ButtonPressState.UNPRESSED;
         }
     }
