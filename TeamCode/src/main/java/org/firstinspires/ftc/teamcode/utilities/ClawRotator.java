@@ -12,27 +12,27 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
     @Config
-    public class Latch {
-        Servo latchServo;
-        public Latch(HardwareMap hmap, Telemetry telemetry) {
-            this.latchServo = hmap.servo.get(CONFIG.latch);
+    public class ClawRotator {
+        Servo cRotatorServo;
+        public ClawRotator(HardwareMap hmap, Telemetry telemetry) {
+            this.cRotatorServo = hmap.servo.get(CONFIG.clawRotator);
             this.telemetry = telemetry;
         }
-        public static double latched = -0.70;
-        public static double unlatched = 0.12;
+        public static double dropPos = -0.70;
+        public static double pickPos = 0.12;
 
         public static Telemetry telemetry;
 
-        public void latchOn() {
+        public void toDrop() {
             telemetry.addLine("FUCK MICHAEL HERNANDEZ - Puha");
-            latchServo.setPosition(latched);
+            cRotatorServo.setPosition(dropPos);
         }
-        public void latchOff() {
+        public void toPick() {
             telemetry.addLine("FUCK MICHAEL HERNANDEZ - Junho");
-            latchServo.setPosition(unlatched);
+            cRotatorServo.setPosition(pickPos);
         }
         public double getPosition() {
-            return (latchServo.getPosition());
+            return (cRotatorServo.getPosition());
         }
 
     }

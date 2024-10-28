@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 //import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
@@ -18,6 +19,7 @@ public class Teleop extends OpMode {
     // PullUp pullup;
     Claw claw;
     Latch latch;
+    ClawRotator clawRotator;
     // ClawIteration2 claw;
     SimpleMecanumDrive drive;
 
@@ -27,7 +29,8 @@ public class Teleop extends OpMode {
     // in case of joystick drift, ignore very small values
     final float STICK_MARGIN = 0.5f;
 
-    public boolean isLatched = false;
+    public boolean clawState = false;
+    public boolean cRotatorState = false;
 
     //Prevents irreversible things such as pullup and plane launcher from running before this button is pressed
     // (will add later)
@@ -64,7 +67,8 @@ public class Teleop extends OpMode {
     }
     ButtonPressState slideButton;
     ButtonPressState rotatorButton;
-
+    ButtonPressState clawButton;
+    ButtonPressState cRotatorButton;
     ButtonPressState slideManual;
     ButtonPressState slideManualUp;
 
@@ -76,13 +80,14 @@ public class Teleop extends OpMode {
         this.drive = new SimpleMecanumDrive(hardwareMap);
         this.slides = new Slides(hardwareMap, telemetry);
         // this.pullup = new PullUp(hardwareMap);
-
+        this.clawButton = ButtonPressState.UNPRESSED;
         this.slideButton = ButtonPressState.UNPRESSED;
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
 
         this.claw = new Claw(hardwareMap, telemetry);
         this.latch = new Latch(hardwareMap, telemetry);
+        this.clawRotator = new ClawRotator(hardwareMap, telemetry);
 
         // slides.startPosition();
     }
@@ -276,15 +281,15 @@ public class Teleop extends OpMode {
 //        }
 
         if(gamepad1.dpad_left){
-            telemetry.addLine("claw open");
-                    telemetry.update();
-                    claw.open();
+            telemetry.addLine("latch on");
+            telemetry.update();
+            latch.latchOn();
         }
 
         if(gamepad1.dpad_right){
-            telemetry.addLine("claw close");
+            telemetry.addLine("latch off");
             telemetry.update();
-            claw.close();
+            latch.latchOff();
         }
         //claw open/close dpad
         //if (gamepad1.dpad_left) {
@@ -315,24 +320,13 @@ public class Teleop extends OpMode {
         if (gamepad1.b) {
             // going up
             // LATCH ON
-            if (slides.getRotatorEncoder() >= 550 && !isLatched) {
-                latch.latchOn();
-                isLatched = true;
-                telemetry.addLine("latch on");
-                telemetry.update();
-            }
+
 //            telemetry.addLine("slides rotate right");
 //            telemetry.update();
             slides.rotateRight();
         } else if (gamepad1.x) {
             // going down
             // LATCH OFF
-            if (isLatched) {
-                latch.latchOff();
-                isLatched = false;
-                telemetry.addLine("latch off");
-                telemetry.update();
-            }
 //            telemetry.addLine("slides rotate left");
 //            telemetry.update();
             slides.rotateLeft();
@@ -340,6 +334,39 @@ public class Teleop extends OpMode {
             slides.stopRotator();
         }
 
+        if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED) && !clawState) {
+            clawButton = ButtonPressState.PRESSED_GOOD;
+            claw.open();
+            clawState = true;
+            telemetry.addLine("claw open");
+            telemetry.update();
+
+        } else if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED) && clawState) {
+            clawButton = ButtonPressState.PRESSED_GOOD;
+            claw.close();
+            clawState = false;
+            telemetry.addLine("claw closed");
+            telemetry.update();
+        } else if (!(gamepad1.y) && (clawButton == ButtonPressState.PRESSED_GOOD)){
+            clawButton = ButtonPressState.UNPRESSED;
+
+        }
+        if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorState) {
+            cRotatorButton = ButtonPressState.PRESSED_GOOD;
+            clawRotator.toDrop();
+            cRotatorState = true;
+            telemetry.addLine("claw drop");
+            telemetry.update();
+
+        } else if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorState) {
+            cRotatorButton = ButtonPressState.PRESSED_GOOD;
+            clawRotator.toPick();
+            cRotatorState = false;
+            telemetry.addLine("claw pick");
+            telemetry.update();
+        } else if (!(gamepad1.a) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
+            cRotatorButton = ButtonPressState.UNPRESSED;
+        }
     }
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
@@ -349,7 +376,7 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
-        drive.move(-x * multiplier, y * multiplier, -turn * multiplier);
+        drive.move(-x * multiplier, y * multiplier, turn * multiplier);
     }
 
 
