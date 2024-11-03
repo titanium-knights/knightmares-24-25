@@ -294,7 +294,7 @@ public class Teleop extends OpMode {
         // open/close dpad
         //if (gamepad1.dpad_left) {
             //telemetry.addLine("claw close");
-            //telemetry.update();
+            //telemetry.update();  
             //claw.close();
         //}
         //if (gamepad1.dpad_right) {
