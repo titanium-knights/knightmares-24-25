@@ -10,9 +10,17 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
 @Autonomous(name="redHuman", group="Linear OpMode")
 @Config
-public class auton_red_placeBasket {
-
+public class auton_red_nearBasket extends LinearOpMode{
+    public final double POWER = 0.5;
+    public void runOpMode() throws InterruptedException {
+        telemetry.addLine("STARTING! (hopfully)");
+        telemetry.update();
     //start timer
+    ElapsedTime runtime = new ElapsedTime();
+    SimpleMecanumDrive drivetrain = new SimpleMecanumDrive(hardwareMap);
+
+    waitForStart();
+    runtime.reset();
     //move forward 1 block
     //move left 0.2 block
     //move forward 0.3 block
