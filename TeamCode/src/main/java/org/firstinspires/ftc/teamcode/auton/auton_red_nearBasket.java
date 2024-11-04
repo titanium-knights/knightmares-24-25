@@ -42,4 +42,5 @@ public class auton_red_nearBasket extends LinearOpMode{
     //reverse 0.2 block
     //park robot back to starting point
 
+    }
 }
