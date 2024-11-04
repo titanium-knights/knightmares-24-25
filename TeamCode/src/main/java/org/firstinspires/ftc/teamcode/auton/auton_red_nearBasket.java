@@ -15,31 +15,31 @@ public class auton_red_nearBasket extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         telemetry.addLine("STARTING! (hopfully)");
         telemetry.update();
-    //start timer
-    ElapsedTime runtime = new ElapsedTime();
-    SimpleMecanumDrive drivetrain = new SimpleMecanumDrive(hardwareMap);
+        //start timer
+        ElapsedTime runtime = new ElapsedTime();
+        SimpleMecanumDrive drivetrain = new SimpleMecanumDrive(hardwareMap);
 
-    waitForStart();
-    runtime.reset();
-    //move forward 1 block
-    //move left 0.2 block
-    //move forward 0.3 block
-    //pick up sample
-    //move in reverse 1 block
-    //move left 0.2 block
-    //place sample in basket
-    //move forward 1.2 block
-    //pick up sample
-    //move reverse 1.2 block
-    //place sample in basket
-    //move left 0.2 block
-    //move forward 1.2 block
-    //pick up sample
-    //move reverse 1.2 block
-    //move right 0.2 block
-    //place block in basket
-    //move right 5 block
-    //reverse 0.2 block
-    //park robot back to starting point
-
+        waitForStart();
+        runtime.reset();
+        //move forward 1 block
+        //move left 0.2 block
+        //move forward 0.3 block
+        //pick up sample
+        //move in reverse 1 block
+        //move left 0.2 block
+        //place sample in basket
+        //move forward 1.2 block
+        //pick up sample
+        //move reverse 1.2 block
+        //place sample in basket
+        //move left 0.2 block
+        //move forward 1.2 block
+        //pick up sample
+        //move reverse 1.2 block
+        //move right 0.2 block
+        //place block in basket
+        //move right 5 block
+        //reverse 0.2 block
+        //park robot back to starting point
+    }
 }
