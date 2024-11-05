@@ -28,6 +28,7 @@ public class auton_red_nearBasket extends AutonMethods {
         runtime.reset();
 
         //move forward 1 block
+        clawOpen();
         forwardOneeee();
         stopDrive();
         //move left 0.2 block
@@ -35,13 +36,13 @@ public class auton_red_nearBasket extends AutonMethods {
         //move forward 0.3 block
         forwardHalf();
         //pick up sample
-        clawOpen();
         clawClose();
         //move in reverse 1 block
         backOneee();
         //move left 0.2 block
         leftOneHalf();
         //place sample in basket
+        slidesRotateUp();
         slidesExtend();
         clawDrop();
         clawOpen();
@@ -56,6 +57,7 @@ public class auton_red_nearBasket extends AutonMethods {
         //move reverse 1.2 block
         backOneee();
         //place sample in basket
+        slidesRotateUp();
         slidesExtend();
         clawDrop();
         clawOpen();
@@ -74,6 +76,7 @@ public class auton_red_nearBasket extends AutonMethods {
         //move right 0.2 block
         rightOneHalf();
         //place block in basket
+        slidesRotateUp();
         slidesExtend();
         clawDrop();
         clawOpen();

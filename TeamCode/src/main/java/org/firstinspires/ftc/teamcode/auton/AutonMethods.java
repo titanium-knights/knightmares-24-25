@@ -46,6 +46,7 @@ public void slidesRetract(){
 
 public void clawClose(){
     claw.close();
+    sleep(100);
 }
     public void stopDrive(){
         drivetrain.move(0,0,0);
@@ -65,6 +66,16 @@ public void clawClose(){
         drivetrain.move(-POWER, 0, 0);
         sleep(3000);
         stopDrive();
+    }
+
+    public void slidesRotateUp(){
+    slides.rotateRight();
+    sleep(1000);
+    }
+
+    public void slidesRotateDown(){
+    slides.rotateLeft();
+    sleep(1000);
     }
 
     public void forwardOneeee(){
