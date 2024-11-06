@@ -23,12 +23,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
         public static Telemetry telemetry;
 
+
         public void toDrop() {
-            telemetry.addLine("FUCK MICHAEL HERNANDEZ - Puha");
+            telemetry.addLine("claw to drop");
             cRotatorServo.setPosition(dropPos);
         }
         public void toPick() {
-            telemetry.addLine("FUCK MICHAEL HERNANDEZ - Junho");
+            telemetry.addLine("claw to pick");
             cRotatorServo.setPosition(pickPos);
         }
         public double getPosition() {

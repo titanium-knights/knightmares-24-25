@@ -24,11 +24,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
         public static Telemetry telemetry;
 
         public void latchOn() {
-            telemetry.addLine("FUCK MICHAEL HERNANDEZ - Puha");
+            telemetry.addLine("latch on");
             latchServo.setPosition(latched);
         }
         public void latchOff() {
-            telemetry.addLine("FUCK MICHAEL HERNANDEZ - Junho");
+            telemetry.addLine("latch off");
             latchServo.setPosition(unlatched);
         }
         public double getPosition() {

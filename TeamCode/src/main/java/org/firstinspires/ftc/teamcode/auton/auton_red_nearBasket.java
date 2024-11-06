@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
 
 
-@Autonomous(name="redHuman", group="Linear OpMode")
+@Autonomous(name="redBasket", group="Linear OpMode")
 @Config
 public class auton_red_nearBasket extends AutonMethods {
     public final double POWER = 0.5;
