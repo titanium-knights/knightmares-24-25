@@ -22,7 +22,7 @@ public class auton_red_nearBasket extends AutonMethods {
         telemetry.update();
         //start timer
         ElapsedTime runtime = new ElapsedTime();
-        SimpleMecanumDrive drivetrain = new SimpleMecanumDrive(hardwareMap);
+
 
 
         waitForStart();
