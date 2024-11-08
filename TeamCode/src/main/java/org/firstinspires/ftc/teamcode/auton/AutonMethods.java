@@ -20,7 +20,7 @@ public abstract class AutonMethods extends LinearOpMode {
     public Claw claw;
     public Slides slides;
 
-
+    @Override
     public void runOpmode() throws InterruptedException{
         drivetrain = new SimpleMecanumDrive(hardwareMap);
         clawrotator = new ClawRotator(hardwareMap, telemetry);
@@ -30,10 +30,10 @@ public abstract class AutonMethods extends LinearOpMode {
 
     public final double POWER = 0.5;
 
-public void clawOpen(){
-    claw.open();
-    sleep(5000);
-}
+// public void clawOpen(){
+    // claw.open();
+    //sleep(5000);
+// }
 
 public void slidesExtend(){
     slides.extend();
@@ -44,10 +44,10 @@ public void slidesRetract(){
     slides.retract();
 }
 
-public void clawClose(){
-    claw.close();
-    sleep(100);
-}
+// public void clawClose(){
+    // claw.close();
+    // sleep(100);
+// }
     public void stopDrive(){
         drivetrain.move(0,0,0);
         sleep(100);
