@@ -21,11 +21,35 @@ public abstract class AutonMethods extends LinearOpMode {
     public Slides slides;
 
     @Override
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() throws InterruptedException {
+        telemetry.addData("Status", "Initializing hardware...");
+        telemetry.update();
+
+        // Initialize components and check for null references
         drivetrain = new SimpleMecanumDrive(hardwareMap);
+        if (drivetrain == null) {
+            telemetry.addData("Error", "Drivetrain failed to initialize!");
+        } else {
+            telemetry.addData("Drivetrain", "Initialized successfully");
+        }
+
         clawrotator = new ClawRotator(hardwareMap, telemetry);
-        // claw = new Claw(hardwareMap, telemetry);
+        if (clawrotator == null) {
+            telemetry.addData("Error", "ClawRotator failed to initialize!");
+        } else {
+            telemetry.addData("ClawRotator", "Initialized successfully");
+        }
+
         slides = new Slides(hardwareMap, telemetry);
+        if (slides == null) {
+            telemetry.addData("Error", "Slides failed to initialize!");
+        } else {
+            telemetry.addData("Slides", "Initialized successfully");
+        }
+
+        telemetry.addData("Status", "Initialization Complete");
+        telemetry.update();
+        waitForStart();
     }
 
     public final double POWER = 0.5;
