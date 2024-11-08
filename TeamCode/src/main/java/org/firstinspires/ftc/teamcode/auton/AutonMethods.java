@@ -22,15 +22,16 @@ public abstract class AutonMethods extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
         telemetry.addData("Status", "Initializing hardware...");
         telemetry.update();
 
         // Initialize components and check for null references
         drivetrain = new SimpleMecanumDrive(hardwareMap);
         if (drivetrain == null) {
-            telemetry.addData("Error", "Drivetrain failed to initialize!");
+            telemetry.addData("Error", "drivetrain failed to initialize!");
         } else {
-            telemetry.addData("Drivetrain", "Initialized successfully");
+            telemetry.addData("SimpleMecanumDrive", "Initialized successfully");
         }
 
         clawrotator = new ClawRotator(hardwareMap, telemetry);
@@ -109,10 +110,15 @@ public void slidesRetract(){
     sleep(1000);
     }
 
-    public void forwardOneeee(){
-        drivetrain.move(0, -POWER, 0);
+    public void forwardOneeee() {
+        if (drivetrain != null) {
+            drivetrain.move(0, -POWER, 0);
+            telemetry.addData("Action", "Moving forward");
+        } else {
+            telemetry.addData("Error", "Drivetrain is not initialized in forwardOneeee!");
+        }
         telemetry.update();
-        sleep(1450);
+        sleep(500);
         stopDrive();
     }
 

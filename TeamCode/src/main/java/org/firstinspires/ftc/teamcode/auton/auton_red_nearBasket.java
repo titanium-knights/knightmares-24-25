@@ -14,17 +14,15 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 @Autonomous(name="redBasket", group="Linear OpMode")
 @Config
 public class auton_red_nearBasket extends AutonMethods {
-    public final double POWER = 0.5;
 
 
+@Override
     public void runOpMode() throws InterruptedException {
+        super.runOpMode();
         telemetry.addData("Initialized:", "Hopefully");
         telemetry.update();
         //start timer
         ElapsedTime runtime = new ElapsedTime();
-
-
-
         waitForStart();
         runtime.reset();
 
@@ -33,63 +31,63 @@ public class auton_red_nearBasket extends AutonMethods {
         forwardOneeee();
         stopDrive();
         //move left 0.2 block
-        leftOneHalf();
+        //leftOneHalf();
         //move forward 0.3 block
-        forwardHalf();
+        //forwardHalf();
         //pick up sample
         //clawClose();
         //move in reverse 1 block
-        backOneee();
+        //backOneee();
         //move left 0.2 block
-        leftOneHalf();
+        //leftOneHalf();
         //place sample in basket
-        slidesRotateUp();
-        slidesExtend();
-        clawDrop();
+        //slidesRotateUp();
+        //slidesExtend();
+        //clawDrop();
         //clawOpen();
         //clawClose();
-        clawPick();
-        slidesRetract();
+        //clawPick();
+        //slidesRetract();
         //move forward 1.2 block
-        forwardOneeee();
+        //forwardOneeee();
         //pick up sample
        // clawOpen();
         //clawClose();
         //move reverse 1.2 block
-        backOneee();
+       // backOneee();
         //place sample in basket
-        slidesRotateUp();
-        slidesExtend();
-        clawDrop();
+        //slidesRotateUp();
+       // slidesExtend();
+       // clawDrop();
         //clawOpen();
        // clawClose();
-        clawPick();
-        slidesRetract();
+       // clawPick();
+       // slidesRetract();
         //move left 0.2 block
-        leftOneHalf();
+        //leftOneHalf();
         //move forward 1.2 block
-        forwardOneeee();
+        //forwardOneeee();
         //pick up sample
         //clawOpen();
         //clawClose();
         //move reverse 1.2 block
-        backOneee();
+        //backOneee();
         //move right 0.2 block
-        rightOneHalf();
+       // rightOneHalf();
         //place block in basket
-        slidesRotateUp();
-        slidesExtend();
-        clawDrop();
+       // slidesRotateUp();
+       // slidesExtend();
+       // clawDrop();
         //clawOpen();
         //clawClose();
-        clawPick();
-        slidesRetract();
-        //move right 5 block
-        rightFive();
+       // clawPick();
+       // slidesRetract();
+       // move right 5 block
+       // rightFive();
         //reverse 0.2 block
-        backOneHalf();
+       // backOneHalf();
         //park robot back to starting point
-        stopDrive();
+       // stopDrive();
 
 
 
