@@ -61,11 +61,13 @@ public abstract class AutonMethods extends LinearOpMode {
 
 public void slidesExtend(){
     slides.extend();
+    telemetry.update();
     sleep(6000);
 }
 
 public void slidesRetract(){
     slides.retract();
+    telemetry.update();
 }
 
 // public void clawClose(){
@@ -74,6 +76,7 @@ public void slidesRetract(){
 // }
     public void stopDrive(){
         drivetrain.move(0,0,0);
+        telemetry.update();
         sleep(100);
     }
 
@@ -83,44 +86,52 @@ public void slidesRetract(){
        //goes in reverse a little more than 1, about 1.2
         drivetrain.move(0, POWER, 0);
         sleep(1450);
+        telemetry.update();
         stopDrive();
     }
 
     public void rightOneHalf() {
         drivetrain.move(-POWER, 0, 0);
+        telemetry.update();
         sleep(3000);
         stopDrive();
     }
 
     public void slidesRotateUp(){
     slides.rotateRight();
+    telemetry.update();
     sleep(1000);
     }
 
     public void slidesRotateDown(){
     slides.rotateLeft();
+    telemetry.update();
     sleep(1000);
     }
 
     public void forwardOneeee(){
         drivetrain.move(0, -POWER, 0);
+        telemetry.update();
         sleep(1450);
         stopDrive();
     }
 
     public void clawDrop(){
         clawrotator.toDrop();
+        telemetry.update();
         sleep(1450);
     }
 
     public void clawPick(){
     clawrotator.toPick();
+    telemetry.update();
     }
 
 
     public void rightFive() {
         // goes to the ending spot in auton
         drivetrain.move(-POWER,0, 0);
+        telemetry.update();
         sleep(5200);
         stopDrive();
     }
@@ -128,17 +139,20 @@ public void slidesRetract(){
     public void leftOneHalf()  {
         //should be a little less than 0.5 around 0.2
         drivetrain.move(POWER, 0, 0);
+        telemetry.update();
         sleep(3000);
         stopDrive();
     }
     public void forwardHalf() {
         drivetrain.move(0,-POWER, 0);
+        telemetry.update();
         sleep(900);
         stopDrive();
     }
 
     public void backOneHalf() {
         drivetrain.move(0,POWER, 0);
+        telemetry.update();
         sleep(450);
         stopDrive();
     }
