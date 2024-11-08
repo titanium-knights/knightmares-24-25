@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 public class auton_red_nearBasket extends AutonMethods {
     public final double POWER = 0.5;
 
+
     public void runOpMode() throws InterruptedException {
         telemetry.addData("Initialized:", "Hopefully");
         telemetry.update();
