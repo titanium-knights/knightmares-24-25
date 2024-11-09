@@ -16,7 +16,7 @@ public class Slides {
     // Positive power is counter clockwise,
 
     //position at initial
-    int pos;//up and down motor position
+    int pos; //up and down motor position
     int rot; // left and right rotator position
 
     //Current state of slide. 0 - idle, 1 - up, 2 - down
@@ -24,20 +24,20 @@ public class Slides {
     int state;
     int rotState;
 
-    // Preset heights,
-    // TODO: CALIBRATE
-
     // limits
-    int maxheight = 25; // 3481
-    //int minheight = 5;
+    int maxheight = -3000; // 3481
+    int minheight = -100;
 
-    // bar heights
-    int highheight = 22; // for high bar
+    // basket heights
+    // TODO: tune these values
+    int highheight = -2900;
 
-    int lowheight = 10; // 1472 for low bar
+    int lowheight = -1500;
 
-    int maxrot = 100; // 3481 proviously 25
-    int lowrot = 10; // 1472
+    // rotator limits
+    int uprot = 100; // 3481 proviously 25
+    int downrot = 100; // 3481 proviously 25
+
     public static Telemetry telemetry;
 
     //assign motors to slide motors and slide rotator motors
@@ -114,7 +114,6 @@ public class Slides {
     public void runRotToPosition(){
         slideRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         setPower(0.9);
-
     }
 
     public void tozero() {
@@ -123,35 +122,43 @@ public class Slides {
         pos = getEncoder();
     }
 
-    public void lowBar(){
+    // BASKET PRESETS
+
+    public void lowBasket(){
         setTarget(lowheight);
         runToPosition();
         pos = getEncoder();
     }
 
-    public void highBar(){
+    public void highBasket(){
         setTarget(highheight);
         runToPosition();
         pos = getEncoder();
     }
 
-//    public void up(){
-//        setRotTarget(maxrot);
-//        runRotToPosition();
-//        rot = getRotatorEncoder();
-//    }
-//    public void down(){
-//        setRotTarget(lowrot);
-//        runRotToPosition();
-//        rot = getRotatorEncoder();
-//    }
+    // ROTATOR PRESETS
+
+    public void up(){
+        setRotTarget(uprot);
+        runRotToPosition();
+        rot = getRotatorEncoder();
+    }
+    public void down(){
+        setRotTarget(downrot);
+        runRotToPosition();
+        rot = getRotatorEncoder();
+    }
+
+    // SLIDES MANUAL
 
     public void extend(){
+        telemetry.addLine("extending");
+        telemetry.addLine(String.valueOf(pos));
+
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
-        telemetry.addLine(String.valueOf(pos));
         // max limit
-        if (pos <= -3000){
+        if (pos <= maxheight){
             setPower(0);
             return;
         }
@@ -169,6 +176,7 @@ public class Slides {
 
 
     public void retract() {
+        telemetry.addLine("retracting");
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
         telemetry.addLine(String.valueOf(pos));
@@ -179,7 +187,7 @@ public class Slides {
 //        }
 
         // slower retract closer down
-        if (pos >= -100){
+        if (pos >= minheight){
             setPower(0);
             pos = getEncoder();
             return;
@@ -198,6 +206,9 @@ public class Slides {
         setPower(3);
 
     }
+
+    // ROTATOR (rotater? rotator.) MANUAL
+
     public void rotateRight(){ //slide rotates outwards (up)
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();

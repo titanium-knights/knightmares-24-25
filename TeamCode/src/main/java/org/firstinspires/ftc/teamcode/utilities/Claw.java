@@ -29,7 +29,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
         public static double openPos = 0.75;
 
 
-        public static Telemetry telemetry;
+        public Telemetry telemetry;
 
         public void open() {
             telemetry.addLine("open claw");

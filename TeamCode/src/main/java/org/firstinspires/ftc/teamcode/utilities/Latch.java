@@ -18,17 +18,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             this.latchServo = hmap.servo.get(CONFIG.latch);
             this.telemetry = telemetry;
         }
-        public static double latched = 1.0;
-        public static double unlatched = 0.8;
+        public static double latched = 0.95; // -0.70
+        public static double unlatched = 0.12;
 
         public static Telemetry telemetry;
 
         public void latchOn() {
-            telemetry.addLine("LatchOn, Dpad Left Button");
+            telemetry.addLine("latch on");
+            telemetry.addLine(Double.toString(latchServo.getPosition()));
             latchServo.setPosition(latched);
         }
         public void latchOff() {
-            telemetry.addLine("Latch off, Dpad Right button");
+            telemetry.addLine("latch off");
+            telemetry.addLine(Double.toString(latchServo.getPosition()));
             latchServo.setPosition(unlatched);
         }
         public double getPosition() {
