@@ -21,12 +21,12 @@ public class auton_nearBasket extends AutonMethods {
         waitForStart();
         runtime.reset();
 
-        //move forward 1 block
-        //clawOpen();
-        forwardOneeee();
+        // move forward 1 block
+        // clawOpen();
+        forwardOne();
         stopDrive();
         //move left 0.2 block
-        //leftOneHalf();
+        leftOneHalf();
         //move forward 0.3 block
         //forwardHalf();
         //pick up sample

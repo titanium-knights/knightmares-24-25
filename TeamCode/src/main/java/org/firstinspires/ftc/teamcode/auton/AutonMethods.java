@@ -17,7 +17,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public abstract class AutonMethods extends LinearOpMode {
     public SimpleMecanumDrive drivetrain;
     public ClawRotator clawrotator;
-    // public Claw claw;
+    public Claw claw;
     public Slides slides;
 
     @Override
@@ -53,12 +53,12 @@ public abstract class AutonMethods extends LinearOpMode {
         waitForStart();
     }
 
-    public final double POWER = 0.5;
+    public final double POWER = 0.6;
 
-// public void clawOpen(){
-    // claw.open();
-    //sleep(5000);
-// }
+ public void clawOpen(){
+     claw.open();
+    sleep(5000);
+ }
 
 public void slidesExtend(){
     slides.extend();
@@ -110,15 +110,15 @@ public void slidesRetract(){
     sleep(1000);
     }
 
-    public void forwardOneeee() {
+    public void forwardOne() {
         if (drivetrain != null) {
-            drivetrain.move(0, -POWER, 0);
+            drivetrain.move(0, POWER, 0);
             telemetry.addData("Action", "Moving forward");
         } else {
             telemetry.addData("Error", "Drivetrain is not initialized in forwardOneeee!");
         }
         telemetry.update();
-        sleep(500);
+        sleep(2000);
         stopDrive();
     }
 
