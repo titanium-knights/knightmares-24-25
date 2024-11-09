@@ -119,6 +119,7 @@ public class Teleop extends OpMode {
 
         if (gamepad1.left_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
             slides.retract();
+            telemetry.addLine("retracting");
         } else if (gamepad1.right_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
             slides.extend();
         } else {
