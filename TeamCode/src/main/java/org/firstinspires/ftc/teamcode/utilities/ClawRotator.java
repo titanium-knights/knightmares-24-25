@@ -18,8 +18,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             this.cRotatorServo = hmap.servo.get(CONFIG.clawRotator);
             this.telemetry = telemetry;
         }
-        public static double dropPos = -0.70;
-        public static double pickPos = 0.12;
+        public static double dropPos = -0.0;
+        public static double pickPos = 0.7;
 
         public static Telemetry telemetry;
 
