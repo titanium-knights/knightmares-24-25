@@ -152,9 +152,11 @@ public class Slides {
     // SLIDES MANUAL
 
     public void extend(){
+        telemetry.addLine("extending");
+        telemetry.addLine(String.valueOf(pos));
+
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
-        telemetry.addLine(String.valueOf(pos));
         // max limit
         if (pos <= maxheight){
             setPower(0);
@@ -174,6 +176,7 @@ public class Slides {
 
 
     public void retract() {
+        telemetry.addLine("retracting");
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
         telemetry.addLine(String.valueOf(pos));
