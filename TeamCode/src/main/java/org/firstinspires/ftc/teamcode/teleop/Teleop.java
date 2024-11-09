@@ -314,14 +314,14 @@ public class Teleop extends OpMode {
         //}
 
         //  ROTATING SLIDES
-        if (gamepad1.left_trigger > 0.5) {
+        if (gamepad1.right_trigger > 0.5) {
             // going up
             // LATCH ON
 
 //            telemetry.addLine("slides rotate right");
 //            telemetry.update();
             slides.rotateRight();
-        } else if (gamepad1.right_trigger > 0.5){
+        } else if (gamepad1.left_trigger > 0.5){
             // going down
             // LATCH OFF
 //            telemetry.addLine("slides rotate left");
