@@ -19,7 +19,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             this.telemetry = telemetry;
         }
         public static double latched = 0.95; // -0.70
-        public static double unlatched = 0.12;
+        public static double unlatched = 0.6;
 
         public static Telemetry telemetry;
 

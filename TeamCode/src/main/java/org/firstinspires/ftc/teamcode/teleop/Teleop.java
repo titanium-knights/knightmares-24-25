@@ -30,7 +30,7 @@ public class Teleop extends OpMode {
     final float STICK_MARGIN = 0.5f;
 
     public boolean clawState = false;
-    public boolean cRotatorState = false;
+    public boolean cRotatorAtDrop = false;
 
     //Prevents irreversible things such as pullup and plane launcher from running before this button is pressed
     // (will add later)
@@ -347,23 +347,31 @@ public class Teleop extends OpMode {
             clawButton = ButtonPressState.UNPRESSED;
 
         }
-        if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorState) {
-            cRotatorButton = ButtonPressState.PRESSED_GOOD;
-            clawRotator.toDrop();
-            cRotatorState = true;
-            telemetry.addLine("claw drop");
-            telemetry.update();
+//        if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorAtDrop) {
+//            cRotatorButton = ButtonPressState.PRESSED_GOOD;
+//            clawRotator.toDrop();
+//            cRotatorAtDrop = true;
+//            telemetry.addLine("claw drop");
+//            telemetry.update();
+//        } else if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorAtDrop) {
+//            cRotatorButton = ButtonPressState.PRESSED_GOOD;
+//            clawRotator.toPick();
+//            cRotatorAtDrop = false;
+//            telemetry.addLine("claw pick");
+//            telemetry.update();
+//        } else if (!(gamepad1.y) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
+//            cRotatorButton = ButtonPressState.UNPRESSED;
+//        }
 
-        } else if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorState) {
-            cRotatorButton = ButtonPressState.PRESSED_GOOD;
+        if (gamepad1.y) {
+            clawRotator.toDrop();
+            cRotatorAtDrop = true;
+        } else if (gamepad1.a) {
             clawRotator.toPick();
-            cRotatorState = false;
-            telemetry.addLine("claw pick");
-            telemetry.update();
-        } else if (!(gamepad1.y) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
-            cRotatorButton = ButtonPressState.UNPRESSED;
+            cRotatorAtDrop = false;
         }
     }
+
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
         if (Math.abs(x) <= STICK_MARGIN) x = .0f;
