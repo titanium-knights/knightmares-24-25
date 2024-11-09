@@ -81,6 +81,7 @@ public class Teleop extends OpMode {
         this.slides = new Slides(hardwareMap, telemetry);
         // this.pullup = new PullUp(hardwareMap);
         this.clawButton = ButtonPressState.UNPRESSED;
+        this.cRotatorButton = ButtonPressState.UNPRESSED;
         this.slideButton = ButtonPressState.UNPRESSED;
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
