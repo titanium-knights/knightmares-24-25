@@ -348,21 +348,21 @@ public class Teleop extends OpMode {
             clawButton = ButtonPressState.UNPRESSED;
 
         }
-//        if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorAtDrop) {
-//            cRotatorButton = ButtonPressState.PRESSED_GOOD;
-//            clawRotator.toDrop();
-//            cRotatorAtDrop = true;
-//            telemetry.addLine("claw drop");
-//            telemetry.update();
-//        } else if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorAtDrop) {
-//            cRotatorButton = ButtonPressState.PRESSED_GOOD;
-//            clawRotator.toPick();
-//            cRotatorAtDrop = false;
-//            telemetry.addLine("claw pick");
-//            telemetry.update();
-//        } else if (!(gamepad1.y) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
-//            cRotatorButton = ButtonPressState.UNPRESSED;
-//        }
+        if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorAtDrop) {
+            cRotatorButton = ButtonPressState.PRESSED_GOOD;
+            clawRotator.toDrop();
+            cRotatorAtDrop = true;
+            telemetry.addLine("claw drop");
+            telemetry.update();
+        } else if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorAtDrop) {
+            cRotatorButton = ButtonPressState.PRESSED_GOOD;
+            clawRotator.toPick();
+            cRotatorAtDrop = false;
+            telemetry.addLine("claw pick");
+            telemetry.update();
+        } else if (!(gamepad1.y) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
+            cRotatorButton = ButtonPressState.UNPRESSED;
+        }
 
         if (gamepad1.y) {
             clawRotator.toDrop();
