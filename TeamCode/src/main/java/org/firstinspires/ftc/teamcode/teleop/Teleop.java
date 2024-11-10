@@ -27,7 +27,7 @@ public class Teleop extends OpMode {
     final double normalPower = 1;
 
     // in case of joystick drift, ignore very small values
-    final float STICK_MARGIN = 0.5f;
+    final float STICK_MARGIN = 0.7f;
 
     public boolean clawState = false;
     public boolean cRotatorAtDrop = false;
@@ -335,28 +335,24 @@ public class Teleop extends OpMode {
             clawButton = ButtonPressState.PRESSED_GOOD;
             claw.open();
             clawState = true;
-            telemetry.addLine("claw open");
-            telemetry.update();
 
-        } else if (gamepad1.b && (clawButton == ButtonPressState.UNPRESSED) && clawState) {
+        } else if (gamepad1.x && (clawButton == ButtonPressState.UNPRESSED) && clawState) {
             clawButton = ButtonPressState.PRESSED_GOOD;
             claw.close();
             clawState = false;
-            telemetry.addLine("claw closed");
-            telemetry.update();
-        } else if (!(gamepad1.b) && (clawButton == ButtonPressState.PRESSED_GOOD)){
+        } else if (!(gamepad1.b) && (!(gamepad1.x) && (clawButton == ButtonPressState.PRESSED_GOOD))){
             clawButton = ButtonPressState.UNPRESSED;
 
         }
-        if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorAtDrop) {
+        if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toDrop();
             cRotatorAtDrop = true;
-        } else if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorAtDrop) {
+        } else if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toPick();
             cRotatorAtDrop = false;
-        } else if (!(gamepad1.y) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
+        } else if (!(gamepad1.a) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
             cRotatorButton = ButtonPressState.UNPRESSED;
         }
 

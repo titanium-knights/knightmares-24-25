@@ -23,10 +23,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
         public Claw(HardwareMap hmap, Telemetry telemetry) {
             this.clawServo = hmap.servo.get(CONFIG.claw);
             this.telemetry = telemetry;
+            this.clawServo.setDirection(Servo.Direction.FORWARD);
         }
 
-        public static double closedPos = 1;
-        public static double openPos = 0.75;
+        public static double closedPos = 0.5f;
+        public static double openPos = 0.0f;
 
 
         public Telemetry telemetry;
