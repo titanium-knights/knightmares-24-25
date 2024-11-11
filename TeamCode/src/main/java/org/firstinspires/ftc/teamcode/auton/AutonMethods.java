@@ -53,7 +53,7 @@ public abstract class AutonMethods extends LinearOpMode {
         waitForStart();
     }
 
-    public final double POWER = 0.6;
+    public final double POWER = 2;
 
  public void clawOpen(){
      claw.open();
