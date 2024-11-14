@@ -69,6 +69,7 @@ public class Teleop extends OpMode {
     ButtonPressState rotatorButton;
     ButtonPressState clawButton;
     ButtonPressState cRotatorButton;
+    ButtonPressState ultimateButton;
     ButtonPressState slideManual;
     ButtonPressState slideManualUp;
 
@@ -82,6 +83,7 @@ public class Teleop extends OpMode {
         // this.pullup = new PullUp(hardwareMap);
         this.clawButton = ButtonPressState.UNPRESSED;
         this.cRotatorButton = ButtonPressState.UNPRESSED;
+        this.ultimateButton = ButtonPressState.UNPRESSED;
         this.slideButton = ButtonPressState.UNPRESSED;
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
@@ -363,6 +365,36 @@ public class Teleop extends OpMode {
 //            clawRotator.toPick();
 //            cRotatorAtDrop = false;
 //        }
+        // THE ULTIMATE BUTTON
+        if (gamepad1.dpad_up && (ultimateButton == ButtonPressState.UNPRESSED)) {
+
+            //retract slides
+            //rotate slides
+            //latch on
+            //extend slides
+            Runnable slidesRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    while (slides.getEncoder() <= -100){
+                        slides.retract();
+                    }
+                    //TODO: tune
+                    while (slides.getRotatorEncoder() >= 600){
+                        slides.rotateLeft();
+                    }
+
+                    latch.latchOn();
+
+                    while (slides.getEncoder() >= -3000){
+                        slides.extend();
+                    }
+                }
+            };
+            Thread slidesThread = new Thread(slidesRunnable);
+            slidesThread.start();
+
+
+        }
     }
 
     public void move(float x, float y, float turn) {
