@@ -43,12 +43,12 @@ public class Teleop extends OpMode {
         SLIDE_LOW,
         SLIDE_MEDIUM,
         SLIDE_HIGH
-    };
+    }
     public enum RotatorState {
         SLIDE_DOWN,
         SLIDE_UP,
         SLIDE_STOP
-    };
+    }
     SlideState slideState = SlideState.SLIDE_BOTTOM;
     RotatorState rotatorState = RotatorState.SLIDE_DOWN;
 
@@ -331,6 +331,7 @@ public class Teleop extends OpMode {
             slides.stopRotator();
         }
 
+        /* previous code
         if (gamepad1.b && (clawButton == ButtonPressState.UNPRESSED) && !clawState) {
             clawButton = ButtonPressState.PRESSED_GOOD;
             claw.open();
@@ -344,6 +345,18 @@ public class Teleop extends OpMode {
             clawButton = ButtonPressState.UNPRESSED;
 
         }
+         */
+
+        // improved code by yours truly:
+        if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
+            if (!clawState) { claw.open();  clawState = true; }
+            else            { claw.close(); clawState = false; }
+            clawButton = ButtonPressState.PRESSED_GOOD;
+        } else if (!gamepad1.y && (clawButton == ButtonPressState.PRESSED_GOOD)) {
+            clawButton = ButtonPressState.UNPRESSED;
+        }
+
+
         if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toDrop();
