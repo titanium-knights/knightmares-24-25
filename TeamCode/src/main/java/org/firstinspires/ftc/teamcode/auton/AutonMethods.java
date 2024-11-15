@@ -134,11 +134,11 @@ public void slidesRetract(){
     }
 
 
-    public void rightFive() {
+    public void rightLong() {
         // goes to the ending spot in auton
         drivetrain.move(-POWER,0, 0);
         telemetry.update();
-        sleep(5200);
+        sleep(8000);
         stopDrive();
     }
 
