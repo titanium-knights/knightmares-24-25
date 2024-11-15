@@ -87,7 +87,6 @@ public void slidesRetract(){
        //goes in reverse a little more than 1, about 1.2
         drivetrain.move(0, POWER, 0);
         sleep(1450);
-        telemetry.update();
         stopDrive();
     }
 
