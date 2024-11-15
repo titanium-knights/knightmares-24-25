@@ -162,8 +162,8 @@ public class Slides {
             setPower(0);
             return;
         }
-        if (state == 1 && pos <= -1800){
-            setPower(-1);
+        if (state == 1 && pos <= -2200){
+            setPower(-4);
             pos = getEncoder();
             return;
         }
@@ -171,7 +171,7 @@ public class Slides {
             return;
         }
         state = 1;
-        setPower(-3);
+        setPower(-5);
     }
 
 
