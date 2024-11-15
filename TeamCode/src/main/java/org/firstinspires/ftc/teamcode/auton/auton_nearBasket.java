@@ -3,17 +3,12 @@ package org.firstinspires.ftc.teamcode.auton;
 // TODO CHANGE NUMBERS AFTER
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.auton.AutonMethods;
-import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
-
-
-@Autonomous(name="redBasket", group="Linear OpMode")
+@Autonomous(name="nearBasket", group="Linear OpMode")
 @Config
-public class auton_red_nearBasket extends AutonMethods {
+public class auton_nearBasket extends AutonMethods {
 
 
 @Override
@@ -26,12 +21,12 @@ public class auton_red_nearBasket extends AutonMethods {
         waitForStart();
         runtime.reset();
 
-        //move forward 1 block
-        //clawOpen();
-        forwardOneeee();
+        // move forward 1 block
+        // clawOpen();
+        forwardOne();
         stopDrive();
         //move left 0.2 block
-        //leftOneHalf();
+        leftOneHalf();
         //move forward 0.3 block
         //forwardHalf();
         //pick up sample

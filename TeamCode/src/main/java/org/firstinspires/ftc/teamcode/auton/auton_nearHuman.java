@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
-@Autonomous(name="blueHuman", group="Linear OpMode")
+@Autonomous(name="nearHuman", group="Linear OpMode")
 @Config
 
-public class auton_blue_nearHuman extends LinearOpMode {
+public class auton_nearHuman extends LinearOpMode {
     //check what this does (just next line)
     public final double POWER = 0.5;
     public void runOpMode() throws InterruptedException {

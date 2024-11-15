@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
-@Autonomous(name="redBasketPushbot", group="Linear OpMode")
+@Autonomous(name="nearBasketPUSHBOT", group="Linear OpMode")
 @Config
 
-public class auton_red_nearBasket_PUSHBOT extends LinearOpMode {
+public class auton_nearBasket_PUSHBOT extends LinearOpMode {
     //check what this does (just next line)
     public final double POWER = 0.5;
     public void runOpMode() throws InterruptedException {

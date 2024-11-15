@@ -152,16 +152,18 @@ public class Slides {
     // SLIDES MANUAL
 
     public void extend(){
+        telemetry.addLine("extending");
+        telemetry.addLine(String.valueOf(pos));
+
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
-        telemetry.addLine(String.valueOf(pos));
         // max limit
         if (pos <= maxheight){
             setPower(0);
             return;
         }
-        if (state == 1 && pos <= -1800){
-            setPower(-1);
+        if (state == 1 && pos <= -2200){
+            setPower(-4);
             pos = getEncoder();
             return;
         }
@@ -169,11 +171,12 @@ public class Slides {
             return;
         }
         state = 1;
-        setPower(-3);
+        setPower(-5);
     }
 
 
     public void retract() {
+        telemetry.addLine("retracting");
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
         telemetry.addLine(String.valueOf(pos));
@@ -221,7 +224,7 @@ public class Slides {
             return;
         }
         rotState = 1;
-        setRotPower(8);
+        setRotPower(10);
     }
     //TODO: add rotator limit @ 400
 

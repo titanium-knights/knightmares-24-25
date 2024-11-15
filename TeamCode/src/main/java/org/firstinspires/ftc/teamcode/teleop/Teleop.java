@@ -27,10 +27,10 @@ public class Teleop extends OpMode {
     final double normalPower = 1;
 
     // in case of joystick drift, ignore very small values
-    final float STICK_MARGIN = 0.5f;
+    final float STICK_MARGIN = 0.7f;
 
     public boolean clawState = false;
-    public boolean cRotatorState = false;
+    public boolean cRotatorAtDrop = false;
 
     //Prevents irreversible things such as pullup and plane launcher from running before this button is pressed
     // (will add later)
@@ -43,12 +43,12 @@ public class Teleop extends OpMode {
         SLIDE_LOW,
         SLIDE_MEDIUM,
         SLIDE_HIGH
-    };
+    }
     public enum RotatorState {
         SLIDE_DOWN,
         SLIDE_UP,
         SLIDE_STOP
-    };
+    }
     SlideState slideState = SlideState.SLIDE_BOTTOM;
     RotatorState rotatorState = RotatorState.SLIDE_DOWN;
 
@@ -81,6 +81,7 @@ public class Teleop extends OpMode {
         this.slides = new Slides(hardwareMap, telemetry);
         // this.pullup = new PullUp(hardwareMap);
         this.clawButton = ButtonPressState.UNPRESSED;
+        this.cRotatorButton = ButtonPressState.UNPRESSED;
         this.slideButton = ButtonPressState.UNPRESSED;
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
@@ -119,9 +120,9 @@ public class Teleop extends OpMode {
 
         if (gamepad1.left_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
             slides.retract();
+            telemetry.addLine("retracting");
         } else if (gamepad1.right_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
             slides.extend();
-            telemetry.addLine("extending");
         } else {
             slides.stop();
         }
@@ -281,14 +282,10 @@ public class Teleop extends OpMode {
 //        }
 
         if(gamepad1.dpad_left){
-            telemetry.addLine("latch on");
-            telemetry.update();
             latch.latchOn();
         }
 
         if(gamepad1.dpad_right){
-            telemetry.addLine("latch off");
-            telemetry.update();
             latch.latchOff();
         }
         // open/close dpad
@@ -317,14 +314,14 @@ public class Teleop extends OpMode {
         //}
 
         //  ROTATING SLIDES
-        if (gamepad1.left_trigger > 0.5) {
+        if (gamepad1.right_trigger > 0.5) {
             // going up
             // LATCH ON
 
 //            telemetry.addLine("slides rotate right");
 //            telemetry.update();
             slides.rotateRight();
-        } else if (gamepad1.right_trigger > 0.5){
+        } else if (gamepad1.left_trigger > 0.5){
             // going down
             // LATCH OFF
 //            telemetry.addLine("slides rotate left");
@@ -334,40 +331,111 @@ public class Teleop extends OpMode {
             slides.stopRotator();
         }
 
+        /* previous code
         if (gamepad1.b && (clawButton == ButtonPressState.UNPRESSED) && !clawState) {
             clawButton = ButtonPressState.PRESSED_GOOD;
             claw.open();
             clawState = true;
-            telemetry.addLine("claw open");
-            telemetry.update();
 
-        } else if (gamepad1.b && (clawButton == ButtonPressState.UNPRESSED) && clawState) {
+        } else if (gamepad1.x && (clawButton == ButtonPressState.UNPRESSED) && clawState) {
             clawButton = ButtonPressState.PRESSED_GOOD;
             claw.close();
             clawState = false;
-            telemetry.addLine("claw closed");
-            telemetry.update();
-        } else if (!(gamepad1.b) && (clawButton == ButtonPressState.PRESSED_GOOD)){
+        } else if (!(gamepad1.b) && (!(gamepad1.x) && (clawButton == ButtonPressState.PRESSED_GOOD))){
             clawButton = ButtonPressState.UNPRESSED;
 
         }
-        if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorState) {
+         */
+
+        // improved code by yours truly:
+        if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
+            if (!clawState) { claw.open();  clawState = true; }
+            else            { claw.close(); clawState = false; }
+            clawButton = ButtonPressState.PRESSED_GOOD;
+        } else if (!gamepad1.y && (clawButton == ButtonPressState.PRESSED_GOOD)) {
+            clawButton = ButtonPressState.UNPRESSED;
+        }
+
+
+        if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toDrop();
-            cRotatorState = true;
-            telemetry.addLine("claw drop");
-            telemetry.update();
-
-        } else if (gamepad1.y && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorState) {
+            cRotatorAtDrop = true;
+        } else if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toPick();
-            cRotatorState = false;
-            telemetry.addLine("claw pick");
-            telemetry.update();
-        } else if (!(gamepad1.y) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
+            cRotatorAtDrop = false;
+        } else if (!(gamepad1.a) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
             cRotatorButton = ButtonPressState.UNPRESSED;
         }
+
+//        if (gamepad1.y) {
+//            clawRotator.toDrop();
+//            cRotatorAtDrop = true;
+//        } else if (gamepad1.a) {
+//            clawRotator.toPick();
+//            cRotatorAtDrop = false;
+//        }
+        // THE ULTIMATE BUTTON
+        if (gamepad1.dpad_up) {
+
+            //retract slides
+            //rotate slides
+            //latch on
+            //extend slides
+            Runnable slidesRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    while (slides.getEncoder() <= -100){
+                        slides.retract();
+                    }
+                    //TODO: tune
+                    while (slides.getRotatorEncoder() <= 470){
+                        slides.rotateRight();
+                    }
+
+                    latch.latchOn();
+
+                    while (slides.getEncoder() >= -3000){
+                        slides.extend();
+                    }
+                }
+            };
+            Thread slidesThread = new Thread(slidesRunnable);
+            slidesThread.start();
+
+
+        } else if (gamepad1.dpad_down) {
+
+            //retract slides
+            //rotate slides
+            //latch off
+            //extend slides
+            Runnable slidesRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    while (slides.getEncoder() <= -100){
+                        slides.retract();
+                    }
+                    //TODO: tune
+                    while (slides.getRotatorEncoder() >= 200){
+                        slides.rotateLeft();
+                    }
+
+                    latch.latchOn();
+
+                    while (slides.getEncoder() >= -300){
+                        slides.extend();
+                    }
+                }
+            };
+            Thread slidesThread = new Thread(slidesRunnable);
+            slidesThread.start();
+
+
+        }
     }
+
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
         if (Math.abs(x) <= STICK_MARGIN) x = .0f;
