@@ -29,7 +29,7 @@ public class Teleop extends OpMode {
     // in case of joystick drift, ignore very small values
     final float STICK_MARGIN = 0.7f;
 
-    public boolean clawState = false;
+    public boolean clawState = true;
     public boolean cRotatorAtDrop = false;
 
     //Prevents irreversible things such as pullup and plane launcher from running before this button is pressed
@@ -288,47 +288,28 @@ public class Teleop extends OpMode {
         if(gamepad1.dpad_right){
             latch.latchOff();
         }
-        // open/close dpad
-        //if (gamepad1.dpad_left) {
-            //telemetry.addLine("claw close");
-            //telemetry.update();  
-            //claw.close();
-        //}
-        //if (gamepad1.dpad_right) {
-            //claw.open();
-            //telemetry.addLine("claw open");
-            //telemetry.update();
-        //}
 
-        // Claw tilt left/right dpad
-        //if (gamepad1.dpad_up) {
-            //telemetry.addLine("claw tilt forward");
-            //telemetry.update();
-            //telemetry.addLine(claw.toString());
-            //claw.tiltForward();
-        //}
-        //if (gamepad1.dpad_down) {
-            //telemetry.addLine("claw titl backwards");
-            //telemetry.update();
-            //claw.tiltBack();
-        //}
+
 
         //  ROTATING SLIDES
         if (gamepad1.right_trigger > 0.5) {
-            // going up
-            // LATCH ON
-
-//            telemetry.addLine("slides rotate right");
-//            telemetry.update();
             slides.rotateRight();
+            telemetry.addLine("rotator going up");
+            telemetry.update();
         } else if (gamepad1.left_trigger > 0.5){
-            // going down
-            // LATCH OFF
-//            telemetry.addLine("slides rotate left");
-//            telemetry.update();
             slides.rotateLeft();
+            telemetry.addLine("rotator going down");
+            telemetry.update();
         } else {
-            slides.stopRotator();
+            if (slides.getRotatorEncoder() >= 400){
+                slides.keepUp();
+                telemetry.addLine("kept up");
+                telemetry.update();
+            } else {
+                slides.stopRotator();
+            }
+
+
         }
 
         /* previous code
@@ -349,9 +330,9 @@ public class Teleop extends OpMode {
 
         // improved code by yours truly:
         if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
-            if (!clawState) { claw.open();  clawState = true; }
-            else            { claw.close(); clawState = false; }
-            clawButton = ButtonPressState.PRESSED_GOOD;
+            if (!clawState) { claw.open();  clawState = true; clawButton = ButtonPressState.PRESSED_GOOD;}
+            else            { claw.close(); clawState = false; clawButton = ButtonPressState.PRESSED_GOOD;}
+
         } else if (!gamepad1.y && (clawButton == ButtonPressState.PRESSED_GOOD)) {
             clawButton = ButtonPressState.UNPRESSED;
         }

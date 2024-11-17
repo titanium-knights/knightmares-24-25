@@ -208,15 +208,22 @@ public class Slides {
     }
 
     // ROTATOR (rotater? rotator.) MANUAL
-
+    public void keepUp() {
+        slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rot = getRotatorEncoder();
+        telemetry.addLine("AWAIUWNAIFNEIONFUEWHGUEWHGUEWGHPOU");
+        setRotPower(1);
+    }
     public void rotateRight(){ //slide rotates outwards (up)
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
         telemetry.addLine(String.valueOf(rot));
 
+
+
         //id
         if (rotState == 1 && rot >= 200){
-            setRotPower(5);
+            setRotPower(3);
             rot = getRotatorEncoder();
             return;
         }
@@ -242,7 +249,7 @@ public class Slides {
             return;
         }
         rotState = 2;
-        setRotPower(-9);
+        setRotPower(-10);
     }
 
     public int getEncoder() {
