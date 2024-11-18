@@ -22,7 +22,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             this.telemetry = telemetry;
         }
         public static double dropPos = 0.8f;
-        public static double pickPos = 0.62f;
+        public static double pickPos = 0.59f;
 
         public static Telemetry telemetry;
 
