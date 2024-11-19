@@ -171,7 +171,7 @@ public class Slides {
             return;
         }
         state = 1;
-        setPower(-5);
+        setPower(-7);
     }
 
 
@@ -222,14 +222,14 @@ public class Slides {
 
 
         //id
-        if (rotState == 1 && rot >= 200){
-            setRotPower(3);
-            rot = getRotatorEncoder();
-            return;
-        }
-        if (rotState == 1){
-            return;
-        }
+//        if (rotState == 1 && rot >= 200){
+//            setRotPower(3);
+//            rot = getRotatorEncoder();
+//            return;
+//        }
+//        if (rotState == 1){
+//            return;
+//        }
         rotState = 1;
         setRotPower(10);
     }

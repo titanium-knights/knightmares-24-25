@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 //import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
+import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Latch;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
@@ -16,7 +17,7 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 @TeleOp(name="DriveTrain Teleop")
 public class Teleop extends OpMode {
     Slides slides;
-    // PullUp pullup;
+    PullUp pullup;
     Claw claw;
     Latch latch;
     ClawRotator clawRotator;
@@ -79,7 +80,7 @@ public class Teleop extends OpMode {
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
         this.slides = new Slides(hardwareMap, telemetry);
-        // this.pullup = new PullUp(hardwareMap);
+        this.pullup = new PullUp(hardwareMap);
         this.clawButton = ButtonPressState.UNPRESSED;
         this.cRotatorButton = ButtonPressState.UNPRESSED;
         this.slideButton = ButtonPressState.UNPRESSED;
@@ -259,27 +260,27 @@ public class Teleop extends OpMode {
                 telemetry.update();
         }
 
-//        switch (pullupstate) {
-//            case NEUTRAL:
-//                if (gamepad1.x && gamepad1.dpad_up) {
-//                    pullup.manualLeftUp();
-//                    pullup.manualRightUp();
-//                    pullupstate = PullUpState.REACH_UP;
-//                }
-//                break;
-//            case REACH_UP:
-//                telemetry.addData("pullup1pos", + pullup.getPosition1());
-//                telemetry.addData("pullup2pos", + pullup.getPosition2());
-//                telemetry.update();
-//                if (gamepad1.dpad_up) {
-//                    pullup.manualLeftDown();
-//                    pullup.manualRightDown();
-//                    pullupstate = PullUpState.NEUTRAL;
-//                }
-//                break;
-//            default:
-//                pullupstate = PullUpState.NEUTRAL;
-//        }
+        switch (pullupstate) {
+            case NEUTRAL:
+                if (gamepad1.x) {
+                    pullup.manualLeftUp();
+                    pullup.manualRightUp();
+                    pullupstate = PullUpState.REACH_UP;
+                }
+                break;
+            case REACH_UP:
+                telemetry.addData("pullup1pos", + pullup.getPosition1());
+                telemetry.addData("pullup2pos", + pullup.getPosition2());
+                telemetry.update();
+                if (gamepad1.x) {
+                    pullup.manualLeftDown();
+                    pullup.manualRightDown();
+                    pullupstate = PullUpState.NEUTRAL;
+                }
+                break;
+            default:
+                pullupstate = PullUpState.NEUTRAL;
+        }
 
         if(gamepad1.dpad_left){
             latch.latchOn();
