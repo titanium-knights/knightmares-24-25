@@ -134,67 +134,6 @@ public class Teleop extends OpMode {
         float turn = gamepad1.right_stick_x;
         move(x, -y, turn);
 
-//        switch (bayState) {
-//            case OPENED:
-//                if (Math.abs(bay.getPosition() - Bay.openPosLeft) < 0.05 && baybutton==ButtonPressState.PRESSED_GOOD) {
-//                    bay.close();
-//                    bayState = BayState.CLOSED;
-//                    telemetry.addLine("bayState" + bayState);
-//                    telemetry.update();
-//                    telemetry.addLine("pos " + pos);
-//                    telemetry.update();
-//                }
-//                telemetry.addLine("OPENED");
-//                telemetry.update();
-//                break;
-//
-//            case CLOSED:
-//                if (Math.abs(bay.getPosition() - Bay.closedPosLeft) < 0.05 && baybutton==ButtonPressState.PRESSED_GOOD) {
-//                    bay.open();
-//                    bayState = BayState.OPENED;
-//                    telemetry.addLine("bayState" + bayState);
-//                    telemetry.update();
-//                    telemetry.addLine("pos " + pos);
-//                    telemetry.update();
-//                }
-//
-//                double position = Math.abs(bay.getPosition() - 0);
-//                telemetry.addLine("position " + position);
-//                telemetry.addLine("pressed? " + baybutton.toString());
-//                telemetry.update();
-//                break;
-//            default:
-//                bayState = BayState.CLOSED;
-//                telemetry.addLine("bayState" + bayState);
-//                telemetry.update();
-//        }
-
-        // SLIDES & INTAKE
-//        switch (rotatorState) {
-//            case SLIDE_DOWN:
-//                if (Math.abs(slides.getRotatorEncoder() - 0) < 10) {
-//                    if (rotatorButton == ButtonPressState.PRESSED_GOOD) {
-//                        rotatorState = RotatorState.SLIDE_UP;
-//                        telemetry.addData("rot", slides.getRotatorEncoder());
-//                        telemetry.update();
-//                        slides.up();
-//                    }
-//                }
-//            case SLIDE_UP:
-//                if (Math.abs(slides.getRotatorEncoder() - 30) < 10) {
-//                    if (rotatorButton == ButtonPressState.PRESSED_GOOD) {
-//                        rotatorState = RotatorState.SLIDE_DOWN;
-//                        telemetry.addData("rot", slides.getRotatorEncoder());
-//                        telemetry.update();
-//                        slides.down();
-//                    }
-//                }
-//            default:
-//                rotatorState = RotatorState.SLIDE_DOWN;
-//                telemetry.addLine("default");
-//                telemetry.update();
-//        }
-
         switch (slideState) {
             case SLIDE_BOTTOM:
                 if (Math.abs(slides.getEncoder() - 30) < 10) { // drop height
