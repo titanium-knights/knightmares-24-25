@@ -1,26 +1,27 @@
-package org.firstinspires.ftc.teamcode.utilities;
+package org.firstinspires.ftc.teamcode.utilities
 
-import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.config.Config
 
 @Config
-public class CONFIG {
+object CONFIG {
     //drivetrain wheels
-    public static String FRONT_LEFT = "fl"; //ch 0
-    public static String FRONT_RIGHT = "fr"; //ch 2
-    public static String BACK_LEFT = "bl"; //ch 3
-    public static String BACK_RIGHT = "br"; //ch 1
+    var FRONT_LEFT: String = "fl" //ch 0
+    var FRONT_RIGHT: String = "fr" //ch 2
+    var BACK_LEFT: String = "bl" //ch 3
+    var BACK_RIGHT: String = "br" //ch 1
 
     //slide motor
-    public static String slide = "slides";
-    public static String slideRot = "slidesRot";
+    var slide: String = "slides"
+    var slideRot: String = "slidesRot"
 
-    public static String pullUpMotor1 = "pl1";
-    public static String pullUpMotor2 = "pl2";
+    var pullUpMotor1: String = "pl1"
+    var pullUpMotor2: String = "pl2"
 
     //claw servo
     // public static String clawMotor = "cm";
-    public static String claw = "claw";
+    var claw: String = "claw"
+
     //latch servo
-    public static String latch = "latch";
-    public static String clawRotator = "clawRotator";
+    var latch: String = "latch"
+    var clawRotator: String = "clawRotator"
 }

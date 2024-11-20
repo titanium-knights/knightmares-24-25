@@ -1,46 +1,42 @@
-package org.firstinspires.ftc.teamcode.utilities;
+package org.firstinspires.ftc.teamcode.utilities
 
-import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
-
-import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.Servo.Direction;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.acmerobotics.dashboard.config.Config
+import com.qualcomm.robotcore.hardware.HardwareMap
+import com.qualcomm.robotcore.hardware.Servo
+import org.firstinspires.ftc.robotcore.external.Telemetry
 
 //:)
+@Config
+class ClawRotator(hmap: HardwareMap, telemetry: Telemetry) {
+    var cRotatorServo: Servo = hmap.servo[CONFIG.clawRotator]
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-    @Config
-    public class ClawRotator {
-        Servo cRotatorServo;
-        public ClawRotator(HardwareMap hmap, Telemetry telemetry) {
-            this.cRotatorServo = hmap.servo.get(CONFIG.clawRotator);
-            cRotatorServo.setDirection(Servo.Direction.REVERSE);
-            //cRotatorServo.setPosition(pickPos);
-            this.telemetry = telemetry;
-        }
-        public static double dropPos = 0.8f;
-        public static double pickPos = 0.59f;
-
-        public static Telemetry telemetry;
-
-
-        public void toDrop() {
-            //cRotatorServo.setDirection(Servo.Direction.REVERSE);
-            telemetry.addLine("claw to drop");
-            cRotatorServo.setPosition(dropPos);
-            telemetry.addLine(Double.toString(cRotatorServo.getPosition()));
-        }
-        public void toPick() {
-            //cRotatorServo.setDirection(Servo.Direction.REVERSE);
-            telemetry.addLine("claw to pick");
-            cRotatorServo.setPosition(pickPos);
-            telemetry.addLine(Double.toString(cRotatorServo.getPosition()));
-        }
-        public double getPosition() {
-            return (cRotatorServo.getPosition());
-        }
-
+    init {
+        cRotatorServo.direction = Servo.Direction.REVERSE
+        //cRotatorServo.setPosition(pickPos);
+        Companion.telemetry = telemetry
     }
+
+    fun toDrop() {
+        //cRotatorServo.setDirection(Servo.Direction.REVERSE);
+        telemetry.addLine("claw to drop")
+        cRotatorServo.position = dropPos
+        telemetry.addLine(cRotatorServo.position.toString())
+    }
+
+    fun toPick() {
+        //cRotatorServo.setDirection(Servo.Direction.REVERSE);
+        telemetry.addLine("claw to pick")
+        cRotatorServo.position = pickPos
+        telemetry.addLine(cRotatorServo.position.toString())
+    }
+
+    val position: Double
+        get() = (cRotatorServo.position)
+
+    companion object {
+        var dropPos: Double = 0.8
+        var pickPos: Double = 0.59
+
+        var telemetry: Telemetry
+    }
+}

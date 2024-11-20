@@ -1,32 +1,32 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.auton
+
+import com.acmerobotics.dashboard.config.Config
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous
+import com.qualcomm.robotcore.util.ElapsedTime
+
 //this is TIME BASED
 // TODO CHANGE NUMBERS AFTER
-import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-
-@Autonomous(name="nearBasket", group="Linear OpMode")
+@Autonomous(name = "nearBasket", group = "Linear OpMode")
 @Config
-public class auton_nearBasket extends AutonMethods {
-
-
-@Override
-    public void runOpMode() throws InterruptedException {
-        super.runOpMode();
-        telemetry.addData("Initialized:", "Hopefully");
-        telemetry.update();
+class auton_nearBasket : AutonMethods() {
+    @Throws(InterruptedException::class)
+    override fun runOpMode() {
+        super.runOpMode()
+        telemetry.addData("Initialized:", "Hopefully")
+        telemetry.update()
         //start timer
-        ElapsedTime runtime = new ElapsedTime();
-        waitForStart();
-        runtime.reset();
+        val runtime = ElapsedTime()
+        waitForStart()
+        runtime.reset()
 
         // move forward 1 block
         // clawOpen();
-        forwardOne();
-        stopDrive();
+        forwardOne()
+        stopDrive()
         //move left 0.2 block
-        leftOneHalf();
+        leftOneHalf()
+
+
         //move forward 0.3 block
         //forwardHalf();
         //pick up sample
@@ -46,18 +46,18 @@ public class auton_nearBasket extends AutonMethods {
         //move forward 1.2 block
         //forwardOneeee();
         //pick up sample
-       // clawOpen();
+        // clawOpen();
         //clawClose();
         //move reverse 1.2 block
-       // backOneee();
+        // backOneee();
         //place sample in basket
         //slidesRotateUp();
-       // slidesExtend();
-       // clawDrop();
+        // slidesExtend();
+        // clawDrop();
         //clawOpen();
-       // clawClose();
-       // clawPick();
-       // slidesRetract();
+        // clawClose();
+        // clawPick();
+        // slidesRetract();
         //move left 0.2 block
         //leftOneHalf();
         //move forward 1.2 block
@@ -68,25 +68,22 @@ public class auton_nearBasket extends AutonMethods {
         //move reverse 1.2 block
         //backOneee();
         //move right 0.2 block
-       // rightOneHalf();
+        // rightOneHalf();
         //place block in basket
-       // slidesRotateUp();
-       // slidesExtend();
-       // clawDrop();
+        // slidesRotateUp();
+        // slidesExtend();
+        // clawDrop();
         //clawOpen();
         //clawClose();
-       // clawPick();
-       // slidesRetract();
-       // move right 5 block
-       // rightFive();
+        // clawPick();
+        // slidesRetract();
+        // move right 5 block
+        // rightFive();
         //reverse 0.2 block
-       // backOneHalf();
+        // backOneHalf();
         //park robot back to starting point
-       // stopDrive();
-
-
-
-        telemetry.addLine("Run time:" +  runtime.toString());
-        telemetry.update();
+        // stopDrive();
+        telemetry.addLine("Run time:$runtime")
+        telemetry.update()
     }
 }

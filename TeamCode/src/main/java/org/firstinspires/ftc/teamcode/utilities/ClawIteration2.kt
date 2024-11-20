@@ -1,82 +1,74 @@
-package org.firstinspires.ftc.teamcode.utilities;
+package org.firstinspires.ftc.teamcode.utilities
 
-import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
+import com.qualcomm.robotcore.hardware.DcMotor
+import com.qualcomm.robotcore.hardware.DcMotor.RunMode
+import com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior
+import com.qualcomm.robotcore.hardware.HardwareMap
+import org.firstinspires.ftc.robotcore.external.Telemetry
 
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-
-public class ClawIteration2 {
-
-    int pos;
+class ClawIteration2(hmap: HardwareMap, telemetry: Telemetry?) {
+    var pos: Int = 0
 
 
+    var clawRotator: DcMotor? = null
 
-    public static DcMotor clawMotor;
+    init {
+        clawMotor = hmap.dcMotor[CONFIG.claw]
 
-    public ClawIteration2(HardwareMap hmap, Telemetry telemetry) {
-        this.clawMotor = hmap.dcMotor.get(CONFIG.claw);
-
-        clawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        clawMotor.setZeroPowerBehavior(BRAKE);
-
+        clawMotor.mode = RunMode.STOP_AND_RESET_ENCODER
+        clawMotor.mode = RunMode.RUN_WITHOUT_ENCODER
+        clawMotor.zeroPowerBehavior = ZeroPowerBehavior.BRAKE
     }
 
-    DcMotor clawRotator;
+    val encoder: Int
+        get() = -clawMotor.currentPosition
 
-    public int getEncoder() {
-        return -clawMotor.getCurrentPosition();
+    val mode: RunMode
+        get() = clawMotor.mode
+
+    fun stop() {
+        clawMotor.mode = RunMode.RUN_WITHOUT_ENCODER
+        setPower(0.0)
+
+        pos = encoder
     }
 
-    public DcMotor.RunMode getMode() {
-        return clawMotor.getMode();
+    val isBusy: Boolean
+        get() = clawMotor.isBusy
+
+    fun setTarget(target: Int) {
+        clawMotor.targetPosition = -target
     }
 
-    public static void setPower(double power) {
-        clawMotor.setPower(-0.95 * power);
-    }
+    fun reset() {
+        clawMotor.mode = RunMode.STOP_AND_RESET_ENCODER
 
-    public void stop() {
-        clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        setPower(0);
-
-        pos = getEncoder();
+        pos = 0
 
 
-    }
-    public boolean isBusy() {
-        return clawMotor.isBusy();
-    }
-
-    public void setTarget(int target){
-        clawMotor.setTargetPosition(-target);
-    }
-
-    public void reset(){
-        clawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        pos = 0;
-
-
-        clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        clawMotor.mode = RunMode.RUN_WITHOUT_ENCODER
     }
 
 
-  public void inside(){
-    clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    setPower(1);
+    fun inside() {
+        clawMotor.mode = RunMode.RUN_WITHOUT_ENCODER
+        setPower(1.0)
     }
 
-    public void outside(){
-        clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        setPower(-1);
+    fun outside() {
+        clawMotor.mode = RunMode.RUN_WITHOUT_ENCODER
+        setPower(-1.0)
 
         //rn crying over loosing two code
     }
 
+    companion object {
+        var clawMotor: DcMotor
+
+        fun setPower(power: Double) {
+            clawMotor.power = -0.95 * power
+        }
+    }
 }
 
 

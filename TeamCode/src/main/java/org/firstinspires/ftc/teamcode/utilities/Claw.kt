@@ -1,47 +1,35 @@
-package org.firstinspires.ftc.teamcode.utilities;
+package org.firstinspires.ftc.teamcode.utilities
 
-import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
-
-import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.acmerobotics.dashboard.config.Config
+import com.qualcomm.robotcore.hardware.HardwareMap
+import com.qualcomm.robotcore.hardware.Servo
+import org.firstinspires.ftc.robotcore.external.Telemetry
 
 //:)
+@Config
+class Claw(hmap: HardwareMap, var telemetry: Telemetry) {
+    var clawServo: Servo = hmap.servo[CONFIG.claw]
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-
-
-    @Config
-    public class Claw {
-
-        Servo clawServo;
-
-        // TODO: TUNE VALUES !!
-
-        public Claw(HardwareMap hmap, Telemetry telemetry) {
-            this.clawServo = hmap.servo.get(CONFIG.claw);
-            this.telemetry = telemetry;
-            this.clawServo.setDirection(Servo.Direction.FORWARD);
-        }
-
-        public static double closedPos = 0.3f;
-        public static double openPos = 0.5f;
-
-
-        public Telemetry telemetry;
-
-        public void open() {
-            telemetry.addLine("open claw");
-            clawServo.setPosition(openPos);
-        }
-        public void close() {
-            telemetry.addLine("close claw");
-            clawServo.setPosition(closedPos);
-        }
-
-        public double getPosition() {
-            return (clawServo.getPosition());
-        }
+    // TODO: TUNE VALUES !!
+    init {
+        clawServo.direction = Servo.Direction.FORWARD
     }
+
+    fun open() {
+        telemetry.addLine("open claw")
+        clawServo.position = openPos
+    }
+
+    fun close() {
+        telemetry.addLine("close claw")
+        clawServo.position = closedPos
+    }
+
+    val position: Double
+        get() = (clawServo.position)
+
+    companion object {
+        var closedPos: Double = 0.3
+        var openPos: Double = 0.5
+    }
+}
