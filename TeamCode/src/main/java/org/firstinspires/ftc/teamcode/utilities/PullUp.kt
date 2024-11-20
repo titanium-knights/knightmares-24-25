@@ -15,6 +15,14 @@ class PullUp(hmap: HardwareMap) {
         setInit()
     }
 
+    fun getPosition1(): Int {
+        return pullUpMotor1.currentPosition
+    }
+
+    fun getPosition2(): Int {
+        return pullUpMotor2.currentPosition
+    }
+
     fun setInit() {
         // makes it so the motor is not loose when power is 0
         pullUpMotor2.mode = RunMode.STOP_AND_RESET_ENCODER

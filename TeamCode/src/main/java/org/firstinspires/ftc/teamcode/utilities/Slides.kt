@@ -36,6 +36,32 @@ class Slides(hmap: HardwareMap, var telemetry: Telemetry) {
     var uprot: Int = 100 // 3481 proviously 25
     var downrot: Int = 100 // 3481 proviously 25
 
+    fun getEncoder(): Int {
+        return -slideMotor.currentPosition
+    }
+
+    fun getRotatorEncoder(): Int {
+        return -slideRotator.currentPosition
+    }
+
+    //slide rotator code from now on
+    fun getPosition1(): Int {
+        return slideRotator.currentPosition
+    }
+
+    //getting target (idk what that is)
+    fun getTarget(): Int {
+        return slideMotor.targetPosition
+    }
+
+    fun getRotTarget(): Int {
+        return slideRotator.targetPosition
+    }
+
+    //get runmode?
+    fun getMode(): RunMode {
+        return slideMotor.mode
+    }
     //assign motors to slide motors and slide rotator motors
     var slideMotor: DcMotor = hmap.dcMotor[CONFIG.slide]
     var slideRotator: DcMotor = hmap.dcMotor[CONFIG.slideRot]
@@ -143,8 +169,8 @@ class Slides(hmap: HardwareMap, var telemetry: Telemetry) {
 
     // SLIDES MANUAL
     fun extend() {
-        Companion.telemetry.addLine("extending")
-        Companion.telemetry.addLine(pos.toString())
+        telemetry.addLine("extending")
+        telemetry.addLine(pos.toString())
 
         slideMotor.mode = RunMode.RUN_WITHOUT_ENCODER
         pos = encoder
@@ -167,10 +193,10 @@ class Slides(hmap: HardwareMap, var telemetry: Telemetry) {
 
 
     fun retract() {
-        Companion.telemetry.addLine("retracting")
+        telemetry.addLine("retracting")
         slideMotor.mode = RunMode.RUN_WITHOUT_ENCODER
         pos = encoder
-        Companion.telemetry.addLine(pos.toString())
+        telemetry.addLine(pos.toString())
 
         //        if (pos < -0.2){
 //            setPower(0);
@@ -201,14 +227,14 @@ class Slides(hmap: HardwareMap, var telemetry: Telemetry) {
     fun keepUp() {
         slideRotator.mode = RunMode.RUN_WITHOUT_ENCODER
         rot = rotatorEncoder
-        Companion.telemetry.addLine("AWAIUWNAIFNEIONFUEWHGUEWHGUEWGHPOU")
+        telemetry.addLine("AWAIUWNAIFNEIONFUEWHGUEWHGUEWGHPOU")
         setRotPower(1.0)
     }
 
     fun rotateRight() { //slide rotates outwards (up)
         slideRotator.mode = RunMode.RUN_WITHOUT_ENCODER
         rot = rotatorEncoder
-        Companion.telemetry.addLine(rot.toString())
+        telemetry.addLine(rot.toString())
 
 
         //id
@@ -228,7 +254,7 @@ class Slides(hmap: HardwareMap, var telemetry: Telemetry) {
     fun rotateLeft() { // slide rotates inwards (down)
         slideRotator.mode = RunMode.RUN_WITHOUT_ENCODER
         rot = rotatorEncoder
-        Companion.telemetry.addLine(rot.toString())
+        telemetry.addLine(rot.toString())
 
         if (rotState == 2 && rot <= 200) {
             setRotPower(-4.0)
@@ -272,8 +298,5 @@ class Slides(hmap: HardwareMap, var telemetry: Telemetry) {
 
     fun setRotPower(power: Double) {
         slideRotator.power = -0.10 * power // constant removed
-    }
-
-    companion object {
     }
 }

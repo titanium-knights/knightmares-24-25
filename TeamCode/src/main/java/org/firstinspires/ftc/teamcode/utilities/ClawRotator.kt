@@ -7,13 +7,17 @@ import org.firstinspires.ftc.robotcore.external.Telemetry
 
 //:)
 @Config
-class ClawRotator(hmap: HardwareMap, telemetry: Telemetry) {
+class ClawRotator(hmap: HardwareMap, var telemetry: Telemetry) {
+
+    var dropPos: Double = 0.8
+    var pickPos: Double = 0.59
+
     var cRotatorServo: Servo = hmap.servo[CONFIG.clawRotator]
 
     init {
         cRotatorServo.direction = Servo.Direction.REVERSE
         //cRotatorServo.setPosition(pickPos);
-        Companion.telemetry = telemetry
+        telemetry = telemetry
     }
 
     fun toDrop() {
@@ -32,11 +36,5 @@ class ClawRotator(hmap: HardwareMap, telemetry: Telemetry) {
 
     val position: Double
         get() = (cRotatorServo.position)
-
-    companion object {
-        var dropPos: Double = 0.8
-        var pickPos: Double = 0.59
-
-        var telemetry: Telemetry
-    }
+    
 }

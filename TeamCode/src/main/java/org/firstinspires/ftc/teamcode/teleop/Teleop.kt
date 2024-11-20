@@ -135,10 +135,10 @@ class Teleop : OpMode() {
         move(x, -y, turn)
 
         when (slideState) {
-            SlideState.SLIDE_BOTTOM -> if (abs((slides.getEncoder() - 30).toDouble()) < 10) { // drop height
+            SlideState.SLIDE_BOTTOM -> if (abs((slides!!.getEncoder() - 30).toDouble()) < 10) { // drop height
                 if (slideButton == ButtonPressState.PRESSED_GOOD) {
                     slideState = SlideState.SLIDE_HIGH
-                    telemetry.addData("pos", slides.getEncoder())
+                    telemetry.addData("pos", slides!!.getEncoder())
                     telemetry.update()
                     // slides.high();
                 }
@@ -147,16 +147,16 @@ class Teleop : OpMode() {
             SlideState.SLIDE_LOW -> {
                 telemetry.addData(
                     "u shouldnt see this lol but encoder position",
-                    slides.getEncoder()
+                    slides!!.getEncoder()
                 )
                 telemetry.update()
             }
 
-            SlideState.SLIDE_HIGH -> if (abs((slides.getEncoder() - 30).toDouble()) < 10) { // high height 3481
+            SlideState.SLIDE_HIGH -> if (abs((slides!!.getEncoder() - 30).toDouble()) < 10) { // high height 3481
                 if (slideButton == ButtonPressState.PRESSED_GOOD) {
                     slides!!.tozero()
                     slideState = SlideState.SLIDE_BOTTOM
-                    telemetry.addData("pos", slides.getEncoder())
+                    telemetry.addData("pos", slides!!.getEncoder())
                     telemetry.update()
                 }
             }
@@ -175,8 +175,8 @@ class Teleop : OpMode() {
             }
 
             PullUpState.REACH_UP -> {
-                telemetry.addData("pullup1pos", +pullup.getPosition1())
-                telemetry.addData("pullup2pos", +pullup.getPosition2())
+                telemetry.addData("pullup1pos", pullup!!.getPosition1())
+                telemetry.addData("pullup2pos", pullup!!.getPosition2())
                 telemetry.update()
                 if (gamepad1.x) {
                     pullup!!.manualLeftDown()
@@ -206,7 +206,7 @@ class Teleop : OpMode() {
             telemetry.addLine("rotator going down")
             telemetry.update()
         } else {
-            if (slides.getRotatorEncoder() >= 400) {
+            if (slides!!.getRotatorEncoder() >= 400) {
                 slides!!.keepUp()
                 telemetry.addLine("kept up")
                 telemetry.update()
@@ -276,16 +276,16 @@ class Teleop : OpMode() {
             //extend slides
 
             val slidesRunnable = Runnable {
-                while (slides.getEncoder() <= -100) {
+                while (slides!!.getEncoder() <= -100) {
                     slides!!.retract()
                 }
                 //TODO: tune
-                while (slides.getRotatorEncoder() <= 470) {
+                while (slides!!.getRotatorEncoder() <= 470) {
                     slides!!.rotateRight()
                 }
 
                 latch!!.latchOn()
-                while (slides.getEncoder() >= -3000) {
+                while (slides!!.getEncoder() >= -3000) {
                     slides!!.extend()
                 }
             }
@@ -298,16 +298,16 @@ class Teleop : OpMode() {
             //extend slides
 
             val slidesRunnable = Runnable {
-                while (slides.getEncoder() <= -100) {
+                while (slides!!.getEncoder() <= -100) {
                     slides!!.retract()
                 }
                 //TODO: tune
-                while (slides.getRotatorEncoder() >= 200) {
+                while (slides!!.getRotatorEncoder() >= 200) {
                     slides!!.rotateLeft()
                 }
 
                 latch!!.latchOn()
-                while (slides.getEncoder() >= -300) {
+                while (slides!!.getEncoder() >= -300) {
                     slides!!.extend()
                 }
             }

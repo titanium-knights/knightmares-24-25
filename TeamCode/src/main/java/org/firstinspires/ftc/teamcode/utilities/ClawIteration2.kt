@@ -11,6 +11,11 @@ class ClawIteration2(hmap: HardwareMap, telemetry: Telemetry?) {
 
 
     var clawRotator: DcMotor? = null
+    var clawMotor: DcMotor
+
+    fun setPower(power: Double) {
+        clawMotor.power = -0.95 * power
+    }
 
     init {
         clawMotor = hmap.dcMotor[CONFIG.claw]
@@ -60,14 +65,6 @@ class ClawIteration2(hmap: HardwareMap, telemetry: Telemetry?) {
         setPower(-1.0)
 
         //rn crying over loosing two code
-    }
-
-    companion object {
-        var clawMotor: DcMotor
-
-        fun setPower(power: Double) {
-            clawMotor.power = -0.95 * power
-        }
     }
 }
 
