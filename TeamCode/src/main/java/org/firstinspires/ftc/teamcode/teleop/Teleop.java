@@ -129,9 +129,9 @@ public class Teleop extends OpMode {
         }
 
         //DRIVE
-        float x = gamepad1.left_stick_x;
-        float y = gamepad1.left_stick_y;
-        float turn = gamepad1.right_stick_x;
+        float x = gamepad2.left_stick_x;
+        float y = gamepad2.left_stick_y;
+        float turn = gamepad2.right_stick_x;
         move(x, -y, turn);
 
         switch (slideState) {
@@ -356,6 +356,7 @@ public class Teleop extends OpMode {
 
         }
     }
+
 
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
