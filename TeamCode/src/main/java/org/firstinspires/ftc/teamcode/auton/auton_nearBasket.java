@@ -21,34 +21,45 @@ public class auton_nearBasket extends AutonMethods {
         waitForStart();
         runtime.reset();
 
+        // scoring preload
+        clawClose();
+        clawClose(); // twice because nothing ever works the first time, for some reason
         moveForward(1);
-        rotateCcw(0.375);
+        rotateCw(0.125);
+        moveBackward(0.5);
+        // slidesRotateUp();
+        clawPick();
+        // slidesExtend();
+        moveBackward(0.2);
+        clawDrop();
+        clawOpen();
+        moveForward(0.2);
+        clawPick();
+        // slidesRetract();
+        // slidesRotateDown();
         moveForward(0.5);
-        slidesRotateUp();
+        rotateCcw(0.125);
+
+        // *** past here i didnt tune but it should be close
+        moveBackward(0.4);
+        moveLeft(0.8);
+        moveForward(0.2);
+        clawClose();
+        rotateCw(0.125);
+        moveBackward(0.5);
+        // slidesRotateUp();
+        clawPick();
+        // slidesExtend();
+        moveBackward(0.2);
+        clawDrop();
+        clawOpen();
+        moveForward(0.2);
+        clawPick();
+        // slidesRetract();
+        // slidesRotateDown();
 
 
         /*
-        clawOpen();
-        moveForward(1);
-        stopDrive();
-        //move left 0.2 block
-        moveLeft(1);
-        //move forward 0.3 block
-        forwardHalf();
-        //pick up sample
-        clawClose(1);
-        //move in reverse 1 block
-        moveBackward(1);
-        //move left 0.2 block
-        moveLeft(1);
-        //place sample in basket
-        slidesRotateUp();
-        slidesExtend(1);
-        clawDrop(1);
-        clawOpen();
-        clawClose(1);
-        clawPick();
-        slidesRetract();
         //move forward 1.2 block
         moveForward(1);
         //pick up sample

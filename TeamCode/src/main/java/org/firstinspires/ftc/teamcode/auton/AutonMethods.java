@@ -47,24 +47,24 @@ public abstract class AutonMethods extends LinearOpMode {
     // claw
     public void clawOpen(){
         claw.open();
-        sleep(500);
+        sleep(1000);
     }
 
-    public void clawClose(double x) {
+    public void clawClose() {
         claw.close();
-        sleep(500);
+        sleep(1000);
     }
 
     // slides
 
     public void slidesExtend(){
         slides.extend();
-        sleep(5000);
+        sleep(1000);
     }
 
     public void slidesRetract(){
         slides.retract();
-        sleep(5000);
+        sleep(500);
     }
 
     // Going forward, backward, turning, going left, going right
@@ -77,21 +77,21 @@ public abstract class AutonMethods extends LinearOpMode {
     }
 
      public void moveBackward(double x){
-         double duration = 1000 * x;
+         double duration = 900 * x;
          drivetrain.move(0, -POWER, 0);
          sleep((int)duration);
          stopDrive();
      }
 
      public void moveRight(double x){
-         double duration = 1000 * x;
+         double duration = 1500 * x;
          drivetrain.move(-POWER, 0, 0);
          sleep((int)duration);
          stopDrive();
      }
 
      public void moveLeft(double x){
-        double duration = 1000 * x;
+        double duration = 1500 * x;
         drivetrain.move(POWER, 0, 0);
         sleep((int)duration);
         stopDrive();
@@ -115,24 +115,24 @@ public abstract class AutonMethods extends LinearOpMode {
 
      public void slidesRotateUp() {
          slides.rotateRight();
-         sleep(1000);
+         sleep(100);
      }
 
      public void slidesRotateDown() {
          slides.rotateLeft();
-         sleep(3000);
+         sleep(500);
      }
 
      // claw drop/pick up
 
      public void clawDrop () {
          clawrotator.toDrop();
-         sleep(500);
+         sleep(1000);
      }
 
      public void clawPick() {
          clawrotator.toPick();
-         sleep(500);
+         sleep(1000);
      }
  }
 
