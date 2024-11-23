@@ -26,23 +26,31 @@ public class auton_nearBasket extends AutonMethods {
         clawClose(); // twice because nothing ever works the first time, for some reason
         clawPick();
         clawPick();
+        unlatch();
         moveForward(1);
-        rotateCw(0.125);
-        moveBackward(0.6);
+        rotateCw(0.15);
+        moveBackward(0.8);
         slidesRotateUp();
         // clawPick();
         slidesExtend();
         latch();
         moveBackward(0.2);
+        sleep(500);
         clawDrop();
+        clawDrop();
+        sleep(500);
         clawOpen();
+        clawOpen();
+
+        /*
+
         moveForward(0.2);
         clawPick();
         unlatch();
         slidesRetract();
         slidesRotateDown();
-        moveForward(0.6);
-        rotateCcw(0.125);
+        moveForward(0.8);
+        rotateCcw(0.15);
 
         // *** past here i didnt tune but it should be close
         moveBackward(0.4);
@@ -61,51 +69,7 @@ public class auton_nearBasket extends AutonMethods {
         clawPick();
         // slidesRetract();
         // slidesRotateDown();
-
-
-        /*
-        //move forward 1.2 block
-        moveForward(1);
-        //pick up sample
-        clawOpen();
-        clawClose(1);
-        //move reverse 1.2 block
-        moveBackward(1);
-        //place sample in basket
-        slidesRotateUp();
-        slidesExtend(1);
-        clawDrop(1);
-        clawOpen();
-        clawClose(1);
-        clawPick();
-       slidesRetract();
-        //move left 0.2 block
-        moveLeft(1);
-        //move forward 1.2 block
-        moveForward(1);
-        //pick up sample
-        clawOpen();
-        clawClose(1);
-        // move reverse 1.2 block
-        moveBackward(1);
-        //move right 0.2 block
-        moveRight(1);
-        //place block in basket
-        slidesRotateUp();
-        slidesExtend(1);
-        clawDrop(1);
-        clawOpen();
-        clawClose(1);
-        clawPick();
-        slidesRetract();
-       // move right 5 block
-        moveRight(1);
-        //reverse 0.2 block
-        moveBackward(1);
-        //park robot back to starting point
-        stopDrive();
         */
-
 
         telemetry.addLine("Run time:" +  runtime.toString());
         telemetry.update();

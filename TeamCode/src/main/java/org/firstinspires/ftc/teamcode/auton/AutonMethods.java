@@ -31,6 +31,7 @@ public abstract class AutonMethods extends LinearOpMode {
         clawrotator = new ClawRotator(hardwareMap, telemetry);
         slides = new Slides(hardwareMap, telemetry);
         claw = new Claw(hardwareMap, telemetry);
+        latch = new Latch(hardwareMap, telemetry);
 
         telemetry.addData("Status", "Initialization Complete");
         telemetry.update();
@@ -126,7 +127,7 @@ public abstract class AutonMethods extends LinearOpMode {
 
      public void slidesRotateUp() {
          slides.rotateRight();
-         sleep(500);
+         sleep(800);
          slides.stopRotator();
 //         Runnable slidesRunnable = new Runnable() {
 //             @Override
