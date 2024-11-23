@@ -28,7 +28,7 @@ public class Teleop extends OpMode {
     final double normalPower = 1;
 
     // in case of joystick drift, ignore very small values
-    final float STICK_MARGIN = 0.7f;
+    public float stick_margin = 0.7f;
 
     public boolean clawState = true;
     public boolean cRotatorAtDrop = false;
@@ -113,8 +113,15 @@ public class Teleop extends OpMode {
         float y = gamepad2.left_stick_y;
         float turn = gamepad2.right_stick_x;
         if (slowMode) {
-            move((float)0.5 * x,(float)0.5 * -y, turn);
-        } else move(x, -y, turn);
+            telemetry.addLine("slowmode");
+            float slowx = (float)0.4*x;
+            float slowy = (float)0.4*y;
+            stick_margin = 0.3f;
+            move(slowx, -slowy, turn);
+        } else {
+            stick_margin = 0.7f;
+            move(x, -y, turn);
+        }
 
         switch (slideState) {
             case SLIDE_BOTTOM:
@@ -256,9 +263,9 @@ public class Teleop extends OpMode {
 
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
-        if (Math.abs(x) <= STICK_MARGIN) x = .0f;
-        if (Math.abs(y) <= STICK_MARGIN) y = .0f;
-        if (Math.abs(turn) <= STICK_MARGIN) turn = .0f;
+        if (Math.abs(x) <= stick_margin) x = .0f;
+        if (Math.abs(y) <= stick_margin) y = .0f;
+        if (Math.abs(turn) <= stick_margin) turn = .0f;
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;

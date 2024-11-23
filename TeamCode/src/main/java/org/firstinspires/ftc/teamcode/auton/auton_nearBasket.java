@@ -22,10 +22,12 @@ public class auton_nearBasket extends AutonMethods {
         runtime.reset();
 
         moveForward(1);
+        rotateCcw(0.375);
+        moveForward(0.5);
+        slidesRotateUp();
 
 
         /*
-        // move forward 1 block
         clawOpen();
         moveForward(1);
         stopDrive();

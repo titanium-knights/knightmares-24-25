@@ -28,31 +28,15 @@ public abstract class AutonMethods extends LinearOpMode {
 
         // Initialize components and check for null references
         drivetrain = new SimpleMecanumDrive(hardwareMap);
-        if (drivetrain == null) {
-            telemetry.addData("Error", "drivetrain failed to initialize!");
-        } else {
-            telemetry.addData("SimpleMecanumDrive", "Initialized successfully");
-        }
-
         clawrotator = new ClawRotator(hardwareMap, telemetry);
-        if (clawrotator == null) {
-            telemetry.addData("Error", "ClawRotator failed to initialize!");
-        } else {
-            telemetry.addData("ClawRotator", "Initialized successfully");
-        }
-
         slides = new Slides(hardwareMap, telemetry);
-        if (slides == null) {
-            telemetry.addData("Error", "Slides failed to initialize!");
-        } else {
-            telemetry.addData("Slides", "Initialized successfully");
-        }
+        claw = new Claw(hardwareMap, telemetry);
 
         telemetry.addData("Status", "Initialization Complete");
         telemetry.update();
         waitForStart();
     }
-    public final double POWER = 2;
+    public final double POWER = 0.5;
 
     public void stopDrive() {
         drivetrain.move(0, 0, 0);
@@ -63,12 +47,12 @@ public abstract class AutonMethods extends LinearOpMode {
     // claw
     public void clawOpen(){
         claw.open();
-        sleep(5000);
+        sleep(500);
     }
 
     public void clawClose(double x) {
         claw.close();
-        sleep(5000);
+        sleep(500);
     }
 
     // slides
@@ -86,7 +70,7 @@ public abstract class AutonMethods extends LinearOpMode {
     // Going forward, backward, turning, going left, going right
 
     public void moveForward(double x){
-        double duration = 1000 * x;
+        double duration = 900 * x;
         drivetrain.move(0, POWER, 0);
         sleep((int)duration);
         stopDrive();
@@ -113,28 +97,42 @@ public abstract class AutonMethods extends LinearOpMode {
         stopDrive();
      }
 
+     public void rotateCw(double x){
+        double duration = 3250 * x;
+        drivetrain.move(0, 0, POWER);
+        sleep((int)duration);
+        stopDrive();
+     }
+
+     public void rotateCcw(double x){
+        double duration = 3250 * x;
+        drivetrain.move(0, 0, -POWER);
+        sleep((int)duration);
+        stopDrive();
+     }
+
      // slides rotate
 
      public void slidesRotateUp() {
          slides.rotateRight();
-         sleep(5000);
+         sleep(1000);
      }
 
      public void slidesRotateDown() {
          slides.rotateLeft();
-         sleep(5000);
+         sleep(3000);
      }
 
      // claw drop/pick up
 
      public void clawDrop () {
          clawrotator.toDrop();
-         sleep(1000);
+         sleep(500);
      }
 
      public void clawPick() {
          clawrotator.toPick();
-         sleep(5000);
+         sleep(500);
      }
  }
 
