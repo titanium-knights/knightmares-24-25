@@ -25,7 +25,7 @@ public class Slides {
     int rotState;
 
     // limits
-    int maxheight = -3000; // 3481
+    int maxheight = -3200; // 3481
     int minheight = -100;
 
     // basket heights
