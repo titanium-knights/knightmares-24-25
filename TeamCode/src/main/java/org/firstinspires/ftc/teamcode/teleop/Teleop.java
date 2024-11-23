@@ -32,9 +32,9 @@ public class Teleop extends OpMode {
 
     public boolean clawState = true;
     public boolean cRotatorAtDrop = false;
+    public boolean shouldKeepDown = false;
 
-    //Prevents irreversible things such as pullup and plane launcher from running before this button is pressed
-    // (will add later)
+
     // boolean validate = false;
     //makes validate button have to be pressed for a while before features enabled
     // int validatecount = 0;
@@ -101,12 +101,23 @@ public class Teleop extends OpMode {
 
         if (gamepad1.left_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
             slides.retract();
+
             telemetry.addLine("retracting");
         } else if (gamepad1.right_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
             slides.extend();
         } else {
             slides.stop();
         }
+
+        //TODO run to position slide extention vs retraction
+//        if (gamepad1.left_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
+//            slides.slideMinHeight();
+//
+//            telemetry.addLine("retracting");
+//        } else if (gamepad1.right_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
+//            slides.slideMaxHeight();
+//        }
+
 
         //DRIVE
         float x = gamepad2.left_stick_x;
@@ -181,7 +192,7 @@ public class Teleop extends OpMode {
             telemetry.addLine("rotator going down");
             telemetry.update();
         } else {
-            if (slides.getRotatorEncoder() >= 400){
+            if ((slides.getRotatorEncoder() >= 400) && slides.getEncoder() <= -2200){
                 slowMode = true;
                 slides.keepUp();
                 telemetry.addLine("kept up");
