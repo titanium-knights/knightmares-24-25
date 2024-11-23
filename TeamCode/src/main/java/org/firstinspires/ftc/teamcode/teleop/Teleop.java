@@ -32,9 +32,9 @@ public class Teleop extends OpMode {
 
     public boolean clawState = true;
     public boolean cRotatorAtDrop = false;
+    public boolean shouldKeepDown = false;
 
-    //Prevents irreversible things such as pullup and plane launcher from running before this button is pressed
-    // (will add later)
+
     // boolean validate = false;
     //makes validate button have to be pressed for a while before features enabled
     // int validatecount = 0;
@@ -181,7 +181,7 @@ public class Teleop extends OpMode {
             telemetry.addLine("rotator going down");
             telemetry.update();
         } else {
-            if (slides.getRotatorEncoder() >= 400){
+            if ((slides.getRotatorEncoder() >= 400) && slides.getEncoder() <= -2200){
                 slowMode = true;
                 slides.keepUp();
                 telemetry.addLine("kept up");
