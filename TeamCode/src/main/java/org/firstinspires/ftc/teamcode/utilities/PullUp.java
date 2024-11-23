@@ -53,7 +53,6 @@ public class PullUp {
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setPower(0);
     }
-
     public void setPower(double power) {
         pullUpMotor1.setPower(power);
         pullUpMotor2.setPower(power);

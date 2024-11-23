@@ -194,7 +194,6 @@ public class Teleop extends OpMode {
 //                telemetry.addLine("default");
 //                telemetry.update();
 //        }
-
         switch (slideState) {
             case SLIDE_BOTTOM:
                 if (Math.abs(slides.getEncoder() - 30) < 10) { // drop height
@@ -260,6 +259,7 @@ public class Teleop extends OpMode {
                 telemetry.update();
         }
 
+
         switch (pullupstate) {
             case NEUTRAL:
                 if (gamepad1.x) {
@@ -273,6 +273,7 @@ public class Teleop extends OpMode {
                 telemetry.addData("pullup2pos", + pullup.getPosition2());
                 telemetry.update();
                 if (gamepad1.x) {
+                    slides.keepDown();
                     pullup.manualLeftDown();
                     pullup.manualRightDown();
                     pullupstate = PullUpState.NEUTRAL;

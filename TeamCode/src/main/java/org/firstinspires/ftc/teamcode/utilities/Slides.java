@@ -214,6 +214,12 @@ public class Slides {
         telemetry.addLine("AWAIUWNAIFNEIONFUEWHGUEWHGUEWGHPOU");
         setRotPower(1);
     }
+    public void keepDown() {
+        slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rot = getRotatorEncoder();
+        telemetry.addLine("keptr down");
+        setRotPower(-2);
+    }
     public void rotateRight(){ //slide rotates outwards (up)
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
