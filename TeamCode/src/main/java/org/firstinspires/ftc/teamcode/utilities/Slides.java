@@ -106,9 +106,26 @@ public class Slides {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
     //run to position
+
+
+    public static int slideMaxNum = -3200;
+    public static int slideMinNum = -100;
+//
+//    public void runToPosUP(){
+//        int targetPosition = slideUPNum;
+//        slideMotor.setTargetPosition(targetPosition);
+//    }
+//
+//    public void runtoPosDOWN(){
+//        int targetPosition = slideDOWNNum;
+//        slideMotor.setTargetPosition(targetPosition);
+//    }
+
+
     public void runToPosition(){
         slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         setPower(0.9);
+
     }
 
     public void runRotToPosition(){
@@ -117,7 +134,19 @@ public class Slides {
     }
 
     public void tozero() {
-        setTarget(0);
+        setTarget(slideMinNum);
+        runToPosition();
+        pos = getEncoder();
+    }
+
+    public void slideMaxHeight(){
+        setTarget(slideMaxNum);
+        runToPosition();
+        pos = getEncoder();
+    }
+
+    public void slideMinHeight(){
+        setTarget(slideMinNum);
         runToPosition();
         pos = getEncoder();
     }
@@ -174,6 +203,8 @@ public class Slides {
     }
 
 
+
+
     public void retract() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
@@ -211,6 +242,7 @@ public class Slides {
         rot = getRotatorEncoder();
         telemetry.addLine("keep up: " + String.valueOf(rot));
         setRotPower(2);
+
     }
     public void keepDown() {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

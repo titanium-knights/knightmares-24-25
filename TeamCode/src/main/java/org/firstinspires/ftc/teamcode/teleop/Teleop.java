@@ -100,10 +100,10 @@ public class Teleop extends OpMode {
         } else if (gamepad1.left_trigger<0.1f) slideButton = ButtonPressState.UNPRESSED;
 
         if (gamepad1.left_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
-            slides.retract();
+            slides.slideMinHeight();
             telemetry.addLine("retracting");
         } else if (gamepad1.right_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
-            slides.extend();
+            slides.slideMaxHeight();
         } else {
             slides.stop();
         }
