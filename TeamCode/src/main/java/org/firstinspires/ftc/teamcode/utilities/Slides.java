@@ -212,7 +212,7 @@ public class Slides {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
         telemetry.addLine("AWAIUWNAIFNEIONFUEWHGUEWHGUEWGHPOU");
-        setRotPower(1);
+        setRotPower(2);
     }
     public void rotateRight(){ //slide rotates outwards (up)
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -231,7 +231,7 @@ public class Slides {
 //            return;
 //        }
         rotState = 1;
-        setRotPower(10);
+        setRotPower(8);
     }
     //TODO: add rotator limit @ 400
 

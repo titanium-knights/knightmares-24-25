@@ -5,6 +5,7 @@ import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
 public class PullUp {
@@ -14,11 +15,17 @@ public class PullUp {
     DcMotor pullUpMotor2;
     public static double Encoder_Ticks = 537.7;
 
+    public static Telemetry telemetry;
     public static int topHeight = -100; // 24 * Encoder_Ticks
 
-    public PullUp(HardwareMap hmap) {
+    // pullup positions
+    int leftpos;
+    int rightpos;
+
+    public PullUp(HardwareMap hmap, Telemetry telemetry) {
         this.pullUpMotor1 = hmap.dcMotor.get(CONFIG.pullUpMotor1);
         this.pullUpMotor2 = hmap.dcMotor.get(CONFIG.pullUpMotor2);
+        this.telemetry = telemetry;
         setInit();
     }
 
@@ -70,18 +77,14 @@ public class PullUp {
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // run to position is always in presets or else itll be jittery
-        pullUpMotor1.setPower(0.9);
-        pullUpMotor2.setPower(0.9);
-    }
+        pullUpMotor1.setPower(-2.0);
+        pullUpMotor2.setPower(-2.0);
 
-    public void liftUp() {
-        setTargetPosition(0);
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // run to position is always in presets or else itll be jittery
-        pullUpMotor1.setPower(-0.9);
-        pullUpMotor2.setPower(-0.9);
+        telemetry.addLine("pullup going up!");
+        leftpos = getPosition1(); // i actually don't know which one is on the left lol
+        rightpos = getPosition2();
+        telemetry.addLine("left position: " + String.valueOf(leftpos));
+        telemetry.addLine("right position: " + String.valueOf(rightpos));
     }
 
     // pullUpMotor1 and 2 are reversed. If you want it to go up, power will be negative. If you want it to go down, power will be positive.

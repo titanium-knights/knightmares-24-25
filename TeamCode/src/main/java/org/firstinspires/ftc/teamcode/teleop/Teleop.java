@@ -57,7 +57,7 @@ public class Teleop extends OpMode {
         NEUTRAL,
         REACH_UP
     }
-    PullUpState pullupstate = PullUpState.REACH_UP;
+    PullUpState pullupstate = PullUpState.NEUTRAL;
 
     ElapsedTime elapsedTime;
 
@@ -75,12 +75,14 @@ public class Teleop extends OpMode {
 
     boolean started = false;
 
+    boolean slowMode = false;
+
     // boolean intakeRunning = false;
     @Override
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
         this.slides = new Slides(hardwareMap, telemetry);
-        this.pullup = new PullUp(hardwareMap);
+        this.pullup = new PullUp(hardwareMap, telemetry);
         this.clawButton = ButtonPressState.UNPRESSED;
         this.cRotatorButton = ButtonPressState.UNPRESSED;
         this.slideButton = ButtonPressState.UNPRESSED;
@@ -198,28 +200,43 @@ public class Teleop extends OpMode {
                 telemetry.addLine("default");
                 telemetry.update();
         }
-
-        switch (pullupstate) {
-            case NEUTRAL:
-                if (gamepad1.x) {
-                    pullup.manualLeftUp();
-                    pullup.manualRightUp();
-                    pullupstate = PullUpState.REACH_UP;
-                }
-                break;
-            case REACH_UP:
-                telemetry.addData("pullup1pos", + pullup.getPosition1());
-                telemetry.addData("pullup2pos", + pullup.getPosition2());
-                telemetry.update();
-                if (gamepad1.x) {
-                    pullup.manualLeftDown();
-                    pullup.manualRightDown();
-                    pullupstate = PullUpState.NEUTRAL;
-                }
-                break;
-            default:
-                pullupstate = PullUpState.NEUTRAL;
+        if(gamepad2.a){
+            pullup.manualLeftUp();
         }
+        if(gamepad2.x){
+            pullup.manualRightUp();
+        }
+        if(gamepad2.y){
+            pullup.manualRightDown();
+        }
+        if(gamepad2.b){
+            pullup.manualLeftDown();
+        }
+
+        if(gamepad1.b){
+            pullup.reachUp();
+        }
+
+//        switch (pullupstate) {
+//            case NEUTRAL:
+//                if (gamepad1.b) {
+//                    pullup.reachUp();
+//                    pullupstate = PullUpState.REACH_UP;
+//                }
+//                break;
+//            case REACH_UP:
+////                telemetry.addData("pullup1pos", + pullup.getPosition1());
+////                telemetry.addData("pullup2pos", + pullup.getPosition2());
+//                telemetry.update();
+//                if (gamepad1.b) {
+//                    pullup.manualLeftDown();
+//                    pullup.manualRightDown();
+//                    pullupstate = PullUpState.NEUTRAL;
+//                }
+//                break;
+//            default:
+//                pullupstate = PullUpState.NEUTRAL;
+//        }
 
         if(gamepad1.dpad_left){
             latch.latchOn();
@@ -242,11 +259,13 @@ public class Teleop extends OpMode {
             telemetry.update();
         } else {
             if (slides.getRotatorEncoder() >= 400){
+                slowMode = true;
                 slides.keepUp();
                 telemetry.addLine("kept up");
                 telemetry.update();
             } else {
                 slides.stopRotator();
+                slowMode = false;
             }
 
 
