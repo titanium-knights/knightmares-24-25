@@ -22,67 +22,67 @@ public class auton_nearBasket extends AutonMethods {
         runtime.reset();
 
         // move forward 1 block
-        // clawOpen();
-        forwardOne();
+        clawOpen(1);
+        forwardTiles(1);
         stopDrive();
         //move left 0.2 block
-        leftOneHalf();
+        leftTiles(1);
         //move forward 0.3 block
-        //forwardHalf();
+        forwardHalf();
         //pick up sample
-        //clawClose();
+        clawClose(1);
         //move in reverse 1 block
-        //backOneee();
+        backTiles(1);
         //move left 0.2 block
-        //leftOneHalf();
+        leftTiles(1);
         //place sample in basket
-        //slidesRotateUp();
-        //slidesExtend();
-        //clawDrop();
-        //clawOpen();
-        //clawClose();
-        //clawPick();
-        //slidesRetract();
+        slidesRotateUp();
+        slidesExtend(1);
+        clawDrop(1);
+        clawOpen(1);
+        clawClose(1);
+        clawPick();
+        slidesRetract();
         //move forward 1.2 block
-        //forwardOneeee();
+        forwardTiles(1);
         //pick up sample
-       // clawOpen();
-        //clawClose();
+        clawOpen(1);
+        clawClose(1);
         //move reverse 1.2 block
-       // backOneee();
+        backTiles(1);
         //place sample in basket
-        //slidesRotateUp();
-       // slidesExtend();
-       // clawDrop();
-        //clawOpen();
-       // clawClose();
-       // clawPick();
-       // slidesRetract();
+        slidesRotateUp();
+        slidesExtend(1);
+        clawDrop(1);
+        clawOpen(1);
+        clawClose(1);
+        clawPick();
+       slidesRetract();
         //move left 0.2 block
-        //leftOneHalf();
+        leftTiles(1);
         //move forward 1.2 block
-        //forwardOneeee();
+        forwardTiles(1);
         //pick up sample
-        //clawOpen();
-        //clawClose();
-        //move reverse 1.2 block
-        //backOneee();
+        clawOpen(1);
+        clawClose(1);
+        // move reverse 1.2 block
+        backTiles(1);
         //move right 0.2 block
-       // rightOneHalf();
+        rightTiles(1);
         //place block in basket
-       // slidesRotateUp();
-       // slidesExtend();
-       // clawDrop();
-        //clawOpen();
-        //clawClose();
-       // clawPick();
-       // slidesRetract();
+        slidesRotateUp();
+        slidesExtend(1);
+        clawDrop(1);
+        clawOpen(1);
+        clawClose(1);
+        clawPick();
+        slidesRetract();
        // move right 5 block
-       // rightFive();
+        rightTiles(1);
         //reverse 0.2 block
-       // backOneHalf();
+        backTiles(1);
         //park robot back to starting point
-       // stopDrive();
+        stopDrive();
 
 
 
