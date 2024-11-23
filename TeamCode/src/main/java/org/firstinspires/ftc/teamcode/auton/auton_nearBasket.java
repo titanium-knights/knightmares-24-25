@@ -24,20 +24,24 @@ public class auton_nearBasket extends AutonMethods {
         // scoring preload
         clawClose();
         clawClose(); // twice because nothing ever works the first time, for some reason
+        clawPick();
+        clawPick();
         moveForward(1);
         rotateCw(0.125);
-        moveBackward(0.5);
-        // slidesRotateUp();
-        clawPick();
-        // slidesExtend();
+        moveBackward(0.6);
+        slidesRotateUp();
+        // clawPick();
+        slidesExtend();
+        latch();
         moveBackward(0.2);
         clawDrop();
         clawOpen();
         moveForward(0.2);
         clawPick();
-        // slidesRetract();
-        // slidesRotateDown();
-        moveForward(0.5);
+        unlatch();
+        slidesRetract();
+        slidesRotateDown();
+        moveForward(0.6);
         rotateCcw(0.125);
 
         // *** past here i didnt tune but it should be close

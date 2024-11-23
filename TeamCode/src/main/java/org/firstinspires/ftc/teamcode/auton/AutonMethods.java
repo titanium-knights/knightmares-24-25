@@ -11,14 +11,14 @@ import org.firstinspires.ftc.teamcode.utilities.Slides;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-
+import org.firstinspires.ftc.teamcode.utilities.Latch;
 
 public abstract class AutonMethods extends LinearOpMode {
     public SimpleMecanumDrive drivetrain;
     public ClawRotator clawrotator;
     public Claw claw;
     public Slides slides;
+    public Latch latch;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -44,6 +44,16 @@ public abstract class AutonMethods extends LinearOpMode {
         sleep(100);
     }
 
+    // latch
+    public void latch() {
+        latch.latchOn();
+    }
+
+    public void unlatch() {
+        latch.latchOn();
+    }
+
+
     // claw
     public void clawOpen(){
         claw.open();
@@ -52,19 +62,20 @@ public abstract class AutonMethods extends LinearOpMode {
 
     public void clawClose() {
         claw.close();
-        sleep(1000);
     }
 
     // slides
 
     public void slidesExtend(){
         slides.extend();
-        sleep(1000);
+        sleep(2000);
+        slides.stop();
     }
 
     public void slidesRetract(){
         slides.retract();
-        sleep(500);
+        sleep(2000);
+        slides.stop();
     }
 
     // Going forward, backward, turning, going left, going right
@@ -115,24 +126,34 @@ public abstract class AutonMethods extends LinearOpMode {
 
      public void slidesRotateUp() {
          slides.rotateRight();
-         sleep(100);
+         sleep(500);
+         slides.stopRotator();
+//         Runnable slidesRunnable = new Runnable() {
+//             @Override
+//             public void run() {
+//                 sleep(10);
+//                 slides.stopRotator();
+//             }
+//         };
+//         Thread newThread = new Thread(slidesRunnable);
+//         newThread.start();
+
      }
 
      public void slidesRotateDown() {
          slides.rotateLeft();
-         sleep(500);
+         sleep(1000);
+         slides.stopRotator();
      }
 
      // claw drop/pick up
 
      public void clawDrop () {
          clawrotator.toDrop();
-         sleep(1000);
      }
 
      public void clawPick() {
          clawrotator.toPick();
-         sleep(1000);
      }
  }
 
