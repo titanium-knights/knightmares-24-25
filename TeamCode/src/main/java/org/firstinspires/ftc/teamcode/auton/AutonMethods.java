@@ -45,6 +45,14 @@ public abstract class AutonMethods extends LinearOpMode {
         sleep(100);
     }
 
+    public void keepup() {
+        slides.keepUp();
+    }
+
+    public void stopSlidesRot() {
+        slides.stopRotator();
+    }
+
     // latch
     public void latch() {
         latch.latchOn();
@@ -75,7 +83,7 @@ public abstract class AutonMethods extends LinearOpMode {
 
     public void slidesRetract(){
         slides.retract();
-        sleep(2000);
+        sleep(800);
         slides.stop();
     }
 
@@ -127,7 +135,7 @@ public abstract class AutonMethods extends LinearOpMode {
 
      public void slidesRotateUp() {
          slides.rotateRight();
-         sleep(800);
+         sleep(1000);
          slides.stopRotator();
 //         Runnable slidesRunnable = new Runnable() {
 //             @Override

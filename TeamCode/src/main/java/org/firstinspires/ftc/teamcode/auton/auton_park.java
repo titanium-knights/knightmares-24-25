@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="redBasket", group="Linear OpMode")
+@Autonomous(name="auton_park", group="Linear OpMode")
 @Config
 public class auton_park extends AutonMethods {
 
