@@ -52,124 +52,90 @@ public abstract class AutonMethods extends LinearOpMode {
         telemetry.update();
         waitForStart();
     }
-
     public final double POWER = 2;
 
- public void clawOpen(double x){
-     double duration = 1.75 * x;
-     claw.open();
-    sleep((int)duration);
- }
+    public void stopDrive() {
+        drivetrain.move(0, 0, 0);
+        telemetry.update();
+        sleep(100);
+    }
 
-public void slidesExtend(double x){
-    double duration = 1.75 * x;
-    slides.extend();
-    telemetry.update();
-    sleep((int)duration);
-}
+    // claw
+    public void clawOpen(){
+        claw.open();
+        sleep(5000);
+    }
 
-public void slidesRetract(){
-    slides.retract();
-    telemetry.update();
-}
+    public void clawClose(double x) {
+        claw.close();
+        sleep(5000);
+    }
 
- public void clawClose(double x) {
-     double duration = x * 1.75;
-     claw.close();
-     sleep((int) duration);
-}
-     public void stopDrive() {
-         drivetrain.move(0, 0, 0);
-         telemetry.update();
-         sleep(100);
-     }
+    // slides
 
-     // Going forward, backward, turning, going left, going right
-     public void backTiles(double x){
-         double duration = 1.75 * x;
-         //goes in reverse a little more than 1, about 1.2
-         drivetrain.move(0, POWER, 0);
-         sleep(1450);
+    public void slidesExtend(){
+        slides.extend();
+        sleep(5000);
+    }
+
+    public void slidesRetract(){
+        slides.retract();
+        sleep(5000);
+    }
+
+    // Going forward, backward, turning, going left, going right
+
+    public void moveForward(double x){
+        double duration = 1000 * x;
+        drivetrain.move(0, POWER, 0);
+        sleep((int)duration);
+        stopDrive();
+    }
+
+     public void moveBackward(double x){
+         double duration = 1000 * x;
+         drivetrain.move(0, -POWER, 0);
+         sleep((int)duration);
          stopDrive();
      }
 
-     public void rightTiles( double x){
-         double duration = x * 1.75;
-
+     public void moveRight(double x){
+         double duration = 1000 * x;
          drivetrain.move(-POWER, 0, 0);
-         telemetry.update();
-         sleep((int) duration);
+         sleep((int)duration);
          stopDrive();
      }
+
+     public void moveLeft(double x){
+        double duration = 1000 * x;
+        drivetrain.move(POWER, 0, 0);
+        sleep((int)duration);
+        stopDrive();
+     }
+
+     // slides rotate
 
      public void slidesRotateUp() {
          slides.rotateRight();
-         telemetry.update();
-         sleep(1000);
+         sleep(5000);
      }
 
      public void slidesRotateDown() {
          slides.rotateLeft();
-         telemetry.update();
-         sleep(1000);
+         sleep(5000);
      }
 
-     public void forwardTiles( double x){
-         double duration = 1.75 * x;
-         if (drivetrain != null) {
-             drivetrain.move(0, POWER, 0);
-             telemetry.addData("Action", "Moving forward");
-         } else {
-             telemetry.addData("Error", "Drivetrain is not initialized in forwardOneeee!");
-         }
-         telemetry.update();
-         sleep((int) duration);
-         stopDrive();
-     }
+     // claw drop/pick up
 
-     public void clawDrop (int x) {
+     public void clawDrop () {
          clawrotator.toDrop();
-         telemetry.update();
-         sleep(x);
+         sleep(1000);
      }
 
      public void clawPick() {
          clawrotator.toPick();
-         telemetry.update();
+         sleep(5000);
      }
-
-
-     public void rightLong() {
-         // goes to the ending spot in auton
-         drivetrain.move(-POWER, 0, 0);
-         telemetry.update();
-         sleep(8000);
-         stopDrive();
-     }
-
-     public void leftTiles( double x){
-         //should be a little less than 0.5 around 0.2
-         double duration = 1.75 * x;
-         drivetrain.move(POWER, 0, 0);
-         telemetry.update();
-         sleep((int) duration);
-         stopDrive();
-     }
-     public void forwardHalf () {
-         drivetrain.move(0, -POWER, 0);
-         telemetry.update();
-         sleep(900);
-         stopDrive();
-     }
-
-     public void backOneHalf() {
-         drivetrain.move(0, POWER, 0);
-         telemetry.update();
-         sleep(450);
-         stopDrive();
-     }
-
-
  }
 
 

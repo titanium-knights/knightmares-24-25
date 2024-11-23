@@ -93,27 +93,11 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
 
-        //VALIDATE
-//        if (gamepad1.dpad_up) {++validatecount;}
-//        if (validatecount > 5) {validate = true;}
-
         if (gamepad1.left_trigger>0.1f && slideButton == ButtonPressState.UNPRESSED) {
             slideButton = ButtonPressState.PRESSED_GOOD;
         } else if (gamepad1.left_trigger>0.1f && slideButton==ButtonPressState.PRESSED_GOOD) {
             slideButton = ButtonPressState.DEPRESSED;
         } else if (gamepad1.left_trigger<0.1f) slideButton = ButtonPressState.UNPRESSED;
-
-//        if (gamepad1.right_bumper && slideManual == ButtonPressState.UNPRESSED) {
-//            slideManual = ButtonPressState.PRESSED_GOOD;
-//        } else if (gamepad1.right_bumper && slideManual==ButtonPressState.PRESSED_GOOD) {
-//            slideManual = ButtonPressState.DEPRESSED;
-//        } else if (!gamepad1.right_bumper) slideManual = ButtonPressState.UNPRESSED;
-//
-//        if (gamepad1.left_bumper && slideManualUp == ButtonPressState.UNPRESSED) {
-//            slideManualUp = ButtonPressState.PRESSED_GOOD;
-//        } else if (gamepad1.left_bumper && slideManualUp==ButtonPressState.PRESSED_GOOD) {
-//            slideManualUp = ButtonPressState.DEPRESSED;
-//        } else if (!gamepad1.left_bumper) slideManualUp = ButtonPressState.UNPRESSED;
 
         if (gamepad1.left_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
             slides.retract();
@@ -128,7 +112,9 @@ public class Teleop extends OpMode {
         float x = gamepad2.left_stick_x;
         float y = gamepad2.left_stick_y;
         float turn = gamepad2.right_stick_x;
-        move(x, -y, turn);
+        if (slowMode) {
+            move((float)0.5 * x,(float)0.5 * -y, turn);
+        } else move(x, -y, turn);
 
         switch (slideState) {
             case SLIDE_BOTTOM:
@@ -144,41 +130,7 @@ public class Teleop extends OpMode {
             case SLIDE_LOW:
                 telemetry.addData("u shouldnt see this lol but encoder position", slides.getEncoder());
                 telemetry.update();
-//                if (Math.abs(slides.getEncoder() - 10) < 10) { // lowheight, changed 1400 something to 100
-//                    if (gamepad1.left_trigger > 0.1f) {
-//                        slides.tozero();
-//                        intake.runIntake();
-//                        slideState = SlideState.SLIDE_BOTTOM;
-//                        telemetry.addData("pos", slides.getEncoder());
-//                        telemetry.update();
-//                    }
-//                    if (gamepad1.right_trigger > 0.1f) {
-//                        slides.middle();
-//                        intake.stopIntake();
-//                        slideState = SlideState.SLIDE_MEDIUM;
-//                        telemetry.addData("pos", slides.getEncoder());
-//                        telemetry.update();
-//                    }
-//                }
                 break;
-//            case SLIDE_MEDIUM:
-//                if (Math.abs(slides.getEncoder() - 20) < 10) { // mid height 2424
-//                    if (gamepad1.left_trigger > 0.1f) {
-//                        slides.tozero();
-//                        intake.runIntake();
-//                        slideState = SlideState.SLIDE_BOTTOM;
-//                        telemetry.addData("pos", slides.getEncoder());
-//                        telemetry.update();
-//                    }
-//                    if (gamepad1.right_trigger > 0.1f) {
-//                        slides.high();
-//                        intake.stopIntake();
-//                        slideState = SlideState.SLIDE_HIGH;
-//                        telemetry.addData("pos", slides.getEncoder());
-//                        telemetry.update();
-//                    }
-//                }
-//                break;
             case SLIDE_HIGH:
                 if (Math.abs(slides.getEncoder() - 30) < 10) { // high height 3481
                     if (slideButton==ButtonPressState.PRESSED_GOOD) {
@@ -235,22 +187,6 @@ public class Teleop extends OpMode {
 
         }
 
-        /* previous code
-        if (gamepad1.b && (clawButton == ButtonPressState.UNPRESSED) && !clawState) {
-            clawButton = ButtonPressState.PRESSED_GOOD;
-            claw.open();
-            clawState = true;
-
-        } else if (gamepad1.x && (clawButton == ButtonPressState.UNPRESSED) && clawState) {
-            clawButton = ButtonPressState.PRESSED_GOOD;
-            claw.close();
-            clawState = false;
-        } else if (!(gamepad1.b) && (!(gamepad1.x) && (clawButton == ButtonPressState.PRESSED_GOOD))){
-            clawButton = ButtonPressState.UNPRESSED;
-
-        }
-         */
-
         // improved code by yours truly:
         if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
             if (!clawState) { claw.open();  clawState = true; clawButton = ButtonPressState.PRESSED_GOOD;}
@@ -273,13 +209,6 @@ public class Teleop extends OpMode {
             cRotatorButton = ButtonPressState.UNPRESSED;
         }
 
-//        if (gamepad1.y) {
-//            clawRotator.toDrop();
-//            cRotatorAtDrop = true;
-//        } else if (gamepad1.a) {
-//            clawRotator.toPick();
-//            cRotatorAtDrop = false;
-//        }
         // THE ULTIMATE BUTTON
         if (gamepad1.dpad_up) {
 
@@ -287,57 +216,41 @@ public class Teleop extends OpMode {
             //rotate slides
             //latch on
             //extend slides
-            Runnable slidesRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    while (slides.getEncoder() <= -100){
-                        slides.retract();
-                    }
-                    //TODO: tune
-                    while (slides.getRotatorEncoder() <= 470){
-                        slides.rotateRight();
-                    }
 
-                    latch.latchOn();
+            while (slides.getEncoder() <= -100){
+                slides.retract();
+            }
+            //TODO: tune
+            while (slides.getRotatorEncoder() <= 470){
+                slides.rotateRight();
+            }
 
-                    while (slides.getEncoder() >= -3000){
-                        slides.extend();
-                    }
-                }
-            };
-            Thread slidesThread = new Thread(slidesRunnable);
-            slidesThread.start();
+            latch.latchOn();
 
+            while (slides.getEncoder() >= -3000){
+                slides.extend();
+            }
 
-        } else if (gamepad1.dpad_down) {
-
-            //retract slides
-            //rotate slides
-            //latch off
-            //extend slides
-            Runnable slidesRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    while (slides.getEncoder() <= -100){
-                        slides.retract();
-                    }
-                    //TODO: tune
-                    while (slides.getRotatorEncoder() >= 200){
-                        slides.rotateLeft();
-                    }
-
-                    latch.latchOn();
-
-                    while (slides.getEncoder() >= -300){
-                        slides.extend();
-                    }
-                }
-            };
-            Thread slidesThread = new Thread(slidesRunnable);
-            slidesThread.start();
-
+            clawRotator.toDrop();
 
         }
+//        else if (gamepad1.dpad_down) {
+//
+//            //retract slides
+//            //rotate slides
+//            //latch off
+//            //extend slides
+//
+//            while (slides.getEncoder() <= -2000){ //-100 before
+//                slides.retract();
+//            }
+//            //TODO: tune
+//            while (slides.getRotatorEncoder() >= 200){
+//                slides.rotateLeft();
+//            }
+//            clawRotator.toPick();
+//
+//        }
     }
 
 

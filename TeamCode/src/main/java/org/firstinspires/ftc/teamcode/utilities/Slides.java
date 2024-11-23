@@ -152,11 +152,10 @@ public class Slides {
     // SLIDES MANUAL
 
     public void extend(){
-        telemetry.addLine("extending");
-        telemetry.addLine(String.valueOf(pos));
+        pos = getEncoder();
+        telemetry.addLine("extending slides: " + String.valueOf(pos));
 
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pos = getEncoder();
         // max limit
         if (pos <= maxheight){
             setPower(0);
@@ -176,10 +175,9 @@ public class Slides {
 
 
     public void retract() {
-        telemetry.addLine("retracting");
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pos = getEncoder();
-        telemetry.addLine(String.valueOf(pos));
+        telemetry.addLine("retracting slides: " + String.valueOf(pos));
 
 //        if (pos < -0.2){
 //            setPower(0);
@@ -211,19 +209,19 @@ public class Slides {
     public void keepUp() {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
-        telemetry.addLine("AWAIUWNAIFNEIONFUEWHGUEWHGUEWGHPOU");
+        telemetry.addLine("keep up: " + String.valueOf(rot));
         setRotPower(2);
     }
     public void keepDown() {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
-        telemetry.addLine("keptr down");
+        telemetry.addLine("keep down: " + String.valueOf(rot));
         setRotPower(-2);
     }
     public void rotateRight(){ //slide rotates outwards (up)
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
-        telemetry.addLine(String.valueOf(rot));
+        telemetry.addLine("rotating slides: " + String.valueOf(rot));
 
 
 
@@ -244,7 +242,7 @@ public class Slides {
     public void rotateLeft() { // slide rotates inwards (down)
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
-        telemetry.addLine(String.valueOf(rot));
+        telemetry.addLine("rotate slides down" + String.valueOf(rot));
 
         if  (rotState == 2 && rot <= 200) {
             setRotPower(-4);

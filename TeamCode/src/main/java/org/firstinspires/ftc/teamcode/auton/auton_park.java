@@ -21,7 +21,7 @@ public class auton_park extends AutonMethods {
         waitForStart();
         runtime.reset();
 
-        rightLong();
+        moveRight(5);
         stopDrive();
     }
 }
