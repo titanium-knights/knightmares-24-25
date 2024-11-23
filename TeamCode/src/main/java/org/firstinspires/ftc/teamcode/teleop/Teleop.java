@@ -53,12 +53,6 @@ public class Teleop extends OpMode {
     SlideState slideState = SlideState.SLIDE_BOTTOM;
     RotatorState rotatorState = RotatorState.SLIDE_DOWN;
 
-    public enum PullUpState {
-        NEUTRAL,
-        REACH_UP
-    }
-    PullUpState pullupstate = PullUpState.NEUTRAL;
-
     ElapsedTime elapsedTime;
 
     enum ButtonPressState {
@@ -201,42 +195,14 @@ public class Teleop extends OpMode {
                 telemetry.update();
         }
         if(gamepad2.a){
-            pullup.manualLeftUp();
+            pullup.rightDown();
+            pullup.leftDown();
         }
-        if(gamepad2.x){
-            pullup.manualRightUp();
-        }
+
         if(gamepad2.y){
-            pullup.manualRightDown();
+            pullup.rightUp();
+            pullup.leftUp();
         }
-        if(gamepad2.b){
-            pullup.manualLeftDown();
-        }
-
-        if(gamepad1.b){
-            pullup.reachUp();
-        }
-
-//        switch (pullupstate) {
-//            case NEUTRAL:
-//                if (gamepad1.b) {
-//                    pullup.reachUp();
-//                    pullupstate = PullUpState.REACH_UP;
-//                }
-//                break;
-//            case REACH_UP:
-////                telemetry.addData("pullup1pos", + pullup.getPosition1());
-////                telemetry.addData("pullup2pos", + pullup.getPosition2());
-//                telemetry.update();
-//                if (gamepad1.b) {
-//                    pullup.manualLeftDown();
-//                    pullup.manualRightDown();
-//                    pullupstate = PullUpState.NEUTRAL;
-//                }
-//                break;
-//            default:
-//                pullupstate = PullUpState.NEUTRAL;
-//        }
 
         if(gamepad1.dpad_left){
             latch.latchOn();
@@ -245,8 +211,6 @@ public class Teleop extends OpMode {
         if(gamepad1.dpad_right){
             latch.latchOff();
         }
-
-
 
         //  ROTATING SLIDES
         if (gamepad1.right_trigger > 0.5) {

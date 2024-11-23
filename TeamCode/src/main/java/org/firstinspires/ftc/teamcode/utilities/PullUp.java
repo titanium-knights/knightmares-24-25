@@ -16,7 +16,7 @@ public class PullUp {
     public static double Encoder_Ticks = 537.7;
 
     public static Telemetry telemetry;
-    public static int topHeight = -100; // 24 * Encoder_Ticks
+    public static int topHeight = -2000; // 24 * Encoder_Ticks
 
     // pullup positions
     int leftpos;
@@ -70,39 +70,23 @@ public class PullUp {
         pullUpMotor2.setTargetPosition(position);
     }
 
-    public void reachUp() {
-        setTargetPosition(topHeight);
-        pullUpMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        pullUpMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        // run to position is always in presets or else itll be jittery
-        pullUpMotor1.setPower(-2.0);
-        pullUpMotor2.setPower(-2.0);
-
-        telemetry.addLine("pullup going up!");
-        leftpos = getPosition1(); // i actually don't know which one is on the left lol
-        rightpos = getPosition2();
-        telemetry.addLine("left position: " + String.valueOf(leftpos));
-        telemetry.addLine("right position: " + String.valueOf(rightpos));
-    }
-
     // pullUpMotor1 and 2 are reversed. If you want it to go up, power will be negative. If you want it to go down, power will be positive.
-    public void manualRightDown(){ // -1
+    public void rightDown(){ // -1
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor2.setPower(1);
     }
 
-    public void manualRightUp(){ // 1
+    public void rightUp(){ // 1
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor2.setPower(-1);
     }
 
-    public void manualLeftUp(){ // 1
+    public void leftUp(){ // 1
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor1.setPower(-1);
     }
 
-    public void manualLeftDown(){ // -1
+    public void leftDown(){ // -1
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor1.setPower(1);
     }
