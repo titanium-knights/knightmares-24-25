@@ -192,18 +192,18 @@ public class Teleop extends OpMode {
             telemetry.addLine("rotator going down");
             telemetry.update();
         } else {
-            if ((slides.getRotatorEncoder() >= 400) && slides.getEncoder() <= -2200){
-                slowMode = true;
-                slides.keepUp();
-                telemetry.addLine("kept up");
-                telemetry.update();
-            } else {
-                slides.stopRotator();
-                slowMode = false;
-            }
-
-
+            slides.stopRotator();
         }
+        if (slides.getEncoder() <= -2200){
+            slowMode = true;
+            slides.keepUp();
+            telemetry.addLine("kept up");
+            telemetry.update();
+        } else {
+            slowMode = false;
+            telemetry.addLine("baam");
+            telemetry.update();
+    }
 
         // improved code by yours truly:
         if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
