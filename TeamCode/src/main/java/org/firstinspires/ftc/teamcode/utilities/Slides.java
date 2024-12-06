@@ -250,34 +250,34 @@ public class Slides {
         telemetry.addLine("keep down: " + String.valueOf(rot));
         setRotPower(-2);
     }
-    public void rotateRight(){ //slide rotates outwards (up)
+    public void rotateLeft(){ //slide rotates down
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
         telemetry.addLine("rotating slides: " + String.valueOf(rot));
 
 
 
-        //id
-//        if (rotState == 1 && rot >= 200){
-//            setRotPower(3);
-//            rot = getRotatorEncoder();
-//            return;
-//        }
-//        if (rotState == 1){
-//            return;
-//        }
+
+        if (rotState == 1 && rot >= 200){
+            setRotPower(3);
+            rot = getRotatorEncoder();
+            return;
+        }
+        if (rotState == 1){
+            return;
+        }
         rotState = 1;
         setRotPower(10);
     }
     //TODO: add rotator limit @ 400
 
-    public void rotateLeft() { // slide rotates inwards (down)
+    public void rotateRight() { // slide rotates up
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rot = getRotatorEncoder();
         telemetry.addLine("rotate slides down" + String.valueOf(rot));
 
         if  (rotState == 2 && rot <= 200) {
-            setRotPower(-4);
+            setRotPower(-8);
             rot = getRotatorEncoder();
             return;
         }
@@ -285,7 +285,7 @@ public class Slides {
             return;
         }
         rotState = 2;
-        setRotPower(-10);
+        setRotPower(-8);
     }
 
     public int getEncoder() {
