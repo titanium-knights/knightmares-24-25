@@ -267,7 +267,7 @@ public class Slides {
 //            return;
 //        }
         rotState = 1;
-        setRotPower(8);
+        setRotPower(10);
     }
     //TODO: add rotator limit @ 400
 
