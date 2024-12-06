@@ -258,7 +258,7 @@ public class Slides {
 
 
 
-        if (rotState == 1 && rot >= 200){
+        if (rotState == 1 && rot >= -200){
             setRotPower(3);
             rot = getRotatorEncoder();
             return;
@@ -276,8 +276,8 @@ public class Slides {
         rot = getRotatorEncoder();
         telemetry.addLine("rotate slides down" + String.valueOf(rot));
 
-        if  (rotState == 2 && rot <= 200) {
-            setRotPower(-8);
+        if  (rotState == 2 && rot <= -200) {
+            setRotPower(-4);
             rot = getRotatorEncoder();
             return;
         }
