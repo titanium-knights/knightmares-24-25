@@ -21,8 +21,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             //cRotatorServo.setPosition(pickPos);
             this.telemetry = telemetry;
         }
-        public static double dropPos = 0.5f;
-        public static double pickPos = 0.28f;
+        public static double dropPos = 0.65f;
+        public static double pickPos = 0.48f;
 
         public static Telemetry telemetry;
 

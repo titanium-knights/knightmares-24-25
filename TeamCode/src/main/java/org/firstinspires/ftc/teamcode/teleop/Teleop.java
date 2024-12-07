@@ -201,7 +201,6 @@ public class Teleop extends OpMode {
             telemetry.update();
         } else {
             slowMode = false;
-            telemetry.addLine("baam");
             telemetry.update();
     }
 
