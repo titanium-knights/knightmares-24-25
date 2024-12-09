@@ -30,30 +30,8 @@ public class Teleop extends OpMode {
     // in case of joystick drift, ignore very small values
     public float stick_margin = 0.7f;
 
-    public boolean clawState = true;
+    public boolean clawOpen = true;
     public boolean cRotatorAtDrop = false;
-    public boolean shouldKeepDown = false;
-
-
-    // boolean validate = false;
-    //makes validate button have to be pressed for a while before features enabled
-    // int validatecount = 0;
-
-    public enum SlideState {
-        SLIDE_BOTTOM,
-        SLIDE_LOW,
-        SLIDE_MEDIUM,
-        SLIDE_HIGH
-    }
-    public enum RotatorState {
-        SLIDE_DOWN,
-        SLIDE_UP,
-        SLIDE_STOP
-    }
-    SlideState slideState = SlideState.SLIDE_BOTTOM;
-    RotatorState rotatorState = RotatorState.SLIDE_DOWN;
-
-    ElapsedTime elapsedTime;
 
     enum ButtonPressState {
         PRESSED_GOOD, //the first time we see the button pressed
@@ -67,11 +45,8 @@ public class Teleop extends OpMode {
     ButtonPressState slideManual;
     ButtonPressState slideManualUp;
 
-    boolean started = false;
-
     boolean slowMode = false;
 
-    // boolean intakeRunning = false;
     @Override
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
@@ -109,16 +84,6 @@ public class Teleop extends OpMode {
             slides.stop();
         }
 
-        //TODO run to position slide extention vs retraction
-//        if (gamepad1.left_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
-//            slides.slideMinHeight();
-//
-//            telemetry.addLine("retracting");
-//        } else if (gamepad1.right_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
-//            slides.slideMaxHeight();
-//        }
-
-
         //DRIVE
         float x = gamepad2.left_stick_x;
         float y = gamepad2.left_stick_y;
@@ -134,36 +99,6 @@ public class Teleop extends OpMode {
             move(x, -y, turn);
         }
 
-        switch (slideState) {
-            case SLIDE_BOTTOM:
-                if (Math.abs(slides.getEncoder() - 30) < 10) { // drop height
-                    if (slideButton==ButtonPressState.PRESSED_GOOD) {
-                        slideState = SlideState.SLIDE_HIGH;
-                        telemetry.addData("pos", slides.getEncoder());
-                        telemetry.update();
-                        // slides.high();
-                    }
-                }
-                break;
-            case SLIDE_LOW:
-                telemetry.addData("u shouldnt see this lol but encoder position", slides.getEncoder());
-                telemetry.update();
-                break;
-            case SLIDE_HIGH:
-                if (Math.abs(slides.getEncoder() - 30) < 10) { // high height 3481
-                    if (slideButton==ButtonPressState.PRESSED_GOOD) {
-                        slides.tozero();
-                        slideState = SlideState.SLIDE_BOTTOM;
-                        telemetry.addData("pos", slides.getEncoder());
-                        telemetry.update();
-                    }
-                }
-                break;
-            default:
-                slideState = SlideState.SLIDE_BOTTOM;
-                telemetry.addLine("default");
-                telemetry.update();
-        }
         if(gamepad2.a){
             pullup.rightDown();
             pullup.leftDown();
@@ -206,8 +141,8 @@ public class Teleop extends OpMode {
 
         // improved code by yours truly:
         if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
-            if (!clawState) { claw.open();  clawState = true; clawButton = ButtonPressState.PRESSED_GOOD;}
-            else            { claw.close(); clawState = false; clawButton = ButtonPressState.PRESSED_GOOD;}
+            if (!clawOpen) { claw.open();  clawOpen = true; clawButton = ButtonPressState.PRESSED_GOOD;}
+            else            { claw.close(); clawOpen = false; clawButton = ButtonPressState.PRESSED_GOOD;}
 
         } else if (!gamepad1.y && (clawButton == ButtonPressState.PRESSED_GOOD)) {
             clawButton = ButtonPressState.UNPRESSED;
@@ -229,11 +164,6 @@ public class Teleop extends OpMode {
         // THE ULTIMATE BUTTON
         if (gamepad1.dpad_up) {
 
-            //retract slides
-            //rotate slides
-            //latch on
-            //extend slides
-
             while (slides.getEncoder() <= -100){
                 slides.retract();
             }
@@ -251,23 +181,6 @@ public class Teleop extends OpMode {
             clawRotator.toDrop();
 
         }
-//        else if (gamepad1.dpad_down) {
-//
-//            //retract slides
-//            //rotate slides
-//            //latch off
-//            //extend slides
-//
-//            while (slides.getEncoder() <= -2000){ //-100 before
-//                slides.retract();
-//            }
-//            //TODO: tune
-//            while (slides.getRotatorEncoder() >= 200){
-//                slides.rotateLeft();
-//            }
-//            clawRotator.toPick();
-//
-//        }
     }
 
 
