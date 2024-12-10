@@ -21,6 +21,7 @@ public class PullUp {
     // pullup positions
     int leftpos;
     int rightpos;
+    int pul;
 
     public PullUp(HardwareMap hmap, Telemetry telemetry) {
         this.pullUpMotor1 = hmap.dcMotor.get(CONFIG.pullUpMotor1);
@@ -79,11 +80,16 @@ public class PullUp {
     public void rightUp(){ // 1
         pullUpMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor2.setPower(-1);
+        pul = getPosition1();
+        telemetry.addLine(String.valueOf(pul) + "right up");
+
     }
 
     public void leftUp(){ // 1
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         pullUpMotor1.setPower(-1);
+        pul = getPosition2();
+        telemetry.addLine(String.valueOf(pul) + "left up");
     }
 
     public void leftDown(){ // -1

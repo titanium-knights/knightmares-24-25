@@ -102,6 +102,7 @@ public class Teleop extends OpMode {
         if(gamepad2.a){
             pullup.rightDown();
             pullup.leftDown();
+
         }
 
         if(gamepad2.y){
@@ -120,8 +121,7 @@ public class Teleop extends OpMode {
         //  ROTATING SLIDES
         if (gamepad1.right_trigger > 0.5) {
             slides.rotateRight();
-            telemetry.addLine("rotator going up");
-            telemetry.update();
+
         } else if (gamepad1.left_trigger > 0.5){
             slides.rotateLeft();
             telemetry.addLine("rotator going down");
