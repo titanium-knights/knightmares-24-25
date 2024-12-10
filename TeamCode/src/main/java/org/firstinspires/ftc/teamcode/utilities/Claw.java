@@ -47,8 +47,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
         public Action openAction() {  return new OpenClaw();  }
 
-
-
         public void close() {
             telemetry.addLine("close claw");
             clawServo.setPosition(closedPos);

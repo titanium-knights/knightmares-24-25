@@ -36,12 +36,16 @@ public class nearBasket extends LinearOpMode {
         slides = new Slides(hardwareMap);
         pullup = new PullUp(hardwareMap);
 
+        // these were added to the util classes they basically do the same thing as claw.close but they need to be funky for roadrunner so its a different method
         Actions.runBlocking(claw.closeAction());
         Actions.runBlocking(pullup.toInitPosAction());
 
+        // the actual path
+        // each "tab" is like a sequence of x and y movements
         TrajectoryActionBuilder tab = drivetrain.actionBuilder(begPose)
                 .lineToX(-36)
-                .setTangent(Math.toRadians(90)) // needed when switching between running x and y
+                // .setTangent is needed when switching between running x and y
+                .setTangent(Math.toRadians(90)) // might be 270, needs to be tuned
                 .lineToY(-36)
                 .setTangent(Math.toRadians(0))
                 .lineToX(-12)
@@ -67,14 +71,18 @@ public class nearBasket extends LinearOpMode {
                 .lineToY(0)
                 .setTangent(0)
                 .lineToX(-36);
+
         // move the arm
         // move the slides
         // move forward
+
         TrajectoryActionBuilder specimenTab2 = drivetrain.actionBuilder(new Pose2d(-36, 0, 0))
                 .lineToX(-30);
+
         // move the slides down
         // open the claw
         // move back to initial position
+
         TrajectoryActionBuilder specimenTab3 = drivetrain.actionBuilder(new Pose2d(-30, 0, 0))
                 .lineToX(-60)
                 .setTangent(Math.toRadians(90))
@@ -88,7 +96,8 @@ public class nearBasket extends LinearOpMode {
 
         if (isStopRequested()) return;
         Action trajectoryAction = tab.build();
-        // add the
+
+        // the line where you put the tabs and the non-drivetrain commands all together
         SequentialAction specimenPlaceAction = new SequentialAction(specimenTab1.build(), arm.toScoreSpecimenPosAction(), slides.getSlideAction(SlideState.MEDIUM), specimenTab2.build(), slides.getSlideAction(SlideState.MEDIUMSCORE), claw.openAction(), specimenTab3.build());
 
         Actions.runBlocking(new SequentialAction(

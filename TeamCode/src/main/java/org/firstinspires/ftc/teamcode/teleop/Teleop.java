@@ -183,7 +183,6 @@ public class Teleop extends OpMode {
         }
     }
 
-
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
         if (Math.abs(x) <= stick_margin) x = .0f;
@@ -194,6 +193,5 @@ public class Teleop extends OpMode {
         double multiplier = normalPower;
         drive.move(-x * multiplier, y * multiplier, turn * multiplier);
     }
-
 
 }
