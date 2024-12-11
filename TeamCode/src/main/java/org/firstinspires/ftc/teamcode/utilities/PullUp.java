@@ -47,7 +47,6 @@ public class PullUp {
         return pullUpMotor2.getCurrentPosition();
     }
 
-
     public boolean isBusy1(){
         return pullUpMotor1.isBusy();
     }

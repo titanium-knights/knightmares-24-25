@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
             this.clawServo.setDirection(Servo.Direction.FORWARD);
         }
 
-        public static double closedPos = 0.75f;
-        public static double openPos = 0.25f;
+        public static double closedPos = 0.5f;
+        public static double openPos = 0.65f;
 
 
         public Telemetry telemetry;

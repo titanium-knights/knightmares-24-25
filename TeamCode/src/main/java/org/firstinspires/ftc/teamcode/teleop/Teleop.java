@@ -100,20 +100,28 @@ public class Teleop extends OpMode {
         }
 
         if(gamepad2.a){
-            pullup.rightDown();
-            pullup.leftDown();
-
+            if (pullup.getPosition1() > 0) {
+                pullup.leftDown();
+            }
+            if (pullup.getPosition2() > 0) {
+                pullup.rightDown();
+            }
         }
         if(gamepad2.b){
             pullup.rightDown();
 
         }
-        if(gamepad2.y){
+        if(gamepad2.x){
             pullup.leftDown();
         }
+
         if(gamepad2.y){
-            pullup.rightUp();
-            pullup.leftUp();
+            if (pullup.getPosition1() < 30) { // TODO: tune
+                pullup.leftUp();
+            }
+            if (pullup.getPosition2() < 30) {
+                pullup.rightUp();
+            }
         }
 
         if(gamepad1.dpad_left){
