@@ -28,14 +28,14 @@ public class nearBasket extends LinearOpMode {
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, begPose);
 
         //TODO: add 1 arg constructors to these hardware classes to prevent errors
-        Claw claw = new Claw(hardwareMap);
-        Slides slides = new Slides(hardwareMap);
-        PullUp pullup = new PullUp(hardwareMap);
+        Claw claw = new Claw(hardwareMap, telemetry);
+        Slides slides = new Slides(hardwareMap, telemetry);
+        PullUp pullup = new PullUp(hardwareMap, telemetry);
 
         // these were added to the util classes they basically do the same thing as claw.close but they need to be funky for roadrunner so its a different method
         Actions.runBlocking(claw.closeAction());
         // TODO: this function does not exist
-        Actions.runBlocking(pullup.toInitPosAction());
+        // Actions.runBlocking(pullup.toInitPosAction());
 
         // the actual path
         // each "tab" is like a sequence of x and y movements
@@ -100,7 +100,7 @@ public class nearBasket extends LinearOpMode {
         //SequentialAction specimenPlaceAction = new SequentialAction(specimenTab1.build(), arm.toScoreSpecimenPosAction(), slides.getSlideAction(SlideState.MEDIUM), specimenTab2.build(), slides.getSlideAction(SlideState.MEDIUMSCORE), claw.openAction(), specimenTab3.build());
 
         Actions.runBlocking(new SequentialAction(
-                specimenPlaceAction,
+                // specimenPlaceAction,
                 trajectoryAction
         ));
     }
