@@ -104,7 +104,13 @@ public class Teleop extends OpMode {
             pullup.leftDown();
 
         }
+        if(gamepad2.b){
+            pullup.rightDown();
 
+        }
+        if(gamepad2.y){
+            pullup.leftDown();
+        }
         if(gamepad2.y){
             pullup.rightUp();
             pullup.leftUp();
