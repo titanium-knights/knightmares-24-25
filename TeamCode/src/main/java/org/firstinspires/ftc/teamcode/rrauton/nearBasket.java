@@ -1,27 +1,22 @@
 package org.firstinspires.ftc.teamcode.rrauton;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-package org.firstinspires.ftc.teamcode.rrauton;
-
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.rr.MecanumDrive;
-import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
-import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
+
 @Config
 @Autonomous(name = "nearBasket", group = "Autonomous")
 public class nearBasket extends LinearOpMode {
-    private Claw claw;
-    private Slides slides;
-    private PullUp pullup;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -32,12 +27,14 @@ public class nearBasket extends LinearOpMode {
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, begPose);
 
-        claw = new Claw(hardwareMap);
-        slides = new Slides(hardwareMap);
-        pullup = new PullUp(hardwareMap);
+        //TODO: add 1 arg constructors to these hardware classes to prevent errors
+        Claw claw = new Claw(hardwareMap);
+        Slides slides = new Slides(hardwareMap);
+        PullUp pullup = new PullUp(hardwareMap);
 
         // these were added to the util classes they basically do the same thing as claw.close but they need to be funky for roadrunner so its a different method
         Actions.runBlocking(claw.closeAction());
+        // TODO: this function does not exist
         Actions.runBlocking(pullup.toInitPosAction());
 
         // the actual path
@@ -98,7 +95,9 @@ public class nearBasket extends LinearOpMode {
         Action trajectoryAction = tab.build();
 
         // the line where you put the tabs and the non-drivetrain commands all together
-        SequentialAction specimenPlaceAction = new SequentialAction(specimenTab1.build(), arm.toScoreSpecimenPosAction(), slides.getSlideAction(SlideState.MEDIUM), specimenTab2.build(), slides.getSlideAction(SlideState.MEDIUMSCORE), claw.openAction(), specimenTab3.build());
+        //TODO: this code appears to be taken from the AK code base, which handles some of the hardware classes differently.
+        // Many of the methods used here are not present in the current hardware classes.
+        //SequentialAction specimenPlaceAction = new SequentialAction(specimenTab1.build(), arm.toScoreSpecimenPosAction(), slides.getSlideAction(SlideState.MEDIUM), specimenTab2.build(), slides.getSlideAction(SlideState.MEDIUMSCORE), claw.openAction(), specimenTab3.build());
 
         Actions.runBlocking(new SequentialAction(
                 specimenPlaceAction,
