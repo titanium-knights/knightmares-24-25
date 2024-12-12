@@ -4,9 +4,16 @@ import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 
 //NEGATIVE IS UP
 //Code credited to Shawn Mendes the handsome ;)
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+import org.firstinspires.ftc.teamcode.utilities.SlidesState;
+import org.firstinspires.ftc.teamcode.utilities.SlidesRotatorState;
 
 public class Slides {
 
@@ -21,8 +28,8 @@ public class Slides {
 
     //Current state of slide. 0 - idle, 1 - up, 2 - down
     //TODO: consider using an enum
-    int state;
-    int rotState;
+    SlidesState state;
+    SlidesRotatorState rotState;
 
     // limits
     int maxheight = -3200; // 3481
@@ -47,7 +54,8 @@ public class Slides {
     public Slides(HardwareMap hmap, Telemetry telemetry){
         this.slideMotor = hmap.dcMotor.get(CONFIG.slide);
         this.slideRotator = hmap.dcMotor.get(CONFIG.slideRot);
-        this.state = this.pos = 0;
+        this.pos = 0;
+        this.state = SlidesState.LEFT;
         this.telemetry = telemetry;
 
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -66,7 +74,7 @@ public class Slides {
 
         pos = getEncoder();
 
-        state = 0;
+        this.state = SlidesState.STOP;
     }
     public void stopRotator(){
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -74,7 +82,7 @@ public class Slides {
 
         pos = getRotatorEncoder();
 
-        rotState = 0;
+        this.rotState = SlidesRotatorState.STOP;
     }
 
     //is busy
@@ -93,7 +101,7 @@ public class Slides {
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         pos = 0;
-        state = 0;
+        this.state = SlidesState.STOP;
 
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
@@ -101,7 +109,7 @@ public class Slides {
         slideRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         rot = 0;
-        rotState = 0;
+        this.rotState = SlidesRotatorState.STOP;
 
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
@@ -190,15 +198,15 @@ public class Slides {
             setPower(0);
             return;
         }
-        if (state == 1 && pos <= -2200){
+        if (state == SlidesState.LEFT && pos <= -2200){
             setPower(-4);
             pos = getEncoder();
             return;
         }
-        if (state == 1){
+        if (state == SlidesState.LEFT){
             return;
         }
-        state = 1;
+        state = SlidesState.LEFT;
         setPower(-7);
     }
 
@@ -221,17 +229,17 @@ public class Slides {
             pos = getEncoder();
             return;
         }
-        if (state == 2 && pos >= -900) {
+        if (state == SlidesState.RIGHT && pos >= -900) {
             setPower(1);
             pos = getEncoder();
             return;
         }
 
-        if (state == 2) {
+        if (state == SlidesState.RIGHT) {
             return;
         }
 
-        state = 2;
+        state = SlidesState.RIGHT;
         setPower(3);
 
     }
@@ -266,7 +274,7 @@ public class Slides {
 //        if (rotState == 1){
 //            return;
 //        }
-        rotState = 1;
+        rotState = SlidesRotatorState.LEFT;
         setRotPower(10);
     }
     //TODO: add rotator limit @ 400
@@ -284,8 +292,30 @@ public class Slides {
 //        if (rotState == 2) {
 //            return;
 //        }
-        rotState = 2;
+        rotState = SlidesRotatorState.RIGHT;
         setRotPower(-8);
+    }
+
+    public class SlideAction implements Action {
+        SlidesState slidesStateAction;
+        SlidesRotatorState rotStateAction;
+
+        public SlideAction(SlidesState slidesState, SlidesRotatorState rotState) {
+            this.slidesStateAction = slidesState;
+            this.rotStateAction = rotState;
+        }
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            state = this.slidesStateAction;
+            rotState = this.rotStateAction;
+
+            return false;
+        }
+    }
+
+    public Action getSlidesAction(SlidesState slidesState, SlidesRotatorState slidesRotatorState) {
+        return new SlideAction(slidesState, slidesRotatorState);
     }
 
     public int getEncoder() {
