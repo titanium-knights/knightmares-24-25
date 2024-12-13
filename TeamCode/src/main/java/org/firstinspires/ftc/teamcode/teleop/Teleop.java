@@ -98,10 +98,23 @@ public class Teleop extends OpMode {
             stick_margin = 0.7f;
             move(x, -y, turn);
         }
-
+        int pul1 = pullup.getPosition1();
+        int pul2 = pullup.getPosition2();
         if(gamepad2.a){
-            pullup.leftDown();
-            pullup.rightDown();
+            if (pullup.getPosition1() < -7) { // TODO: tune
+                pullup.leftDown();
+                telemetry.addLine(String.valueOf(pul1) + "left down");
+                telemetry.update();
+            } else {
+                pullup.stopLeft();
+            }
+            if (pullup.getPosition2() < -7) {
+                pullup.rightDown();
+                telemetry.addLine(String.valueOf(pul2) + "left down");
+                telemetry.update();
+            } else {
+                pullup.stopRight();
+            }
         }
         if(gamepad2.b){
             pullup.rightDown();
@@ -111,23 +124,20 @@ public class Teleop extends OpMode {
             pullup.leftDown();
         }
 
-        int pul1 = pullup.getPosition1();
-        int pul2 = pullup.getPosition2();
+
 
         if(gamepad2.y){
-            if (pullup.getPosition1() > -100) { // TODO: tune
-                pullup.leftUp();
-                telemetry.addLine(String.valueOf(pul1) + "left down");
-                telemetry.update();
-            } else {
-                pullup.stopLeft();
-            }
-            if (pullup.getPosition2() > -100) {
-                pullup.rightUp();
-                telemetry.addLine(String.valueOf(pul2) + "left down");
-                telemetry.update();
-            } else {
+            pullup.leftUp();
+            telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
+
+            pullup.rightUp();
+            telemetry.addLine(String.valueOf(pullup.getPosition2()) + "left up");
+            telemetry.update();
+            if (pullup.getPosition2() < -50) { // TODO: tune
                 pullup.stopRight();
+            }
+            if (pullup.getPosition1() < -50) { // TODO: tune
+                pullup.stopLeft();
             }
         }
 
