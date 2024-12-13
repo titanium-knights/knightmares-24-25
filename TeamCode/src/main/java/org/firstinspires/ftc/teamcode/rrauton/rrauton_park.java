@@ -40,50 +40,9 @@ public class rrauton_park extends LinearOpMode {
         // the actual path
         // each "tab" is like a sequence of x and y movements
         TrajectoryActionBuilder tab = drivetrain.actionBuilder(begPose)
-                .lineToX(-36)
-                // .setTangent is needed when switching between running x and y
-                .setTangent(Math.toRadians(90)) // might be 270, needs to be tuned
-                .lineToY(-36)
-                .setTangent(Math.toRadians(0))
-                .lineToX(-12)
-                .setTangent(Math.toRadians(90))
-                .lineToY(-48)
-                .setTangent(Math.toRadians(0))
-                .lineToX(-60)
-                .lineToX(-12)
-                .setTangent(Math.toRadians(90))
-                .lineToY(-60)
-                .setTangent(Math.toRadians(0))
-                .lineToX(-60)
-                .lineToX(-12)
-                .setTangent(Math.toRadians(90))
-                .lineToY(-66)
-                .setTangent(Math.toRadians(0))
-                .lineToX(-60);
+                .lineToX(72);
+        //subtract 72 by half it's width
 
-        // you run stuff that is not drivetrain in between each tab
-
-        TrajectoryActionBuilder specimenTab1 = drivetrain.actionBuilder(begPose)
-                .setTangent(Math.toRadians(90))
-                .lineToY(0)
-                .setTangent(0)
-                .lineToX(-36);
-
-        // move the arm
-        // move the slides
-        // move forward
-
-        TrajectoryActionBuilder specimenTab2 = drivetrain.actionBuilder(new Pose2d(-36, 0, 0))
-                .lineToX(-30);
-
-        // move the slides down
-        // open the claw
-        // move back to initial position
-
-        TrajectoryActionBuilder specimenTab3 = drivetrain.actionBuilder(new Pose2d(-30, 0, 0))
-                .lineToX(-60)
-                .setTangent(Math.toRadians(90))
-                .lineToY(12);
 
         waitForStart();
 
@@ -94,10 +53,6 @@ public class rrauton_park extends LinearOpMode {
         if (isStopRequested()) return;
         Action trajectoryAction = tab.build();
 
-        // the line where you put the tabs and the non-drivetrain commands all together
-        //TODO: this code appears to be taken from the AK code base, which handles some of the hardware classes differently.
-        // Many of the methods used here are not present in the current hardware classes.
-        //SequentialAction specimenPlaceAction = new SequentialAction(specimenTab1.build(), arm.toScoreSpecimenPosAction(), slides.getSlideAction(SlideState.MEDIUM), specimenTab2.build(), slides.getSlideAction(SlideState.MEDIUMSCORE), claw.openAction(), specimenTab3.build());
 
         Actions.runBlocking(new SequentialAction(
                 // specimenPlaceAction,
