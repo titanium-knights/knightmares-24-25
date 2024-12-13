@@ -120,23 +120,24 @@ public class Teleop extends OpMode {
 
         }
         if (pullupstate1){
-            pullup.leftUp();
-            telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
+
 
             if (pullup.getPosition1() < -5000) { // TODO: tune
                 pullup.stopLeft();
                 pullupstate1 = false;
+            } else {
+                pullup.leftUp();
+                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
             }
         }
         if (pullupstate2){
 
-            if (pullup.getPosition2() > -50) { // TODO: tune
-                pullup.stopRight();
-                telemetry.addLine("stoppedRight");
-                pullupstate2 = false;
 
+            if (pullup.getPosition2() < -5000) { // TODO: tune
+                pullup.stopRight();
+                pullupstate2 = false;
             } else {
-                pullup.rightDown();
+                pullup.rightUp();
                 telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
                 telemetry.update();
             }
@@ -147,17 +148,14 @@ public class Teleop extends OpMode {
 
         }
         if (pulldownstate1){
-            pullup.leftDown();
-            telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
-
             if (pullup.getPosition1() > -50) { // TODO: tune
                 pullup.stopLeft();
-                telemetry.addLine("stoppedLeft");
-                pullupstate1 = false;
+                telemetry.addLine("stopped left");
+                pulldownstate1 = false;
 
             } else {
                 pullup.leftDown();
-                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
+                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left down");
                 telemetry.update();
             }
         }
@@ -165,11 +163,11 @@ public class Teleop extends OpMode {
             if (pullup.getPosition2() > -50) { // TODO: tune
                 pullup.stopRight();
                 telemetry.addLine("stoppedRight");
-                pullupstate2 = false;
+                pulldownstate2 = false;
 
             } else {
                 pullup.rightDown();
-                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
+                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt down");
                 telemetry.update();
             }
 
