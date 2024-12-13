@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.rr.GoBildaPinpointDriver;
-import org.firstinspires.ftc.teamcode.rr.MecanumDrive;
+import org.firstinspires.ftc.teamcode.rr.PinpointDrive;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
@@ -49,7 +49,7 @@ public class nearBasket_pinpoint extends LinearOpMode {
         telemetry.addData("Initialized: ", "");
         telemetry.update();
 
-        MecanumDrive drivetrain = new MecanumDrive(hardwareMap, begPose);
+        PinpointDrive drivetrain = new PinpointDrive(hardwareMap, begPose);
 
         //TODO: add 1 arg constructors to these hardware classes to prevent errors
         Claw claw = new Claw(hardwareMap, telemetry);
