@@ -46,7 +46,10 @@ public class Teleop extends OpMode {
     ButtonPressState slideManualUp;
 
     boolean slowMode = false;
-
+    boolean pullupstate1 = false;
+    boolean pullupstate2 = false;
+    boolean pulldownstate1 = false;
+    boolean pulldownstate2 = false;
     @Override
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
@@ -100,22 +103,7 @@ public class Teleop extends OpMode {
         }
         int pul1 = pullup.getPosition1();
         int pul2 = pullup.getPosition2();
-        if(gamepad2.a){
-            if (pullup.getPosition1() < -7) { // TODO: tune
-                pullup.leftDown();
-                telemetry.addLine(String.valueOf(pul1) + "left down");
-                telemetry.update();
-            } else {
-                pullup.stopLeft();
-            }
-            if (pullup.getPosition2() < -7) {
-                pullup.rightDown();
-                telemetry.addLine(String.valueOf(pul2) + "left down");
-                telemetry.update();
-            } else {
-                pullup.stopRight();
-            }
-        }
+
         if(gamepad2.b){
             pullup.rightDown();
 
@@ -127,18 +115,65 @@ public class Teleop extends OpMode {
 
 
         if(gamepad2.y){
+            pullupstate1 = true;
+            pullupstate2 = true;
+
+        }
+        if (pullupstate1){
             pullup.leftUp();
             telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
 
-            pullup.rightUp();
-            telemetry.addLine(String.valueOf(pullup.getPosition2()) + "left up");
-            telemetry.update();
-            if (pullup.getPosition2() < -50) { // TODO: tune
-                pullup.stopRight();
-            }
-            if (pullup.getPosition1() < -50) { // TODO: tune
+            if (pullup.getPosition1() < -5000) { // TODO: tune
                 pullup.stopLeft();
+                pullupstate1 = false;
             }
+        }
+        if (pullupstate2){
+
+            if (pullup.getPosition2() > -50) { // TODO: tune
+                pullup.stopRight();
+                telemetry.addLine("stoppedRight");
+                pullupstate2 = false;
+
+            } else {
+                pullup.rightDown();
+                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
+                telemetry.update();
+            }
+        }
+        if(gamepad2.a){
+            pulldownstate1 = true;
+            pulldownstate2 = true;
+
+        }
+        if (pulldownstate1){
+            pullup.leftDown();
+            telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
+
+            if (pullup.getPosition1() > -50) { // TODO: tune
+                pullup.stopLeft();
+                telemetry.addLine("stoppedLeft");
+                pullupstate1 = false;
+
+            } else {
+                pullup.leftDown();
+                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
+                telemetry.update();
+            }
+        }
+        if (pulldownstate2){
+            if (pullup.getPosition2() > -50) { // TODO: tune
+                pullup.stopRight();
+                telemetry.addLine("stoppedRight");
+                pullupstate2 = false;
+
+            } else {
+                pullup.rightDown();
+                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
+                telemetry.update();
+            }
+
+
         }
 
         if(gamepad1.dpad_left){
@@ -212,6 +247,10 @@ public class Teleop extends OpMode {
             clawRotator.toDrop();
 
         }
+
+        telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
+        telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
+        telemetry.update();
     }
 
     public void move(float x, float y, float turn) {
