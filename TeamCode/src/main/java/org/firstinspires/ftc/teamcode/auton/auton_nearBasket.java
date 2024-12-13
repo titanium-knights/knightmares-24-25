@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="nearBasket", group="Linear OpMode")
+@Autonomous(name="time_nearBasket", group="Linear OpMode")
 @Config
 public class auton_nearBasket extends AutonMethods {
 

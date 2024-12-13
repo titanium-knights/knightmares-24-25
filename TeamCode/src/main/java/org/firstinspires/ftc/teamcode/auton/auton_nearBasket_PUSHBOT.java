@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
-@Autonomous(name="nearBasketPUSHBOT", group="Linear OpMode")
+@Autonomous(name="time_nearBasketPUSHBOT", group="Linear OpMode")
 @Config
 
 public class auton_nearBasket_PUSHBOT extends AutonMethods {
