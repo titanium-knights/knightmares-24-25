@@ -65,4 +65,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
         public double getPosition() {
             return (clawServo.getPosition());
         }
+
+        //claw close
+
 }
