@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 
 @Config
-@Autonomous(name = "rrauton_park", group = "Autonomous")
-public class rrauton_park extends LinearOpMode {
+@Autonomous(name = "nearPark_pushBot", group = "Autonomous")
+public class nearBasket_pushBot extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -39,10 +39,29 @@ public class rrauton_park extends LinearOpMode {
 
         // the actual path
         // each "tab" is like a sequence of x and y movements
-        //TODO NOT TUNED
+        //TODO ALL NUMBERS ARE NOT TUNED
+        // (the radians 100%) BUT the x and y's are approximate assume robot in center of block
         TrajectoryActionBuilder tab = drivetrain.actionBuilder(begPose)
-                .lineToX(72);
-        //subtract 72 by half it's width
+                //todo start from y = 60 x = 12
+                .lineToX(-36) // up 1 block,
+                .setTangent(Math.toRadians(90)) // might be 270, needs to be tuned
+                .lineToY(-12) // 3 blocks left
+                .setTangent(Math.toRadians(0))
+                .lineToX(-44) // move up by 1/3 of a block
+                .setTangent(Math.toRadians(90))
+                .lineToY(-60) //move right into park
+                .lineToY(-12) //move left to the samples
+                .setTangent(Math.toRadians(0))
+                .lineToX(-52) //move up to middle sample
+                .setTangent(Math.toRadians(90))
+                .lineToY(-60) //move right into park
+                .lineToY(-12) //move left to the samples
+                .setTangent(Math.toRadians(0))
+                .lineToX(-60) //move up to highest sample
+                .setTangent(Math.toRadians(90))
+                .lineToY(-60) //move right into park
+                //FINAL PARK
+        ;
 
 
         waitForStart();
@@ -54,6 +73,10 @@ public class rrauton_park extends LinearOpMode {
         if (isStopRequested()) return;
         Action trajectoryAction = tab.build();
 
+        // the line where you put the tabs and the non-drivetrain commands all together
+        //TODO: this code appears to be taken from the AK code base, which handles some of the hardware classes differently.
+        // Many of the methods used here are not present in the current hardware classes.
+        //SequentialAction specimenPlaceAction = new SequentialAction(specimenTab1.build(), arm.toScoreSpecimenPosAction(), slides.getSlideAction(SlideState.MEDIUM), specimenTab2.build(), slides.getSlideAction(SlideState.MEDIUMSCORE), claw.openAction(), specimenTab3.build());
 
         Actions.runBlocking(new SequentialAction(
                 // specimenPlaceAction,
