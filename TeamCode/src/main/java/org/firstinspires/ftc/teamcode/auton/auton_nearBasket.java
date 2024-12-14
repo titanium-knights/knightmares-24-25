@@ -25,7 +25,7 @@ public class auton_nearBasket extends AutonMethods {
         // clawClose(); // twice because nothing ever works the first time, for some reason
         clawDrop();
         // clawDrop();
-        unlatch();
+        // unlatch();
         // unlatch();
         moveForward(1);
         rotateCw(0.15);
@@ -36,7 +36,7 @@ public class auton_nearBasket extends AutonMethods {
         slidesRotateUp();
         clawPick();
         // clawPick();
-        latch();
+        // latch();
         sleep(500);
         keepup();
         slidesExtend();
@@ -49,7 +49,7 @@ public class auton_nearBasket extends AutonMethods {
         // clawOpen();
         clawPick();
         moveForward(0.2);
-        unlatch();
+        // unlatch();
         sleep(500);
         slidesRetract();
         sleep(500);

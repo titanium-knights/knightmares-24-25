@@ -5,10 +5,10 @@ import com.acmerobotics.dashboard.config.Config;
 @Config
 public class CONFIG {
     //drivetrain wheels
-    public static String FRONT_LEFT = "fl"; //ch 0
-    public static String FRONT_RIGHT = "fr"; //ch 2
-    public static String BACK_LEFT = "bl"; //ch 3
-    public static String BACK_RIGHT = "br"; //ch 1
+    public static String FRONT_RIGHT = "fr"; // 0
+    public static String BACK_RIGHT = "br"; // 1
+    public static String BACK_LEFT = "bl"; // 2
+    public static String FRONT_LEFT = "fl"; // 3
 
     //slide motor
     public static String slide = "slides";
@@ -21,6 +21,5 @@ public class CONFIG {
     // public static String clawMotor = "cm";
     public static String claw = "claw";
     //latch servo
-    public static String latch = "latch";
     public static String clawRotator = "clawRotator";
 }

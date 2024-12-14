@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.utilities.Slides;
 //import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
-import org.firstinspires.ftc.teamcode.utilities.Latch;
+// import org.firstinspires.ftc.teamcode.utilities.Latch;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
 @Config
@@ -19,7 +19,7 @@ public class Teleop extends OpMode {
     Slides slides;
     PullUp pullup;
     Claw claw;
-    Latch latch;
+    // Latch latch;
     ClawRotator clawRotator;
     // ClawIteration2 claw;
     SimpleMecanumDrive drive;
@@ -63,7 +63,7 @@ public class Teleop extends OpMode {
         this.slideManualUp = ButtonPressState.UNPRESSED;
 
         this.claw = new Claw(hardwareMap);
-        this.latch = new Latch(hardwareMap, telemetry);
+        // this.latch = new Latch(hardwareMap, telemetry);
         this.clawRotator = new ClawRotator(hardwareMap, telemetry);
 
         // slides.startPosition();
@@ -175,13 +175,13 @@ public class Teleop extends OpMode {
 
         }
 
-        if(gamepad1.dpad_left){
-            latch.latchOn();
-        }
-
-        if(gamepad1.dpad_right){
-            latch.latchOff();
-        }
+//        if(gamepad1.dpad_left){
+//            latch.latchOn();
+//        }
+//
+//        if(gamepad1.dpad_right){
+//            latch.latchOff();
+//        }
 
         //  ROTATING SLIDES
         if (gamepad1.right_trigger > 0.5) {
@@ -229,10 +229,12 @@ public class Teleop extends OpMode {
         if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toDrop();
+            telemetry.addLine("claw to drop position: " + clawRotator.getPosition());
             cRotatorAtDrop = true;
         } else if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toPick();
+            telemetry.addLine("claw to pick position: " + clawRotator.getPosition());
             cRotatorAtDrop = false;
         } else if (!(gamepad1.a) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
             cRotatorButton = ButtonPressState.UNPRESSED;
@@ -252,7 +254,7 @@ public class Teleop extends OpMode {
                 telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
             }
 
-            latch.latchOn();
+            // latch.latchOn();
 
             while (slides.getEncoder() >= -3000){
                 slides.extend();
@@ -262,10 +264,6 @@ public class Teleop extends OpMode {
             clawRotator.toDrop();
 
         }
-
-        telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
-        telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
-        telemetry.update();
     }
 
     public void move(float x, float y, float turn) {

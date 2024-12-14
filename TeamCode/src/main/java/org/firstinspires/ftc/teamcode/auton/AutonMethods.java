@@ -11,14 +11,13 @@ import org.firstinspires.ftc.teamcode.utilities.Slides;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.utilities.Latch;
 
 public abstract class AutonMethods extends LinearOpMode {
     public SimpleMecanumDrive drivetrain;
     public ClawRotator clawrotator;
     public Claw claw;
     public Slides slides;
-    public Latch latch;
+    // public Latch latch;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -31,7 +30,7 @@ public abstract class AutonMethods extends LinearOpMode {
         clawrotator = new ClawRotator(hardwareMap, telemetry);
         slides = new Slides(hardwareMap);
         claw = new Claw(hardwareMap);
-        latch = new Latch(hardwareMap, telemetry);
+        // latch = new Latch(hardwareMap, telemetry);
 
         telemetry.addData("Status", "Initialization Complete");
         telemetry.update();
@@ -54,13 +53,13 @@ public abstract class AutonMethods extends LinearOpMode {
     }
 
     // latch
-    public void latch() {
-        latch.latchOn();
-    }
-
-    public void unlatch() {
-        latch.latchOn();
-    }
+//    public void latch() {
+//        latch.latchOn();
+//    }
+//
+//    public void unlatch() {
+//        latch.latchOn();
+//    }
 
 
     // claw

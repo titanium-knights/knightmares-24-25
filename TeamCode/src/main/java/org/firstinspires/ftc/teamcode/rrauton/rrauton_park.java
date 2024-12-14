@@ -33,12 +33,10 @@ public class rrauton_park extends LinearOpMode {
 
         // these were added to the util classes they basically do the same thing as claw.close but they need to be funky for roadrunner so its a different method
         Actions.runBlocking(claw.closeAction());
-        // TODO: this function does not exist
-        // Actions.runBlocking(pullup.toInitPosAction());
 
         // the actual path
         // each "tab" is like a sequence of x and y movements
-        //TODO NOT TUNED
+        //TODO: NOT TUNED
         TrajectoryActionBuilder tab = drivetrain.actionBuilder(begPose)
                 .lineToX(72);
         //subtract 72 by half it's width
