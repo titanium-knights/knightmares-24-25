@@ -13,7 +13,7 @@ import java.util.Locale;
 @TeleOp(name="Park", group="Linear OpMode")
 //@Disabled
 
-public class park extends LinearOpMode {
+public class pinPoint_example extends LinearOpMode {
 
     GoBildaPinpointDriver odo; // Declare OpMode member for the Odometry Computer
 
