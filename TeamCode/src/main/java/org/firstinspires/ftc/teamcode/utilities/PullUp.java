@@ -5,8 +5,6 @@ import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
 
 public class PullUp {
     //DANIEL comment: For this, we don't really care about degrees so, we deal with
@@ -14,8 +12,6 @@ public class PullUp {
     DcMotor pullUpMotor1;
     DcMotor pullUpMotor2;
     public static double Encoder_Ticks = 537.7;
-
-    public static Telemetry telemetry;
     public static int topHeight = -2000; // 24 * Encoder_Ticks
 
     // pullup positions
@@ -23,10 +19,9 @@ public class PullUp {
     int rightpos;
     int pul;
 
-    public PullUp(HardwareMap hmap, Telemetry telemetry) {
+    public PullUp(HardwareMap hmap) {
         this.pullUpMotor1 = hmap.dcMotor.get(CONFIG.pullUpMotor1);
         this.pullUpMotor2 = hmap.dcMotor.get(CONFIG.pullUpMotor2);
-        this.telemetry = telemetry;
         setInit();
     }
 

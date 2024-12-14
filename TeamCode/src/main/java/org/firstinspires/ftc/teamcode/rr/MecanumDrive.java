@@ -221,7 +221,7 @@ public class MecanumDrive {
         leftFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_LEFT);
         leftBack = hardwareMap.get(DcMotorEx.class, CONFIG.BACK_LEFT);
         rightBack = hardwareMap.get(DcMotorEx.class, CONFIG.BACK_RIGHT);
-        rightFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_LEFT);
+        rightFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_RIGHT);
 
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

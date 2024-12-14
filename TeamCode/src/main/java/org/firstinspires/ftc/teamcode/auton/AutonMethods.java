@@ -29,8 +29,8 @@ public abstract class AutonMethods extends LinearOpMode {
         // Initialize components and check for null references
         drivetrain = new SimpleMecanumDrive(hardwareMap);
         clawrotator = new ClawRotator(hardwareMap, telemetry);
-        slides = new Slides(hardwareMap, telemetry);
-        claw = new Claw(hardwareMap, telemetry);
+        slides = new Slides(hardwareMap);
+        claw = new Claw(hardwareMap);
         latch = new Latch(hardwareMap, telemetry);
 
         telemetry.addData("Status", "Initialization Complete");

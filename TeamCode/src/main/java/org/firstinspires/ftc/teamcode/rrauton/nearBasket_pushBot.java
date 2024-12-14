@@ -28,9 +28,9 @@ public class nearBasket_pushBot extends LinearOpMode {
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, begPose);
 
         //TODO: add 1 arg constructors to these hardware classes to prevent errors
-        Claw claw = new Claw(hardwareMap, telemetry);
-        Slides slides = new Slides(hardwareMap, telemetry);
-        PullUp pullup = new PullUp(hardwareMap, telemetry);
+        Claw claw = new Claw(hardwareMap);
+        Slides slides = new Slides(hardwareMap);
+        PullUp pullup = new PullUp(hardwareMap);
 
         // these were added to the util classes they basically do the same thing as claw.close but they need to be funky for roadrunner so its a different method
         Actions.runBlocking(claw.closeAction());

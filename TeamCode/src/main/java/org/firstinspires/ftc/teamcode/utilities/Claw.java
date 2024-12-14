@@ -20,9 +20,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
         // TODO: TUNE VALUES !!
 
-        public Claw(HardwareMap hmap, Telemetry telemetry) {
+        public Claw(HardwareMap hmap) {
             this.clawServo = hmap.servo.get(CONFIG.claw);
-            this.telemetry = telemetry;
             this.clawServo.setDirection(Servo.Direction.FORWARD);
         }
 
@@ -30,10 +29,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
         public static double openPos = 0.65f;
 
 
-        public Telemetry telemetry;
-
         public void open() {
-            telemetry.addLine("open claw");
             clawServo.setPosition(openPos);
         }
 
@@ -48,7 +44,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
         public Action openAction() {  return new OpenClaw();  }
 
         public void close() {
-            telemetry.addLine("close claw");
             clawServo.setPosition(closedPos);
         }
 
