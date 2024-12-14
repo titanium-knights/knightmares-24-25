@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 
 @Config
-@Autonomous(name = "nearBasket", group = "Autonomous")
+@Autonomous(name = "rr_nearBasket", group = "Autonomous")
 public class nearBasket extends LinearOpMode {
 
     @Override

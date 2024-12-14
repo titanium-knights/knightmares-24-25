@@ -45,6 +45,7 @@ import org.firstinspires.ftc.teamcode.rr.messages.DriveCommandMessage;
 import org.firstinspires.ftc.teamcode.rr.messages.MecanumCommandMessage;
 import org.firstinspires.ftc.teamcode.rr.messages.MecanumLocalizerInputsMessage;
 import org.firstinspires.ftc.teamcode.rr.messages.PoseMessage;
+import org.firstinspires.ftc.teamcode.utilities.CONFIG;
 
 import java.lang.Math;
 import java.util.Arrays;
@@ -217,10 +218,10 @@ public class MecanumDrive {
 
         // TODO: make sure your config has motors with these names (or change them)
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
-        leftFront = hardwareMap.get(DcMotorEx.class, "left_front");
-        leftBack = hardwareMap.get(DcMotorEx.class, "left_back");
-        rightBack = hardwareMap.get(DcMotorEx.class, "right_back");
-        rightFront = hardwareMap.get(DcMotorEx.class, "right_front");
+        leftFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_LEFT);
+        leftBack = hardwareMap.get(DcMotorEx.class, CONFIG.BACK_LEFT);
+        rightBack = hardwareMap.get(DcMotorEx.class, CONFIG.BACK_RIGHT);
+        rightFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_LEFT);
 
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

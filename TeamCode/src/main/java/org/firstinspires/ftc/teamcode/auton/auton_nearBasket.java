@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Config
 public class auton_nearBasket extends AutonMethods {
 
-
 @Override
     public void runOpMode() throws InterruptedException {
         super.runOpMode();

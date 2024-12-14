@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 
 @Config
-@Autonomous(name = "nearBasket", group = "Autonomous")
+@Autonomous(name = "pinpoint_nearBasket", group = "Autonomous")
 public class nearBasket_pinpoint extends LinearOpMode {
 
     GoBildaPinpointDriver odo; // Declare OpMode member for the Odometry Computer
@@ -27,7 +27,9 @@ public class nearBasket_pinpoint extends LinearOpMode {
 
         odo = hardwareMap.get(GoBildaPinpointDriver.class,"odo"); // matches config??
 
-        odo.setOffsets(-84.0, -168.0); //these are tuned for 3110-0002-0001 Product Insight #1
+        // length: 406 mm
+        // width: 430 mm
+        odo.setOffsets(58.4, 55.8); //these are tuned for 3110-0002-0001 Product Insight #1
 
         odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
 
@@ -36,6 +38,7 @@ public class nearBasket_pinpoint extends LinearOpMode {
         odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
         odo.resetPosAndIMU();
+        // maybe recalibrateIMU();
 
         telemetry.addData("Status", "Initialized");
         telemetry.addData("X offset", odo.getXOffset());
@@ -121,7 +124,7 @@ public class nearBasket_pinpoint extends LinearOpMode {
         // the line where you put the tabs and the non-drivetrain commands all together
         //TODO: this code appears to be taken from the AK code base, which handles some of the hardware classes differently.
         // Many of the methods used here are not present in the current hardware classes.
-        //SequentialAction specimenPlaceAction = new SequentialAction(specimenTab1.build(), arm.toScoreSpecimenPosAction(), slides.getSlideAction(SlideState.MEDIUM), specimenTab2.build(), slides.getSlideAction(SlideState.MEDIUMSCORE), claw.openAction(), specimenTab3.build());
+        SequentialAction specimenPlaceAction = new SequentialAction(specimenTab1.build(), specimenTab2.build(), claw.openAction(), specimenTab3.build());
 
         Actions.runBlocking(new SequentialAction(
                 // specimenPlaceAction,
