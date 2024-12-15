@@ -21,7 +21,7 @@ public class time_park extends AutonMethods {
         waitForStart();
         runtime.reset();
 
-        moveRight(5);
+        moveRight(2);
         stopDrive();
     }
 }

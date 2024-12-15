@@ -195,12 +195,11 @@ public class Teleop extends OpMode {
         } else {
             slides.stopRotator();
         }
-        if (slides.getEncoder() <= -2200){
+        if (gamepad2.dpad_down){
             slowMode = true;
-            slides.keepUp();
             telemetry.addLine("keep up: " + String.valueOf(slides.getRotatorEncoder()));
             telemetry.update();
-        } else {
+        } else if (gamepad2.dpad_up){
             slowMode = false;
             telemetry.update();
     }
@@ -274,7 +273,7 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
-        drive.move(-x * multiplier, y * multiplier, turn * multiplier);
+        drive.move(-x * multiplier, y * multiplier, -turn * multiplier);
     }
 
 }
