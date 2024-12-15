@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 
 @Config
-@Autonomous(name = "nearPark_pushBot", group = "Autonomous")
+@Autonomous(name = "nearHuman_pushBot", group = "Autonomous")
 public class nearPark_pushBot extends LinearOpMode {
 
     @Override
