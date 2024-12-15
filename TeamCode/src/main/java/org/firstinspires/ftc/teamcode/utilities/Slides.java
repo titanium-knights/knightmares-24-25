@@ -10,7 +10,6 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import org.firstinspires.ftc.teamcode.utilities.SlidesState;
 import org.firstinspires.ftc.teamcode.utilities.SlidesRotatorState;
@@ -45,18 +44,15 @@ public class Slides {
     int uprot = 100; // 3481 proviously 25
     int downrot = 100; // 3481 proviously 25
 
-    public static Telemetry telemetry;
-
     //assign motors to slide motors and slide rotator motors
     DcMotor slideMotor;
     DcMotor slideRotator;
 
-    public Slides(HardwareMap hmap, Telemetry telemetry){
+    public Slides(HardwareMap hmap){
         this.slideMotor = hmap.dcMotor.get(CONFIG.slide);
         this.slideRotator = hmap.dcMotor.get(CONFIG.slideRot);
         this.pos = 0;
         this.state = SlidesState.LEFT;
-        this.telemetry = telemetry;
 
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -189,9 +185,6 @@ public class Slides {
     // SLIDES MANUAL
 
     public void extend(){
-        pos = getEncoder();
-        telemetry.addLine("extending slides: " + String.valueOf(pos));
-
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         // max limit
         if (pos <= maxheight){
@@ -215,9 +208,6 @@ public class Slides {
 
     public void retract() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pos = getEncoder();
-        telemetry.addLine("retracting slides: " + String.valueOf(pos));
-
 //        if (pos < -0.2){
 //            setPower(0);
 //            return;
@@ -247,33 +237,15 @@ public class Slides {
     // ROTATOR (rotater? rotator.) MANUAL
     public void keepUp() {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rot = getRotatorEncoder();
-        telemetry.addLine("keep up: " + String.valueOf(rot));
         setRotPower(2);
 
     }
     public void keepDown() {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rot = getRotatorEncoder();
-        telemetry.addLine("keep down: " + String.valueOf(rot));
         setRotPower(-2);
     }
     public void rotateLeft(){ //slide rotates down
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rot = getRotatorEncoder();
-        telemetry.addLine("rotating slides: " + String.valueOf(rot));
-
-
-
-
-//        if (rotState == 1 && rot >= -600){
-//            setRotPower(3);
-//            rot = getRotatorEncoder();
-//            return;
-//        }
-//        if (rotState == 1){
-//            return;
-//        }
         rotState = SlidesRotatorState.LEFT;
         setRotPower(10);
     }
@@ -281,17 +253,6 @@ public class Slides {
 
     public void rotateRight() { // slide rotates up
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rot = getRotatorEncoder();
-        telemetry.addLine("rotate slides down" + String.valueOf(rot));
-
-//        if  (rotState == 2 && rot <= -600) {
-//            setRotPower(-4);
-//            rot = getRotatorEncoder();
-//            return;
-//        }
-//        if (rotState == 2) {
-//            return;
-//        }
         rotState = SlidesRotatorState.RIGHT;
         setRotPower(-8);
     }

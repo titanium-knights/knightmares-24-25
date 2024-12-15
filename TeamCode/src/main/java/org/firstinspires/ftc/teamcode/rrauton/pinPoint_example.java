@@ -28,7 +28,7 @@ public class pinPoint_example extends LinearOpMode {
         // offset from odometry computer
         // x pod offset: left of center is positive, right negative
         // y pod offset: forward of center is positive, backwards negative
-        odo.setOffsets(-84.0, -168.0); //these are tuned for 3110-0002-0001 Product Insight #1
+        odo.setOffsets(37.0, 45.0); //these are tuned for 3110-0002-0001 Product Insight #1
 
         // sets the kind of pods we are using
         odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);

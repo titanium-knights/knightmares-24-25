@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.utilities.Slides;
 //import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
-import org.firstinspires.ftc.teamcode.utilities.Latch;
+// import org.firstinspires.ftc.teamcode.utilities.Latch;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 
 @Config
@@ -19,7 +19,7 @@ public class Teleop extends OpMode {
     Slides slides;
     PullUp pullup;
     Claw claw;
-    Latch latch;
+    // Latch latch;
     ClawRotator clawRotator;
     // ClawIteration2 claw;
     SimpleMecanumDrive drive;
@@ -50,19 +50,20 @@ public class Teleop extends OpMode {
     boolean pullupstate2 = false;
     boolean pulldownstate1 = false;
     boolean pulldownstate2 = false;
+    int slidesPos;
     @Override
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
-        this.slides = new Slides(hardwareMap, telemetry);
-        this.pullup = new PullUp(hardwareMap, telemetry);
+        this.slides = new Slides(hardwareMap);
+        this.pullup = new PullUp(hardwareMap);
         this.clawButton = ButtonPressState.UNPRESSED;
         this.cRotatorButton = ButtonPressState.UNPRESSED;
         this.slideButton = ButtonPressState.UNPRESSED;
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
 
-        this.claw = new Claw(hardwareMap, telemetry);
-        this.latch = new Latch(hardwareMap, telemetry);
+        this.claw = new Claw(hardwareMap);
+        // this.latch = new Latch(hardwareMap, telemetry);
         this.clawRotator = new ClawRotator(hardwareMap, telemetry);
 
         // slides.startPosition();
@@ -79,10 +80,10 @@ public class Teleop extends OpMode {
 
         if (gamepad1.left_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
             slides.retract();
-
-            telemetry.addLine("retracting");
+            telemetry.addLine("retracting slides: " + String.valueOf(slides.getEncoder()));
         } else if (gamepad1.right_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
             slides.extend();
+            telemetry.addLine("extending slides: " + String.valueOf(slides.getEncoder()));
         } else {
             slides.stop();
         }
@@ -120,23 +121,24 @@ public class Teleop extends OpMode {
 
         }
         if (pullupstate1){
-            pullup.leftUp();
-            telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
+
 
             if (pullup.getPosition1() < -5000) { // TODO: tune
                 pullup.stopLeft();
                 pullupstate1 = false;
+            } else {
+                pullup.leftUp();
+                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
             }
         }
         if (pullupstate2){
 
-            if (pullup.getPosition2() > -50) { // TODO: tune
-                pullup.stopRight();
-                telemetry.addLine("stoppedRight");
-                pullupstate2 = false;
 
+            if (pullup.getPosition2() < -5000) { // TODO: tune
+                pullup.stopRight();
+                pullupstate2 = false;
             } else {
-                pullup.rightDown();
+                pullup.rightUp();
                 telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
                 telemetry.update();
             }
@@ -147,17 +149,14 @@ public class Teleop extends OpMode {
 
         }
         if (pulldownstate1){
-            pullup.leftDown();
-            telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
-
             if (pullup.getPosition1() > -50) { // TODO: tune
                 pullup.stopLeft();
-                telemetry.addLine("stoppedLeft");
-                pullupstate1 = false;
+                telemetry.addLine("stopped left");
+                pulldownstate1 = false;
 
             } else {
                 pullup.leftDown();
-                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
+                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left down");
                 telemetry.update();
             }
         }
@@ -165,32 +164,33 @@ public class Teleop extends OpMode {
             if (pullup.getPosition2() > -50) { // TODO: tune
                 pullup.stopRight();
                 telemetry.addLine("stoppedRight");
-                pullupstate2 = false;
+                pulldownstate2 = false;
 
             } else {
                 pullup.rightDown();
-                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
+                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt down");
                 telemetry.update();
             }
 
 
         }
 
-        if(gamepad1.dpad_left){
-            latch.latchOn();
-        }
-
-        if(gamepad1.dpad_right){
-            latch.latchOff();
-        }
+//        if(gamepad1.dpad_left){
+//            latch.latchOn();
+//        }
+//
+//        if(gamepad1.dpad_right){
+//            latch.latchOff();
+//        }
 
         //  ROTATING SLIDES
         if (gamepad1.right_trigger > 0.5) {
             slides.rotateRight();
+            telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
 
         } else if (gamepad1.left_trigger > 0.5){
             slides.rotateLeft();
-            telemetry.addLine("rotator going down");
+            telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
             telemetry.update();
         } else {
             slides.stopRotator();
@@ -198,7 +198,7 @@ public class Teleop extends OpMode {
         if (slides.getEncoder() <= -2200){
             slowMode = true;
             slides.keepUp();
-            telemetry.addLine("kept up");
+            telemetry.addLine("keep up: " + String.valueOf(slides.getRotatorEncoder()));
             telemetry.update();
         } else {
             slowMode = false;
@@ -207,8 +207,19 @@ public class Teleop extends OpMode {
 
         // improved code by yours truly:
         if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
-            if (!clawOpen) { claw.open();  clawOpen = true; clawButton = ButtonPressState.PRESSED_GOOD;}
-            else            { claw.close(); clawOpen = false; clawButton = ButtonPressState.PRESSED_GOOD;}
+            if (!clawOpen) {
+                claw.open();
+                telemetry.addLine("open claw");
+                telemetry.update();
+                clawOpen = true;
+                clawButton = ButtonPressState.PRESSED_GOOD;
+            } else {
+                claw.close();
+                telemetry.addLine("close claw");
+                telemetry.update();
+                clawOpen = false;
+                clawButton = ButtonPressState.PRESSED_GOOD;
+            }
 
         } else if (!gamepad1.y && (clawButton == ButtonPressState.PRESSED_GOOD)) {
             clawButton = ButtonPressState.UNPRESSED;
@@ -218,10 +229,12 @@ public class Teleop extends OpMode {
         if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toDrop();
+            telemetry.addLine("claw to drop position: " + clawRotator.getPosition());
             cRotatorAtDrop = true;
         } else if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toPick();
+            telemetry.addLine("claw to pick position: " + clawRotator.getPosition());
             cRotatorAtDrop = false;
         } else if (!(gamepad1.a) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
             cRotatorButton = ButtonPressState.UNPRESSED;
@@ -232,25 +245,25 @@ public class Teleop extends OpMode {
 
             while (slides.getEncoder() <= -100){
                 slides.retract();
+                telemetry.addLine("retracting slides: " + String.valueOf(slides.getEncoder()));
+
             }
             //TODO: tune
             while (slides.getRotatorEncoder() <= 470){
                 slides.rotateRight();
+                telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
             }
 
-            latch.latchOn();
+            // latch.latchOn();
 
             while (slides.getEncoder() >= -3000){
                 slides.extend();
+                telemetry.addLine("extending slides: " + String.valueOf(slides.getEncoder()));
             }
 
             clawRotator.toDrop();
 
         }
-
-        telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
-        telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
-        telemetry.update();
     }
 
     public void move(float x, float y, float turn) {
