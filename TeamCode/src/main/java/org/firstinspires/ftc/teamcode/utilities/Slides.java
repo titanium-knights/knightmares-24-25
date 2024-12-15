@@ -251,7 +251,7 @@ public class Slides {
     public void rotateRight() { // slide rotates up
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rotState = SlidesRotatorState.RIGHT;
-        setRotPower(-8);
+        setRotPower(-10);
     }
 
     public class SlideAction implements Action {
