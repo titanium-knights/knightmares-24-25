@@ -187,18 +187,18 @@ public class Slides {
     public void extend(){
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         // max limit
-        if (pos <= maxheight){
-            setPower(0);
-            return;
-        }
-        if (state == SlidesState.LEFT && pos <= -2200){
-            setPower(-4);
-            pos = getEncoder();
-            return;
-        }
-        if (state == SlidesState.LEFT){
-            return;
-        }
+//        if (pos <= maxheight){
+//            setPower(0);
+//            return;
+//        }
+//        if (state == SlidesState.LEFT && pos <= -2200){
+//            setPower(-4);
+//            pos = getEncoder();
+//            return;
+//        }
+//        if (state == SlidesState.LEFT){
+//            return;
+//        }
         state = SlidesState.LEFT;
         setPower(-7);
     }
@@ -210,21 +210,21 @@ public class Slides {
 //            setPower(0);
 //            return;
 //        }
-        // down limit
-        if (pos >= minheight){
-            setPower(0);
-            pos = getEncoder();
-            return;
-        }
-        if (state == SlidesState.RIGHT && pos >= -900) {
-            setPower(3);
-            pos = getEncoder();
-            return;
-        }
-
-        if (state == SlidesState.RIGHT) {
-            return;
-        }
+//        // down limit
+//        if (pos >= minheight){
+//            setPower(0);
+//            pos = getEncoder();
+//            return;
+//        }
+//        if (state == SlidesState.RIGHT && pos >= -900) {
+//            setPower(3);
+//            pos = getEncoder();
+//            return;
+//        }
+//
+//        if (state == SlidesState.RIGHT) {
+//            return;
+//        }
 
         state = SlidesState.RIGHT;
         setPower(5);
@@ -244,7 +244,7 @@ public class Slides {
     public void rotateLeft(){ //slide rotates down
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rotState = SlidesRotatorState.LEFT;
-        setRotPower(10);
+        setRotPower(8);
     }
     //TODO: add rotator limit @ 400
 

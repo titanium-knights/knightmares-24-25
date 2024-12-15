@@ -195,12 +195,11 @@ public class Teleop extends OpMode {
         } else {
             slides.stopRotator();
         }
-        if (gamepad1.dpad_down){
+        if (gamepad2.dpad_down){
             slowMode = true;
-            slides.keepUp();
             telemetry.addLine("keep up: " + String.valueOf(slides.getRotatorEncoder()));
             telemetry.update();
-        } else if (gamepad1.dpad_up){
+        } else if (gamepad2.dpad_up){
             slowMode = false;
             telemetry.update();
     }
