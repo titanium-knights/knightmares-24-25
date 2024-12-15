@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.auton;
 // TODO CHANGE NUMBERS AFTER, THIS IS FOR WHEN WE DONT USE CLAW
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
@@ -11,7 +10,7 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 @Autonomous(name="time_nearBasketPUSHBOT", group="Linear OpMode")
 @Config
 
-public class auton_nearBasket_PUSHBOT extends AutonMethods {
+public class time_nearBasket_PUSHBOT extends AutonMethods {
     //check what this does (just next line)
     public final double POWER = 0.5;
     public void runOpMode() throws InterruptedException {

@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="time_nearBasket", group="Linear OpMode")
 @Config
-public class auton_nearBasket extends AutonMethods {
+public class time_nearBasket extends AutonMethods {
 
 @Override
     public void runOpMode() throws InterruptedException {

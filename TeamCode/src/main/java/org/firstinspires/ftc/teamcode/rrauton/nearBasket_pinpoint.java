@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -55,6 +56,7 @@ public class nearBasket_pinpoint extends LinearOpMode {
         telemetry.update();
 
         PinpointDrive drivetrain = new PinpointDrive(hardwareMap, begPose);
+        drivetrain.updatePoseEstimate();
 
         //TODO: add 1 arg constructors to these hardware classes to prevent errors
         Claw claw = new Claw(hardwareMap);
@@ -66,46 +68,49 @@ public class nearBasket_pinpoint extends LinearOpMode {
 
         // the actual path
         // each "tab" is like a sequence of x and y movements
-        TrajectoryActionBuilder tab = drivetrain.actionBuilder(begPose)
-                .lineToX(-36)
-                // .setTangent is needed when switching between running x and y
-                .setTangent(Math.toRadians(90)) // might be 270, needs to be tuned
-                .lineToY(-36)
-                .setTangent(Math.toRadians(0))
-                .lineToX(-12);
+        //TrajectoryActionBuilder tab = drivetrain.actionBuilder(begPose)
+        //        .lineToX(-36)
+        //        // .setTangent is needed when switching between running x and y
+        //        .setTangent(Math.toRadians(90)) // might be 270, needs to be tuned
+        //        .lineToY(-36)
+        //        .setTangent(Math.toRadians(0))
+        //        .lineToX(-12);
 
         // you run stuff that is not drivetrain in between each tab
 
         TrajectoryActionBuilder specimenTab1 = drivetrain.actionBuilder(begPose)
-                .setTangent(Math.toRadians(90))
-                .lineToY(0)
-                .setTangent(0)
-                .lineToX(-36);
+        //        .setTangent(Math.toRadians(90))
+                .lineToX(100);
+        //        .setTangent(0)
+        //        .lineToX(-36);
 
         // move the arm
         // move the slides
         // move forward
 
-        TrajectoryActionBuilder specimenTab2 = drivetrain.actionBuilder(new Pose2d(-36, 0, 0))
-                .lineToX(-30);
+        //TrajectoryActionBuilder specimenTab2 = drivetrain.actionBuilder(new Pose2d(-36, 0, 0))
+        //        .lineToX(-30);
 
         // move the slides down
         // open the claw
         // move back to initial position
 
-        TrajectoryActionBuilder specimenTab3 = drivetrain.actionBuilder(new Pose2d(-30, 0, 0))
-                .lineToX(-60)
-                .setTangent(Math.toRadians(90))
-                .lineToY(12);
+        //TrajectoryActionBuilder specimenTab3 = drivetrain.actionBuilder(new Pose2d(-30, 0, 0))
+        //        .lineToX(-60)
+        //        .setTangent(Math.toRadians(90))
+        //        .lineToY(12);
 
         waitForStart();
+        resetRuntime();
 
+        // doesn't build everything on time unless you sleep
+        // start low and build your way up
+        //sleep(10000); // adjust if needed.
 
         if (isStopRequested()) return;
 
-        Action trajectoryAction = tab.build();
-        // doesn't build everything on time unless you sleep
-        // start low and build your way up
+        //Action trajectoryAction = tab.build();
+        Action trajectoryAction = specimenTab1.build();
         sleep(10000); // adjust if needed.
 
         // the line where you put the tabs and the non-drivetrain commands all together
@@ -113,9 +118,11 @@ public class nearBasket_pinpoint extends LinearOpMode {
         // Many of the methods used here are not present in the current hardware classes.
         SequentialAction specimenPlaceAction = new SequentialAction(trajectoryAction, claw.openAction());
 
-        Actions.runBlocking(new SequentialAction(
-                specimenPlaceAction,
-                trajectoryAction
-        ));
+        Actions.runBlocking(specimenPlaceAction);
+        //Actions.runBlocking(new SequentialAction(
+                //specimenPlaceAction,
+                //trajectoryAction
+        //));
+        sleep(10000); // adjust if needed.
     }
 }

@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 @Autonomous(name="time_nearHuman", group="Linear OpMode")
 @Config
 
-public class auton_nearHuman extends LinearOpMode {
+public class time_nearHuman extends LinearOpMode {
     //check what this does (just next line)
     public final double POWER = 0.5;
     public void runOpMode() throws InterruptedException {
