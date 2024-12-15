@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.utilities.Slides;
 
 @Config
 @Autonomous(name = "nearPark_pushBot", group = "Autonomous")
-public class nearPark_pushBot_RED extends LinearOpMode {
+public class nearHuman_pushBot_RED extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {

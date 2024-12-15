@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 
 @Config
-@Autonomous(name = "rrauton_park", group = "Autonomous")
-public class rrauton_park extends LinearOpMode {
+@Autonomous(name = "nearPark_pushBot", group = "Autonomous")
+public class nearBasket_UsingClaw_RED extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -27,19 +27,34 @@ public class rrauton_park extends LinearOpMode {
 
         MecanumDrive drivetrain = new MecanumDrive(hardwareMap, begPose);
 
+        //TODO: add 1 arg constructors to these hardware classes to prevent errors
         Claw claw = new Claw(hardwareMap);
         Slides slides = new Slides(hardwareMap);
         PullUp pullup = new PullUp(hardwareMap);
 
         // these were added to the util classes they basically do the same thing as claw.close but they need to be funky for roadrunner so its a different method
         Actions.runBlocking(claw.closeAction());
+        // TODO: this function does not exist
+        // Actions.runBlocking(pullup.toInitPosAction());
 
         // the actual path
         // each "tab" is like a sequence of x and y movements
-        //TODO: NOT TUNED
+        //TODO ALL NUMBERS ARE NOT TUNED
+        // (the radians 100%) BUT the x and y's are approximate assume robot in center of block
         TrajectoryActionBuilder tab = drivetrain.actionBuilder(begPose)
-                .lineToX(60);
-        //subtract 72 by half it's width
+                //todo start from y = 60 x = -12
+                .lineToY(36) // left
+                .setTangent(Math.toRadians(90)) // might be 270, needs to be tuned
+                .lineToX(-8); // go to the edge of the middle line (incase the other team is also using spesimens)
+
+        TrajectoryActionBuilder putInitialSpesimen = drivetrain.actionBuilder(begPose);
+                    slides.up();
+                    slides.down();
+                    slides.runToPosition();
+
+                    //claw open, close
+                    //rotator up, down
+                    //claw turn, up + down
 
 
         waitForStart();
@@ -51,6 +66,10 @@ public class rrauton_park extends LinearOpMode {
         if (isStopRequested()) return;
         Action trajectoryAction = tab.build();
 
+        // the line where you put the tabs and the non-drivetrain commands all together
+        //TODO: this code appears to be taken from the AK code base, which handles some of the hardware classes differently.
+        // Many of the methods used here are not present in the current hardware classes.
+        //SequentialAction specimenPlaceAction = new SequentialAction(specimenTab1.build(), arm.toScoreSpecimenPosAction(), slides.getSlideAction(SlideState.MEDIUM), specimenTab2.build(), slides.getSlideAction(SlideState.MEDIUMSCORE), claw.openAction(), specimenTab3.build());
 
         Actions.runBlocking(new SequentialAction(
                 // specimenPlaceAction,

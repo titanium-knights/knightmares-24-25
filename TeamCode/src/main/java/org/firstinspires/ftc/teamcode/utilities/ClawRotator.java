@@ -2,7 +2,11 @@ package org.firstinspires.ftc.teamcode.utilities;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 
+import androidx.annotation.NonNull;
+
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.Servo.Direction;
@@ -33,6 +37,17 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             cRotatorServo.setPosition(dropPos);
             telemetry.addLine(Double.toString(cRotatorServo.getPosition()));
         }
+
+        public class toDropAction implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                toDrop();
+                return false;
+            }
+        }
+
+        public Action toDropAction() {  return new ClawRotator.toDropAction();  }
+
         public void toPick() {
             //cRotatorServo.setDirection(Servo.Direction.REVERSE);
             telemetry.addLine("claw to pick");
@@ -42,5 +57,16 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
         public double getPosition() {
             return (cRotatorServo.getPosition());
         }
+
+        public class toPickAction implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                toPick();
+                return false;
+            }
+        }
+
+        public Action toPickAction() {  return new ClawRotator.toPickAction();  }
+
 
     }
