@@ -203,6 +203,14 @@ public class Slides {
         setPower(-7);
     }
 
+    public class Extend implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            extend();
+            return false;
+        }
+    }
+    public Action extendAction() {  return new Slides.Extend();  }
 
     public void retract() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
