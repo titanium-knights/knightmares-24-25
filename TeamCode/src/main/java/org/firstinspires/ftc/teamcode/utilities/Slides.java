@@ -214,30 +214,18 @@ public class Slides {
 
     public void retract() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        if (pos < -0.2){
-//            setPower(0);
-//            return;
-//        }
-//        // down limit
-//        if (pos >= minheight){
-//            setPower(0);
-//            pos = getEncoder();
-//            return;
-//        }
-//        if (state == SlidesState.RIGHT && pos >= -900) {
-//            setPower(3);
-//            pos = getEncoder();
-//            return;
-//        }
-//
-//        if (state == SlidesState.RIGHT) {
-//            return;
-//        }
-
         state = SlidesState.RIGHT;
         setPower(5);
-
     }
+    public class Retract implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            retract();
+            return false;
+        }
+    }
+    public Action retractAction() {  return new Slides.Retract();  }
+
 
     // ROTATOR (rotater? rotator.) MANUAL
     public void keepUp() {
