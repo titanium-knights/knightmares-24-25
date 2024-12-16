@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 
 @Config
-@Autonomous(name = "rrauton_park", group = "Autonomous")
+@Autonomous(name = "rr_auton_park", group = "Autonomous")
 public class rrauton_park extends LinearOpMode {
 
     @Override
