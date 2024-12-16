@@ -87,6 +87,12 @@ public class Teleop extends OpMode {
         } else {
             slides.stop();
         }
+        //DRIVETRAIN TELEMETRY
+        telemetry.addLine(String.valueOf(drive.getfl()) + "get front left");
+        telemetry.addLine(String.valueOf(drive.getbr()) + "get back right");
+        telemetry.addLine(String.valueOf(drive.getfr()) + "get front right");
+        telemetry.addLine(String.valueOf(drive.getbl()) + "get back left");
+        telemetry.update();
 
         //DRIVE
         float x = gamepad2.left_stick_x;

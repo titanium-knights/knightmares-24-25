@@ -104,6 +104,17 @@ public class SimpleMecanumDrive {
     public double dot(double[] a, double[] b) {
         return a[0] * b[0] + a[1] * b[1];
     }
-
+    public int getfl() {
+        return fl.getCurrentPosition();
+    }
+    public int getbr() {
+        return br.getCurrentPosition();
+    }
+    public int getfr() {
+        return fr.getCurrentPosition();
+    }
+    public int getbl() {
+        return bl.getCurrentPosition();
+    }
 
 }
