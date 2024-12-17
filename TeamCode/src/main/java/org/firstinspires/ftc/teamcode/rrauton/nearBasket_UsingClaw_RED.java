@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 
 @Config
-@Autonomous(name = "nearPark_pushBot", group = "Autonomous")
+@Autonomous(name = "rr_nearPark_pushBot", group = "Autonomous")
 public class nearBasket_UsingClaw_RED extends LinearOpMode {
 
     @Override
@@ -48,13 +48,16 @@ public class nearBasket_UsingClaw_RED extends LinearOpMode {
                 .lineToX(-8); // go to the edge of the middle line (incase the other team is also using spesimens)
 
         TrajectoryActionBuilder putInitialSpesimen = drivetrain.actionBuilder(begPose);
-                    slides.up();
-                    slides.down();
-                    slides.runToPosition();
 
-                    //claw open, close
-                    //rotator up, down
-                    //claw turn, up + down
+
+
+                    //claw.
+
+                    //slides.up()
+                    //slides.down()
+                    //rotateLeftAction()          (rotator)
+                    //rotateRightAction()         (rotator)
+
 
 
         waitForStart();

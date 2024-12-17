@@ -203,33 +203,29 @@ public class Slides {
         setPower(-7);
     }
 
+    public class Extend implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            extend();
+            return false;
+        }
+    }
+    public Action extendAction() {  return new Slides.Extend();  }
 
     public void retract() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        if (pos < -0.2){
-//            setPower(0);
-//            return;
-//        }
-//        // down limit
-//        if (pos >= minheight){
-//            setPower(0);
-//            pos = getEncoder();
-//            return;
-//        }
-//        if (state == SlidesState.RIGHT && pos >= -900) {
-//            setPower(3);
-//            pos = getEncoder();
-//            return;
-//        }
-//
-//        if (state == SlidesState.RIGHT) {
-//            return;
-//        }
-
         state = SlidesState.RIGHT;
         setPower(5);
-
     }
+    public class Retract implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            retract();
+            return false;
+        }
+    }
+    public Action retractAction() {  return new Slides.Retract();  }
+
 
     // ROTATOR (rotater? rotator.) MANUAL
     public void keepUp() {
@@ -241,18 +237,38 @@ public class Slides {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setRotPower(-2);
     }
+
+
     public void rotateLeft(){ //slide rotates down
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rotState = SlidesRotatorState.LEFT;
         setRotPower(8);
     }
-    //TODO: add rotator limit @ 400
+    public class RotateLeft implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            rotateLeft();
+            return false;
+        }
+    }
+    public Action rotateLeftAction() {  return new Slides.RotateLeft();  }
 
+
+    //TODO: add rotator limit @ 400
     public void rotateRight() { // slide rotates up
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rotState = SlidesRotatorState.RIGHT;
         setRotPower(-10);
     }
+    public class RotateRight implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            rotateRight();
+            return false;
+        }
+    }
+    public Action rotateRightAction() {  return new Slides.RotateRight();  }
+
 
     public class SlideAction implements Action {
         SlidesState slidesStateAction;

@@ -37,7 +37,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             cRotatorServo.setPosition(dropPos);
             telemetry.addLine(Double.toString(cRotatorServo.getPosition()));
         }
-
         public class toDropAction implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
@@ -45,8 +44,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
                 return false;
             }
         }
-
         public Action toDropAction() {  return new ClawRotator.toDropAction();  }
+
 
         public void toPick() {
             //cRotatorServo.setDirection(Servo.Direction.REVERSE);
