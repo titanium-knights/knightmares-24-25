@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.rr.MecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
+import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 
@@ -31,6 +32,7 @@ public class nearBasket_UsingClaw_RED extends LinearOpMode {
         Claw claw = new Claw(hardwareMap);
         Slides slides = new Slides(hardwareMap);
         PullUp pullup = new PullUp(hardwareMap);
+        ClawRotator clawRotator = new ClawRotator(hardwareMap, telemetry);
 
         // these were added to the util classes they basically do the same thing as claw.close but they need to be funky for roadrunner so its a different method
         Actions.runBlocking(claw.closeAction());
@@ -47,16 +49,35 @@ public class nearBasket_UsingClaw_RED extends LinearOpMode {
                 .setTangent(Math.toRadians(90)) // might be 270, needs to be tuned
                 .lineToX(-8); // go to the edge of the middle line (incase the other team is also using spesimens)
 
-        TrajectoryActionBuilder putInitialSpesimen = drivetrain.actionBuilder(begPose);
+        TrajectoryActionBuilder putInitialSpesimenA = drivetrain.actionBuilder(begPose);
+                    slides.rotateRightAction();
+                    slides.extendAction();
+        TrajectoryActionBuilder putInitialSpesimenB = drivetrain.actionBuilder(begPose);
+                    clawRotator.toDropAction();
+                    clawRotator.toPickAction();
+        TrajectoryActionBuilder putInitialSpesimenC = drivetrain.actionBuilder(begPose);
+                    claw.openAction(); //assuming it was already closed from the begining
+        TrajectoryActionBuilder putInitialSpesimenD = drivetrain.actionBuilder(begPose);
+                    clawRotator.toDropAction();
+        TrajectoryActionBuilder putInitialSpesimenE = drivetrain.actionBuilder(begPose);
+                    slides.retractAction();
+                    slides.rotateLeftAction();
+                    //finish
+
+        TrajectoryActionBuilder putInitialSpesimenF = drivetrain.actionBuilder(begPose);
 
 
 
-                    //claw.
 
-                    //slides.up()
-                    //slides.down()
-                    //rotateLeftAction()          (rotator)
-                    //rotateRightAction()         (rotator)
+
+                    //claw.closeAction()
+                    //claw.openAction()
+                    //clawRotator.toDropAction()
+                    //clawRotator.toPickAction()
+                    //slides.retractAction()
+                    //slides.extendAction()
+                    //slides.rotateLeftAction()
+                    //slides.rotateRightAction()
 
 
 
