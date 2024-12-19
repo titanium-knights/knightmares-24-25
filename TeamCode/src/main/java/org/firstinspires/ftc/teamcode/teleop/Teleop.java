@@ -103,10 +103,10 @@ public class Teleop extends OpMode {
             float slowx = (float)0.4*x;
             float slowy = (float)0.4*y;
             stick_margin = 0.3f;
-            move(slowx, -slowy, turn);
+            move(slowx, slowy, turn);
         } else {
             stick_margin = 0.7f;
-            move(x, -y, turn);
+            move(x, y, turn);
         }
         int pul1 = pullup.getPosition1();
         int pul2 = pullup.getPosition2();
