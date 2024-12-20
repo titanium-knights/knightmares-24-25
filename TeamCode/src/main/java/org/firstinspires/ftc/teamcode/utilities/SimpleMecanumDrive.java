@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.utilities;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -21,14 +23,31 @@ public class SimpleMecanumDrive {
         br.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         fl.setDirection(DcMotorSimple.Direction.FORWARD);
+        fr.setDirection(DcMotorSimple.Direction.FORWARD); // origina lly FORWARD
         bl.setDirection(DcMotorSimple.Direction.REVERSE);
-        fr.setDirection(DcMotorSimple.Direction.REVERSE); // origina lly FORWARD
         br.setDirection(DcMotorSimple.Direction.REVERSE);
 
         directions.put(fl, new double[]{1, 1});
         directions.put(fr, new double[]{1, -1});
         directions.put(bl, new double[]{1, -1});
         directions.put(br, new double[]{1, 1});
+
+        fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        fl.setZeroPowerBehavior(BRAKE);
+
+        fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        fr.setZeroPowerBehavior(BRAKE);
+
+        bl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        bl.setZeroPowerBehavior(BRAKE);
+
+        br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        br.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        br.setZeroPowerBehavior(BRAKE);
+
     }
 
     public static DcMotor fl, fr, bl, br;
