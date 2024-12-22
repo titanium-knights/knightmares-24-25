@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.backupAuton.auton;
 //this is TIME BASED
 // TODO CHANGE NUMBERS AFTER, THIS IS FOR WHEN WE DONT USE CLAW
 import com.acmerobotics.dashboard.config.Config;

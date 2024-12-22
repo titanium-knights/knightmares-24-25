@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.MathFunctions;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Vector;
 import org.firstinspires.ftc.teamcode.pedroPathing.util.NanoTimer;
+import org.firstinspires.ftc.teamcode.utilities.CONFIG;
 
 /**
  * This is the DriveEncoderLocalizer class. This class extends the Localizer superclass and is a
@@ -64,10 +65,10 @@ public class DriveEncoderLocalizer extends Localizer {
     public DriveEncoderLocalizer(HardwareMap map, Pose setStartPose) {
         hardwareMap = map;
 
-        leftFront = new Encoder(hardwareMap.get(DcMotorEx.class, leftFrontMotorName));
-        leftRear = new Encoder(hardwareMap.get(DcMotorEx.class, leftRearMotorName));
-        rightRear = new Encoder(hardwareMap.get(DcMotorEx.class, rightRearMotorName));
-        rightFront = new Encoder(hardwareMap.get(DcMotorEx.class, rightFrontMotorName));
+        leftFront = new Encoder(hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_LEFT));
+        leftRear = new Encoder(hardwareMap.get(DcMotorEx.class, CONFIG.BACK_LEFT));
+        rightRear = new Encoder(hardwareMap.get(DcMotorEx.class, CONFIG.BACK_RIGHT));
+        rightFront = new Encoder(hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_RIGHT));
 
         // TODO: reverse any encoders necessary
         leftFront.setDirection(Encoder.REVERSE);
