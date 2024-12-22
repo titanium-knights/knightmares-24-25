@@ -1,13 +1,14 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.backupAuton.auton;
 //this is TIME BASED
+// TODO CHANGE NUMBERS AFTER
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="time_tuner", group="Linear OpMode")
+@Autonomous(name="time_park", group="Linear OpMode")
 @Config
-public class time_tuner extends AutonMethods {
+public class time_park extends AutonMethods {
 
 
     @Override
@@ -20,11 +21,7 @@ public class time_tuner extends AutonMethods {
         waitForStart();
         runtime.reset();
 
-        moveForward(2);
-        // moveBackward(2);
-        // moveLeft(2);
-        // moveRight(2);
-
+        moveRight(2);
         stopDrive();
     }
 }

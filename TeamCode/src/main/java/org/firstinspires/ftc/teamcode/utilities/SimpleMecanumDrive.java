@@ -28,8 +28,8 @@ public class SimpleMecanumDrive {
         br.setDirection(DcMotorSimple.Direction.REVERSE);
 
         directions.put(fl, new double[]{1, 1});
-        directions.put(fr, new double[]{1, -1});
         directions.put(bl, new double[]{1, -1});
+        directions.put(fr, new double[]{1, -1});
         directions.put(br, new double[]{1, 1});
 
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

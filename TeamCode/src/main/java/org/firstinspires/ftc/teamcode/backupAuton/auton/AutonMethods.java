@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auton;
+package org.firstinspires.ftc.teamcode.backupAuton.auton;
 
 import static org.firstinspires.ftc.teamcode.utilities.CONFIG.clawRotator;
 
