@@ -15,12 +15,12 @@ import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 
 @Config
-@Autonomous(name = "rr_nearPark_pushBot", group = "Autonomous")
+@Autonomous(name = "nearBasket_pushBot_BLUE", group = "Autonomous")
 public class nearBasket_pushBot_BLUE extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        Pose2d begPose = new Pose2d(-60, -12, 0); // 0,0 is the center of the board TODO: tune
+        Pose2d begPose = new Pose2d(-60, 12, 0); // 0,0 is the center of the board TODO: tune
 
         telemetry.addData("Initialized: ", "");
         telemetry.update();
