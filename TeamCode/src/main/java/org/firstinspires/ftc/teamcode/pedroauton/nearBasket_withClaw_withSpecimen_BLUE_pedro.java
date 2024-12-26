@@ -17,8 +17,10 @@ import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 
-@Autonomous(name = "nearBasket_pushBot_withSpecimen_BLUE_pedro", group = "Examples")
-public class nearBasket_pushBot_withSpecimen_BLUE_pedro extends OpMode{
+
+
+@Autonomous(name = "nearBasket_withClaw_withSpecimen_BLUE_pedro", group = "Examples")
+public class nearBasket_withClaw_withSpecimen_BLUE_pedro extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
@@ -53,11 +55,12 @@ public class nearBasket_pushBot_withSpecimen_BLUE_pedro extends OpMode{
     private final Pose placeMiddleP_BASKET = new Pose(16, 132, Math.toRadians(90));
     private final Pose placeFarP_BASKET = new Pose(20, 136, Math.toRadians(90));
 
-    private final Pose placeCloseP_BASKETwCLAW = new Pose(36, 120, Math.toRadians(0));
-    private final Pose placeMiddleP_BASKETwCLAW = new Pose(36, 132, Math.toRadians(0));
+
+    private final Pose pickupCloseP_BASKETwCLAW = new Pose(36, 120, Math.toRadians(0));
+    private final Pose pickupMiddleP_BASKETwCLAW = new Pose(36, 132, Math.toRadians(0));
     //the other two, the robot just picks up while facing forward, bc the robot cant go out the bounds of the field
     // it will just be turning slightly to pick up the sample, this number will probably be changed
-    private final Pose placeFarP_BASKETwCLAW = new Pose(36, 136, Math.toRadians(45));
+    private final Pose pickupFarP_BASKETwCLAW = new Pose(36, 136, Math.toRadians(45));
 
 
     //none for human since placeFarP_HUMAN is the same thing (after tuning)
@@ -78,7 +81,7 @@ public class nearBasket_pushBot_withSpecimen_BLUE_pedro extends OpMode{
     private final Pose straightToParkP_BASKET = new Pose(8, 32, Math.toRadians(0));
 
     private Path startWithSpecimen_PATH, park;
-    private PathChain specimenControllA_PATH, specimenControllB_PATH, pickUpClose_PATH, placeClose_PATH, moveToMiddle_PATH, pickUpMiddle_PATH, placeMiddle_PATH, moveToFar_PATH, pickUpFar_PATH, placeFar_PATH;
+    private PathChain specimenControllA_PATH, pickUpClose_PATH, placeClose_PATH, pickUpMiddle_PATH, placeMiddle_PATH, pickUpFar_PATH, placeFar_PATH;
 
 
     public void buildPaths() {
@@ -86,54 +89,40 @@ public class nearBasket_pushBot_withSpecimen_BLUE_pedro extends OpMode{
         startWithSpecimen_PATH = new Path(new BezierLine(new Point(startP_BASKET), new Point(specimenP_BASKET)));
         startWithSpecimen_PATH.setLinearHeadingInterpolation(startP_BASKET.getHeading(), specimenP_BASKET.getHeading());
 
+        //TODO: check this ones Pose
         specimenControllA_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(specimenP_BASKET), new Point( specimenControllP_BASKET )))
                 .setLinearHeadingInterpolation(specimenP_BASKET.getHeading(),  specimenControllP_BASKET .getHeading())
                 .build();
 
-        specimenControllB_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(specimenControllP_BASKET), new Point( controllBeforeCloseP_BASKET )))
-                .setLinearHeadingInterpolation(specimenControllP_BASKET.getHeading(),  controllBeforeCloseP_BASKET .getHeading())
-                .build();
-
         pickUpClose_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(controllBeforeCloseP_BASKET), new Point(pickupCloseP_BASKET)))
-                .setLinearHeadingInterpolation(controllBeforeCloseP_BASKET.getHeading(), pickupCloseP_BASKET.getHeading())
+                .addPath(new BezierLine(new Point(specimenControllP_BASKET), new Point(pickupCloseP_BASKETwCLAW)))
+                .setLinearHeadingInterpolation(specimenControllP_BASKET.getHeading(), pickupCloseP_BASKETwCLAW.getHeading())
                 .build();
 
         placeClose_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickupCloseP_BASKET), new Point(placeCloseP_BASKET)))
-                .setLinearHeadingInterpolation(pickupCloseP_BASKET.getHeading(), placeCloseP_BASKET.getHeading())
-                .build();
-
-        moveToMiddle_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(placeCloseP_BASKET), new Point(pickupCloseP_BASKET)))
-                .setLinearHeadingInterpolation(placeCloseP_BASKET.getHeading(), pickupCloseP_BASKET.getHeading())
+                .addPath(new BezierLine(new Point(pickupCloseP_BASKETwCLAW), new Point(scoreP)))
+                .setLinearHeadingInterpolation(pickupCloseP_BASKETwCLAW.getHeading(), scoreP.getHeading())
                 .build();
 
         pickUpMiddle_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickupCloseP_BASKET), new Point(pickupMiddleP_BASKET)))
-                .setLinearHeadingInterpolation(pickupCloseP_BASKET.getHeading(), pickupMiddleP_BASKET.getHeading())
+                .addPath(new BezierLine(new Point(scoreP), new Point(pickupMiddleP_BASKETwCLAW)))
+                .setLinearHeadingInterpolation(scoreP.getHeading(), pickupMiddleP_BASKETwCLAW.getHeading())
                 .build();
 
         placeMiddle_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickupMiddleP_BASKET), new Point(placeMiddleP_BASKET)))
-                .setLinearHeadingInterpolation(pickupMiddleP_BASKET.getHeading(), placeMiddleP_BASKET.getHeading())
-                .build();
-
-        moveToFar_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(placeMiddleP_BASKET), new Point(pickupMiddleP_BASKET)))
-                .setLinearHeadingInterpolation(placeMiddleP_BASKET.getHeading(), pickupMiddleP_BASKET.getHeading())
+                .addPath(new BezierLine(new Point(pickupMiddleP_BASKETwCLAW), new Point(scoreP)))
+                .setLinearHeadingInterpolation(pickupMiddleP_BASKETwCLAW.getHeading(), scoreP.getHeading())
                 .build();
 
         pickUpFar_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickupMiddleP_BASKET), new Point(pickupFarP_BASKET)))
-                .setLinearHeadingInterpolation(pickupMiddleP_BASKET.getHeading(), pickupFarP_BASKET.getHeading())
+                .addPath(new BezierLine(new Point(scoreP), new Point(pickupFarP_BASKETwCLAW)))
+                .setLinearHeadingInterpolation(scoreP.getHeading(), pickupFarP_BASKETwCLAW.getHeading())
                 .build();
 
         placeFar_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickupFarP_BASKET), new Point(placeFarP_BASKET)))
-                .setLinearHeadingInterpolation(pickupFarP_BASKET.getHeading(), placeFarP_BASKET.getHeading())
+                .addPath(new BezierLine(new Point(pickupFarP_BASKETwCLAW), new Point(scoreP)))
+                .setLinearHeadingInterpolation(pickupFarP_BASKETwCLAW.getHeading(), scoreP.getHeading())
                 .build();
 
         //basically park
@@ -161,62 +150,44 @@ public class nearBasket_pushBot_withSpecimen_BLUE_pedro extends OpMode{
                     setPathState(2);
                 }
                 break;
-            case 2:
-                if(follower.getPose().getX() > (specimenControllP_BASKET.getX() - 1) && follower.getPose().getY() > (specimenControllP_BASKET.getY() - 1)) {
-                    follower.followPath(specimenControllB_PATH,true);
-                    setPathState(3);
-                }
-                break;
             case 3:
-                if(follower.getPose().getX() > (controllBeforeCloseP_BASKET.getX() - 1) && follower.getPose().getY() > (controllBeforeCloseP_BASKET.getY() - 1)) {
+                if(follower.getPose().getX() > (specimenControllP_BASKET.getX() - 1) && follower.getPose().getY() > (specimenControllP_BASKET.getY() - 1)) {
                     follower.followPath(pickUpClose_PATH,true);
                     setPathState(4);
                 }
                 break;
             case 4:
-                if(follower.getPose().getX() > (pickupCloseP_BASKET.getX() - 1) && follower.getPose().getY() > (pickupCloseP_BASKET.getY() - 1)) {
+                if(follower.getPose().getX() > (pickupCloseP_BASKETwCLAW.getX() - 1) && follower.getPose().getY() > (pickupCloseP_BASKETwCLAW.getY() - 1)) {
                     follower.followPath(placeClose_PATH,true);
                     setPathState(5);
                 }
                 break;
-            case 5:
-                if(follower.getPose().getX() > (placeCloseP_BASKET.getX() - 1) && follower.getPose().getY() > (placeCloseP_BASKET.getY() - 1)) {
-                    follower.followPath(moveToMiddle_PATH,true);
-                    setPathState(6);
-                }
-                break;
             case 6:
-                if(follower.getPose().getX() > (pickupCloseP_BASKET.getX() - 1) && follower.getPose().getY() > (pickupCloseP_BASKET.getY() - 1)) {
+                if(follower.getPose().getX() > (scoreP.getX() - 1) && follower.getPose().getY() > (scoreP.getY() - 1)) {
                     follower.followPath(pickUpMiddle_PATH,true);
                     setPathState(7);
                 }
                 break;
             case 7:
-                if(follower.getPose().getX() > (pickupMiddleP_BASKET.getX() - 1) && follower.getPose().getY() > (pickupMiddleP_BASKET.getY() - 1)) {
+                if(follower.getPose().getX() > (pickupMiddleP_BASKETwCLAW.getX() - 1) && follower.getPose().getY() > (pickupMiddleP_BASKETwCLAW.getY() - 1)) {
                     follower.followPath(placeMiddle_PATH, true);
                     setPathState(8);
                 }
                 break;
-            case 8:
-                if(follower.getPose().getX() > (placeMiddleP_BASKET.getX() - 1) && follower.getPose().getY() > (placeMiddleP_BASKET.getY() - 1)) {
-                    follower.followPath(moveToFar_PATH, true);
-                    setPathState(9);
-                }
-                break;
             case 9:
-                if(follower.getPose().getX() > (pickupMiddleP_BASKET.getX() - 1) && follower.getPose().getY() > (pickupMiddleP_BASKET.getY() - 1)) {
+                if(follower.getPose().getX() > (scoreP.getX() - 1) && follower.getPose().getY() > (scoreP.getY() - 1)) {
                     follower.followPath(pickUpFar_PATH, true);
                     setPathState(10);
                 }
                 break;
             case 10:
-                if(follower.getPose().getX() > (pickupFarP_BASKET.getX() - 1) && follower.getPose().getY() > (pickupFarP_BASKET.getY() - 1)) {
+                if(follower.getPose().getX() > (pickupFarP_BASKETwCLAW.getX() - 1) && follower.getPose().getY() > (pickupFarP_BASKETwCLAW.getY() - 1)) {
                     follower.followPath(placeFar_PATH,true);
                     setPathState(11);
                 }
                 break;
             case 11:
-                if(follower.getPose().getX() > (placeFarP_BASKET.getX() - 1) && follower.getPose().getY() > (placeFarP_BASKET.getY() - 1)) {
+                if(follower.getPose().getX() > (scoreP.getX() - 1) && follower.getPose().getY() > (scoreP.getY() - 1)) {
                     follower.followPath(park,true);
                     setPathState(12);
                 }
