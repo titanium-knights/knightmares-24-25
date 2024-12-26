@@ -6,7 +6,6 @@ import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.*;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
-import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierCurve;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierLine;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.PathChain;
@@ -17,8 +16,8 @@ import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 
 
-@Autonomous(name = "nearHuman_pushBot_BLUE_pedro", group = "Examples")
-public class nearHuman_pushBot_BLUE_pedro extends OpMode{
+@Autonomous(name = "nearBasket_pushBot_NoSpecimen_BLUE_pedro", group = "Examples")
+public class nearBasket_pushBot_NoSpecimen_BLUE_pedro extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
@@ -72,64 +71,67 @@ public class nearHuman_pushBot_BLUE_pedro extends OpMode{
     private final Pose startControllP_BASKET = new Pose(8, 112, Math.toRadians(0));
     private final Pose controllBeforeCloseP_BASKET = new Pose(56, 112, Math.toRadians(0));
 
-    //only for nearHuman_park
     private final Pose straightToParkP_HUMAN = new Pose(8, 8, Math.toRadians(0));
+    private final Pose straightToParkP_BASKET = new Pose(8, 32, Math.toRadians(0));
 
-    private Path start_PATH, placeFar_PATH;
-    private PathChain startControll_PATH, pickUpClose_PATH, placeClose_PATH, pickUpFar_PATH,
-            moveToFar_PATH, placeMiddle_PATH, moveToMiddle_PATH, pickUpMiddle_PATH;
+    private Path start_PATH, park;
+    private PathChain startControll_PATH, pickUpClose_PATH, placeClose_PATH, moveToMiddle_PATH, pickUpMiddle_PATH, placeMiddle_PATH, moveToFar_PATH, pickUpFar_PATH, placeFar_PATH;
 
 
     public void buildPaths() {
 
-        start_PATH = new Path(new BezierLine(new Point(startP_HUMAN), new Point(startControllP_HUMAN)));
-        start_PATH.setLinearHeadingInterpolation(startP_HUMAN.getHeading(), startControllP_HUMAN.getHeading());
+        start_PATH = new Path(new BezierLine(new Point(startP_BASKET), new Point(startControllP_BASKET)));
+        start_PATH.setLinearHeadingInterpolation(startP_BASKET.getHeading(), startControllP_BASKET.getHeading());
 
         startControll_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(startControllP_HUMAN), new Point( controllBeforeCloseP_HUMAN )))
-                .setLinearHeadingInterpolation(startControllP_HUMAN.getHeading(),  controllBeforeCloseP_HUMAN .getHeading())
+                .addPath(new BezierLine(new Point(startControllP_BASKET), new Point( controllBeforeCloseP_BASKET )))
+                .setLinearHeadingInterpolation(startControllP_BASKET.getHeading(),  controllBeforeCloseP_BASKET .getHeading())
                 .build();
 
         pickUpClose_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(controllBeforeCloseP_HUMAN), new Point(pickupCloseP_HUMAN)))
-                .setLinearHeadingInterpolation(controllBeforeCloseP_HUMAN.getHeading(), pickupCloseP_HUMAN.getHeading())
+                .addPath(new BezierLine(new Point(controllBeforeCloseP_BASKET), new Point(pickupCloseP_BASKET)))
+                .setLinearHeadingInterpolation(controllBeforeCloseP_BASKET.getHeading(), pickupCloseP_BASKET.getHeading())
                 .build();
 
         placeClose_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickupCloseP_HUMAN), new Point(placeCloseP_HUMAN)))
-                .setLinearHeadingInterpolation(pickupCloseP_HUMAN.getHeading(), placeCloseP_HUMAN.getHeading())
+                .addPath(new BezierLine(new Point(pickupCloseP_BASKET), new Point(placeCloseP_BASKET)))
+                .setLinearHeadingInterpolation(pickupCloseP_BASKET.getHeading(), placeCloseP_BASKET.getHeading())
                 .build();
 
         moveToMiddle_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(placeCloseP_HUMAN), new Point(pickupCloseP_HUMAN)))
-                .setLinearHeadingInterpolation(placeCloseP_HUMAN.getHeading(), pickupCloseP_HUMAN.getHeading())
+                .addPath(new BezierLine(new Point(placeCloseP_BASKET), new Point(pickupCloseP_BASKET)))
+                .setLinearHeadingInterpolation(placeCloseP_BASKET.getHeading(), pickupCloseP_BASKET.getHeading())
                 .build();
 
         pickUpMiddle_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickupCloseP_HUMAN), new Point(pickupMiddleP_HUMAN)))
-                .setLinearHeadingInterpolation(pickupCloseP_HUMAN.getHeading(), pickupMiddleP_HUMAN.getHeading())
+                .addPath(new BezierLine(new Point(pickupCloseP_BASKET), new Point(pickupMiddleP_BASKET)))
+                .setLinearHeadingInterpolation(pickupCloseP_BASKET.getHeading(), pickupMiddleP_BASKET.getHeading())
                 .build();
 
         placeMiddle_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickupMiddleP_HUMAN), new Point(placeMiddleP_HUMAN)))
-                .setLinearHeadingInterpolation(pickupMiddleP_HUMAN.getHeading(), placeMiddleP_HUMAN.getHeading())
+                .addPath(new BezierLine(new Point(pickupMiddleP_BASKET), new Point(placeMiddleP_BASKET)))
+                .setLinearHeadingInterpolation(pickupMiddleP_BASKET.getHeading(), placeMiddleP_BASKET.getHeading())
                 .build();
 
         moveToFar_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(placeMiddleP_HUMAN), new Point(pickupMiddleP_HUMAN)))
-                .setLinearHeadingInterpolation(placeMiddleP_HUMAN.getHeading(), pickupMiddleP_HUMAN.getHeading())
+                .addPath(new BezierLine(new Point(placeMiddleP_BASKET), new Point(pickupMiddleP_BASKET)))
+                .setLinearHeadingInterpolation(placeMiddleP_BASKET.getHeading(), pickupMiddleP_BASKET.getHeading())
                 .build();
 
         pickUpFar_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickupMiddleP_HUMAN), new Point(pickupFarP_HUMAN)))
-                .setLinearHeadingInterpolation(pickupMiddleP_HUMAN.getHeading(), pickupFarP_HUMAN.getHeading())
+                .addPath(new BezierLine(new Point(pickupMiddleP_BASKET), new Point(pickupFarP_BASKET)))
+                .setLinearHeadingInterpolation(pickupMiddleP_BASKET.getHeading(), pickupFarP_BASKET.getHeading())
+                .build();
+
+        placeFar_PATH = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(pickupFarP_BASKET), new Point(placeFarP_BASKET)))
+                .setLinearHeadingInterpolation(pickupFarP_BASKET.getHeading(), placeFarP_BASKET.getHeading())
                 .build();
 
         //basically park
-        placeFar_PATH = new Path(new BezierLine(new Point(pickupFarP_HUMAN), new Point(placeFarP_HUMAN)));
-        placeFar_PATH.setLinearHeadingInterpolation(pickupFarP_HUMAN.getHeading(), placeFarP_HUMAN.getHeading());
+        park = new Path(new BezierLine(new Point(placeFarP_BASKET), new Point(straightToParkP_BASKET)));
+        park.setLinearHeadingInterpolation(placeFarP_BASKET.getHeading(), straightToParkP_BASKET.getHeading());
     }
-
 
     public void autonomousPathUpdate() {
         switch (pathState) {
@@ -138,61 +140,61 @@ public class nearHuman_pushBot_BLUE_pedro extends OpMode{
                 setPathState(1);
                 break;
             case 1:
-                if(follower.getPose().getX() > (startControllP_HUMAN.getX() - 1) && follower.getPose().getY() > (startControllP_HUMAN.getY() - 1)) {
+                if(follower.getPose().getX() > (startControllP_BASKET.getX() - 1) && follower.getPose().getY() > (startControllP_BASKET.getY() - 1)) {
                     follower.followPath(startControll_PATH,true);
                     setPathState(2);
                 }
                 break;
             case 2:
-                if(follower.getPose().getX() > (controllBeforeCloseP_HUMAN.getX() - 1) && follower.getPose().getY() > (controllBeforeCloseP_HUMAN.getY() - 1)) {
+                if(follower.getPose().getX() > (controllBeforeCloseP_BASKET.getX() - 1) && follower.getPose().getY() > (controllBeforeCloseP_BASKET.getY() - 1)) {
                     follower.followPath(pickUpClose_PATH,true);
                     setPathState(3);
                 }
                 break;
             case 3:
-                if(follower.getPose().getX() > (pickupCloseP_HUMAN.getX() - 1) && follower.getPose().getY() > (pickupCloseP_HUMAN.getY() - 1)) {
+                if(follower.getPose().getX() > (pickupCloseP_BASKET.getX() - 1) && follower.getPose().getY() > (pickupCloseP_BASKET.getY() - 1)) {
                     follower.followPath(placeClose_PATH,true);
                     setPathState(4);
                 }
                 break;
             case 4:
-                if(follower.getPose().getX() > (placeCloseP_HUMAN.getX() - 1) && follower.getPose().getY() > (placeCloseP_HUMAN.getY() - 1)) {
+                if(follower.getPose().getX() > (placeCloseP_BASKET.getX() - 1) && follower.getPose().getY() > (placeCloseP_BASKET.getY() - 1)) {
                     follower.followPath(moveToMiddle_PATH,true);
                     setPathState(5);
                 }
                 break;
             case 5:
-                if(follower.getPose().getX() > (pickupCloseP_HUMAN.getX() - 1) && follower.getPose().getY() > (pickupCloseP_HUMAN.getY() - 1)) {
+                if(follower.getPose().getX() > (pickupCloseP_BASKET.getX() - 1) && follower.getPose().getY() > (pickupCloseP_BASKET.getY() - 1)) {
                     follower.followPath(pickUpMiddle_PATH,true);
                     setPathState(6);
                 }
                 break;
             case 6:
-                if(follower.getPose().getX() > (pickupMiddleP_HUMAN.getX() - 1) && follower.getPose().getY() > (pickupMiddleP_HUMAN.getY() - 1)) {
+                if(follower.getPose().getX() > (pickupMiddleP_BASKET.getX() - 1) && follower.getPose().getY() > (pickupMiddleP_BASKET.getY() - 1)) {
                     follower.followPath(placeMiddle_PATH, true);
                     setPathState(7);
                 }
                 break;
             case 7:
-                if(follower.getPose().getX() > (placeMiddleP_HUMAN.getX() - 1) && follower.getPose().getY() > (placeMiddleP_HUMAN.getY() - 1)) {
+                if(follower.getPose().getX() > (placeMiddleP_BASKET.getX() - 1) && follower.getPose().getY() > (placeMiddleP_BASKET.getY() - 1)) {
                     follower.followPath(moveToFar_PATH, true);
                     setPathState(8);
                 }
                 break;
             case 8:
-                if(follower.getPose().getX() > (pickupMiddleP_HUMAN.getX() - 1) && follower.getPose().getY() > (pickupMiddleP_HUMAN.getY() - 1)) {
+                if(follower.getPose().getX() > (pickupMiddleP_BASKET.getX() - 1) && follower.getPose().getY() > (pickupMiddleP_BASKET.getY() - 1)) {
                     follower.followPath(pickUpFar_PATH, true);
                     setPathState(9);
                 }
                 break;
             case 9:
-                if(follower.getPose().getX() > (pickupFarP_HUMAN.getX() - 1) && follower.getPose().getY() > (pickupFarP_HUMAN.getY() - 1)) {
+                if(follower.getPose().getX() > (pickupFarP_BASKET.getX() - 1) && follower.getPose().getY() > (pickupFarP_BASKET.getY() - 1)) {
                     follower.followPath(placeFar_PATH,true);
                     setPathState(10);
                 }
                 break;
             case 10:
-                if(follower.getPose().getX() > (placeFarP_HUMAN.getX() - 1) && follower.getPose().getY() > (placeFarP_HUMAN.getY() - 1)) {
+                if(follower.getPose().getX() > (placeFarP_BASKET.getX() - 1) && follower.getPose().getY() > (placeFarP_BASKET.getY() - 1)) {
                     setPathState(-1);
                 }
                 break;
@@ -227,7 +229,7 @@ public class nearHuman_pushBot_BLUE_pedro extends OpMode{
         opmodeTimer.resetTimer();
 
         follower = new Follower(hardwareMap);
-        follower.setStartingPose(startP_HUMAN);
+        follower.setStartingPose(startP_BASKET);
 
         buildPaths();
 
