@@ -74,5 +74,6 @@
 //
 //    //only for nearHuman_park
 //    private final Pose straightToParkP_HUMAN = new Pose(8, 8, Math.toRadians(0));
+//    private final Pose straightToParkP_BASKET = new Pose(8, 32, Math.toRadians(0));
 //
 //}

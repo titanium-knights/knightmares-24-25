@@ -79,7 +79,7 @@ public class nearHuman_pushBot_withSpecimen_BLUE_pedro extends OpMode{
     private final Pose straightToParkP_HUMAN = new Pose(8, 8, Math.toRadians(0));
 
     private Path startWithSpecimen_PATH, placeFar_PATH;
-    private PathChain startControll_PATH, pickUpClose_PATH, placeClose_PATH, pickUpFar_PATH, specimenControllB_PATH,
+    private PathChain pickUpClose_PATH, placeClose_PATH, pickUpFar_PATH, specimenControllB_PATH,
             moveToFar_PATH, placeMiddle_PATH, moveToMiddle_PATH, pickUpMiddle_PATH, specimenControllA_PATH;
 
 
