@@ -61,16 +61,18 @@
 //    //none for human since placeFarP_HUMAN is the same thing (after tuning)
 //    private final Pose parkP_BASKET = new Pose(32, 8, Math.toRadians(90));
 //
-//    private final Pose specimen_HUMAN = new Pose(40, 64, Math.toRadians(0));
-//    private final Pose specimenControll_HUMAN = new Pose(40, 36, Math.toRadians(0));
-//    private final Pose startControll_HUMAN = new Pose(8, 32, Math.toRadians(0));
-//    private final Pose controllBeforeClose_HUMAN = new Pose(56, 36, Math.toRadians(0));
+//    private final Pose specimenP_HUMAN = new Pose(40, 64, Math.toRadians(0));
+//    private final Pose specimenControllP_HUMAN = new Pose(40, 36, Math.toRadians(0));
+//    private final Pose startControllP_HUMAN = new Pose(8, 32, Math.toRadians(0));
+//    private final Pose controllBeforeCloseP_HUMAN = new Pose(56, 36, Math.toRadians(0));
 //
 //
-//    private final Pose specimen_BASKET = new Pose(40, 80, Math.toRadians(0));
-//    private final Pose specimenControll_BASKET = new Pose(40, 112, Math.toRadians(0));
-//    private final Pose startControll_BASKET = new Pose(8, 112, Math.toRadians(0));
-//    private final Pose controllBeforeClose_BASKET = new Pose(56, 112, Math.toRadians(0));
+//    private final Pose specimenP_BASKET = new Pose(40, 80, Math.toRadians(0));
+//    private final Pose specimenControllP_BASKET = new Pose(40, 112, Math.toRadians(0));
+//    private final Pose startControllP_BASKET = new Pose(8, 112, Math.toRadians(0));
+//    private final Pose controllBeforeCloseP_BASKET = new Pose(56, 112, Math.toRadians(0));
 //
+//    //only for nearHuman_park
+//    private final Pose straightToParkP_HUMAN = new Pose(8, 8, Math.toRadians(0));
 //
 //}
