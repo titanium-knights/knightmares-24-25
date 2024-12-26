@@ -19,8 +19,8 @@ import org.firstinspires.ftc.teamcode.utilities.Slides;
 
 
 
-@Autonomous(name = "nearBasket_withClaw_withSpecimen_BLUE_pedro", group = "Examples")
-public class nearBasket_withClaw_withSpecimen_BLUE_pedro extends OpMode{
+@Autonomous(name = "nearBasket_withClaw_NoSpecimen_BLUE_pedro", group = "Examples")
+public class nearBasket_withClaw_NoSpecimen_BLUE_pedro extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
@@ -80,19 +80,14 @@ public class nearBasket_withClaw_withSpecimen_BLUE_pedro extends OpMode{
     private final Pose straightToParkP_HUMAN = new Pose(8, 8, Math.toRadians(0));
     private final Pose straightToParkP_BASKET = new Pose(8, 32, Math.toRadians(0));
 
-    private Path startWithSpecimen_PATH, park;
+    private Path start_PATH, park;
     private PathChain specimenControllA_PATH, pickUpClose_PATH, placeClose_PATH, pickUpMiddle_PATH, placeMiddle_PATH, pickUpFar_PATH, placeFar_PATH;
 
 
     public void buildPaths() {
 
-        startWithSpecimen_PATH = new Path(new BezierLine(new Point(startP_BASKET), new Point(specimenP_BASKET)));
-        startWithSpecimen_PATH.setLinearHeadingInterpolation(startP_BASKET.getHeading(), specimenP_BASKET.getHeading());
-
-        specimenControllA_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(specimenP_BASKET), new Point( specimenControllP_BASKET )))
-                .setLinearHeadingInterpolation(specimenP_BASKET.getHeading(),  specimenControllP_BASKET .getHeading())
-                .build();
+        start_PATH = new Path(new BezierLine(new Point(startP_BASKET), new Point(specimenControllP_BASKET)));
+        start_PATH.setLinearHeadingInterpolation(startP_BASKET.getHeading(), specimenControllP_BASKET.getHeading());
 
         pickUpClose_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(specimenControllP_BASKET), new Point(pickupCloseP_BASKETwCLAW)))
@@ -132,30 +127,16 @@ public class nearBasket_withClaw_withSpecimen_BLUE_pedro extends OpMode{
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
-                follower.followPath(startWithSpecimen_PATH);
+                follower.followPath(start_PATH);
                 setPathState(1);
                 break;
             case 1:
-                if(follower.getPose().getX() > (specimenP_BASKET.getX() - 1) && follower.getPose().getY() > (specimenP_BASKET.getY() - 1)) {
-                    clawRot.toDrop();
-                    slides.rotateRight();
-                    slides.up();
-                    clawRot.toPick();
-                    claw.open();
-                    clawRot.toDrop();
-                    slides.down();
-                    slides.rotateLeft();
-                    follower.followPath(specimenControllA_PATH,true);
+                if(follower.getPose().getX() > (specimenControllP_BASKET.getX() - 1) && follower.getPose().getY() > (specimenControllP_BASKET.getY() - 1)) {
+                    follower.followPath(pickUpClose_PATH,true);
                     setPathState(2);
                 }
                 break;
             case 2:
-                if(follower.getPose().getX() > (specimenControllP_BASKET.getX() - 1) && follower.getPose().getY() > (specimenControllP_BASKET.getY() - 1)) {
-                    follower.followPath(pickUpClose_PATH,true);
-                    setPathState(3);
-                }
-                break;
-            case 3:
                 if(follower.getPose().getX() > (pickupCloseP_BASKETwCLAW.getX() - 1) && follower.getPose().getY() > (pickupCloseP_BASKETwCLAW.getY() - 1)) {
                     claw.open();
                     clawRot.toPick();
@@ -164,10 +145,10 @@ public class nearBasket_withClaw_withSpecimen_BLUE_pedro extends OpMode{
                     //lwk not sure if to drop should be here or the next one(bc ik it somtimes gets caught on the basket
                     //TODO: test it out tuners
                     follower.followPath(placeClose_PATH,true);
-                    setPathState(4);
+                    setPathState(3);
                 }
                 break;
-            case 4:
+            case 3:
                 if(follower.getPose().getX() > (scoreP.getX() - 1) && follower.getPose().getY() > (scoreP.getY() - 1)) {
                     slides.rotateRight();
                     slides.up();
@@ -175,19 +156,19 @@ public class nearBasket_withClaw_withSpecimen_BLUE_pedro extends OpMode{
                     slides.down();
                     slides.rotateRight();
                     follower.followPath(pickUpMiddle_PATH,true);
-                    setPathState(5);
+                    setPathState(4);
                 }
                 break;
-            case 5:
+            case 4:
                 if(follower.getPose().getX() > (pickupMiddleP_BASKETwCLAW.getX() - 1) && follower.getPose().getY() > (pickupMiddleP_BASKETwCLAW.getY() - 1)) {
                     clawRot.toPick();
                     claw.close();
                     clawRot.toDrop();
                     follower.followPath(placeMiddle_PATH, true);
-                    setPathState(6);
+                    setPathState(5);
                 }
                 break;
-            case 6:
+            case 5:
                 if(follower.getPose().getX() > (scoreP.getX() - 1) && follower.getPose().getY() > (scoreP.getY() - 1)) {
                     slides.rotateRight();
                     slides.up();
@@ -195,19 +176,19 @@ public class nearBasket_withClaw_withSpecimen_BLUE_pedro extends OpMode{
                     slides.down();
                     slides.rotateRight();
                     follower.followPath(pickUpFar_PATH, true);
-                    setPathState(7);
+                    setPathState(6);
                 }
                 break;
-            case 7:
+            case 6:
                 if(follower.getPose().getX() > (pickupFarP_BASKETwCLAW.getX() - 1) && follower.getPose().getY() > (pickupFarP_BASKETwCLAW.getY() - 1)) {
                     clawRot.toPick();
                     claw.close();
                     clawRot.toDrop();
                     follower.followPath(placeFar_PATH,true);
-                    setPathState(8);
+                    setPathState(7);
                 }
                 break;
-            case 8:
+            case 7:
                 if(follower.getPose().getX() > (scoreP.getX() - 1) && follower.getPose().getY() > (scoreP.getY() - 1)) {
                     slides.rotateRight();
                     slides.up();
@@ -217,10 +198,10 @@ public class nearBasket_withClaw_withSpecimen_BLUE_pedro extends OpMode{
                     clawRot.toPick();
                     claw.close();
                     follower.followPath(park,true);
-                    setPathState(9);
+                    setPathState(8);
                 }
                 break;
-            case 9:
+            case 8:
                 if(follower.getPose().getX() > (straightToParkP_BASKET.getX() - 1) && follower.getPose().getY() > (straightToParkP_BASKET.getY() - 1)) {
                     setPathState(-1);
                 }
