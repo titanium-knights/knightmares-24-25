@@ -85,8 +85,8 @@ public class nearBasket_park_BLUE_pedro extends OpMode{
 
     public void buildPaths() {
 
-        straightPark_PATH = new Path(new BezierLine(new Point(startP_HUMAN), new Point(straightToParkP_BASKET)));
-        straightPark_PATH.setLinearHeadingInterpolation(startP_HUMAN.getHeading(), straightToParkP_BASKET.getHeading());
+        straightPark_PATH = new Path(new BezierLine(new Point(startP_BASKET), new Point(straightToParkP_BASKET)));
+        straightPark_PATH.setLinearHeadingInterpolation(startP_BASKET.getHeading(), straightToParkP_BASKET.getHeading());
 
     }
     public void autonomousPathUpdate() {
