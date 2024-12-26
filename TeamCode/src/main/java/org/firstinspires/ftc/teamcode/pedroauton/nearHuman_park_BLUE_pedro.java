@@ -134,19 +134,16 @@ public class nearHuman_park_BLUE_pedro extends OpMode{
         clawRot.toPick();
     }
 
-    /** This method is called continuously after Init while waiting for "play". **/
     @Override
     public void init_loop() {}
 
-    /** This method is called once at the start of the OpMode.
-     * It runs all the setup actions, including building paths and starting the path system **/
+
     @Override
     public void start() {
         opmodeTimer.resetTimer();
         setPathState(0);
     }
 
-    /** We do not use this because everything should automatically disable **/
     @Override
     public void stop() {
     }
