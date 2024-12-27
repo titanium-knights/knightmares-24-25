@@ -184,7 +184,7 @@ public class Slides {
 
     // SLIDES MANUAL
 
-    public void extend(){
+    public void retract(){
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         // max limit
 //        if (pos <= maxheight){
@@ -200,7 +200,7 @@ public class Slides {
 //            return;
 //        }
         state = SlidesState.LEFT;
-        setPower(-0.7);
+        setPower(-0.9);
     }
 
     public class Extend implements Action {
@@ -212,10 +212,10 @@ public class Slides {
     }
     public Action extendAction() {  return new Slides.Extend();  }
 
-    public void retract() {
+    public void extend() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         state = SlidesState.RIGHT;
-        setPower(0.7);
+        setPower(0.9);
     }
     public class Retract implements Action {
         @Override
