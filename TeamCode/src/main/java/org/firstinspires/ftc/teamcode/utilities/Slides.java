@@ -134,7 +134,7 @@ public class Slides {
 
     public void runRotToPosition(){
         slideRotator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        setPower(0.9);
+        setRotPower(0.9);
     }
 
     public void tozero() {
@@ -200,7 +200,7 @@ public class Slides {
 //            return;
 //        }
         state = SlidesState.LEFT;
-        setPower(-7);
+        setPower(-0.7);
     }
 
     public class Extend implements Action {
@@ -215,7 +215,7 @@ public class Slides {
     public void retract() {
         slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         state = SlidesState.RIGHT;
-        setPower(5);
+        setPower(0.7);
     }
     public class Retract implements Action {
         @Override
@@ -230,19 +230,19 @@ public class Slides {
     // ROTATOR (rotater? rotator.) MANUAL
     public void keepUp() {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        setRotPower(2);
+        setRotPower(0.2);
 
     }
     public void keepDown() {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        setRotPower(-2);
+        setRotPower(-0.2);
     }
 
 
     public void rotateLeft(){ //slide rotates down
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rotState = SlidesRotatorState.LEFT;
-        setRotPower(8);
+        setRotPower(0.8);
     }
     public class RotateLeft implements Action {
         @Override
@@ -258,7 +258,7 @@ public class Slides {
     public void rotateRight() { // slide rotates up
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rotState = SlidesRotatorState.RIGHT;
-        setRotPower(-10);
+        setRotPower(-1);
     }
     public class RotateRight implements Action {
         @Override
@@ -316,9 +316,9 @@ public class Slides {
 
     //set power
     public void setPower(double power){
-        slideMotor.setPower(-0.95*power); // constant removed
+        slideMotor.setPower(-power); // constant removed
     }
     public void setRotPower(double power){
-        slideRotator.setPower(-0.10*power); // constant removed
+        slideRotator.setPower(-power); // constant removed
     }
 }
