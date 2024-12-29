@@ -16,12 +16,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.PoseUpdater;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.MathFunctions;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Vector;
+import org.firstinspires.ftc.teamcode.utilities.CONFIG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,14 +75,14 @@ public class ForwardZeroPowerAccelerationTuner extends OpMode {
     public void init() {
         poseUpdater = new PoseUpdater(hardwareMap);
 
-        leftFront = hardwareMap.get(DcMotorEx.class, leftFrontMotorName);
-        leftRear = hardwareMap.get(DcMotorEx.class, leftRearMotorName);
-        rightRear = hardwareMap.get(DcMotorEx.class, rightRearMotorName);
-        rightFront = hardwareMap.get(DcMotorEx.class, rightFrontMotorName);
-        leftFront.setDirection(leftFrontMotorDirection);
-        leftRear.setDirection(leftRearMotorDirection);
-        rightFront.setDirection(rightFrontMotorDirection);
-        rightRear.setDirection(rightRearMotorDirection);
+        leftFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_LEFT);
+        leftRear = hardwareMap.get(DcMotorEx.class, CONFIG.BACK_LEFT);
+        rightRear = hardwareMap.get(DcMotorEx.class, CONFIG.BACK_RIGHT);
+        rightFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_RIGHT);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
 
         motors = Arrays.asList(leftFront, leftRear, rightFront, rightRear);
 
@@ -113,7 +115,15 @@ public class ForwardZeroPowerAccelerationTuner extends OpMode {
         rightFront.setPower(1);
         rightRear.setPower(1);
     }
-
+//-55.9718
+    //-67.4042
+    //-58.231
+    //-63.1371
+    //-64.2372
+    //-62.1301
+    //-62.6524
+    //-61.8312
+    //avg -61.9375
     /**
      * This runs the OpMode. At any point during the running of the OpMode, pressing CROSS or A on
      * game pad 1 will stop the OpMode. When the robot hits the specified velocity, the robot will
@@ -129,7 +139,6 @@ public class ForwardZeroPowerAccelerationTuner extends OpMode {
             }
             requestOpModeStop();
         }
-
         poseUpdater.update();
         Vector heading = new Vector(1.0, poseUpdater.getPose().getHeading());
         if (!end) {
