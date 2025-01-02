@@ -31,21 +31,21 @@
 //    //only for basket- for now
 //    private final Pose scoreP = new Pose(132, 12, Math.toRadians(315));
 //
-//    private final Pose pickupCloseP_BASKET = new Pose(56, 120, Math.toRadians(90));
-//    private final Pose pickupMiddleP_BASKET = new Pose(56, 132, Math.toRadians(90));
-//    private final Pose pickupFarP_BASKET = new Pose(56, 136, Math.toRadians(90));
+//    private final Pose pickupCloseP_BASKET = new Pose(88, 24, Math.toRadians(90));
+//    private final Pose pickupMiddleP_BASKET = new Pose(88, 12, Math.toRadians(90));
+//    private final Pose pickupFarP_BASKET = new Pose(88, 8, Math.toRadians(90));
 //
 //    //the y will need a change during tuning
-//    private final Pose pickupCloseP_HUMAN = new Pose(56, 24, Math.toRadians(270));
-//    private final Pose pickupMiddleP_HUMAN = new Pose(56, 12, Math.toRadians(270));
-//    private final Pose pickupFarP_HUMAN = new Pose(56, 8, Math.toRadians(270));
+//    private final Pose pickupCloseP_HUMAN = new Pose(88, 120, Math.toRadians(270));
+//    private final Pose pickupMiddleP_HUMAN = new Pose(88, 132, Math.toRadians(270));
+//    private final Pose pickupFarP_HUMAN = new Pose(88, 136, Math.toRadians(270));
 //
 //    //11 cuz 3 inch for sample + 8 inch for robot
-//    private final Pose placeCloseP_HUMAN = new Pose(11, 24, Math.toRadians(270));
-//    private final Pose placeMiddleP_HUMAN = new Pose(11, 12, Math.toRadians(270));
+//    private final Pose placeCloseP_HUMAN = new Pose(133, 120, Math.toRadians(270));
+//    private final Pose placeMiddleP_HUMAN = new Pose(133, 128, Math.toRadians(270));
 //    //will also be used as park
-//    private final Pose placeFarP_HUMAN = new Pose(11, 8, Math.toRadians(270));
-//
+//    private final Pose placeFarP_HUMAN = new Pose(133, 136, Math.toRadians(270));
+//---------------------------------------------
 //    //its hundred(angel) not by mistake, there is a chance the block would end up outside the line so angel it + same reasoning for 124 instead of 120
 //    private final Pose placeCloseP_BASKET = new Pose(14, 124, Math.toRadians(100));
 //    private final Pose placeMiddleP_BASKET = new Pose(16, 132, Math.toRadians(90));
