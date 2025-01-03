@@ -15,13 +15,18 @@
  * updates to the FTC SDK into your code.
  */
 
+
 import java.util.regex.Pattern
+
 
 apply plugin: 'com.android.application'
 
+
 android {
 
-    compileSdkVersion 29
+
+    compileSdkVersion 30
+
 
     signingConfigs {
         release {
@@ -39,6 +44,7 @@ android {
             }
         }
 
+
         debug {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
@@ -47,6 +53,12 @@ android {
         }
     }
 
+
+    aaptOptions {
+        noCompress "tflite"
+    }
+
+
     defaultConfig {
         signingConfig signingConfigs.debug
         applicationId 'com.qualcomm.ftcrobotcontroller'
@@ -54,18 +66,19 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 28
 
-        /**
-         * We keep the versionCode and versionName of robot controller applications in sync with
-         * the master information published in the AndroidManifest.xml file of the FtcRobotController
-         * module. This helps avoid confusion that might arise from having multiple versions of
-         * a robot controller app simultaneously installed on a robot controller device.
-         *
-         * We accomplish this with the help of a funky little Groovy script that maintains that
-         * correspondence automatically.
-         *
-         * @see <a href="http://developer.android.com/tools/building/configuring-gradle.html">Configure Your Build</a>
-         * @see <a href="http://developer.android.com/tools/publishing/versioning.html">Versioning Your App</a>
-         */
+
+/**
+ * We keep the versionCode and versionName of robot controller applications in sync with
+ * the master information published in the AndroidManifest.xml file of the FtcRobotController
+ * module. This helps avoid confusion that might arise from having multiple versions of
+ * a robot controller app simultaneously installed on a robot controller device.
+ *
+ * We accomplish this with the help of a funky little Groovy script that maintains that
+ * correspondence automatically.
+ *
+ * @see <a href="http://developer.android.com/tools/building/configuring-gradle.html">Configure Your Build</a>
+ * @see <a href="http://developer.android.com/tools/publishing/versioning.html">Versioning Your App</a>
+ */
         def manifestFile = project(':FtcRobotController').file('src/main/AndroidManifest.xml');
         def manifestText = manifestFile.getText()
         //
@@ -83,10 +96,12 @@ android {
         versionName vName
     }
 
+
     // http://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.BuildType.html
     buildTypes {
         release {
             signingConfig signingConfigs.release
+
 
             ndk {
                 abiFilters "armeabi-v7a", "arm64-v8a"
@@ -101,21 +116,19 @@ android {
         }
     }
 
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+
     packagingOptions {
         pickFirst '**/*.so'
-    }
-    sourceSets.main {
-        jni.srcDirs = []
-        jniLibs.srcDir rootProject.file('libs')
     }
     ndkVersion '21.3.6528147'
 }
 
+
 repositories {
 }
-
