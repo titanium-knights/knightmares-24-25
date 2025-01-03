@@ -13,9 +13,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.PathChain;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 import org.firstinspires.ftc.teamcode.pedroPathing.util.Timer;
 // import org.firstinspires.ftc.teamcode.config.subsystem.ClawSubsystem;
-import org.firstinspires.ftc.teamcode.utilities.Claw;
-import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
-import org.firstinspires.ftc.teamcode.utilities.Slides;
+
 
 
 
@@ -24,9 +22,7 @@ public class test_LEFT extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
-    public Claw claw;
-    public ClawRotator clawRot;
-    public Slides slides;
+
 
 
     private final Pose START = new Pose(72, 72, Math.toRadians(0));
