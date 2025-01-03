@@ -9,7 +9,6 @@ repositories {
 
 }
 
-
 dependencies {
     implementation 'org.firstinspires.ftc:Inspection:10.1.1'
     implementation 'org.firstinspires.ftc:Blocks:10.1.1'
@@ -19,8 +18,9 @@ dependencies {
     implementation 'org.firstinspires.ftc:Hardware:10.1.1'
     implementation 'org.firstinspires.ftc:FtcCommon:10.1.1'
     implementation 'org.firstinspires.ftc:Vision:10.1.1'
-    implementation 'com.pedropathing:pedro:1.0.3'
-
+    implementation ('com.pedropathing:pedro:1.0.3') {
+        exclude group: 'com.acmerobotics.roadrunner.ftc', module: 'SparkFunOTOSCorrected'
+    }
 
     //noinspection GradleDependency
     implementation 'androidx.appcompat:appcompat:1.2.0'
