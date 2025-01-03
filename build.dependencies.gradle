@@ -18,11 +18,16 @@ dependencies {
     implementation 'org.firstinspires.ftc:Hardware:10.1.1'
     implementation 'org.firstinspires.ftc:FtcCommon:10.1.1'
     implementation 'org.firstinspires.ftc:Vision:10.1.1'
-    implementation ('com.pedropathing:pedro:1.0.3') {
-        exclude group: 'com.acmerobotics.roadrunner.ftc', module: 'SparkFunOTOSCorrected'
-    }
 
     //noinspection GradleDependency
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.acmerobotics.dashboard:dashboard:0.4.16'
+}
+
+// kind of jank but chatgpt told me to
+configurations.all {
+    resolutionStrategy {
+        force 'page.j5155.roadrunner:ftc-otos:0.1.2+0.1.14'
+        force 'com.pedropathing:pedro:1.0.3'
+    }
 }
