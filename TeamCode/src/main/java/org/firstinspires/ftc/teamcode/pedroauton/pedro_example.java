@@ -285,7 +285,7 @@ public class pedro_example extends OpMode{
 
         buildPaths();
 
-        claw = new Claw(hardwareMap);
+        claw = new Claw(hardwareMap, telemetry);
         clawRot = new ClawRotator(hardwareMap, telemetry);
 
         // Set the claw to positions for init

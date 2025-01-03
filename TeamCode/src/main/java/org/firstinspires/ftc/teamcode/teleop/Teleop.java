@@ -62,7 +62,7 @@ public class Teleop extends OpMode {
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
 
-        this.claw = new Claw(hardwareMap);
+        this.claw = new Claw(hardwareMap, telemetry);
         // this.latch = new Latch(hardwareMap, telemetry);
         this.clawRotator = new ClawRotator(hardwareMap, telemetry);
 
@@ -87,12 +87,12 @@ public class Teleop extends OpMode {
         } else {
             slides.stop();
         }
-        //DRIVETRAIN TELEMETRY
-        telemetry.addLine(String.valueOf(drive.getfl()) + "get front left");
-        telemetry.addLine(String.valueOf(drive.getbr()) + "get back right");
-        telemetry.addLine(String.valueOf(drive.getfr()) + "get front right");
-        telemetry.addLine(String.valueOf(drive.getbl()) + "get back left");
-        telemetry.update();
+//        //DRIVETRAIN TELEMETRY
+//        telemetry.addLine(String.valueOf(drive.getfl()) + "get front left");
+//        telemetry.addLine(String.valueOf(drive.getbr()) + "get back right");
+//        telemetry.addLine(String.valueOf(drive.getfr()) + "get front right");
+//        telemetry.addLine(String.valueOf(drive.getbl()) + "get back left");
+//        telemetry.update();
 
         //DRIVE
         float x = gamepad2.left_stick_x;
@@ -214,13 +214,13 @@ public class Teleop extends OpMode {
         if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
             if (!clawOpen) {
                 claw.open();
-                telemetry.addLine("open claw");
+//                telemetry.addLine("open claw");
                 telemetry.update();
                 clawOpen = true;
                 clawButton = ButtonPressState.PRESSED_GOOD;
             } else {
                 claw.close();
-                telemetry.addLine("close claw");
+//                telemetry.addLine("close claw");
                 telemetry.update();
                 clawOpen = false;
                 clawButton = ButtonPressState.PRESSED_GOOD;

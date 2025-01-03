@@ -31,8 +31,8 @@ public class Slides {
     SlidesRotatorState rotState;
 
     // limits
-    int maxheight = -3200; // 3481
-    int minheight = -100;
+    int maxheight = 2700; // 3481
+    int minheight = 100;
 
     // basket heights
     // TODO: tune these values
@@ -112,8 +112,8 @@ public class Slides {
     //run to position
 
 
-    public static int slideMaxNum = -3200;
-    public static int slideMinNum = -100;
+    public static int slideMaxNum = 2500;
+    public static int slideMinNum = 100;
 //
 //    public void runToPosUP(){
 //        int targetPosition = slideUPNum;
@@ -213,9 +213,12 @@ public class Slides {
     public Action extendAction() {  return new Slides.Extend();  }
 
     public void extend() {
-        slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        state = SlidesState.RIGHT;
-        setPower(0.9);
+        if (getEncoder() < maxheight){
+            slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            state = SlidesState.RIGHT;
+            setPower(0.9);
+        }
+
     }
     public class Retract implements Action {
         @Override
@@ -242,7 +245,7 @@ public class Slides {
     public void rotateLeft(){ //slide rotates down
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rotState = SlidesRotatorState.LEFT;
-        setRotPower(0.8);
+        setRotPower(-0.8);
     }
     public class RotateLeft implements Action {
         @Override
@@ -258,7 +261,7 @@ public class Slides {
     public void rotateRight() { // slide rotates up
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rotState = SlidesRotatorState.RIGHT;
-        setRotPower(-1);
+        setRotPower(1);
     }
     public class RotateRight implements Action {
         @Override

@@ -233,7 +233,7 @@ public class nearBasket_pushBot_NoSpecimen_BLUE_pedro extends OpMode{
 
         buildPaths();
 
-        claw = new Claw(hardwareMap);
+        claw = new Claw(hardwareMap, telemetry);
         clawRot = new ClawRotator(hardwareMap, telemetry);
 
         // Set the claw to positions for init

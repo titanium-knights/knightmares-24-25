@@ -174,7 +174,7 @@ public class nearBasket_park_RED_pedro extends OpMode{
 
         buildPaths();
 
-        claw = new Claw(hardwareMap);
+        claw = new Claw(hardwareMap, telemetry);
         clawRot = new ClawRotator(hardwareMap, telemetry);
 
         claw.close();

@@ -29,7 +29,7 @@ public abstract class AutonMethods extends LinearOpMode {
         drivetrain = new SimpleMecanumDrive(hardwareMap);
         clawrotator = new ClawRotator(hardwareMap, telemetry);
         slides = new Slides(hardwareMap);
-        claw = new Claw(hardwareMap);
+        claw = new Claw(hardwareMap, telemetry);
         // latch = new Latch(hardwareMap, telemetry);
 
         telemetry.addData("Status", "Initialization Complete");
