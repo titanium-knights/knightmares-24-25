@@ -231,10 +231,7 @@ public class Slides {
 //            // too low to extend
 //        } else
 
-        if (
-//                getRotatorEncoder() >= num_when_slides_are_vertical &&    TODO: find value via telemetry
-                getEncoder() < 200
-            )
+        if ((getRotatorEncoder() >= 900 && getEncoder() < 900))
         {
                 slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 state = SlidesState.RIGHT;
