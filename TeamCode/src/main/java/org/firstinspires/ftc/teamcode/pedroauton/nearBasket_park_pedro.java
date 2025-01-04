@@ -6,10 +6,8 @@ import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.*;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
-import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierCurve;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierLine;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
-import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.PathChain;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 import org.firstinspires.ftc.teamcode.pedroPathing.util.Timer;
 // import org.firstinspires.ftc.teamcode.config.subsystem.ClawSubsystem;
@@ -19,8 +17,8 @@ import org.firstinspires.ftc.teamcode.utilities.Slides;
 
 
 
-@Autonomous(name = "nearBasket_park_BLUE_pedro", group = "Examples")
-public class nearBasket_park_BLUE_pedro extends OpMode{
+@Autonomous(name = "nearBasket_park_pedro", group = "Examples")
+public class nearBasket_park_pedro extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
