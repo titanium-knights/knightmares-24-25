@@ -163,6 +163,15 @@ public class Slides {
         pos = getEncoder();
     }
 
+//    public static int inspectionNum = -1700;
+//    public void inspectionMax(){
+//        setTarget(inspectionNum);
+//        runToPosition();
+//        pos = getEncoder();
+//    }
+
+
+
     public void highBasket(){
         setTarget(highheight);
         runToPosition();

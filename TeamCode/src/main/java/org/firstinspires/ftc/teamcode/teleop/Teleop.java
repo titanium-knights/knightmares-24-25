@@ -147,7 +147,7 @@ public class Teleop extends OpMode {
         if (pullupstate1){
             pulldownstate1 = false;
 
-            if (pullup.getPosition1() < -5000) { // TODO: tune
+            if (pullup.getPosition1() < -10) { // TODO: tune
                 pullup.stopLeft();
                 pullupstate1 = false;
             } else {
@@ -158,7 +158,7 @@ public class Teleop extends OpMode {
         if (pullupstate2){
             pulldownstate2 = false;
 
-            if (pullup.getPosition2() < -5000) { // TODO: tune
+            if (pullup.getPosition2() < -10) { // TODO: tune
                 pullup.stopRight();
                 pullupstate2 = false;
             } else {
@@ -175,7 +175,7 @@ public class Teleop extends OpMode {
         }
         if (pulldownstate1){
             pullupstate1 = false;
-            if (pullup.getPosition1() > -50) { // TODO: tune
+            if (pullup.getPosition1() > 3000) { // TODO: tune
                 pullup.stopLeft();
                 telemetry.addLine("stopped left");
                 pulldownstate1 = false;
@@ -188,7 +188,7 @@ public class Teleop extends OpMode {
         }
         if (pulldownstate2){
             pullupstate2 = false;
-            if (pullup.getPosition2() > -50) { // TODO: tune
+            if (pullup.getPosition2() > 3000) { // TODO: tune
                 pullup.stopRight();
                 telemetry.addLine("stoppedRight");
                 pulldownstate2 = false;
@@ -250,6 +250,14 @@ public class Teleop extends OpMode {
         } else if (!gamepad1.y && (clawButton == ButtonPressState.PRESSED_GOOD)) {
             clawButton = ButtonPressState.UNPRESSED;
         }
+
+
+        telemetry.addLine("slides rotation: " + slides.getRotatorEncoder() + "\nslides extension: " + slides.getEncoder());
+//        if (getRotatorEncoder() < && ge){
+//
+//        }
+
+
 
 
         if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorAtDrop) {
