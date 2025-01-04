@@ -227,10 +227,18 @@ public class Slides {
 //            state = SlidesState.RIGHT;
 //            setPower(0.9);
 //        }
-        if (getEncoder() < 200){
-            slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            state = SlidesState.RIGHT;
-            setPower(0.9);
+//        if (getRotatorEncoder() < num_when_completely_vertical) {
+//            // too low to extend
+//        } else
+
+        if (
+//                getRotatorEncoder() >= num_when_slides_are_vertical &&    TODO: find value via telemetry
+                getEncoder() < 200
+            )
+        {
+                slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                state = SlidesState.RIGHT;
+                setPower(0.9);
         }
         else {
             stop();
