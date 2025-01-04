@@ -147,7 +147,7 @@ public class Teleop extends OpMode {
         if (pullupstate1){
             pulldownstate1 = false;
 
-            if (pullup.getPosition1() < -5000) { // TODO: tune
+            if (pullup.getPosition1() < -10) { // TODO: tune
                 pullup.stopLeft();
                 pullupstate1 = false;
             } else {
@@ -158,7 +158,7 @@ public class Teleop extends OpMode {
         if (pullupstate2){
             pulldownstate2 = false;
 
-            if (pullup.getPosition2() < -5000) { // TODO: tune
+            if (pullup.getPosition2() < -10) { // TODO: tune
                 pullup.stopRight();
                 pullupstate2 = false;
             } else {
