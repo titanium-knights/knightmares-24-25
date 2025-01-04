@@ -210,8 +210,8 @@ public class Teleop extends OpMode {
 //            latch.latchOff();
 //        }
 
-        //  ROTATING SLIDES
-        if (gamepad1.right_trigger > 0.5) {
+
+        else if (gamepad1.right_trigger > 0.5) {
             slides.rotateRight();
             telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
 
@@ -252,10 +252,7 @@ public class Teleop extends OpMode {
         }
 
 
-        telemetry.addLine("slides rotation: " + slides.getRotatorEncoder() + "\nslides extension: " + slides.getEncoder());
-//        if (getRotatorEncoder() < && ge){
-//
-//        }
+
 
 
 
