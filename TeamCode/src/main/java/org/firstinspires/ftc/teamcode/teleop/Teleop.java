@@ -252,6 +252,14 @@ public class Teleop extends OpMode {
         }
 
 
+        telemetry.addLine("slides rotation: " + slides.getRotatorEncoder() + "\nslides extension: " + slides.getEncoder());
+//        if (getRotatorEncoder() < && ge){
+//
+//        }
+
+
+
+
         if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && !cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
             clawRotator.toDrop();
