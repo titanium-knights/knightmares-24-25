@@ -7,24 +7,28 @@ import com.pedropathing.util.CustomPIDFCoefficients;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.utilities.CONFIG;
+
 public class FConstants {
     static {
         FollowerConstants.localizers = Localizers.PINPOINT;
 
-        FollowerConstants.leftFrontMotorName = "leftFront";
-        FollowerConstants.leftRearMotorName = "leftRear";
-        FollowerConstants.rightFrontMotorName = "rightFront";
-        FollowerConstants.rightRearMotorName = "rightRear";
+        FollowerConstants.leftFrontMotorName = CONFIG.FRONT_LEFT;
+        FollowerConstants.rightFrontMotorName = CONFIG.FRONT_RIGHT;
+        FollowerConstants.leftRearMotorName = CONFIG.BACK_LEFT;
+        FollowerConstants.rightRearMotorName = CONFIG.BACK_RIGHT;
 
         FollowerConstants.leftFrontMotorDirection = DcMotorSimple.Direction.REVERSE;
-        FollowerConstants.leftRearMotorDirection = DcMotorSimple.Direction.REVERSE;
         FollowerConstants.rightFrontMotorDirection = DcMotorSimple.Direction.FORWARD;
+        FollowerConstants.leftRearMotorDirection = DcMotorSimple.Direction.REVERSE;
         FollowerConstants.rightRearMotorDirection = DcMotorSimple.Direction.FORWARD;
 
         // TODO: change
-        FollowerConstants.mass = 13;
+        FollowerConstants.mass = 12.13;
 
+        // forward velocity constant
         FollowerConstants.xMovement = 57.8741;
+        // strafe velocity constant
         FollowerConstants.yMovement = 52.295;
 
         FollowerConstants.forwardZeroPowerAcceleration = -41.278;
