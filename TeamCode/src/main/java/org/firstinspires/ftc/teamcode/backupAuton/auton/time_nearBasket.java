@@ -51,7 +51,7 @@ public class time_nearBasket extends AutonMethods {
         moveForward(0.2);
         // unlatch();
         sleep(500);
-        slidesRetract();
+        slidesRetractALot();
         sleep(500);
         stopSlidesRot();
         slidesRotateDown();

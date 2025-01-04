@@ -214,13 +214,13 @@ public class Teleop extends OpMode {
         if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
             if (!clawOpen) {
                 claw.open();
-//                telemetry.addLine("open claw");
+                telemetry.addLine("open claw: " + claw.getPosition());
                 telemetry.update();
                 clawOpen = true;
                 clawButton = ButtonPressState.PRESSED_GOOD;
             } else {
                 claw.close();
-//                telemetry.addLine("close claw");
+                telemetry.addLine("close claw: " + claw.getPosition());
                 telemetry.update();
                 clawOpen = false;
                 clawButton = ButtonPressState.PRESSED_GOOD;
@@ -279,7 +279,7 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
-        drive.move(-x * multiplier, y * multiplier, -turn * multiplier);
+        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
     }
 
 }

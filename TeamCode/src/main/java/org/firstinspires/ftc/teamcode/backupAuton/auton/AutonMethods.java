@@ -65,22 +65,35 @@ public abstract class AutonMethods extends LinearOpMode {
     // claw
     public void clawOpen(){
         claw.open();
-        sleep(1000);
+        sleep(500);
     }
 
     public void clawClose() {
         claw.close();
+        sleep(500);
     }
 
     // slides
 
     public void slidesExtend(){
         slides.extend();
-        sleep(2000);
+        sleep(1500);
         slides.stop();
     }
 
-    public void slidesRetract(){
+    public void slidesRetractALot(){
+        slides.retract();
+        sleep(600);
+        slides.stop();
+    }
+
+    public void slidesRetractLittle(){
+        slides.retract();
+        sleep(200);
+        slides.stop();
+    }
+
+    public void slidesRetractMid(){
         slides.retract();
         sleep(800);
         slides.stop();
@@ -90,42 +103,42 @@ public abstract class AutonMethods extends LinearOpMode {
 
     public void moveForward(double x){
         double duration = 860 * x;
-        drivetrain.move(0, POWER, 0);
+        drivetrain.move(0, -POWER, 0);
         sleep((int)duration);
         stopDrive();
     }
 
      public void moveBackward(double x){
          double duration = 860 * x;
-         drivetrain.move(0, -POWER, 0);
+         drivetrain.move(0, POWER, 0);
          sleep((int)duration);
          stopDrive();
      }
 
      public void moveRight(double x){
          double duration = 1500 * x;
-         drivetrain.move(-POWER, 0, 0);
+         drivetrain.move(POWER, 0, 0);
          sleep((int)duration);
          stopDrive();
      }
 
      public void moveLeft(double x){
         double duration = 1500 * x;
-        drivetrain.move(POWER, 0, 0);
+        drivetrain.move(-POWER, 0, 0);
         sleep((int)duration);
         stopDrive();
      }
 
      public void rotateCw(double x){
-        double duration = 3250 * x;
-        drivetrain.move(0, 0, POWER);
+        double duration = 8000 * x;
+        drivetrain.move(0, 0, -POWER);
         sleep((int)duration);
         stopDrive();
      }
 
      public void rotateCcw(double x){
-        double duration = 3250 * x;
-        drivetrain.move(0, 0, -POWER);
+        double duration = 8000 * x;
+        drivetrain.move(0, 0, POWER);
         sleep((int)duration);
         stopDrive();
      }
@@ -134,7 +147,7 @@ public abstract class AutonMethods extends LinearOpMode {
 
      public void slidesRotateUp() {
          slides.rotateRight();
-         sleep(1000);
+         sleep(800);
          slides.stopRotator();
 //         Runnable slidesRunnable = new Runnable() {
 //             @Override
@@ -150,7 +163,7 @@ public abstract class AutonMethods extends LinearOpMode {
 
      public void slidesRotateDown() {
          slides.rotateLeft();
-         sleep(1000);
+         sleep(500);
          slides.stopRotator();
      }
 
@@ -162,7 +175,13 @@ public abstract class AutonMethods extends LinearOpMode {
 
      public void clawPick() {
          clawrotator.toPick();
+         sleep(500);
      }
+
+    public void clawNeutral() {
+        clawrotator.toNeutral();
+        sleep(500);
+    }
  }
 
 

@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
             this.telemetry = telemetry;
         }
         public static Telemetry telemetry;
-        public static double closedPos = 0f;
-        public static double openPos = 1f;
+        public static double closedPos = 0.67f;
+        public static double openPos = 0.85f;
 
 
         public void open() {

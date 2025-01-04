@@ -172,9 +172,9 @@ public class Follower {
         rightFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_RIGHT);
         // TODO: might be wrong idk i just copied it from simplemecanumdrive
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftRear.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
 
         motors = Arrays.asList(leftFront, leftRear, rightFront, rightRear);
 

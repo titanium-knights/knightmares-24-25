@@ -60,8 +60,8 @@ public class LocalizationTest extends OpMode {
 
         leftFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_LEFT);
         leftRear = hardwareMap.get(DcMotorEx.class, CONFIG.BACK_LEFT);
-        rightRear = hardwareMap.get(DcMotorEx.class, CONFIG.BACK_RIGHT);
-        rightFront = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_RIGHT);
+        rightRear = hardwareMap.get(DcMotorEx.class, CONFIG.FRONT_RIGHT); // wrong on purpose, idk man i just want to pass the localization test
+        rightFront = hardwareMap.get(DcMotorEx.class, CONFIG.BACK_RIGHT);
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);

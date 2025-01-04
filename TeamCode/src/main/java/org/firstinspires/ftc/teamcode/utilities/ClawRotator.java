@@ -25,8 +25,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             //cRotatorServo.setPosition(pickPos);
             this.telemetry = telemetry;
         }
+        public static double neutralPos = 1f;
         public static double dropPos = 0.8f;
-        public static double pickPos = 0.7f;
+        public static double pickPos = 0.63f;
 
         public static Telemetry telemetry;
 
@@ -46,6 +47,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
         }
         public Action toDropAction() {  return new ClawRotator.toDropAction();  }
 
+        public void toNeutral() {
+            cRotatorServo.setPosition(neutralPos);
+        }
 
         public void toPick() {
             //cRotatorServo.setDirection(Servo.Direction.REVERSE);
