@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="time_park", group="Linear OpMode")
+@Autonomous(name="time_park_extended_zig_zag", group="Linear OpMode")
 @Config
-public class time_park extends AutonMethods {
+public class time_park_extended_zig_zag extends AutonMethods {
 
 
     @Override
@@ -21,9 +21,11 @@ public class time_park extends AutonMethods {
         waitForStart();
         runtime.reset();
 
-        moveBackward(0.5);
+        moveBackward(0.8);
         stopDrive();
-        moveRight(2);
+        moveRight(3.2);
         stopDrive();
+        //the 3.2 could be lessened but its fine
+
     }
 }
