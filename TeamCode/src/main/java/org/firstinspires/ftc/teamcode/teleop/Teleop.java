@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
 // import org.firstinspires.ftc.teamcode.utilities.Latch;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
+import org.firstinspires.ftc.teamcode.utilities.SlidesState;
 
 @Config
 @TeleOp(name="DriveTrain Teleop")
@@ -78,12 +80,28 @@ public class Teleop extends OpMode {
             slideButton = ButtonPressState.DEPRESSED;
         } else if (gamepad1.left_trigger<0.1f) slideButton = ButtonPressState.UNPRESSED;
 
+//        if (slides.getRotatorEncoder() < 600 && slides.getEncoder() > 500) {
+//            while (slides.getEncoder() > 100) {
+//                slides.retract();
+//            }
+//        }
+
         if (gamepad1.left_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
             slides.retract();
-            telemetry.addLine("retracting slides: " + String.valueOf(slides.getEncoder()));
+            telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
+            telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
+            telemetry.update();
         } else if (gamepad1.right_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
+//            if (slides.getRotatorEncoder() < 1000 && slides.getRotatorEncoder() > -1000) {
+//                stop();
+//            }
+//            else {
+//                slides.extend();
+//            }
             slides.extend();
-            telemetry.addLine("extending slides: " + String.valueOf(slides.getEncoder()));
+            telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
+            telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
+            telemetry.update();
         } else {
             slides.stop();
         }
@@ -249,29 +267,30 @@ public class Teleop extends OpMode {
         }
 
         // THE ULTIMATE BUTTON
-        if (gamepad1.dpad_up) {
-
-            while (slides.getEncoder() <= -100){
-                slides.retract();
-                telemetry.addLine("retracting slides: " + String.valueOf(slides.getEncoder()));
-
-            }
-            //TODO: tune
-            while (slides.getRotatorEncoder() <= 470){
-                slides.rotateRight();
-                telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
-            }
-
-            // latch.latchOn();
-
-            while (slides.getEncoder() >= -3000){
-                slides.extend();
-                telemetry.addLine("extending slides: " + String.valueOf(slides.getEncoder()));
-            }
-
-            clawRotator.toDrop();
-
-        }
+//        if (gamepad1.dpad_up) {
+//
+//            while (slides.getEncoder() <= -100){
+//                slides.retract();
+//                telemetry.addLine("retracting slides: " + String.valueOf(slides.getEncoder()));
+//
+//            }
+//            //TODO: tune
+//            while (slides.getRotatorEncoder() <= 470){
+//                slides.rotateRight();
+//                telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
+//            }
+//
+//            // latch.latchOn();
+//
+//            while (slides.getEncoder() >= -3000){
+//                slides.extend();
+//                telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
+//                telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
+//                telemetry.update();
+//            }qaaaaqsd
+//            clawRotator.toDrop();
+//
+//        }
     }
 
     public void move(float x, float y, float turn) {

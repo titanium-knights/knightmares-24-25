@@ -213,19 +213,18 @@ public class Slides {
     public Action extendAction() {  return new Slides.Extend();  }
 
     public void extend() {
-        if (getEncoder() < maxheight){
-            if (getRotatorEncoder() < 200) {
-                if (getEncoder() < 150) {
-                    slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                    state = SlidesState.RIGHT;
-                    setPower(0.9);
-                }
-            }
-            else {
-                slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                state = SlidesState.RIGHT;
-                setPower(0.9);
-            }
+//        if (getEncoder() < maxheight){
+//            slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+//            state = SlidesState.RIGHT;
+//            setPower(0.9);
+//        }
+        if (getEncoder() < 200){
+            slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            state = SlidesState.RIGHT;
+            setPower(0.9);
+        }
+        else {
+            stop();
         }
 
     }
@@ -268,9 +267,12 @@ public class Slides {
 
     //TODO: add rotator limit @ 400
     public void rotateRight() { // slide rotates up
+        if (getEncoder() > 500) {
+            stopRotator();
+        }
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rotState = SlidesRotatorState.RIGHT;
-        setRotPower(1);
+        setRotPower(0.6);
     }
     public class RotateRight implements Action {
         @Override

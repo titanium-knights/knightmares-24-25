@@ -18,7 +18,7 @@ public class time_specimanPark extends AutonMethods{
         // scoring specimen
         clawClose();
         sleep(100);
-        moveBackward(1);
+        moveBackward(1.2);
         sleep(100);
         clawPick();
         sleep(500);

@@ -77,19 +77,19 @@ public abstract class AutonMethods extends LinearOpMode {
 
     public void slidesExtend(){
         slides.extend();
-        sleep(1500);
+        sleep(1200);
         slides.stop();
     }
 
     public void slidesRetractALot(){
         slides.retract();
-        sleep(600);
+        sleep(700);
         slides.stop();
     }
 
     public void slidesRetractLittle(){
         slides.retract();
-        sleep(200);
+        sleep(400);
         slides.stop();
     }
 
