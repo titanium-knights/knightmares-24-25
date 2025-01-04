@@ -120,14 +120,14 @@ public class Teleop extends OpMode {
         }
 
 
-
+        //pull UP
         if(gamepad2.y){
             pullupstate1 = true;
             pullupstate2 = true;
 
         }
         if (pullupstate1){
-
+            pulldownstate1 = false;
 
             if (pullup.getPosition1() < -5000) { // TODO: tune
                 pullup.stopLeft();
@@ -138,7 +138,7 @@ public class Teleop extends OpMode {
             }
         }
         if (pullupstate2){
-
+            pulldownstate2 = false;
 
             if (pullup.getPosition2() < -5000) { // TODO: tune
                 pullup.stopRight();
@@ -149,12 +149,14 @@ public class Teleop extends OpMode {
                 telemetry.update();
             }
         }
+        //pull DOWN
         if(gamepad2.a){
             pulldownstate1 = true;
             pulldownstate2 = true;
 
         }
         if (pulldownstate1){
+            pullupstate1 = false;
             if (pullup.getPosition1() > -50) { // TODO: tune
                 pullup.stopLeft();
                 telemetry.addLine("stopped left");
@@ -167,6 +169,7 @@ public class Teleop extends OpMode {
             }
         }
         if (pulldownstate2){
+            pullupstate2 = false;
             if (pullup.getPosition2() > -50) { // TODO: tune
                 pullup.stopRight();
                 telemetry.addLine("stoppedRight");
