@@ -304,8 +304,10 @@ public class Teleop extends OpMode {
         if (Math.abs(y) <= stick_margin) y = .0f;
         if (Math.abs(turn) <= stick_margin) turn = .0f;
 
-        //Notation of a ? b : c means if a is true do b, else do c.
-        double multiplier = normalPower;
+        // Calculate the speed based on how far the stick is pushed
+        double speedMultiplier = Math.max(Math.abs(x), Math.abs(y));
+        double multiplier = normalPower * speedMultiplier;
+
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
     }
 
