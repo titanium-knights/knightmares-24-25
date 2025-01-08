@@ -308,7 +308,10 @@ public class Teleop extends OpMode {
         double multiplier = normalPower;
         double stupidSrafeMultiplier = 1;
         if (Math.abs(x) > stick_margin) stupidSrafeMultiplier = 0.928057554;
-        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
+        if (Math.abs(y) < 0.1) {
+            drive.move(-x * stupidSrafeMultiplier, y * multiplier, -turn * multiplier);
+        }
+        drive.move(-x * multiplier, y * multiplier, -turn * multiplier);
     }
 
 }
