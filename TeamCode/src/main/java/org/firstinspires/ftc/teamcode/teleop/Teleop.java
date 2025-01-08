@@ -115,6 +115,7 @@ public class Teleop extends OpMode {
         //DRIVE
         float x = gamepad2.left_stick_x;
         float y = gamepad2.left_stick_y;
+        telemetry.addLine("(" + x + ", " + y + ")");
         float turn = gamepad2.right_stick_x;
         if (slowMode) {
             telemetry.addLine("slowmode");
@@ -123,7 +124,7 @@ public class Teleop extends OpMode {
             stick_margin = 0.3f;
             move(slowx, slowy, turn);
         } else {
-            stick_margin = 0.7f;
+            stick_margin = 0.1f;
             move(x, y, turn);
         }
         int pul1 = pullup.getPosition1();
@@ -300,7 +301,7 @@ public class Teleop extends OpMode {
 
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
-        telemetry.addLine("(" + x + ", " + y + ")");
+
         if (Math.abs(x) <= stick_margin) x = .0f;
         if (Math.abs(y) <= stick_margin) y = .0f;
         if (Math.abs(turn) <= stick_margin) turn = .0f;
