@@ -300,14 +300,15 @@ public class Teleop extends OpMode {
 
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
+        telemetry.addLine("(" + x + ", " + y + ")");
         if (Math.abs(x) <= stick_margin) x = .0f;
         if (Math.abs(y) <= stick_margin) y = .0f;
         if (Math.abs(turn) <= stick_margin) turn = .0f;
 
-        // Calculate the speed based on how far the stick is pushed
-        double speedMultiplier = Math.max(Math.abs(x), Math.abs(y));
-        double multiplier = normalPower * speedMultiplier;
-
+        //Notation of a ? b : c means if a is true do b, else do c.
+        double multiplier = normalPower;
+//        double stupidSrafeMultiplier = 1;
+//        if (Math.abs(x) > stick_margin) stupidSrafeMultiplier = 0.928057554;
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
     }
 
