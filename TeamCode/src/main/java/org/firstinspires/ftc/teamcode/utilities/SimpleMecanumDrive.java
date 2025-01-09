@@ -17,10 +17,10 @@ public class SimpleMecanumDrive {
         bl = hmap.get(DcMotor.class, CONFIG.BACK_LEFT);
         br = hmap.get(DcMotor.class, CONFIG.BACK_RIGHT);
 
-        initMotor(fl, DcMotorSimple.Direction.FORWARD, new double[]{1,1});
-        initMotor(bl, DcMotorSimple.Direction.FORWARD, new double[]{1,-1});
-        initMotor(fr, DcMotorSimple.Direction.FORWARD, new double[]{-1,1});
-        initMotor(br, DcMotorSimple.Direction.FORWARD, new double[]{-1,-1});
+        initMotor(fl, DcMotorSimple.Direction.FORWARD);
+        initMotor(bl, DcMotorSimple.Direction.FORWARD);
+        initMotor(fr, DcMotorSimple.Direction.REVERSE);
+        initMotor(br, DcMotorSimple.Direction.REVERSE);
 /*
         fl.setDirection(DcMotorSimple.Direction.FORWARD);
         bl.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -36,8 +36,8 @@ public class SimpleMecanumDrive {
     }
     public void initMotor(
         DcMotor motor,
-        DcMotorSimple.Direction direction,   // delete if not awesome
-        double[] doubles                     // ^^^ same here ^^^
+        DcMotorSimple.Direction direction   // delete if not awesome
+//        double[] doubles                     // ^^^ same here ^^^
     )
     {
         // minimizes redundant and/or repetitive code
@@ -48,7 +48,7 @@ public class SimpleMecanumDrive {
 
         // might work, might not work. we shall see
         motor.setDirection(direction); // idk about this. perchance it works
-        directions.put(motor, doubles);
+//        directions.put(motor, doubles);
     }
     public static DcMotor fl, fr, bl, br;
 
@@ -67,6 +67,15 @@ public class SimpleMecanumDrive {
         br.setPower(dot_br / max);
         fr.setPower(dot_fr / max);
         bl.setPower(dot_bl / max);
+    }
+    public void tankMove(double lx, double ly, double rx, double ry) {
+        fl.setPower(ly);
+        bl.setPower(ly); // rotates faster than the others and is the axis the robot rotates on
+        fr.setPower(ry);
+        br.setPower(ry);
+//        if (Math.abs(y) > 0.7) {
+//            fl.setPower(y);
+//        }
     }
 //    public void moveFL(double x, double y, double turn) {
 //        double dot_fl = dot(Objects.requireNonNull(directions.get(fl)), new double[]{x, y}) + turn;

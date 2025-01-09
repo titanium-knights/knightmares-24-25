@@ -113,19 +113,26 @@ public class Teleop extends OpMode {
         telemetry.update();
 
         //DRIVE
-        float x = gamepad2.left_stick_x;
-        float y = gamepad2.left_stick_y;
+        float lx = gamepad2.left_stick_x;
+        float ly = gamepad2.left_stick_y;
+        float rx = gamepad2.right_stick_x;
+        float ry = gamepad2.right_stick_y;
         float turn = gamepad2.right_stick_x;
-        if (slowMode) {
-            telemetry.addLine("slowmode");
-            float slowx = (float)0.4*x;
-            float slowy = (float)0.4*y;
-            stick_margin = 0.3f;
-            move(slowx, slowy, turn);
-        } else {
-            stick_margin = 0.7f;
-            move(x, y, turn);
-        }
+
+        // normal driving thing:
+//        if (slowMode) {
+//            telemetry.addLine("slowmode");
+//            float slowx = (float)0.4*x;
+//            float slowy = (float)0.4*y;
+//            stick_margin = 0.3f;
+//            move(slowx, slowy, turn);
+//        } else {
+//            stick_margin = 0.7f;
+//            move(x, y, turn);
+//        }
+
+        // sal's tank driving thing
+        drive.tankMove(lx, ly, rx, ry);
         int pul1 = pullup.getPosition1();
         int pul2 = pullup.getPosition2();
 
