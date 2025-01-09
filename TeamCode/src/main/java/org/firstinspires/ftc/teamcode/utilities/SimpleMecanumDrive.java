@@ -35,9 +35,9 @@ public class SimpleMecanumDrive {
  */
     }
     public void initMotor(
-            DcMotor motor,
-            DcMotorSimple.Direction direction,   // delete if not awesome
-            double[] doubles                     // ^^^ same here ^^^
+        DcMotor motor,
+        DcMotorSimple.Direction direction,   // delete if not awesome
+        double[] doubles                     // ^^^ same here ^^^
     )
     {
         // minimizes redundant and/or repetitive code
@@ -58,7 +58,7 @@ public class SimpleMecanumDrive {
 
         // dot of fl and br
         double dot_fl = dot(Objects.requireNonNull(directions.get(fl)), new double[]{x, y}) + turn;
-        double dot_fr = (dot(Objects.requireNonNull(directions.get(fr)), new double[]{x, y}) + turn);
+        double dot_fr = dot(Objects.requireNonNull(directions.get(fr)), new double[]{x, y}) + turn;
         double dot_bl = dot(Objects.requireNonNull(directions.get(bl)), new double[]{x, y}) - turn;
         double dot_br = dot(Objects.requireNonNull(directions.get(br)), new double[]{x, y}) - turn;
 
