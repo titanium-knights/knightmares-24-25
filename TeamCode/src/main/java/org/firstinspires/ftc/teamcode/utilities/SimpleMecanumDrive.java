@@ -21,18 +21,6 @@ public class SimpleMecanumDrive {
         initMotor(bl, DcMotorSimple.Direction.FORWARD);
         initMotor(fr, DcMotorSimple.Direction.REVERSE);
         initMotor(br, DcMotorSimple.Direction.REVERSE);
-/*
-        fl.setDirection(DcMotorSimple.Direction.FORWARD);
-        bl.setDirection(DcMotorSimple.Direction.FORWARD);
-        fr.setDirection(DcMotorSimple.Direction.REVERSE);
-        br.setDirection(DcMotorSimple.Direction.REVERSE);
-*/
-/*
-        directions.put(fl, new double[]{1, 1});
-        directions.put(bl, new double[]{1, -1});
-        directions.put(fr, new double[]{-1, 1});
-        directions.put(br, new double[]{-1, -1});
- */
     }
     public void initMotor(
         DcMotor motor,
@@ -69,64 +57,22 @@ public class SimpleMecanumDrive {
         bl.setPower(dot_bl / max);
     }
     public void tankMove(double lx, double ly, double rx, double ry) {
-        fl.setPower(ly);
-        bl.setPower(ly); // rotates faster than the others and is the axis the robot rotates on
-        fr.setPower(ry);
-        br.setPower(ry);
-//        if (Math.abs(y) > 0.7) {
-//            fl.setPower(y);
-//        }
+        if (Math.abs(lx) > 0.4) {
+            fl.setPower(-lx);
+            bl.setPower(lx);
+        } else {
+            fl.setPower(ly);
+            bl.setPower(ly); // rotates faster than the others and is the axis the robot rotates on
+        }
+
+        if (Math.abs(rx) > 0.4) {
+            fr.setPower(rx);
+            br.setPower(-rx);
+        } else {
+            fr.setPower(ry);
+            br.setPower(ry);
+        }
     }
-//    public void moveFL(double x, double y, double turn) {
-//        double dot_fl = dot(Objects.requireNonNull(directions.get(fl)), new double[]{x, y}) + turn;
-//        double dot_fr = (dot(Objects.requireNonNull(directions.get(fr)), new double[]{x, y}) + turn);
-//        double dot_bl = dot(Objects.requireNonNull(directions.get(bl)), new double[]{x, y}) - turn;
-//        double dot_br = dot(Objects.requireNonNull(directions.get(br)), new double[]{x, y}) - turn;
-//
-//        double max = Math.max(1, Math.max(Math.max(Math.abs(dot_fl), Math.abs(dot_fr)), Math.max(Math.abs(dot_bl), Math.abs(dot_br))));
-//        fl.setPower(dot_fl / max);
-//        br.setPower(0);
-//        fr.setPower(0);
-//        bl.setPower(0);
-//    }
-//    public void moveFR(double x, double y, double turn) {
-//        double dot_fl = dot(Objects.requireNonNull(directions.get(fl)), new double[]{x, y}) + turn;
-//        double dot_fr = (dot(Objects.requireNonNull(directions.get(fr)), new double[]{x, y}) + turn);
-//        double dot_bl = dot(Objects.requireNonNull(directions.get(bl)), new double[]{x, y}) - turn;
-//        double dot_br = dot(Objects.requireNonNull(directions.get(br)), new double[]{x, y}) - turn;
-//
-//        double max = Math.max(1, Math.max(Math.max(Math.abs(dot_fl), Math.abs(dot_fr)), Math.max(Math.abs(dot_bl), Math.abs(dot_br))));
-//        fl.setPower(0);
-//        br.setPower(0);
-//        fr.setPower(dot_fr / max);
-//        bl.setPower(0);
-//    }
-//
-//    public void moveBL(double x, double y, double turn) {
-//        double dot_fl = dot(Objects.requireNonNull(directions.get(fl)), new double[]{x, y}) + turn;
-//        double dot_fr = (dot(Objects.requireNonNull(directions.get(fr)), new double[]{x, y}) + turn);
-//        double dot_bl = dot(Objects.requireNonNull(directions.get(bl)), new double[]{x, y}) - turn;
-//        double dot_br = dot(Objects.requireNonNull(directions.get(br)), new double[]{x, y}) - turn;
-//
-//        double max = Math.max(1, Math.max(Math.max(Math.abs(dot_fl), Math.abs(dot_fr)), Math.max(Math.abs(dot_bl), Math.abs(dot_br))));
-//        fl.setPower(0);
-//        br.setPower(0);
-//        fr.setPower(0);
-//        bl.setPower(dot_bl / max);
-//    }
-//
-//    public void moveBR(double x, double y, double turn) {
-//        double dot_fl = dot(Objects.requireNonNull(directions.get(fl)), new double[]{x, y}) + turn;
-//        double dot_fr = (dot(Objects.requireNonNull(directions.get(fr)), new double[]{x, y}) + turn);
-//        double dot_bl = dot(Objects.requireNonNull(directions.get(bl)), new double[]{x, y}) - turn;
-//        double dot_br = dot(Objects.requireNonNull(directions.get(br)), new double[]{x, y}) - turn;
-//
-//        double max = Math.max(1, Math.max(Math.max(Math.abs(dot_fl), Math.abs(dot_fr)), Math.max(Math.abs(dot_bl), Math.abs(dot_br))));
-//        fl.setPower(0);
-//        br.setPower(dot_br / max);
-//        fr.setPower(0);
-//        bl.setPower(0);
-//    }
 
     // Each double[] will be a direction vector of length two
     public double dot(double[] a, double[] b) {
