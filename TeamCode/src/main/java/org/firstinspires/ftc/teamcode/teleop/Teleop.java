@@ -27,7 +27,7 @@ public class Teleop extends OpMode {
     SimpleMecanumDrive drive;
 
     //Set normal power constant to 1, no point in slowing the robot down
-    final double normalPower = 1;
+    final double normalPower = 0.1;
 
     // in case of joystick drift, ignore very small values
     public float stick_margin = 0.7f;
@@ -306,10 +306,10 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
-        double stupidSrafeMultiplier = 1;
-        if (Math.abs(x) > stick_margin) stupidSrafeMultiplier = 0.928057554;
+        double stupidSrafeMultiplier = normalPower;
+        if (Math.abs(x) > stick_margin) stupidSrafeMultiplier = 0.928057554 * normalPower;
         if (Math.abs(y) < 0.1) {
-            drive.move(x * stupidSrafeMultiplier, y * multiplier, -turn * multiplier);
+            drive.move(x * multiplier, y * multiplier, -turn * multiplier);
         }
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
     }
