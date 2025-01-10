@@ -229,7 +229,7 @@ public class Teleop extends OpMode {
         } else if (gamepad2.dpad_up){
             slowMode = false;
             telemetry.update();
-    }
+        }
 
         // improved code by yours truly:
         if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
