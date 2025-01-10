@@ -175,7 +175,7 @@ public class Teleop extends OpMode {
         }
         if (pulldownstate1){
             pullupstate1 = false;
-            if (pullup.getPosition1() > 1000) { // TODO: tune
+            if (pullup.getPosition1() > 4000) { // TODO: tune
                 pullup.stopLeft();
                 telemetry.addLine("stopped left");
                 pulldownstate1 = false;
@@ -188,7 +188,7 @@ public class Teleop extends OpMode {
         }
         if (pulldownstate2){
             pullupstate2 = false;
-            if (pullup.getPosition2() > 1000) { // TODO: tune
+            if (pullup.getPosition2() > 5000) { // TODO: tune
                 pullup.stopRight();
                 telemetry.addLine("stoppedRight");
                 pulldownstate2 = false;
