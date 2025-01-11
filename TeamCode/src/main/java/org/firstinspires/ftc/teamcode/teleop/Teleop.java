@@ -27,7 +27,7 @@ public class Teleop extends OpMode {
     SimpleMecanumDrive drive;
 
     //Set normal power constant to 1, no point in slowing the robot down
-    final double normalPower = 1;
+    final double normalPower = 0.1;
 
     // in case of joystick drift, ignore very small values
     public float stick_margin = 0.7f;
@@ -176,7 +176,7 @@ public class Teleop extends OpMode {
         }
         if (pulldownstate1){
             pullupstate1 = false;
-            if (pullup.getPosition1() > 1000) { // TODO: tune
+            if (pullup.getPosition1() > 4000) { // TODO: tune
                 pullup.stopLeft();
                 telemetry.addLine("stopped left");
                 pulldownstate1 = false;
@@ -189,7 +189,7 @@ public class Teleop extends OpMode {
         }
         if (pulldownstate2){
             pullupstate2 = false;
-            if (pullup.getPosition2() > 1000) { // TODO: tune
+            if (pullup.getPosition2() > 5000) { // TODO: tune
                 pullup.stopRight();
                 telemetry.addLine("stoppedRight");
                 pulldownstate2 = false;
@@ -230,7 +230,7 @@ public class Teleop extends OpMode {
         } else if (gamepad2.dpad_up){
             slowMode = false;
             telemetry.update();
-    }
+        }
 
         // improved code by yours truly:
         if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
@@ -308,8 +308,11 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
-//        double stupidSrafeMultiplier = 1;
-//        if (Math.abs(x) > stick_margin) stupidSrafeMultiplier = 0.928057554;
+        double stupidSrafeMultiplier = normalPower;
+        if (Math.abs(x) > stick_margin) stupidSrafeMultiplier = 0.928057554 * normalPower;
+        if (Math.abs(y) < 0.1) {
+            drive.move(x * multiplier, y * multiplier, -turn * multiplier);
+        }
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
     }
 

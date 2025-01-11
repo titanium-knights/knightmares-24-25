@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.utilities;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -9,7 +10,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import java.util.HashMap;
 import java.util.Objects;
 
+@Config
 public class SimpleMecanumDrive {
+
+    final double SALS_CONSTANT = 0.8; //0.928057554
 
     public SimpleMecanumDrive(HardwareMap hmap) {
         fl = hmap.get(DcMotor.class, CONFIG.FRONT_LEFT);
@@ -67,6 +71,21 @@ public class SimpleMecanumDrive {
         br.setPower(dot_br / max);
         fr.setPower(dot_fr / max);
         bl.setPower(dot_bl / max);
+
+//        if (Math.abs(y) < 0.1) {
+//            if (x > 0) {
+//                fl.setPower(SALS_CONSTANT * dot_fl / max);
+//                br.setPower(dot_br / max);
+//                fr.setPower(SALS_CONSTANT * dot_fr / max);
+//                bl.setPower(SALS_CONSTANT * dot_bl / max);
+//            }
+//            if (x < 0) {
+//                fl.setPower(SALS_CONSTANT * dot_fl / max);
+//                br.setPower(SALS_CONSTANT * dot_br / max);
+//                fr.setPower(SALS_CONSTANT * dot_fr / max);
+//                bl.setPower(dot_bl / max);
+//            }
+//        }
     }
     public void moveFL(double x, double y, double turn) {
         double dot_fl = dot(Objects.requireNonNull(directions.get(fl)), new double[]{x, y}) + turn;

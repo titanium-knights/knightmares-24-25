@@ -231,7 +231,9 @@ public class Slides {
 //            // too low to extend
 //        } else
 
-        if ((getRotatorEncoder() <= 100 && getEncoder() < 150) || (getRotatorEncoder() >= 900 && getEncoder() < 900))
+        if (
+                (getRotatorEncoder() <= 100 && getEncoder() < 150) || // extend flush DONT USE
+                (getRotatorEncoder() >= 900 && getEncoder() < 900))
         {
                 slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 state = SlidesState.RIGHT;
@@ -286,7 +288,7 @@ public class Slides {
         }
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rotState = SlidesRotatorState.RIGHT;
-        setRotPower(0.6);
+        setRotPower(1);
     }
     public class RotateRight implements Action {
         @Override
