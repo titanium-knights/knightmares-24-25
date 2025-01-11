@@ -96,11 +96,11 @@ public class nearHuman_push3_initialSpecimen_human2_pedro extends OpMode{
             moveToFar_PATH, placeMiddle_PATH,
             moveToMiddle_PATH, pickUpMiddle_PATH,
             specimenControllA_PATH, placeFar_PATH,
-            pickUpSpecimenA_PATH, goToSpecimenA_PATH,
-    pickUpSpecimenB_PATH, goToSpecimenB_PATH,
-    pickUpSpecimenC_PATH, goToSpecimenC_PATH,
-    pickUpSpecimenD_PATH, goToSpecimenD_PATH,
-    pickUpSpecimenE_PATH, goToSpecimenE_PATH;
+            pickUpSpecimenA_PATH, placeSpecimenA_PATH,
+    pickUpSpecimenB_PATH, placeSpecimenB_PATH,
+    pickUpSpecimenC_PATH, placeSpecimenC_PATH,
+    pickUpSpecimenD_PATH, placeSpecimenD_PATH,
+    pickUpSpecimenE_PATH, placeSpecimenE_PATH;
 
 
     public void buildPaths() {
@@ -158,51 +158,51 @@ public class nearHuman_push3_initialSpecimen_human2_pedro extends OpMode{
                 .setLinearHeadingInterpolation(pickupFarP_HUMAN.getHeading(), placeFarP_HUMAN.getHeading())
                 .build();
 
-        goToSpecimenA_PATH = follower.pathBuilder()
+        pickUpSpecimenA_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(placeFarP_HUMAN), new Point(pickUpSpecimen)))
                 .setLinearHeadingInterpolation(placeFarP_HUMAN.getHeading(), pickUpSpecimen.getHeading())
                 .build();
 
-        pickUpSpecimenA_PATH = follower.pathBuilder()
+        placeSpecimenA_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(placeSpecimenA)))
                 .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), placeSpecimenA.getHeading())
                 .build();
 
-        goToSpecimenB_PATH = follower.pathBuilder()
+        pickUpSpecimenB_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(placeSpecimenA), new Point(pickUpSpecimen)))
                 .setLinearHeadingInterpolation(placeSpecimenA.getHeading(), pickUpSpecimen.getHeading())
                 .build();
 
-        pickUpSpecimenB_PATH = follower.pathBuilder()
+        placeSpecimenB_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(placeSpecimenB)))
                 .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), placeSpecimenB.getHeading())
                 .build();
 
-        goToSpecimenC_PATH = follower.pathBuilder()
+        pickUpSpecimenC_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(placeSpecimenB), new Point(pickUpSpecimen)))
                 .setLinearHeadingInterpolation(placeSpecimenB.getHeading(), pickUpSpecimen.getHeading())
                 .build();
 
-        pickUpSpecimenC_PATH = follower.pathBuilder()
+        placeSpecimenC_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(placeSpecimenC)))
                 .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), placeSpecimenC.getHeading())
                 .build();
-        goToSpecimenD_PATH = follower.pathBuilder()
+        pickUpSpecimenD_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(placeSpecimenC), new Point(pickUpSpecimen)))
                 .setLinearHeadingInterpolation(placeSpecimenC.getHeading(), pickUpSpecimen.getHeading())
                 .build();
 
-        pickUpSpecimenD_PATH = follower.pathBuilder()
+        placeSpecimenD_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(placeSpecimenD)))
                 .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), placeSpecimenD.getHeading())
                 .build();
 
-        goToSpecimenE_PATH = follower.pathBuilder()
+        pickUpSpecimenE_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(placeSpecimenD), new Point(pickUpSpecimen)))
                 .setLinearHeadingInterpolation(placeSpecimenD.getHeading(), pickUpSpecimen.getHeading())
                 .build();
 
-        pickUpSpecimenE_PATH = follower.pathBuilder()
+        placeSpecimenE_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(placeSpecimenE)))
                 .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), placeSpecimenE.getHeading())
                 .build();
@@ -290,24 +290,87 @@ public class nearHuman_push3_initialSpecimen_human2_pedro extends OpMode{
                 }
                 break;
 // todo new
-            case 10:
+            case 11:
                 if(follower.getPose().getX() > (placeFarP_HUMAN.getX() - 1) && follower.getPose().getY() > (placeFarP_HUMAN.getY() - 1)) {
                     follower.followPath(pickUpSpecimenA_PATH,true);
-                    setPathState(11);
+                    setPathState(12);
                 }
                 break;
-            case 10:
-                if(follower.getPose().getX() > (placeFarP_HUMAN.getX() - 1) && follower.getPose().getY() > (placeFarP_HUMAN.getY() - 1)) {
+            case 12:
+                if(follower.getPose().getX() > (pickUpSpecimen.getX() - 1) && follower.getPose().getY() > (pickUpSpecimen.getY() - 1)) {
                     follower.followPath(placeSpecimenA_PATH,true);
-                    setPathState(11);
+                    setPathState(13);
+                }
+                break;
+            case 13:
+                if(follower.getPose().getX() > (placeSpecimenA.getX() - 1) && follower.getPose().getY() > (placeSpecimenA.getY() - 1)) {
+                    follower.followPath(pickUpSpecimenB_PATH,true);
+                    setPathState(14);
                 }
                 break;
 
-            case 11:
-                if(follower.getPose().getX() > (placeFarP_HUMAN.getX() - 1) && follower.getPose().getY() > (placeFarP_HUMAN.getY() - 1)) {
+            case 14:
+                if(follower.getPose().getX() > (pickUpSpecimen.getX() - 1) && follower.getPose().getY() > (pickUpSpecimen.getY() - 1)) {
+                    follower.followPath(placeSpecimenB_PATH,true);
+                    setPathState(15);
+                }
+                break;
+
+            case 15:
+                if(follower.getPose().getX() > (placeSpecimenB.getX() - 1) && follower.getPose().getY() > (placeSpecimenB.getY() - 1)) {
+                    follower.followPath(pickUpSpecimenC_PATH,true);
+                    setPathState(16);
+                }
+                break;
+
+            case 16:
+                if(follower.getPose().getX() > (pickUpSpecimen.getX() - 1) && follower.getPose().getY() > (pickUpSpecimen.getY() - 1)) {
+                    follower.followPath(placeSpecimenC_PATH,true);
+                    setPathState(17);
+                }
+                break;
+
+            case 17:
+                if(follower.getPose().getX() > (placeSpecimenC.getX() - 1) && follower.getPose().getY() > (placeSpecimenC.getY() - 1)) {
+                    follower.followPath(pickUpSpecimenD_PATH,true);
+                    setPathState(18);
+                }
+                break;
+
+            case 18:
+                if(follower.getPose().getX() > (pickUpSpecimen.getX() - 1) && follower.getPose().getY() > (pickUpSpecimen.getY() - 1)) {
+                    follower.followPath(placeSpecimenD_PATH,true);
+                    setPathState(19);
+                }
+                break;
+
+            case 19:
+                if(follower.getPose().getX() > (placeSpecimenE.getX() - 1) && follower.getPose().getY() > (placeSpecimenE.getY() - 1)) {
+                    follower.followPath(pickUpSpecimenE_PATH,true);
+                    setPathState(20);
+                }
+                break;
+
+            case 20:
+                if(follower.getPose().getX() > (pickUpSpecimen.getX() - 1) && follower.getPose().getY() > (pickUpSpecimen.getY() - 1)) {
+                    follower.followPath(placeSpecimenE_PATH,true);
+                    setPathState(21);
+                }
+                break;
+
+            case 21:
+                if(follower.getPose().getX() > (placeSpecimenE.getX() - 1) && follower.getPose().getY() > (placeSpecimenE.getY() - 1)) {
+                    follower.followPath(park,true);
+                    setPathState(22);
+                }
+                break;
+
+            case 22:
+                if(follower.getPose().getX() > (pickUpSpecimen.getX() - 1) && follower.getPose().getY() > (pickUpSpecimen.getY() - 1)) {
                     setPathState(-1);
                 }
                 break;
+
         }
     }
 
