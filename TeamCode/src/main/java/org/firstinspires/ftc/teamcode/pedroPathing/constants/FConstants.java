@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.utilities.CONFIG;
 
 public class FConstants {
     static {
-        FollowerConstants.localizers = Localizers.THREE_WHEEL;
+        FollowerConstants.localizers = Localizers.PINPOINT;
 
         FollowerConstants.leftFrontMotorName = CONFIG.FRONT_LEFT;
         FollowerConstants.leftRearMotorName = CONFIG.BACK_LEFT;
