@@ -29,8 +29,8 @@ public class test_RIGHT extends OpMode{
 
 
     private final Pose START = new Pose(72, 72, Math.toRadians(0));
-    private final Pose TEST_RIGHT  = new Pose(72, 82, Math.toRadians(0));
-    private final Pose TEST_LEFT = new Pose(72, 62, Math.toRadians(0));
+    private final Pose TEST_LEFT  = new Pose(72, 82, Math.toRadians(0));
+    private final Pose TEST_RIGHT = new Pose(72, 62, Math.toRadians(0));
     private final Pose TEST_UP= new Pose(82, 72, Math.toRadians(0));
     private final Pose TEST_DOWN = new Pose(62, 72, Math.toRadians(0));
 
@@ -70,6 +70,8 @@ public class test_RIGHT extends OpMode{
     }
 
 
+
+
     public void setPathState(int pState) {
         pathState = pState;
         pathTimer.resetTimer();
@@ -81,6 +83,7 @@ public class test_RIGHT extends OpMode{
         // These loop the movements of the robot
         follower.update();
         autonomousPathUpdate();
+
 
         // Feedback to Driver Hub
         telemetry.addData("path state", pathState);

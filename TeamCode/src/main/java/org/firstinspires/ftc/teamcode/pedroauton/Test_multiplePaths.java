@@ -15,25 +15,34 @@ import com.pedropathing.util.Timer;
 import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
+// import org.firstinspires.ftc.teamcode.config.subsystem.ClawSubsystem;
 
-@Autonomous(name = "test_LEFT", group = "Examples")
-public class test_LEFT extends OpMode{
+
+
+
+@Autonomous(name = "Test_multiplePaths", group = "Examples")
+public class Test_multiplePaths extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
 
 
-
     private final Pose START = new Pose(72, 72, Math.toRadians(0));
-    private final Pose TEST_LEFT  = new Pose(72, 82, Math.toRadians(0));
+    private final Pose TEST_LEFT = new Pose(72, 82, Math.toRadians(0));
     private final Pose TEST_RIGHT = new Pose(72, 62, Math.toRadians(0));
-    private final Pose TEST_UP= new Pose(82, 72, Math.toRadians(0));
+    private final Pose TEST_UP = new Pose(82, 72, Math.toRadians(0));
+    private final Pose TEST_UPagain = new Pose(82, 72, Math.toRadians(0));
     private final Pose TEST_DOWN = new Pose(62, 72, Math.toRadians(0));
 
 
-    private PathChain UP, DOWN, LEFT, RIGHT;
+    private PathChain UP, DOWN, LEFT, RIGHT, Upagain;
 
     public void buildPaths() {
+
+        Upagain = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(TEST_UP), new Point(TEST_UPagain)))
+                .setLinearHeadingInterpolation(TEST_UP.getHeading(), TEST_UPagain.getHeading())
+                .build();
 
         UP = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(START), new Point(TEST_UP)))
@@ -56,14 +65,23 @@ public class test_LEFT extends OpMode{
                 .build();
 
     }
+
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
-                follower.followPath(LEFT);
-                setPathState(-1);
+                follower.followPath(RIGHT);
+                setPathState(1);
                 break;
+        case 1:
+        if (follower.getPose().getX() > (TEST_UP.getX() - 1) && follower.getPose().getY() > (TEST_UP.getY() - 1)) {
+            follower.followPath(Upagain, true);
+            setPathState(-1);
         }
+        break;
     }
+}
+
+
 
 
     public void setPathState(int pState) {
@@ -77,6 +95,7 @@ public class test_LEFT extends OpMode{
         // These loop the movements of the robot
         follower.update();
         autonomousPathUpdate();
+
 
         // Feedback to Driver Hub
         telemetry.addData("path state", pathState);
