@@ -340,65 +340,109 @@ public class Teleop extends OpMode {
     }
     public void hangSpecimen() throws InterruptedException {
         switch (autonAction) {
-            case 0:
+            case 0: // move back
                 drive.move(0, -1, 0);
                 if (time > 0.8) {
                     setAutonAction(1);
                 }
                 break;
-            case 1:
+            case 1: // stop
                 drive.move(0, 0, 0);
+                if (time > 0.1) {
+                    setAutonAction(2);
+                }
+                break;
+            case 2: // stop
+                clawRotator.toDrop();
+                if (time > 0.1) {
+                    setAutonAction(3);
+                }
+                break;
+            case 3: // rotate slides
+                slides.rotateRight();
                 if (time > 0.8) {
-                    setAutonAction(1);
+                    setAutonAction(4);
+                }
+                break;
+            case 4: // stop slides
+                slides.stopRotator();
+                if (time > 0.1) {
+                    setAutonAction(5);
+                }
+                break;
+            case 5: // extend slides
+                slides.extend();
+                if (time > 0.8) {
+                    setAutonAction(6);
+                }
+                break;
+            case 6: // stop slides
+                slides.stop();
+                if (time > 0.1) {
+                    setAutonAction(7);
+                }
+                break;
+            case 7: // rotate claws
+                clawRotator.toPick();
+                if (time > 0.1) {
+                    setAutonAction(8);
+                }
+                break;
+            case 8: // slide retract a little bit
+                slides.retract();
+                if (time > 0.4) {
+                    setAutonAction(9);
+                }
+                break;
+            case 9: // stop slides
+                slides.stop();
+                if (time > 0.1) {
+                    setAutonAction(10);
+                }
+                break;
+            case 10: // stop slides
+                slides.stop();
+                if (time > 0.1) {
+                    setAutonAction(11);
+                }
+                break;
+            case 11: // drive forward a bit
+                drive.move(0, 1, 0);
+                if (time > 0.2) {
+                    setAutonAction(12);
+                }
+                break;
+            case 12: // stop driving
+                drive.move(0, 0, 0);
+                if (time > 0.1) {
+                    setAutonAction(13);
+                }
+                break;
+            case 13: // let go
+                claw.open();
+                if (time > 0.1) {
+                    setAutonAction(14);
+                }
+                break;
+            case 14: // rotate claws
+                clawRotator.toDrop();
+                if (time > 0.2) {
+                    setAutonAction(15);
+                }
+                break;
+            case 15: // retract slides
+                slides.retract();
+                if (time > 0.3) {
+                    setAutonAction(16);
+                }
+                break;
+            case 16: // top slides
+                slides.stop();
+                if (time > 0.1) {
+                    setAutonAction(17);
                 }
                 break;
         }
-        runtime.reset();
-        time = runtime.seconds();
-        //move back
-        double juna = 0.8;
-        if (time < juna) {
-            drive.move(0, -1, 0);
-        }
-        juna += 0.1;
-        else if (time < juna) {
-            drive.move(0, 0, 0);
-        }
-        juna += 0.4;
-        else if (time < juna) {
-            slides.retract();
-        }
-        else if (time < 1.4) {
-            slides.stop();
-        }
-        else if (time < 1.5) {
-            clawRotator.toDrop();
-        }
-        else if (time < 1.7)
-
-        //rotate claw rotator out
-        clawRotator.toDrop();
-        //rotate slides back
-        slides.rotateRight();
-        sleep(200);
-        slides.stopRotator();
-        //extend slides
-        slides.extend();
-        sleep(700);
-        slides.stop();
-        //rotate claw rotator
-        clawRotator.toPick();
-        //retract slides a little bit
-        slides.retract();
-        sleep(400);
-        slides.stop();
-        //drive forward
-        drive.move(0, 1, 0);
-        sleep(100);
-        drive.move(0, 0, 0);
-        sleep(100);
-        claw.open();
-        //retract completely
     }
 
 }
