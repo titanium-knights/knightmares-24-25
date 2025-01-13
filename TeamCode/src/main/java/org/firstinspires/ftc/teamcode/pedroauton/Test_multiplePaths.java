@@ -15,6 +15,9 @@ import com.pedropathing.util.Timer;
 import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 // import org.firstinspires.ftc.teamcode.config.subsystem.ClawSubsystem;
 
 
@@ -31,7 +34,7 @@ public class Test_multiplePaths extends OpMode {
     private final Pose TEST_LEFT = new Pose(72, 82, Math.toRadians(0));
     private final Pose TEST_RIGHT = new Pose(72, 62, Math.toRadians(0));
     private final Pose TEST_UP = new Pose(82, 72, Math.toRadians(0));
-    private final Pose TEST_UPagain = new Pose(82, 72, Math.toRadians(0));
+    private final Pose TEST_UPagain = new Pose(92, 72, Math.toRadians(0));
     private final Pose TEST_DOWN = new Pose(62, 72, Math.toRadians(0));
 
 
@@ -72,12 +75,12 @@ public class Test_multiplePaths extends OpMode {
                 follower.followPath(RIGHT);
                 setPathState(1);
                 break;
-        case 1:
-        if (follower.getPose().getX() > (TEST_UP.getX() - 1) && follower.getPose().getY() > (TEST_UP.getY() - 1)) {
-            follower.followPath(Upagain, true);
-            setPathState(-1);
-        }
-        break;
+            case 1:
+                if (follower.getPose().getX() > (TEST_UP.getX() - 1) && follower.getPose().getY() > (TEST_UP.getY() - 1)) {
+                    follower.followPath(Upagain, true);
+                    setPathState(-1);
+                }
+                break;
     }
 }
 
@@ -108,6 +111,7 @@ public class Test_multiplePaths extends OpMode {
     @Override
     public void init() {
         pathTimer = new Timer();
+        Constants.setConstants(FConstants.class, LConstants.class);
         opmodeTimer = new Timer();
 
         opmodeTimer.resetTimer();

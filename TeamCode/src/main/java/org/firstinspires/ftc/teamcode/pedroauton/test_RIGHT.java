@@ -15,6 +15,9 @@ import com.pedropathing.util.Timer;
 import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
+
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 // import org.firstinspires.ftc.teamcode.config.subsystem.ClawSubsystem;
 
 
@@ -96,6 +99,7 @@ public class test_RIGHT extends OpMode{
     @Override
     public void init() {
         pathTimer = new Timer();
+        Constants.setConstants(FConstants.class, LConstants.class);
         opmodeTimer = new Timer();
 
         opmodeTimer.resetTimer();

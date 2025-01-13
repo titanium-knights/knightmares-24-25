@@ -16,6 +16,8 @@ import com.pedropathing.util.Constants;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
@@ -125,6 +127,7 @@ public class nearBasket_park_pedro extends OpMode{
     @Override
     public void init() {
         pathTimer = new Timer();
+        Constants.setConstants(FConstants.class, LConstants.class);
         opmodeTimer = new Timer();
 
         opmodeTimer.resetTimer();
