@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
+import static java.lang.Thread.sleep;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.backupAuton.auton.AutonMethods;
 import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 //import org.firstinspires.ftc.teamcode.utilities.PullUp;
@@ -53,6 +56,7 @@ public class Teleop extends OpMode {
     boolean pulldownstate1 = false;
     boolean pulldownstate2 = false;
     int slidesPos;
+    ElapsedTime runtime = new ElapsedTime();
     @Override
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
@@ -299,8 +303,15 @@ public class Teleop extends OpMode {
 //            clawRotator.toDrop();
 //
 //        }
-    }
+        if (gamepad2.left_trigger <  0.7f){
+            try {
+                hangSpecimen();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
+    }
 
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
@@ -317,6 +328,43 @@ public class Teleop extends OpMode {
             drive.move(x * multiplier, y * multiplier, -turn * multiplier);
         }
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
+    }
+
+    public void hangSpecimen() throws InterruptedException {
+        runtime.reset();
+        double timeElapsed = runtime.seconds();
+        //move back
+        drive.move(0, -1, 0);
+        sleep(800);
+        drive.move(0, 0, 0);
+        sleep(100);
+
+        slides.retract();
+        sleep(400);
+        slides.stop();
+        //rotate claw rotator out
+        clawRotator.toDrop();
+        //rotate slides back
+        slides.rotateRight();
+        sleep(200);
+        slides.stopRotator();
+        //extend slides
+        slides.extend();
+        sleep(700);
+        slides.stop();
+        //rotate claw rotator
+        clawRotator.toPick();
+        //retract slides a little bit
+        slides.retract();
+        sleep(400);
+        slides.stop();
+        //drive forward
+        drive.move(0, 1, 0);
+        sleep(100);
+        drive.move(0, 0, 0);
+        sleep(100);
+        claw.open();
+        //retract completely
     }
 
 }
