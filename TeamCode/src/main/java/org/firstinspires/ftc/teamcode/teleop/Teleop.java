@@ -74,6 +74,8 @@ public class Teleop extends OpMode {
     @Override
     public void loop() {
 
+        telemetry.addLine("dis is slide numbre" + slides.getEncoder());
+
         if (gamepad1.left_trigger>0.1f && slideButton == ButtonPressState.UNPRESSED) {
             slideButton = ButtonPressState.PRESSED_GOOD;
         } else if (gamepad1.left_trigger>0.1f && slideButton==ButtonPressState.PRESSED_GOOD) {
@@ -298,6 +300,7 @@ public class Teleop extends OpMode {
 //
 //        }
     }
+
 
     public void move(float x, float y, float turn) {
         // if the stick movement is negligible, set STICK_MARGIN to 0
