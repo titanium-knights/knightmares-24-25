@@ -56,6 +56,9 @@ public class Teleop extends OpMode {
     boolean pulldownstate1 = false;
     boolean pulldownstate2 = false;
     int slidesPos;
+    double time;
+    int autonAction = 0;
+
     ElapsedTime runtime = new ElapsedTime();
     @Override
     public void init() {
@@ -327,18 +330,49 @@ public class Teleop extends OpMode {
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
     }
 
-    public void hangSpecimen() throws InterruptedException {
+    public void setAutonAction (int action) {
+        autonAction = action;
         runtime.reset();
-        double timeElapsed = runtime.seconds();
-        //move back
-        drive.move(0, -1, 0);
-        sleep(800);
-        drive.move(0, 0, 0);
-        sleep(100);
 
-        slides.retract();
-        sleep(400);
-        slides.stop();
+    }
+    public void hangSpecimen() throws InterruptedException {
+        switch (autonAction) {
+            case 0:
+                drive.move(0, -1, 0);
+                if (time > 0.8) {
+                    setAutonAction(1);
+                }
+                break;
+            case 1:
+                drive.move(0, 0, 0);
+                if (time > 0.8) {
+                    setAutonAction(1);
+                }
+                break;
+        }
+        runtime.reset();
+        time = runtime.seconds();
+        //move back
+        double juna = 0.8;
+        if (time < juna) {
+            drive.move(0, -1, 0);
+        }
+        juna += 0.1;
+        else if (time < juna) {
+            drive.move(0, 0, 0);
+        }
+        juna += 0.4;
+        else if (time < juna) {
+            slides.retract();
+        }
+        else if (time < 1.4) {
+            slides.stop();
+        }
+        else if (time < 1.5) {
+            clawRotator.toDrop();
+        }
+        else if (time < 1.7)
+
         //rotate claw rotator out
         clawRotator.toDrop();
         //rotate slides back
