@@ -49,6 +49,7 @@ public class Teleop extends OpMode {
     ButtonPressState cRotatorButton;
     ButtonPressState slideManual;
     ButtonPressState slideManualUp;
+    ButtonPressState ultimateButton;
 
     boolean slowMode = false;
     boolean pullupstate1 = false;
@@ -70,6 +71,8 @@ public class Teleop extends OpMode {
         this.slideButton = ButtonPressState.UNPRESSED;
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
+        this.ultimateButton = ButtonPressState.UNPRESSED;
+
 
         this.claw = new Claw(hardwareMap, telemetry);
         // this.latch = new Latch(hardwareMap, telemetry);
@@ -306,7 +309,7 @@ public class Teleop extends OpMode {
 //            clawRotator.toDrop();
 //
 //        }
-        if (gamepad2.left_trigger <  0.7f){
+        if ((gamepad2.left_trigger > 0.7f) && (ultimateButton == ButtonPressState.UNPRESSED)){
             try {
                 hangSpecimen();
             } catch (InterruptedException e) {
@@ -341,6 +344,7 @@ public class Teleop extends OpMode {
     public void hangSpecimen() throws InterruptedException {
         switch (autonAction) {
             case 0: // move back
+                ultimateButton = ButtonPressState.PRESSED_GOOD;
                 drive.move(0, -1, 0);
                 if (time > 0.8) {
                     setAutonAction(1);
@@ -440,7 +444,9 @@ public class Teleop extends OpMode {
                 slides.stop();
                 if (time > 0.1) {
                     setAutonAction(17);
+                    ultimateButton = ButtonPressState.UNPRESSED;
                 }
+
                 break;
         }
     }
