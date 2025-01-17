@@ -30,7 +30,7 @@ public class Teleop extends OpMode {
     SimpleMecanumDrive drive;
 
     //Set normal power constant to 1, no point in slowing the robot down
-    final double normalPower = 0.1;
+    final double normalPower = 0.8;
 
     // in case of joystick drift, ignore very small values
     public float stick_margin = 0.7f;
@@ -153,78 +153,78 @@ public class Teleop extends OpMode {
 
         //pull UP
         if(gamepad2.y){
-            pullupstate1 = true;
-            pullupstate2 = true;
-
+            pullup.leftDown();
+            pullup.rightDown();
         }
-        if (pullupstate1){
-            pulldownstate1 = false;
-
-            if (pullup.getPosition1() < -10) { // TODO: tune
-                pullup.stopLeft();
-                pullupstate1 = false;
-            } else {
-                pullup.leftUp();
-                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
-            }
-        }
-        if (pullupstate2){
-            pulldownstate2 = false;
-
-            if (pullup.getPosition2() < -10) { // TODO: tune
-                pullup.stopRight();
-                pullupstate2 = false;
-            } else {
-                pullup.rightUp();
-                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
-                telemetry.update();
-            }
-        }
-        //pull DOWN
-        if(gamepad2.a){
-            pulldownstate1 = true;
-            pulldownstate2 = true;
-
-        }
-        if (pulldownstate1){
-            pullupstate1 = false;
-            if (pullup.getPosition1() > 4000) { // TODO: tune
-                pullup.stopLeft();
-                telemetry.addLine("stopped left");
-                pulldownstate1 = false;
-
-            } else {
-                pullup.leftDown();
-                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left down");
-                telemetry.update();
-            }
-        }
-        if (pulldownstate2){
-            pullupstate2 = false;
-            if (pullup.getPosition2() > 5000) { // TODO: tune
-                pullup.stopRight();
-                telemetry.addLine("stoppedRight");
-                pulldownstate2 = false;
-
-            } else {
-                pullup.rightDown();
-                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt down");
-                telemetry.update();
-            }
-
-
+        else if(gamepad2.a){
+            pullup.leftUp();
+            pullup.rightUp();
+        } else {
+            pullup.stop();
         }
 
-//        if(gamepad1.dpad_left){
-//            latch.latchOn();
+//        if (pullupstate1){
+//            pulldownstate1 = false;
+//
+//            if (pullup.getPosition1() < -10) { // TODO: tune
+//                pullup.stopLeft();
+//                pullupstate1 = false;
+//            } else {
+//                pullup.leftUp();
+//                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
+//            }
+//        }
+//        if (pullupstate2){
+//            pulldownstate2 = false;
+//
+//            if (pullup.getPosition2() < -10) { // TODO: tune
+//                pullup.stopRight();
+//                pullupstate2 = false;
+//            } else {
+//                pullup.rightUp();
+//                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
+//                telemetry.update();
+//            }
 //        }
 //
-//        if(gamepad1.dpad_right){
-//            latch.latchOff();
+//        if (pulldownstate1){
+//            pullupstate1 = false;
+//            if (pullup.getPosition1() > 4000) { // TODO: tune
+//                pullup.stopLeft();
+//                telemetry.addLine("stopped left");
+//                pulldownstate1 = false;
+//            } else {
+//                pullup.leftDown();
+//                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left down");
+//                telemetry.update();
+//            }
 //        }
+//        if (pulldownstate2){
+//            pullupstate2 = false;
+//            if (pullup.getPosition2() > 5000) { // TODO: tune
+//                pullup.stopRight();
+//                telemetry.addLine("stoppedRight");
+//                pulldownstate2 = false;
+//
+//            } else {
+//                pullup.rightDown();
+//                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt down");
+//                telemetry.update();
+//            }
+//
+//
+//        }
+/*
+        if(gamepad1.dpad_left){
+            latch.latchOn();
+        }
+
+        if(gamepad1.dpad_right){
+            latch.latchOff();
+        }
 
 
-        else if (gamepad1.right_trigger > 0.5) {
+        else */ if (gamepad1.right_trigger > 0.5) {
             slides.rotateRight();
             telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
 

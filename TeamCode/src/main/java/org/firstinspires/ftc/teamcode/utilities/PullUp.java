@@ -79,12 +79,12 @@ public class PullUp {
 
     public void leftUp(){ // 1
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pullUpMotor1.setPower(-1);
+        pullUpMotor1.setPower(-0.65);
     }
 
     public void leftDown(){ // -1
         pullUpMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        pullUpMotor1.setPower(1);
+        pullUpMotor1.setPower(0.65);
     }
 
     public void stopLeft(){
