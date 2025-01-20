@@ -23,33 +23,37 @@ import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 
 
 
-@Autonomous(name = "Test_multiplePaths", group = "Examples")
-public class Test_multiplePaths extends OpMode {
+@Autonomous(name = "test_upRight", group = "Examples")
+public class test_upRight extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
 
 
-    private final Pose START = new Pose(0, 0, Math.toRadians(0));
+    private final Pose START = new Pose(72, 72, Math.toRadians(0));
     private final Pose TEST_LEFT = new Pose(72, 82, Math.toRadians(0));
     private final Pose TEST_RIGHT = new Pose(72, 62, Math.toRadians(0));
-    private final Pose TEST_UP = new Pose(20, 0, Math.toRadians(0));
-    private final Pose TEST_UPagain = new Pose(40, 0, Math.toRadians(0));
+    private final Pose TEST_UP = new Pose(82, 72, Math.toRadians(0));
+    private final Pose TEST_leftHaha = new Pose(82, 82, Math.toRadians(0));
+    private final Pose TEST_UPagain = new Pose(92, 72, Math.toRadians(0));
     private final Pose TEST_DOWN = new Pose(62, 72, Math.toRadians(0));
 
 
-    private PathChain UP, DOWN, LEFT, RIGHT, Upagain;
+    private PathChain UP, DOWN, LEFT, RIGHT, leftHaha;
 
     public void buildPaths() {
+
+        leftHaha = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(TEST_UP), new Point(TEST_leftHaha)))
+                .setLinearHeadingInterpolation(TEST_UP.getHeading(), TEST_leftHaha.getHeading())
+                .build();
+
         UP = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(START), new Point(TEST_UP)))
                 .setLinearHeadingInterpolation(START.getHeading(), TEST_UP.getHeading())
                 .build();
 
-        Upagain = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(TEST_UP), new Point(TEST_UPagain)))
-                .setLinearHeadingInterpolation(TEST_UP.getHeading(), TEST_UPagain.getHeading())
-                .build();
+
 
         DOWN = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(START), new Point(TEST_DOWN)))
@@ -72,17 +76,16 @@ public class Test_multiplePaths extends OpMode {
         switch (pathState) {
             case 0:
                 follower.followPath(UP);
-//                if (!follower.isBusy())
-//                    setPathState(1);
+                setPathState(1);
                 break;
             case 1:
-//                if (follower.getPose().getX() > (TEST_UP.getX() - 1) && follower.getPose().getY() > (TEST_UP.getY() - 1)) {
-                follower.followPath(Upagain);
-                setPathState(-1);
-//                }
+                if (follower.getPose().getX() > (TEST_UP.getX() - 1) && follower.getPose().getY() > (TEST_UP.getY() - 1)) {
+                    follower.followPath(leftHaha, true);
+                    setPathState(-1);
+                }
                 break;
+        }
     }
-}
 
 
 

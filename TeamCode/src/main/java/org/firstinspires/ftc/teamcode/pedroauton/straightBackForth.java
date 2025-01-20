@@ -23,32 +23,33 @@ import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 
 
 
-@Autonomous(name = "Test_multiplePaths", group = "Examples")
-public class Test_multiplePaths extends OpMode {
+@Autonomous(name = "straightBackForth", group = "Examples")
+public class straightBackForth extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
 
 
-    private final Pose START = new Pose(0, 0, Math.toRadians(0));
-    private final Pose TEST_LEFT = new Pose(72, 82, Math.toRadians(0));
+
+    private final Pose START = new Pose(72, 72, Math.toRadians(0));
+    private final Pose TEST_LEFT  = new Pose(72, 82, Math.toRadians(0));
     private final Pose TEST_RIGHT = new Pose(72, 62, Math.toRadians(0));
-    private final Pose TEST_UP = new Pose(20, 0, Math.toRadians(0));
-    private final Pose TEST_UPagain = new Pose(40, 0, Math.toRadians(0));
+    private final Pose TEST_UP= new Pose(82, 72, Math.toRadians(0));
     private final Pose TEST_DOWN = new Pose(62, 72, Math.toRadians(0));
 
 
-    private PathChain UP, DOWN, LEFT, RIGHT, Upagain;
+    private PathChain UP, DOWN, LEFT, RIGHT, START_path;
 
     public void buildPaths() {
+
+        START_path = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(TEST_UP), new Point(START)))
+                .setLinearHeadingInterpolation(TEST_UP.getHeading(), START.getHeading())
+                .build();
+
         UP = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(START), new Point(TEST_UP)))
                 .setLinearHeadingInterpolation(START.getHeading(), TEST_UP.getHeading())
-                .build();
-
-        Upagain = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(TEST_UP), new Point(TEST_UPagain)))
-                .setLinearHeadingInterpolation(TEST_UP.getHeading(), TEST_UPagain.getHeading())
                 .build();
 
         DOWN = follower.pathBuilder()
@@ -67,22 +68,20 @@ public class Test_multiplePaths extends OpMode {
                 .build();
 
     }
-
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
                 follower.followPath(UP);
-//                if (!follower.isBusy())
-//                    setPathState(1);
+                setPathState(1);
                 break;
             case 1:
-//                if (follower.getPose().getX() > (TEST_UP.getX() - 1) && follower.getPose().getY() > (TEST_UP.getY() - 1)) {
-                follower.followPath(Upagain);
-                setPathState(-1);
-//                }
+                if (follower.getPose().getX() > (TEST_UP.getX() - 1) && follower.getPose().getY() > (TEST_UP.getY() - 1)) {
+                    follower.followPath(START_path);
+                    setPathState(-1);
+                }
                 break;
+        }
     }
-}
 
 
 
