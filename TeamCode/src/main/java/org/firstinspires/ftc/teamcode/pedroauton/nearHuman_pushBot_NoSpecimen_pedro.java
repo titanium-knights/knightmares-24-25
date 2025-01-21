@@ -70,7 +70,7 @@ public class nearHuman_pushBot_NoSpecimen_pedro extends OpMode{
     private final Pose specimenP_HUMAN = new Pose(40, 64, Math.toRadians(0));
     private final Pose specimenControllP_HUMAN = new Pose(40, 36, Math.toRadians(0));
     private final Pose startControllP_HUMAN = new Pose(8, 32, Math.toRadians(0));
-    private final Pose controllBeforeCloseP_HUMAN = new Pose(56, 36, Math.toRadians(0));
+    private final Pose controllBeforeCloseP_HUMAN = new Pose(56, 32, Math.toRadians(0));
 
 
     private final Pose specimenP_BASKET = new Pose(40, 80, Math.toRadians(0));

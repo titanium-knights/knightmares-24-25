@@ -14,6 +14,7 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.pathgen.BezierLine;
 import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.Point;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 
 /**
@@ -34,9 +35,10 @@ import com.pedropathing.pathgen.Point;
 public class StraightBackAndForth extends OpMode {
     private Telemetry telemetryA;
 
-    public static double DISTANCE = 40;
+    public static double DISTANCE = 16;
 
     private boolean forward = true;
+    private boolean backward = false;
 
     private Follower follower;
 
@@ -76,10 +78,12 @@ public class StraightBackAndForth extends OpMode {
         if (!follower.isBusy()) {
             if (forward) {
                 forward = false;
-                follower.followPath(backwards);
-            } else {
-                forward = true;
+                backward = true;
                 follower.followPath(forwards);
+            } else if (backward) {
+                forward = true;
+                backward = false;
+                follower.followPath(backwards);
             }
         }
 
