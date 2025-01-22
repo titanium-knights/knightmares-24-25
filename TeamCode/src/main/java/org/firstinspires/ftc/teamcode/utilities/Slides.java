@@ -51,8 +51,8 @@ public class Slides {
     DcMotor slideRotator;
 
     public Slides(HardwareMap hmap){
-        this.slideMotor1 = hmap.dcMotor.get(CONFIG.slide);
-        this.slideMotor2 = hmap.dcMotor.get(CONFIG.slide);
+        this.slideMotor1 = hmap.dcMotor.get(CONFIG.slide1);
+        this.slideMotor2 = hmap.dcMotor.get(CONFIG.slide2);
         this.slideRotator = hmap.dcMotor.get(CONFIG.slideRot);
         this.pos = 0;
         this.state = SlidesState.LEFT;
@@ -63,8 +63,8 @@ public class Slides {
         slideMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slideMotor2.setZeroPowerBehavior(BRAKE);
-        slideMotor1.setDirection(DcMotorSimple.Direction.FORWARD);
-        slideMotor2.setDirection(DcMotorSimple.Direction.REVERSE);
+        slideMotor1.setDirection(DcMotorSimple.Direction.REVERSE);
+        slideMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         slideRotator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

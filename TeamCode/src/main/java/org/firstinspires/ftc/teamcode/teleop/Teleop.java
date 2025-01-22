@@ -140,7 +140,7 @@ public class Teleop extends OpMode {
             move(x, y, turn);
         }
         int pul1 = pullup.getPosition1();
-        int pul2 = pullup.getPosition2();
+//        int pul2 = pullup.getPosition2();
 
         if(gamepad2.b){
             pullup.rightDown();
@@ -154,11 +154,11 @@ public class Teleop extends OpMode {
         //pull UP
         if(gamepad2.y){
             pullup.leftDown();
-            pullup.rightDown();
+//            pullup.rightDown();
         }
         else if(gamepad2.a){
             pullup.leftUp();
-            pullup.rightUp();
+//            pullup.rightUp();
         } else {
             pullup.stop();
         }
