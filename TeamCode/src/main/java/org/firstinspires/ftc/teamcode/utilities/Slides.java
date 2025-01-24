@@ -266,7 +266,7 @@ public class Slides {
                 slideMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 slideMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            state = SlidesState.RIGHT;
+                state = SlidesState.RIGHT;
                 setPower(0.9);
         }
         else {
