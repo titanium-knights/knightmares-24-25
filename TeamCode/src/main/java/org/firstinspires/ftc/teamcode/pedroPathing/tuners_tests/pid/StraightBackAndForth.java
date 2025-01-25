@@ -87,6 +87,13 @@ public class StraightBackAndForth extends OpMode {
             }
         }
 
+        // Add a short delay to prevent rapid path switching
+        try {
+            Thread.sleep(100); // 100 milliseconds delay
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         telemetryA.addData("going forward", forward);
         follower.telemetryDebug(telemetryA);
     }
