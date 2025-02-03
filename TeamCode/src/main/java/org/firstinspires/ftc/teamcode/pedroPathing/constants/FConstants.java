@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.constants;
 
+import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Localizers;
 import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.util.CustomFilteredPIDFCoefficients;
@@ -22,13 +23,13 @@ public class FConstants {
         FollowerConstants.rightFrontMotorDirection = DcMotorSimple.Direction.FORWARD;
         FollowerConstants.rightRearMotorDirection = DcMotorSimple.Direction.FORWARD;
 
-        FollowerConstants.mass = 12.65;
+        FollowerConstants.mass = 11.42;
 
-        FollowerConstants.xMovement = 59.4264;
-        FollowerConstants.yMovement = 43.572;
+        FollowerConstants.xMovement = 53.5;
+        FollowerConstants.yMovement = 40.7168;
 
-        FollowerConstants.forwardZeroPowerAcceleration = -52.5634;
-        FollowerConstants.lateralZeroPowerAcceleration = -87.7649;
+        FollowerConstants.forwardZeroPowerAcceleration = -55.8487;
+        FollowerConstants.lateralZeroPowerAcceleration = -72.1592;
 
         FollowerConstants.translationalPIDFCoefficients.setCoefficients(0.1,0,0.01,0);
         FollowerConstants.useSecondaryTranslationalPID = false;
@@ -50,5 +51,9 @@ public class FConstants {
         FollowerConstants.pathEndVelocityConstraint = 0.1;
         FollowerConstants.pathEndTranslationalConstraint = 0.5; // originally 0.1
         FollowerConstants.pathEndHeadingConstraint = 0.007;
+
+        FollowerConstants.useSecondaryDrivePID = true;
+        FollowerConstants.useSecondaryHeadingPID = true;
+        FollowerConstants.useSecondaryTranslationalPID = true;
     }
 }

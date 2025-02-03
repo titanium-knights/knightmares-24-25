@@ -33,6 +33,8 @@ public class nearHuman_pushBot_withSpecimen_pedro extends OpMode{
     public ClawRotator clawRot;
     public Slides slides;
 
+    private final Pose midway_HUMANo=[] = new Pose(24, 64, Math.toRadians(0));
+
 
     private final Pose startP_HUMAN = new Pose(8, 64, Math.toRadians(0));
     private final Pose startP_BASKET = new Pose(8, 80, Math.toRadians(0));
