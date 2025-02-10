@@ -134,14 +134,14 @@ public class nearHuman_pushBot_NoSpecimen_pedro extends OpMode{
                 break;
             case 4:
                 telemetry.addLine("case 4");
-                if(follower.getPose().getX() > (placeCloseP_HUMAN.getX() - 5) && follower.getPose().getY() > (placeCloseP_HUMAN.getY() - 5)) {
+                if(follower.getPose().getX() > (placeCloseP_HUMAN.getX() - 4) && follower.getPose().getY() > (placeCloseP_HUMAN.getY() - 4)) {
                     follower.followPath(moveToMiddle_PATH,true);
                     setPathState(5);
                 }
                 break;
             case 5:
                 telemetry.addLine("case 6");
-                if(follower.getPose().getX() > (pickupCloseP_HUMAN.getX() - 5) && follower.getPose().getY() > (pickupCloseP_HUMAN.getY() - 5)) {
+                if(follower.getPose().getX() > (pickupCloseP_HUMAN.getX() - 4) && follower.getPose().getY() > (pickupCloseP_HUMAN.getY() - 4)) {
                     follower.followPath(pickUpMiddle_PATH,true);
                     setPathState(6);
                 }
