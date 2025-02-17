@@ -328,11 +328,6 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
-        double stupidSrafeMultiplier = normalPower;
-        if (Math.abs(x) > stick_margin) stupidSrafeMultiplier = 0.928057554 * normalPower;
-        if (Math.abs(y) < 0.1) {
-            drive.move(x * multiplier, y * multiplier, -turn * multiplier);
-        }
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
     }
 
