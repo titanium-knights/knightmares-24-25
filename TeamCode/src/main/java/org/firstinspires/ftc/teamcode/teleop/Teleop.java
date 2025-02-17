@@ -344,6 +344,8 @@ public class Teleop extends OpMode {
     public void hangSpecimen() throws InterruptedException {
         switch (autonAction) {
             case 0: // move back
+                telemetry.addLine("case0");
+                telemetry.update();
                 ultimateButton = ButtonPressState.PRESSED_GOOD;
                 drive.move(0, -1, 0);
                 if (time > 0.8) {
@@ -351,96 +353,128 @@ public class Teleop extends OpMode {
                 }
                 break;
             case 1: // stop
+                telemetry.addLine("case1");
+                telemetry.update();
                 drive.move(0, 0, 0);
                 if (time > 0.1) {
                     setAutonAction(2);
                 }
                 break;
             case 2: // stop
+                telemetry.addLine("case2");
+                telemetry.update();
                 clawRotator.toDrop();
                 if (time > 0.1) {
                     setAutonAction(3);
                 }
                 break;
             case 3: // rotate slides
+                telemetry.addLine("case3");
+                telemetry.update();
                 slides.rotateRight();
                 if (time > 0.8) {
                     setAutonAction(4);
                 }
                 break;
             case 4: // stop slides
+                telemetry.addLine("case4");
+                telemetry.update();
                 slides.stopRotator();
                 if (time > 0.1) {
                     setAutonAction(5);
                 }
                 break;
             case 5: // extend slides
+                telemetry.addLine("case5");
+                telemetry.update();
                 slides.extend();
                 if (time > 0.8) {
                     setAutonAction(6);
                 }
                 break;
             case 6: // stop slides
+                telemetry.addLine("case6");
+                telemetry.update();
                 slides.stop();
                 if (time > 0.1) {
                     setAutonAction(7);
                 }
                 break;
             case 7: // rotate claws
+                telemetry.addLine("case7");
+                telemetry.update();
                 clawRotator.toPick();
                 if (time > 0.1) {
                     setAutonAction(8);
                 }
                 break;
             case 8: // slide retract a little bit
+                telemetry.addLine("case8");
+                telemetry.update();
                 slides.retract();
                 if (time > 0.4) {
                     setAutonAction(9);
                 }
                 break;
             case 9: // stop slides
+                telemetry.addLine("case9");
+                telemetry.update();
                 slides.stop();
                 if (time > 0.1) {
                     setAutonAction(10);
                 }
                 break;
             case 10: // stop slides
+                telemetry.addLine("case10");
+                telemetry.update();
                 slides.stop();
                 if (time > 0.1) {
                     setAutonAction(11);
                 }
                 break;
             case 11: // drive forward a bit
+                telemetry.addLine("case11");
+                telemetry.update();
                 drive.move(0, 1, 0);
                 if (time > 0.2) {
                     setAutonAction(12);
                 }
                 break;
             case 12: // stop driving
+                telemetry.addLine("case12");
+                telemetry.update();
                 drive.move(0, 0, 0);
                 if (time > 0.1) {
                     setAutonAction(13);
                 }
                 break;
             case 13: // let go
+                telemetry.addLine("case13");
+                telemetry.update();
                 claw.open();
                 if (time > 0.1) {
                     setAutonAction(14);
                 }
                 break;
             case 14: // rotate claws
+                telemetry.addLine("case14");
+                telemetry.update();
                 clawRotator.toDrop();
                 if (time > 0.2) {
                     setAutonAction(15);
                 }
                 break;
             case 15: // retract slides
+                telemetry.addLine("case15");
+                telemetry.update();
                 slides.retract();
                 if (time > 0.3) {
                     setAutonAction(16);
                 }
                 break;
             case 16: // top slides
+                telemetry.addLine("case16");
+                telemetry.update();
                 slides.stop();
                 if (time > 0.1) {
                     setAutonAction(17);
