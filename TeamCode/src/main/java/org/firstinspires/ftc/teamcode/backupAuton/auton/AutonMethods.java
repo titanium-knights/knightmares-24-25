@@ -183,9 +183,9 @@ public abstract class AutonMethods extends LinearOpMode {
         sleep(500);
     }
 
-    double conversionVariable = 7;
+    double conversionVariable = 24;
     public double convert(double num){
-        double x = num * conversionVariable;
+        double x = num/conversionVariable;
         return x;
     }
  }
