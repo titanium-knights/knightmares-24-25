@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="time_pushBotNearHumanNEW", group="Linear OpMode")
+@Autonomous(name="time_specimenNearHumanNEW", group="Linear OpMode")
 @Config
-public class time_pushBotNearHumanNEW extends AutonMethods {
+public class time_specimenNearHumanNEW extends AutonMethods {
 
 
     @Override
@@ -20,16 +20,24 @@ public class time_pushBotNearHumanNEW extends AutonMethods {
         ElapsedTime runtime = new ElapsedTime();
         waitForStart();
         runtime.reset();
-
         double counter = 0;
-        moveRight(convert(24)); // adjust
-        counter++;
-        telemetry.addLine("counter" + counter);
-        telemetry.update();
+
         moveForward(convert(48)); // def adjust
         counter++;
         telemetry.addLine("counter" + counter);
         telemetry.update();
+
+
+        moveRight(convert(24)); // adjust
+        counter++;
+        telemetry.addLine("counter" + counter);
+        telemetry.update();
+
+        moveForward(convert(48)); // def adjust
+        counter++;
+        telemetry.addLine("counter" + counter);
+        telemetry.update();
+
         moveRight(convert(6));//moving 1/4th not with half incase it hits 2nd sample
         counter++;
         telemetry.addLine("counter" + counter);
@@ -66,6 +74,7 @@ public class time_pushBotNearHumanNEW extends AutonMethods {
         counter++;
         telemetry.addLine("counter" + counter);
         telemetry.update();
+
 
     }
 }
