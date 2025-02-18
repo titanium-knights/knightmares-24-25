@@ -284,31 +284,6 @@ public class Teleop extends OpMode {
             cRotatorButton = ButtonPressState.UNPRESSED;
         }
 
-        // THE ULTIMATE BUTTON
-//        if (gamepad1.dpad_up) {
-//
-//            while (slides.getEncoder() <= -100){
-//                slides.retract();
-//                telemetry.addLine("retracting slides: " + String.valueOf(slides.getEncoder()));
-//
-//            }
-//            //TODO: tune
-//            while (slides.getRotatorEncoder() <= 470){
-//                slides.rotateRight();
-//                telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
-//            }
-//
-//            // latch.latchOn();
-//
-//            while (slides.getEncoder() >= -3000){
-//                slides.extend();
-//                telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
-//                telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
-//                telemetry.update();
-//            }qaaaaqsd
-//            clawRotator.toDrop();
-//
-//        }
         if ((gamepad2.left_trigger > 0.7f) && (ultimateButton == ButtonPressState.UNPRESSED)){
             try {
                 hangSpecimen();
@@ -328,11 +303,6 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
-        double stupidSrafeMultiplier = normalPower;
-        if (Math.abs(x) > stick_margin) stupidSrafeMultiplier = 0.928057554 * normalPower;
-        if (Math.abs(y) < 0.1) {
-            drive.move(x * multiplier, y * multiplier, -turn * multiplier);
-        }
         drive.move(x * multiplier, y * multiplier, -turn * multiplier);
     }
 
