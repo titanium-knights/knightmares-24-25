@@ -17,6 +17,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 // import org.firstinspires.ftc.teamcode.config.subsystem.ClawSubsystem;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
@@ -48,15 +49,16 @@ public class nearHuman_pushBot_NoSpecimen_pedro extends OpMode{
     private final Pose startControllP_HUMAN = new Pose(10, 36, Math.toRadians(0));
     private final Pose controllBeforeCloseP_HUMAN = new Pose(60, 36, Math.toRadians(0));
 
-    private Path start_PATH, placeFar_PATH;
     private PathChain startControll_PATH, pickUpClose_PATH, placeClose_PATH, pickUpFar_PATH,
-            moveToFar_PATH, placeMiddle_PATH, moveToMiddle_PATH, pickUpMiddle_PATH;
+            moveToFar_PATH, placeMiddle_PATH, moveToMiddle_PATH, pickUpMiddle_PATH, start_PATH, placeFar_PATH;
 
 
     public void buildPaths() {
 
-        start_PATH = new Path(new BezierLine(new Point(startP_HUMAN), new Point(startControllP_HUMAN)));
-        start_PATH.setLinearHeadingInterpolation(startP_HUMAN.getHeading(), startControllP_HUMAN.getHeading());
+        start_PATH = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(startP_HUMAN), new Point(startControllP_HUMAN)))
+                .setLinearHeadingInterpolation(startP_HUMAN.getHeading(), startControllP_HUMAN.getHeading())
+                .build();
 
         startControll_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(startControllP_HUMAN), new Point( controllBeforeCloseP_HUMAN )))
@@ -99,8 +101,10 @@ public class nearHuman_pushBot_NoSpecimen_pedro extends OpMode{
                 .build();
 
         //basically park
-        placeFar_PATH = new Path(new BezierLine(new Point(pickupFarP_HUMAN), new Point(placeFarP_HUMAN)));
-        placeFar_PATH.setLinearHeadingInterpolation(pickupFarP_HUMAN.getHeading(), placeFarP_HUMAN.getHeading());
+        placeFar_PATH = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(pickupFarP_HUMAN), new Point(placeFarP_HUMAN)))
+                .setLinearHeadingInterpolation(pickupFarP_HUMAN.getHeading(), placeFarP_HUMAN.getHeading())
+                .build();
     }
 
 
@@ -109,87 +113,87 @@ public class nearHuman_pushBot_NoSpecimen_pedro extends OpMode{
             case 0:
                 telemetry.addLine("case 0");
                 telemetry.update();
-                follower.followPath(start_PATH);
+                follower.followPath(start_PATH,0.5, true);
                 setPathState(1);
                 break;
             case 1:
                 telemetry.addLine("case 1");
                 telemetry.update();
-                if(follower.getPose().getX() > (startControllP_HUMAN.getX() - 1) && follower.getPose().getY() > (startControllP_HUMAN.getY() - 1)) {
-                    follower.followPath(startControll_PATH,true);
+                if((Math.abs(follower.getPose().getX() - startControllP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - startControllP_HUMAN.getY()) < 1) {
+                    follower.followPath(startControll_PATH, 0.5, true);
                     setPathState(2);
                 }
                 break;
             case 2:
                 telemetry.addLine("case 2");
                 telemetry.update();
-                if(follower.getPose().getX() > (controllBeforeCloseP_HUMAN.getX() - 1) && follower.getPose().getY() > (controllBeforeCloseP_HUMAN.getY() - 1)) {
-                    follower.followPath(pickUpClose_PATH,true);
+                if((Math.abs(follower.getPose().getX() - controllBeforeCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - controllBeforeCloseP_HUMAN.getY()) < 1) {
+                    follower.followPath(pickUpClose_PATH, 0.5, true);
                     setPathState(3);
                 }
                 break;
             case 3:
                 telemetry.addLine("case 3");
                 telemetry.update();
-                if(follower.getPose().getX() > (pickupCloseP_HUMAN.getX() - 1) && follower.getPose().getY() > (pickupCloseP_HUMAN.getY() - 1)) {
-                    follower.followPath(placeClose_PATH,true);
+                if((Math.abs(follower.getPose().getX() - pickupCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_HUMAN.getY()) < 1) {
+                    follower.followPath(placeClose_PATH, 0.5, true);
                     setPathState(4);
                 }
                 break;
             case 4:
                 telemetry.addLine("case 4");
                 telemetry.update();
-//                if(follower.getPose().getX() > (placeCloseP_HUMAN.getX() - 1) && follower.getPose().getY() > (placeCloseP_HUMAN.getY() - 5)) {
-                    follower.followPath(moveToMiddle_PATH,true);
+                if((Math.abs(follower.getPose().getX() - placeCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - placeCloseP_HUMAN.getY()) < 1) {
+                    follower.followPath(moveToMiddle_PATH,0.5, true);
                     setPathState(5);
-//                }
+                }
                 follower.followPath(moveToMiddle_PATH,true);
                 setPathState(5);
                 break;
             case 5:
                 telemetry.addLine("case 5");
                 telemetry.update();
-                if(follower.getPose().getX() > (pickupCloseP_HUMAN.getX() - 1) && follower.getPose().getY() > (pickupCloseP_HUMAN.getY() - 5)) {
-                    follower.followPath(pickUpMiddle_PATH,true);
+                if((Math.abs(follower.getPose().getX() - pickupCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_HUMAN.getY()) < 1) {
+                    follower.followPath(pickUpMiddle_PATH,0.3, true);
                     setPathState(6);
                 }
                 break;
             case 6:
                 telemetry.addLine("case 6");
                 telemetry.update();
-                if(follower.getPose().getX() > (pickupMiddleP_HUMAN.getX() - 1) && follower.getPose().getY() > (pickupMiddleP_HUMAN.getY() - 1)) {
-                    follower.followPath(placeMiddle_PATH, true);
+                if((Math.abs(follower.getPose().getX() - pickupMiddleP_HUMAN.getX()) < 5) && Math.abs(follower.getPose().getY() - pickupMiddleP_HUMAN.getY()) < 5) {
+                    follower.followPath(placeMiddle_PATH, 0.3, false);
                     setPathState(7);
                 }
                 break;
             case 7:
                 telemetry.addLine("case 7");
                 telemetry.update();
-                if(follower.getPose().getX() > (placeMiddleP_HUMAN.getX() - 1) && follower.getPose().getY() > (placeMiddleP_HUMAN.getY() - 1)) {
-                    follower.followPath(moveToFar_PATH, true);
+                if((Math.abs(follower.getPose().getX() - placeMiddleP_HUMAN.getX()) < 5) && Math.abs(follower.getPose().getY() - placeMiddleP_HUMAN.getY()) < 5) {
+                    follower.followPath(moveToFar_PATH, 0.3, true);
                     setPathState(8);
                 }
                 break;
             case 8:
                 telemetry.addLine("case 8");
                 telemetry.update();
-                if(follower.getPose().getX() > (pickupMiddleP_HUMAN.getX() - 1) && follower.getPose().getY() > (pickupMiddleP_HUMAN.getY() - 1)) {
-                    follower.followPath(pickUpFar_PATH, true);
+                if((Math.abs(follower.getPose().getX() - pickupMiddleP_HUMAN.getX()) < 5) && Math.abs(follower.getPose().getY() - pickupMiddleP_HUMAN.getY()) < 5) {
+                    follower.followPath(pickUpFar_PATH, 0.5, true);
                     setPathState(9);
                 }
                 break;
             case 9:
                 telemetry.addLine("case 9");
                 telemetry.update();
-                if(follower.getPose().getX() > (pickupFarP_HUMAN.getX() - 1) && follower.getPose().getY() > (pickupFarP_HUMAN.getY() - 1)) {
-                    follower.followPath(placeFar_PATH,true);
+                if((Math.abs(follower.getPose().getX() - pickupFarP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupFarP_HUMAN.getY()) < 1) {
+                    follower.followPath(placeFar_PATH, 0.5, true);
                     setPathState(10);
                 }
                 break;
             case 10:
                 telemetry.addLine("case 10");
                 telemetry.update();
-                if(follower.getPose().getX() > (placeFarP_HUMAN.getX() - 1) && follower.getPose().getY() > (placeFarP_HUMAN.getY() - 1)) {
+                if((Math.abs(follower.getPose().getX() - placeFarP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - placeFarP_HUMAN.getY()) < 1) {
                     setPathState(-1);
                 }
                 break;
@@ -203,6 +207,8 @@ public class nearHuman_pushBot_NoSpecimen_pedro extends OpMode{
 
     @Override
     public void loop() {
+
+        // follower.telemetryDebug(telemetry);
 
         // These loop the movements of the robot
         follower.update();
@@ -229,12 +235,12 @@ public class nearHuman_pushBot_NoSpecimen_pedro extends OpMode{
 
         buildPaths();
 
-        claw = new Claw(hardwareMap, telemetry);
-        clawRot = new ClawRotator(hardwareMap, telemetry);
-
-        // Set the claw to positions for init
-        claw.close();
-        clawRot.toPick();
+//        claw = new Claw(hardwareMap, telemetry);
+//        clawRot = new ClawRotator(hardwareMap, telemetry);
+//
+//        // Set the claw to positions for init
+//        claw.close();
+//        clawRot.toPick();
     }
 
     @Override
