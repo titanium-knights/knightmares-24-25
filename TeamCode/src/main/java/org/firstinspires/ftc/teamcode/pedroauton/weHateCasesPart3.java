@@ -34,15 +34,15 @@ public class weHateCasesPart3 extends OpMode{
     private final Pose startP_HUMAN = new Pose(10, 64, Math.toRadians(0));
 
     //the y will need a change during tuning
-    private final Pose pickupCloseP_HUMAN = new Pose(60, 45, Math.toRadians(270));
-    private final Pose pickupMiddleP_HUMAN = new Pose(60, 18, Math.toRadians(270));
-    private final Pose pickupFarP_HUMAN = new Pose(60, 8, Math.toRadians(270));
+    private final Pose pickupCloseP_HUMAN = new Pose(60, 20, Math.toRadians(270));
+    private final Pose pickupMiddleP_HUMAN = new Pose(60, 10, Math.toRadians(270));
+    private final Pose pickupFarP_HUMAN = new Pose(60, 2, Math.toRadians(270));
 
     //11 cuz 3 inch for sample + 8 inch for robot
-    private final Pose placeCloseP_HUMAN = new Pose(17, 45, Math.toRadians(270));
-    private final Pose placeMiddleP_HUMAN = new Pose(17, 18, Math.toRadians(270));
+    private final Pose placeCloseP_HUMAN = new Pose(17, 20, Math.toRadians(270));
+    private final Pose placeMiddleP_HUMAN = new Pose(17, 10, Math.toRadians(270));
     //will also be used as park
-    private final Pose placeFarP_HUMAN = new Pose(17, 8, Math.toRadians(270));
+    private final Pose placeFarP_HUMAN = new Pose(20, 2, Math.toRadians(270));
 
     //its hundred(angel) not by mistake, there is a chance the block would end up outside the line so angel it + same reasoning for 124 instead of 120
     private final Pose startControllP_HUMAN = new Pose(10, 36, Math.toRadians(0));
