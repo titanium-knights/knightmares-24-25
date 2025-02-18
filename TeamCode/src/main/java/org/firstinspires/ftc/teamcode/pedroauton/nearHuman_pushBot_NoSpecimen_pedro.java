@@ -211,12 +211,12 @@ public class nearHuman_pushBot_NoSpecimen_pedro extends OpMode{
     public void loop() {
 
         // These loop the movements of the robot
-        follower.update();
+        follower.update();        telemetry.addData("path state", pathState);
+
         autonomousPathUpdate();
 
 
         // Feedback to Driver Hub
-        telemetry.addData("path state", pathState);
         telemetry.addData("x", follower.getPose().getX());
         telemetry.addData("y", follower.getPose().getY());
         telemetry.addData("heading", follower.getPose().getHeading());
