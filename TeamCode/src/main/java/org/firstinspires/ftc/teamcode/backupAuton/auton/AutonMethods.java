@@ -182,6 +182,12 @@ public abstract class AutonMethods extends LinearOpMode {
         clawrotator.toNeutral();
         sleep(500);
     }
+
+    double conversionVariable = 7;
+    public double convert(double num){
+        double x = num * conversionVariable;
+        return x;
+    }
  }
 
 
