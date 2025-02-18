@@ -130,24 +130,12 @@ public class Slides {
 
     public static int slideMaxNum = 2500;
     public static int slideMinNum = 100;
-//
-//    public void runToPosUP(){
-//        int targetPosition = slideUPNum;
-//        slideMotor.setTargetPosition(targetPosition);
-//    }
-//
-//    public void runtoPosDOWN(){
-//        int targetPosition = slideDOWNNum;
-//        slideMotor.setTargetPosition(targetPosition);
-//    }
-
 
     public void runToPosition(){
         slideMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slideMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         setPower(0.9);
-
     }
 
     public void runRotToPosition(){
@@ -189,15 +177,6 @@ public class Slides {
         pos = getEncoder();
     }
 
-//    public static int inspectionNum = -1700;
-//    public void inspectionMax(){
-//        setTarget(inspectionNum);
-//        runToPosition();
-//        pos = getEncoder();
-//    }
-
-
-
     public void highBasket(){
         setTarget1(highheight);
         setTarget2(highheight);
@@ -208,14 +187,18 @@ public class Slides {
     // ROTATOR PRESETS
 
     public void up(){
-        setRotTarget(uprot);
-        runRotToPosition();
-        rot = getRotatorEncoder();
+        setRotPower(0.8);
+        while(getRotatorEncoder() > 1000) {
+            runRotToPosition();
+        }
+        stopRotator();
     }
     public void down(){
-        setRotTarget(downrot);
-        runRotToPosition();
-        rot = getRotatorEncoder();
+        setRotPower(-0.8);
+        while(getRotatorEncoder() < 20) {
+            runRotToPosition();
+        }
+        stopRotator();
     }
 
     // SLIDES MANUAL
@@ -228,14 +211,6 @@ public class Slides {
     }
 
     public void extend() {
-//        if (getEncoder() < maxheight){
-//            slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//            state = SlidesState.RIGHT;
-//            setPower(0.9);
-//        }
-//        if (getRotatorEncoder() < num_when_completely_vertical) {
-//            // too low to extend
-//        } else
 
         if (
                 (getRotatorEncoder() <= 100 && getEncoder() < 150) || // extend flush DONT USE
