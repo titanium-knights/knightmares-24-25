@@ -187,15 +187,15 @@ public class Slides {
     // ROTATOR PRESETS
 
     public void up(){
-        setRotPower(0.8);
-        while(getRotatorEncoder() > 1000) {
+        setRotPower(0.5);
+        while(getRotatorEncoder() < 1000) {
             runRotToPosition();
         }
         stopRotator();
     }
     public void down(){
-        setRotPower(-0.8);
-        while(getRotatorEncoder() < 20) {
+        setRotPower(-0.5);
+        while(getRotatorEncoder() > 20) {
             runRotToPosition();
         }
         stopRotator();
