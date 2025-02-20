@@ -36,12 +36,12 @@ public class nearHuman_push3_initialSpecimen_human2_pedro extends OpMode{
     public AutonMethods autonMethods;
 
 //todo change the place specimen numbers by tuning
-    private final Pose pickUpSpecimen = new Pose(136, 136, Math.toRadians(270));
-    private final Pose placeSpecimenA = new Pose(136, 136, Math.toRadians(0));
-    private final Pose placeSpecimenB = new Pose(136, 136, Math.toRadians(0));
-    private final Pose placeSpecimenC = new Pose(136, 136, Math.toRadians(0));
-    private final Pose placeSpecimenD = new Pose(136, 136, Math.toRadians(0));
-    private final Pose placeSpecimenE = new Pose(136, 136, Math.toRadians(0));
+    private final Pose pickUpSpecimen = new Pose(8, 8, Math.toRadians(270));
+    private final Pose placeSpecimenA = new Pose(40, 80, Math.toRadians(0));
+    private final Pose placeSpecimenB = new Pose(40, 75, Math.toRadians(0));
+    private final Pose placeSpecimenC = new Pose(40, 70, Math.toRadians(0));
+    private final Pose placeSpecimenD = new Pose(40, 65, Math.toRadians(0));
+    private final Pose placeSpecimenE = new Pose(40, 60, Math.toRadians(0));
     private final Pose specimenP_HUMAN = new Pose(40, 64, Math.toRadians(0));
 
 
@@ -49,12 +49,12 @@ public class nearHuman_push3_initialSpecimen_human2_pedro extends OpMode{
 
     //the y will need a change during tuning
     private final Pose pickupCloseP_HUMAN = new Pose(56, 24, Math.toRadians(270));
-    private final Pose pickupMiddleP_HUMAN = new Pose(56, 12, Math.toRadians(270));
+    private final Pose pickupMiddleP_HUMAN = new Pose(56, 18, Math.toRadians(270));
     private final Pose pickupFarP_HUMAN = new Pose(56, 8, Math.toRadians(270));
 
     //11 cuz 3 inch for sample + 8 inch for robot
     private final Pose placeCloseP_HUMAN = new Pose(11, 24, Math.toRadians(270));
-    private final Pose placeMiddleP_HUMAN = new Pose(11, 12, Math.toRadians(270));
+    private final Pose placeMiddleP_HUMAN = new Pose(11, 18, Math.toRadians(270));
     //will also be used as park
     private final Pose placeFarP_HUMAN = new Pose(11, 8, Math.toRadians(270));
 
