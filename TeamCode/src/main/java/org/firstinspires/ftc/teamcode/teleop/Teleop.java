@@ -11,10 +11,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.backupAuton.auton.AutonMethods;
 import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
-//import org.firstinspires.ftc.teamcode.utilities.PullUp;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.PullUp;
-// import org.firstinspires.ftc.teamcode.utilities.Latch;
 import org.firstinspires.ftc.teamcode.utilities.SimpleMecanumDrive;
 import org.firstinspires.ftc.teamcode.utilities.SlidesState;
 
@@ -24,13 +22,10 @@ public class Teleop extends OpMode {
     Slides slides;
     PullUp pullup;
     Claw claw;
-    // Latch latch;
     ClawRotator clawRotator;
-    // ClawIteration2 claw;
     SimpleMecanumDrive drive;
 
-    //Set normal power constant to 1, no point in slowing the robot down
-    final double normalPower = 0.8;
+    final double normalPower = 0.9;
 
     // in case of joystick drift, ignore very small values
     public float stick_margin = 0.7f;
@@ -73,18 +68,12 @@ public class Teleop extends OpMode {
         this.slideManualUp = ButtonPressState.UNPRESSED;
         this.ultimateButton = ButtonPressState.UNPRESSED;
 
-
         this.claw = new Claw(hardwareMap, telemetry);
-        // this.latch = new Latch(hardwareMap, telemetry);
         this.clawRotator = new ClawRotator(hardwareMap, telemetry);
-
-        // slides.startPosition();
     }
 
     @Override
     public void loop() {
-
-        // telemetry.addLine("dis is slide numbre" + slides.getEncoder());
 
         if (gamepad1.left_trigger>0.1f && slideButton == ButtonPressState.UNPRESSED) {
             slideButton = ButtonPressState.PRESSED_GOOD;
@@ -92,32 +81,30 @@ public class Teleop extends OpMode {
             slideButton = ButtonPressState.DEPRESSED;
         } else if (gamepad1.left_trigger<0.1f) slideButton = ButtonPressState.UNPRESSED;
 
-//        if (slides.getRotatorEncoder() < 600 && slides.getEncoder() > 500) {
-//            while (slides.getEncoder() > 100) {
-//                slides.retract();
-//            }
-//        }
+        if (slides.getRotatorEncoder() < 600 && slides.getEncoder() > 200) {
+            slides.retract();
+        }
 
-        if (gamepad1.left_bumper){//slideManual==ButtonPressState.PRESSED_GOOD) {
+        if (gamepad1.left_bumper){
             slides.retract();
             telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
             telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
             telemetry.update();
-        } else if (gamepad1.right_bumper){//slideManualUp==ButtonPressState.PRESSED_GOOD) {
-//            if (slides.getRotatorEncoder() < 1000 && slides.getRotatorEncoder() > -1000) {
-//                stop();
-//            }
-//            else {
-//                slides.extend();
-//            }
-            slides.extend();
+        } else if (gamepad1.right_bumper){
+            if (slides.getRotatorEncoder() < 1000 && slides.getRotatorEncoder() > -1000) {
+                stop();
+            }
+            else {
+                slides.extend();
+            }
             telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
             telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
             telemetry.update();
         } else {
             slides.stop();
         }
-        //DRIVETRAIN TELEMETRY
+
+//        DRIVETRAIN TELEMETRY
 //        telemetry.addLine(String.valueOf(drive.getfl()) + "get front left");
 //        telemetry.addLine(String.valueOf(drive.getbr()) + "get back right");
 //        telemetry.addLine(String.valueOf(drive.getfr()) + "get front right");
@@ -127,7 +114,6 @@ public class Teleop extends OpMode {
         //DRIVE
         float x = gamepad2.left_stick_x;
         float y = gamepad2.left_stick_y;
-        // telemetry.addLine("(" + x + ", " + y + ")");
         float turn = gamepad2.right_stick_x;
         if (slowMode) {
             telemetry.addLine("slowmode");
@@ -139,92 +125,8 @@ public class Teleop extends OpMode {
             stick_margin = 0.1f;
             move(x, y, turn);
         }
-        int pul1 = pullup.getPosition1();
-//        int pul2 = pullup.getPosition2();
 
-        if(gamepad2.b){
-            pullup.rightDown();
-
-        }
-        if(gamepad2.x){
-            pullup.leftDown();
-        }
-
-
-        //pull UP
-        if(gamepad2.y){
-            pullup.leftDown();
-//            pullup.rightDown();
-        }
-        else if(gamepad2.a){
-            pullup.leftUp();
-//            pullup.rightUp();
-        } else {
-            pullup.stop();
-        }
-
-//        if (pullupstate1){
-//            pulldownstate1 = false;
-//
-//            if (pullup.getPosition1() < -10) { // TODO: tune
-//                pullup.stopLeft();
-//                pullupstate1 = false;
-//            } else {
-//                pullup.leftUp();
-//                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left up");
-//            }
-//        }
-//        if (pullupstate2){
-//            pulldownstate2 = false;
-//
-//            if (pullup.getPosition2() < -10) { // TODO: tune
-//                pullup.stopRight();
-//                pullupstate2 = false;
-//            } else {
-//                pullup.rightUp();
-//                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt up");
-//                telemetry.update();
-//            }
-//        }
-//
-//        if (pulldownstate1){
-//            pullupstate1 = false;
-//            if (pullup.getPosition1() > 4000) { // TODO: tune
-//                pullup.stopLeft();
-//                telemetry.addLine("stopped left");
-//                pulldownstate1 = false;
-//            } else {
-//                pullup.leftDown();
-//                telemetry.addLine(String.valueOf(pullup.getPosition1()) + "left down");
-//                telemetry.update();
-//            }
-//        }
-//        if (pulldownstate2){
-//            pullupstate2 = false;
-//            if (pullup.getPosition2() > 5000) { // TODO: tune
-//                pullup.stopRight();
-//                telemetry.addLine("stoppedRight");
-//                pulldownstate2 = false;
-//
-//            } else {
-//                pullup.rightDown();
-//                telemetry.addLine(String.valueOf(pullup.getPosition2()) + "righrt down");
-//                telemetry.update();
-//            }
-//
-//
-//        }
-/*
-        if(gamepad1.dpad_left){
-            latch.latchOn();
-        }
-
-        if(gamepad1.dpad_right){
-            latch.latchOff();
-        }
-
-
-        else */ if (gamepad1.right_trigger > 0.5) {
+        if (gamepad1.right_trigger > 0.5) {
             slides.rotateRight();
             telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
 
