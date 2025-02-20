@@ -21,15 +21,18 @@ import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
+import org.firstinspires.ftc.teamcode.utilities.Slides;
+//TODO ADD ARM STUFF
 
-//TODO double check whether the cordinates for this one is also funky
-@Autonomous(name = "NB_pushBot_noSpec", group = "Examples")
-public class NB_pushBot_noSpec extends OpMode{
+@Autonomous(name = "NB_pushBot_withSpec", group = "Examples")
+public class NB_pushBot_withSpec extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
     public Claw claw;
     public ClawRotator clawRot;
+    public Slides slides;
+
 
     private final Pose startP_HUMAN = new Pose(8, 64, Math.toRadians(0));
     private final Pose startP_BASKET = new Pose(8, 80, Math.toRadians(0));
@@ -81,18 +84,23 @@ public class NB_pushBot_noSpec extends OpMode{
     private final Pose straightToParkP_HUMAN = new Pose(8, 8, Math.toRadians(0));
     private final Pose straightToParkP_BASKET = new Pose(8, 32, Math.toRadians(0));
 
-    private Path start_PATH, park;
-    private PathChain startControll_PATH, pickUpClose_PATH, placeClose_PATH, moveToMiddle_PATH, pickUpMiddle_PATH, placeMiddle_PATH, moveToFar_PATH, pickUpFar_PATH, placeFar_PATH;
+    private Path startWithSpecimen_PATH, park;
+    private PathChain specimenControllA_PATH, specimenControllB_PATH, pickUpClose_PATH, placeClose_PATH, moveToMiddle_PATH, pickUpMiddle_PATH, placeMiddle_PATH, moveToFar_PATH, pickUpFar_PATH, placeFar_PATH;
 
 
     public void buildPaths() {
 
-        start_PATH = new Path(new BezierLine(new Point(startP_BASKET), new Point(startControllP_BASKET)));
-        start_PATH.setLinearHeadingInterpolation(startP_BASKET.getHeading(), startControllP_BASKET.getHeading());
+        startWithSpecimen_PATH = new Path(new BezierLine(new Point(startP_BASKET), new Point(specimenP_BASKET)));
+        startWithSpecimen_PATH.setLinearHeadingInterpolation(startP_BASKET.getHeading(), specimenP_BASKET.getHeading());
 
-        startControll_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(startControllP_BASKET), new Point( controllBeforeCloseP_BASKET )))
-                .setLinearHeadingInterpolation(startControllP_BASKET.getHeading(),  controllBeforeCloseP_BASKET .getHeading())
+        specimenControllA_PATH = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(specimenP_BASKET), new Point( specimenControllP_BASKET )))
+                .setLinearHeadingInterpolation(specimenP_BASKET.getHeading(),  specimenControllP_BASKET .getHeading())
+                .build();
+
+        specimenControllB_PATH = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(specimenControllP_BASKET), new Point( controllBeforeCloseP_BASKET )))
+                .setLinearHeadingInterpolation(specimenControllP_BASKET.getHeading(),  controllBeforeCloseP_BASKET .getHeading())
                 .build();
 
         pickUpClose_PATH = follower.pathBuilder()
@@ -140,100 +148,109 @@ public class NB_pushBot_noSpec extends OpMode{
         park.setLinearHeadingInterpolation(placeFarP_BASKET.getHeading(), straightToParkP_BASKET.getHeading());
     }
 
-    private int notCase = 0;
-    public void autonomousPathUpdate() {
-            if (notCase == 0) {
-                telemetry.addLine("case 0");
-                telemetry.update();
-                follower.followPath(start_PATH);
-                notCase = 1;
-            }
-            if (notCase == 1) {
-                telemetry.addLine("case 1");
-                telemetry.update();
-                if((Math.abs(follower.getPose().getX() - startControllP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - startControllP_BASKET.getY()) < 1) {
-                    follower.followPath(startControll_PATH,true);
-                    notCase = 2;
-                }
-            }
-            if(notCase ==2){
-                telemetry.addLine("case 2");
-                telemetry.update();
-                if((Math.abs(follower.getPose().getX() - controllBeforeCloseP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - controllBeforeCloseP_BASKET.getY()) < 1) {
-
-                    follower.followPath(pickUpClose_PATH, true);
-                    notCase = 3;
-                }
-            }
-            if(notCase ==3){
-                telemetry.addLine("case 3");
-                telemetry.update();
-                if((Math.abs(follower.getPose().getX() - pickupCloseP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_BASKET.getY()) < 1) {
-
-                    follower.followPath(placeClose_PATH, true);
-                    notCase = 4;
-                }
-            }
-            if(notCase ==4){
-                telemetry.addLine("case 4");
-                telemetry.update();
-                if((Math.abs(follower.getPose().getX() - placeCloseP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - placeCloseP_BASKET.getY()) < 1) {
-
-                    follower.followPath(moveToMiddle_PATH, true);
-                    notCase = 5;
-                }
-            }
-            if(notCase == 5){
-                telemetry.addLine("case 5");
-                telemetry.update();
-                if((Math.abs(follower.getPose().getX() - pickupCloseP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_BASKET.getY()) < 1) {
-
-                    follower.followPath(pickUpMiddle_PATH, true);
-                    notCase = 6;
-                }
-            }
-            if (notCase ==6){
-                telemetry.addLine("case 6");
-                telemetry.update();
-                if((Math.abs(follower.getPose().getX() - pickupMiddleP_BASKET.getX()) < 5) && Math.abs(follower.getPose().getY() - pickupMiddleP_BASKET.getY()) < 5) {
-
-                    follower.followPath(placeMiddle_PATH, true);
-                    notCase = 7;
-                }
-            }
-            if(notCase == 7){
-                telemetry.addLine("case 7");
-                telemetry.update();
-                if((Math.abs(follower.getPose().getX() - placeMiddleP_BASKET.getX()) < 5) && Math.abs(follower.getPose().getY() - placeMiddleP_BASKET.getY()) < 5) {
-
-                    follower.followPath(moveToFar_PATH, true);
-                    notCase = 8;
-                }
-            }
-            if(notCase == 8){
-                telemetry.addLine("case 8");
-                telemetry.update();
-                if((Math.abs(follower.getPose().getX() - pickupMiddleP_BASKET.getX()) < 5) && Math.abs(follower.getPose().getY() - pickupMiddleP_BASKET.getY()) < 5) {
-
-                    follower.followPath(pickUpFar_PATH, true);
-                    notCase = 9;
-                }
-            }
-            if (notCase== 9){
-                telemetry.addLine("case 9");
-                telemetry.update();
-                if((Math.abs(follower.getPose().getX() - pickupFarP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupFarP_BASKET.getY()) < 1) {
-
-                    follower.followPath(placeFar_PATH, true);
-                    notCase = 10;
-                }
-            }
-            if (notCase == 10){
-                if((Math.abs(follower.getPose().getX() - placeFarP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - placeFarP_BASKET.getY()) < 1) {
-                    telemetry.addLine("case 10");
+            private int notCase = 0;
+            public void autonomousPathUpdate() {
+                if (notCase == 0) {
+                    telemetry.addLine("case " + notCase);
                     telemetry.update();
+                    follower.followPath(startWithSpecimen_PATH);
+                    notCase = 1;
                 }
-            }
+                if (notCase == 1) {
+                    telemetry.addLine("case " + notCase);
+                    telemetry.update();
+                    if((Math.abs(follower.getPose().getX() - specimenP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_BASKET.getY()) < 1) {
+                        follower.followPath(specimenControllA_PATH,true);
+                        notCase = 2;
+                    }
+                }
+                if (notCase == 2) {
+                    telemetry.addLine("case " + notCase);
+                    telemetry.update();
+                    if((Math.abs(follower.getPose().getX() - specimenControllP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_BASKET.getY()) < 1) {
+                        follower.followPath(specimenControllB_PATH,true);
+                        notCase = 3;
+                    }
+                }
+                if(notCase ==3){
+                    telemetry.addLine("case " + notCase);
+                    telemetry.update();
+                    if((Math.abs(follower.getPose().getX() - controllBeforeCloseP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - controllBeforeCloseP_BASKET.getY()) < 1) {
+
+                        follower.followPath(pickUpClose_PATH, true);
+                        notCase = 4;
+                    }
+                }
+                if(notCase ==4){
+                    telemetry.addLine("case " + notCase);
+                    telemetry.update();
+                    if((Math.abs(follower.getPose().getX() - pickupCloseP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_BASKET.getY()) < 1) {
+
+                        follower.followPath(placeClose_PATH, true);
+                        notCase = 5;
+                    }
+                }
+                if(notCase ==5){
+                    telemetry.addLine("case " + notCase);
+                    telemetry.update();
+                    if((Math.abs(follower.getPose().getX() - placeCloseP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - placeCloseP_BASKET.getY()) < 1) {
+
+                        follower.followPath(moveToMiddle_PATH, true);
+                        notCase = 6;
+                    }
+                }
+                if(notCase == 6){
+                    telemetry.addLine("case " + notCase);
+                    telemetry.update();
+                    if((Math.abs(follower.getPose().getX() - pickupCloseP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_BASKET.getY()) < 1) {
+
+                        follower.followPath(pickUpMiddle_PATH, true);
+                        notCase = 7;
+                    }
+                }
+                if (notCase ==7){
+                    telemetry.addLine("case " + notCase);
+                    telemetry.update();
+                    if((Math.abs(follower.getPose().getX() - pickupMiddleP_BASKET.getX()) < 5) && Math.abs(follower.getPose().getY() - pickupMiddleP_BASKET.getY()) < 5) {
+
+                        follower.followPath(placeMiddle_PATH, true);
+                        notCase = 8;
+                    }
+                }
+                if(notCase == 8){
+                    telemetry.addLine("case " + notCase);
+                    telemetry.update();
+                    if((Math.abs(follower.getPose().getX() - placeMiddleP_BASKET.getX()) < 5) && Math.abs(follower.getPose().getY() - placeMiddleP_BASKET.getY()) < 5) {
+
+                        follower.followPath(moveToFar_PATH, true);
+                        notCase = 9;
+                    }
+                }
+                if(notCase == 9){
+                    telemetry.addLine("case " + notCase);
+                    telemetry.update();
+                    if((Math.abs(follower.getPose().getX() - pickupMiddleP_BASKET.getX()) < 5) && Math.abs(follower.getPose().getY() - pickupMiddleP_BASKET.getY()) < 5) {
+
+                        follower.followPath(pickUpFar_PATH, true);
+                        notCase = 10;
+                    }
+                }
+                if (notCase== 10){
+                    telemetry.addLine(" case" + notCase);
+                    telemetry.update();
+                    if((Math.abs(follower.getPose().getX() - pickupFarP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupFarP_BASKET.getY()) < 1) {
+
+                        follower.followPath(placeFar_PATH, true);
+                        notCase = 11;
+                    }
+                }
+                if (notCase == 11){
+                    if((Math.abs(follower.getPose().getX() - placeFarP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - placeFarP_BASKET.getY()) < 1) {
+                        telemetry.addLine(" case " + notCase);
+                        telemetry.update();
+                        follower.followPath(park,true);
+                    }
+                }
 
     }
 
