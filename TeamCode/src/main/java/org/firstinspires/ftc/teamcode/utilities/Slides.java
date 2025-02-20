@@ -130,24 +130,12 @@ public class Slides {
 
     public static int slideMaxNum = 2500;
     public static int slideMinNum = 100;
-//
-//    public void runToPosUP(){
-//        int targetPosition = slideUPNum;
-//        slideMotor.setTargetPosition(targetPosition);
-//    }
-//
-//    public void runtoPosDOWN(){
-//        int targetPosition = slideDOWNNum;
-//        slideMotor.setTargetPosition(targetPosition);
-//    }
-
 
     public void runToPosition(){
         slideMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slideMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         setPower(0.9);
-
     }
 
     public void runRotToPosition(){
@@ -189,15 +177,6 @@ public class Slides {
         pos = getEncoder();
     }
 
-//    public static int inspectionNum = -1700;
-//    public void inspectionMax(){
-//        setTarget(inspectionNum);
-//        runToPosition();
-//        pos = getEncoder();
-//    }
-
-
-
     public void highBasket(){
         setTarget1(highheight);
         setTarget2(highheight);
@@ -208,14 +187,20 @@ public class Slides {
     // ROTATOR PRESETS
 
     public void up(){
-        setRotTarget(uprot);
-        runRotToPosition();
-        rot = getRotatorEncoder();
+        setRotTarget(1000);
+        setRotPower(0.5);
+        while(getRotatorEncoder() < 1000) {
+            runRotToPosition();
+        }
+        stopRotator();
     }
     public void down(){
-        setRotTarget(downrot);
-        runRotToPosition();
-        rot = getRotatorEncoder();
+        setRotTarget(20);
+        setRotPower(-0.5);
+        while(getRotatorEncoder() > 20) {
+            runRotToPosition();
+        }
+        stopRotator();
     }
 
     // SLIDES MANUAL
@@ -223,41 +208,11 @@ public class Slides {
     public void retract(){
         slideMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slideMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        // max limit
-//        if (pos <= maxheight){
-//            setPower(0);
-//            return;
-//        }
-//        if (state == SlidesState.LEFT && pos <= -2200){
-//            setPower(-4);
-//            pos = getEncoder();
-//            return;
-//        }
-//        if (state == SlidesState.LEFT){
-//            return;
-//        }
         state = SlidesState.LEFT;
         setPower(-0.9);
     }
 
-    public class Extend implements Action {
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            extend();
-            return false;
-        }
-    }
-    public Action extendAction() {  return new Slides.Extend();  }
-
     public void extend() {
-//        if (getEncoder() < maxheight){
-//            slideMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//            state = SlidesState.RIGHT;
-//            setPower(0.9);
-//        }
-//        if (getRotatorEncoder() < num_when_completely_vertical) {
-//            // too low to extend
-//        } else
 
         if (
                 (getRotatorEncoder() <= 100 && getEncoder() < 150) || // extend flush DONT USE
@@ -274,15 +229,6 @@ public class Slides {
         }
 
     }
-    public class Retract implements Action {
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            retract();
-            return false;
-        }
-    }
-    public Action retractAction() {  return new Slides.Retract();  }
-
 
     // ROTATOR (rotater? rotator.) MANUAL
     public void keepUp() {
@@ -301,15 +247,6 @@ public class Slides {
         rotState = SlidesRotatorState.LEFT;
         setRotPower(-0.8);
     }
-    public class RotateLeft implements Action {
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            rotateLeft();
-            return false;
-        }
-    }
-    public Action rotateLeftAction() {  return new Slides.RotateLeft();  }
-
 
     //TODO: add rotator limit @ 400
     public void rotateRight() { // slide rotates up
@@ -319,37 +256,6 @@ public class Slides {
         slideRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rotState = SlidesRotatorState.RIGHT;
         setRotPower(1);
-    }
-    public class RotateRight implements Action {
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            rotateRight();
-            return false;
-        }
-    }
-    public Action rotateRightAction() {  return new Slides.RotateRight();  }
-
-
-    public class SlideAction implements Action {
-        SlidesState slidesStateAction;
-        SlidesRotatorState rotStateAction;
-
-        public SlideAction(SlidesState slidesState, SlidesRotatorState rotState) {
-            this.slidesStateAction = slidesState;
-            this.rotStateAction = rotState;
-        }
-
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            state = this.slidesStateAction;
-            rotState = this.rotStateAction;
-
-            return false;
-        }
-    }
-
-    public Action getSlidesAction(SlidesState slidesState, SlidesRotatorState slidesRotatorState) {
-        return new SlideAction(slidesState, slidesRotatorState);
     }
 
     public int getEncoder() {

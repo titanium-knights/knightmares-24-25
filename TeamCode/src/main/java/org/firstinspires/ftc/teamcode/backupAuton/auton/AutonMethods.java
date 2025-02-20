@@ -102,14 +102,14 @@ public abstract class AutonMethods extends LinearOpMode {
     // Going forward, backward, turning, going left, going right
 
     public void moveForward(double x){
-        double duration = 860 * x;
+        double duration = 1080 * x;
         drivetrain.move(0, -POWER, 0);
         sleep((int)duration);
         stopDrive();
     }
 
      public void moveBackward(double x){
-         double duration = 860 * x;
+         double duration = 1080 * x;
          drivetrain.move(0, POWER, 0);
          sleep((int)duration);
          stopDrive();
@@ -181,6 +181,12 @@ public abstract class AutonMethods extends LinearOpMode {
     public void clawNeutral() {
         clawrotator.toNeutral();
         sleep(500);
+    }
+
+    double conversionVariable = 24;
+    public double convert(double num){
+        double x = num/conversionVariable;
+        return x;
     }
  }
 

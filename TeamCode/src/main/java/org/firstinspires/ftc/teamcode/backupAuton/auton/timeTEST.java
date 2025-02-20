@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="time_park", group="Linear OpMode")
+@Autonomous(name="timeTEST", group="Linear OpMode")
 @Config
-public class time_park extends AutonMethods {
+public class timeTEST extends AutonMethods {
 
 
     @Override
@@ -21,10 +21,8 @@ public class time_park extends AutonMethods {
         waitForStart();
         runtime.reset();
 
-        moveBackward(0.5);
-        stopDrive();
-        moveRight(2);
-        stopDrive();
-       
+        moveForward(1);
+
+
     }
 }
