@@ -187,6 +187,7 @@ public class Slides {
     // ROTATOR PRESETS
 
     public void up(){
+        setRotTarget(1000);
         setRotPower(0.5);
         while(getRotatorEncoder() < 1000) {
             runRotToPosition();
@@ -194,6 +195,7 @@ public class Slides {
         stopRotator();
     }
     public void down(){
+        setRotTarget(20);
         setRotPower(-0.5);
         while(getRotatorEncoder() > 20) {
             runRotToPosition();

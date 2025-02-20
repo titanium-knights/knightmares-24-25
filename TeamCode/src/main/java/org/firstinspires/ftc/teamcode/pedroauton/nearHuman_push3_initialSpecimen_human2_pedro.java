@@ -192,6 +192,7 @@ public class nearHuman_push3_initialSpecimen_human2_pedro extends OpMode{
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
+                telemetry.addLine("case0");
                 claw.close();
                 clawRot.toNeutral();
                 follower.followPath(startWithSpecimen_PATH, 0.6, true);
@@ -199,18 +200,20 @@ public class nearHuman_push3_initialSpecimen_human2_pedro extends OpMode{
                 break;
             case 1:
                 telemetry.addLine("case1");
-
                 if(follower.getPose().getX() > (specimenP_HUMAN.getX() - 1) && follower.getPose().getY() > (specimenP_HUMAN.getY() - 1)) {
                     //slides.hookSpecimen();
                     //clawRot.hookSpecimen();
                     claw.open();
-                    clawRot.toDrop();
-                    autonMethods.slidesRotateUp();
+                    // clawRot.toDrop();
+                    slides.up();
+                    telemetry.addLine("slides up?");
+                    telemetry.update();
                     follower.followPath(specimenControllA_PATH,0.6, true);
                     setPathState(2);
                 }
                 break;
             case 2:
+                telemetry.addLine("case2");
                 if(follower.getPose().getX() > (specimenControllP_HUMAN.getX() - 1) && follower.getPose().getY() > (specimenControllP_HUMAN.getY() - 1)) {
                     follower.followPath(specimenControllB_PATH, 0.6, true);
                     setPathState(3);
