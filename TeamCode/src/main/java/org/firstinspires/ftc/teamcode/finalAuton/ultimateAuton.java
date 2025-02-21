@@ -36,19 +36,19 @@ public class ultimateAuton extends OpMode{
     public AutonMethods autonMethods;
 
     //todo change the place specimen numbers by tuning
-    private final Pose pickUpSpecimen = new Pose(8, 8, Math.toRadians(270));
-    private final Pose spaceA = new Pose(35, 80, Math.toRadians(90));
-    private final Pose placeSpecimenA = new Pose(40, 80, Math.toRadians(0));
-    private final Pose spaceB = new Pose(35, 75, Math.toRadians(270));
-    private final Pose placeSpecimenB = new Pose(40, 75, Math.toRadians(0));
-    private final Pose spaceC = new Pose(35, 70, Math.toRadians(270));
-    private final Pose placeSpecimenC = new Pose(40, 70, Math.toRadians(0));
-    private final Pose spaceD = new Pose(35, 65, Math.toRadians(270));
-    private final Pose placeSpecimenD = new Pose(40, 65, Math.toRadians(0));
-    private final Pose spaceE = new Pose(35, 60, Math.toRadians(270));
-    private final Pose placeSpecimenE = new Pose(40, 60, Math.toRadians(0));
-    private final Pose specimenP_HUMAN = new Pose(40, 58, Math.toRadians(0));
-    private final Pose spaceF = new Pose(35, 58, Math.toRadians(270));
+    private final Pose pickUpSpecimen = new Pose(12, 20, Math.toRadians(270));
+    private final Pose spaceA = new Pose(35, 80, Math.toRadians(180));
+    private final Pose placeSpecimenA = new Pose(40, 80, Math.toRadians(180));
+    private final Pose spaceB = new Pose(35, 75, Math.toRadians(180));
+    private final Pose placeSpecimenB = new Pose(40, 75, Math.toRadians(180));
+    private final Pose spaceC = new Pose(35, 70, Math.toRadians(180));
+    private final Pose placeSpecimenC = new Pose(40, 70, Math.toRadians(180));
+    private final Pose spaceD = new Pose(35, 65, Math.toRadians(180));
+    private final Pose placeSpecimenD = new Pose(40, 65, Math.toRadians(180));
+    private final Pose spaceE = new Pose(35, 60, Math.toRadians(180));
+    private final Pose placeSpecimenE = new Pose(40, 60, Math.toRadians(180));
+    private final Pose specimenP_HUMAN = new Pose(40, 58, Math.toRadians(180));
+    private final Pose spaceF = new Pose(35, 58, Math.toRadians(180));
 
 
     private final Pose startP_HUMAN = new Pose(8, 64, Math.toRadians(0));
@@ -78,7 +78,12 @@ public class ultimateAuton extends OpMode{
             pickUpSpecimenC_PATH, placeSpecimenC_PATH,
             pickUpSpecimenD_PATH, placeSpecimenD_PATH,
             pickUpSpecimenE_PATH, placeSpecimenE_PATH,
-            specimenSpaceFIRST, specimenSpaceCompleteFIRST;
+            specimenSpaceFIRST, specimenSpaceCompleteFIRST,
+            concequenceOfMyNaming,specimenSpaceE,
+            specimenSpaceCompleteD, specimenSpaceD,
+            specimenSpaceCompleteC, specimenSpaceC,
+            specimenSpaceCompleteB, specimenSpaceB,
+            specimenSpaceCompleteA,specimenSpaceA;
 
     private Path startWithSpecimen_PATH, park;
     public void buildPaths() {
@@ -155,52 +160,105 @@ public class ultimateAuton extends OpMode{
                 .setLinearHeadingInterpolation(placeFarP_HUMAN.getHeading(), pickUpSpecimen.getHeading())
                 .build();
 
+
         placeSpecimenA_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(placeSpecimenA)))
-                .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), placeSpecimenA.getHeading())
+                .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(spaceA)))
+                .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), spaceA.getHeading())
+                .build();
+
+        specimenSpaceA= follower.pathBuilder()
+                .addPath(new BezierLine(new Point(spaceA), new Point(placeSpecimenA)))
+                .setLinearHeadingInterpolation(spaceA.getHeading(), placeSpecimenA.getHeading())
                 .build();
 
         pickUpSpecimenB_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(placeSpecimenA), new Point(pickUpSpecimen)))
-                .setLinearHeadingInterpolation(placeSpecimenA.getHeading(), pickUpSpecimen.getHeading())
+                .addPath(new BezierLine(new Point(placeSpecimenA), new Point(spaceA)))
+                .setLinearHeadingInterpolation(placeSpecimenA.getHeading(), spaceA.getHeading())
                 .build();
 
+        specimenSpaceCompleteA = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(spaceA), new Point(pickUpSpecimen)))
+                .setLinearHeadingInterpolation(spaceA.getHeading(), pickUpSpecimen.getHeading())
+                .build();
+
+
         placeSpecimenB_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(placeSpecimenB)))
-                .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), placeSpecimenB.getHeading())
+                .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(spaceB)))
+                .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), spaceB.getHeading())
+                .build();
+
+        specimenSpaceB= follower.pathBuilder()
+                .addPath(new BezierLine(new Point(spaceB), new Point(placeSpecimenB)))
+                .setLinearHeadingInterpolation(spaceB.getHeading(), placeSpecimenB.getHeading())
                 .build();
 
         pickUpSpecimenC_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(placeSpecimenB), new Point(pickUpSpecimen)))
-                .setLinearHeadingInterpolation(placeSpecimenB.getHeading(), pickUpSpecimen.getHeading())
+                .addPath(new BezierLine(new Point(placeSpecimenB), new Point(spaceB)))
+                .setLinearHeadingInterpolation(placeSpecimenB.getHeading(), spaceB.getHeading())
+                .build();
+
+        specimenSpaceCompleteB = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(spaceB), new Point(pickUpSpecimen)))
+                .setLinearHeadingInterpolation(spaceB.getHeading(), pickUpSpecimen.getHeading())
                 .build();
 
         placeSpecimenC_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(placeSpecimenC)))
-                .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), placeSpecimenC.getHeading())
+                .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(spaceC)))
+                .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), spaceC.getHeading())
                 .build();
+
+        specimenSpaceC= follower.pathBuilder()
+                .addPath(new BezierLine(new Point(spaceC), new Point(placeSpecimenC)))
+                .setLinearHeadingInterpolation(spaceC.getHeading(), placeSpecimenC.getHeading())
+                .build();
+
         pickUpSpecimenD_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(placeSpecimenC), new Point(pickUpSpecimen)))
-                .setLinearHeadingInterpolation(placeSpecimenC.getHeading(), pickUpSpecimen.getHeading())
+                .addPath(new BezierLine(new Point(placeSpecimenC), new Point(spaceC)))
+                .setLinearHeadingInterpolation(placeSpecimenC.getHeading(), spaceC.getHeading())
+                .build();
+
+        specimenSpaceCompleteC = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(spaceC), new Point(pickUpSpecimen)))
+                .setLinearHeadingInterpolation(spaceC.getHeading(), pickUpSpecimen.getHeading())
                 .build();
 
         placeSpecimenD_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(placeSpecimenD)))
-                .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), placeSpecimenD.getHeading())
+                .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(spaceD)))
+                .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), spaceD.getHeading())
+                .build();
+
+        specimenSpaceD= follower.pathBuilder()
+                .addPath(new BezierLine(new Point(spaceD), new Point(placeSpecimenD)))
+                .setLinearHeadingInterpolation(spaceD.getHeading(), placeSpecimenD.getHeading())
                 .build();
 
         pickUpSpecimenE_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(placeSpecimenD), new Point(pickUpSpecimen)))
-                .setLinearHeadingInterpolation(placeSpecimenD.getHeading(), pickUpSpecimen.getHeading())
+                .addPath(new BezierLine(new Point(placeSpecimenD), new Point(spaceD)))
+                .setLinearHeadingInterpolation(placeSpecimenD.getHeading(), spaceD.getHeading())
+                .build();
+
+        specimenSpaceCompleteD = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(spaceD), new Point(pickUpSpecimen)))
+                .setLinearHeadingInterpolation(spaceD.getHeading(), pickUpSpecimen.getHeading())
                 .build();
 
         placeSpecimenE_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(placeSpecimenE)))
-                .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), placeSpecimenE.getHeading())
+                .addPath(new BezierLine(new Point(pickUpSpecimen), new Point(spaceE)))
+                .setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), spaceE.getHeading())
                 .build();
 
-        park = new Path(new BezierLine(new Point(placeSpecimenE), new Point(placeSpecimenE)));
-        park.setLinearHeadingInterpolation(pickUpSpecimen.getHeading(), pickUpSpecimen.getHeading());
+        specimenSpaceE= follower.pathBuilder()
+                .addPath(new BezierLine(new Point(spaceE), new Point(placeSpecimenE)))
+                .setLinearHeadingInterpolation(spaceE.getHeading(), placeSpecimenE.getHeading())
+                .build();
+
+        concequenceOfMyNaming = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(placeSpecimenE), new Point(spaceE)))
+                .setLinearHeadingInterpolation(placeSpecimenE.getHeading(), spaceE.getHeading())
+                .build();
+
+        park = new Path(new BezierLine(new Point(spaceE), new Point(placeFarP_HUMAN)));
+        park.setLinearHeadingInterpolation(spaceE.getHeading(), placeFarP_HUMAN.getHeading());
     }
 
     private int notCase = 0;
@@ -345,11 +403,30 @@ public class ultimateAuton extends OpMode{
             if (notCase == 12) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceA.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceA.getY()) < 1) {
+                    follower.followPath(specimenSpaceA, true);
+                    notCase = 12;
+                }
+            }
+
+            if (notCase == 12) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - placeSpecimenA.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenA.getY()) < 1) {
                     follower.followPath(pickUpSpecimenB_PATH, true);
                     notCase = 13;
                 }
             }
+
+            if (notCase == 13) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceA.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceA.getY()) < 1) {
+                    follower.followPath(specimenSpaceCompleteA, true);
+                    notCase = 13;
+                }
+            }
+
             if (notCase == 13) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
@@ -358,12 +435,29 @@ public class ultimateAuton extends OpMode{
                     notCase = 14;
                 }
             }
+
+            if (notCase == 12) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceB.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceB.getY()) < 1) {
+                    follower.followPath(specimenSpaceB, true);
+                    notCase = 12;
+                }
+            }
             if (notCase == 14) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - placeSpecimenB.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenB.getY()) < 1) {
                     follower.followPath(pickUpSpecimenC_PATH, true);
                     notCase = 15;
+                }
+            }
+            if (notCase == 13) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceB.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceB.getY()) < 1) {
+                    follower.followPath(specimenSpaceCompleteB, true);
+                    notCase = 13;
                 }
             }
             if (notCase == 14) {
@@ -377,17 +471,42 @@ public class ultimateAuton extends OpMode{
             if (notCase == 15) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - placeSpecimenC.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenC.getY()) < 1) {
-                    follower.followPath(pickUpSpecimenD_PATH, true);
+                if ((Math.abs(follower.getPose().getX() - spaceC.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceC.getY()) < 1) {
+                    follower.followPath(specimenSpaceC, true);
                     notCase = 16;
                 }
             }
             if (notCase == 16) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - placeSpecimenC.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenC.getY()) < 1) {
+                    follower.followPath(pickUpSpecimenD_PATH, true);
+                    notCase = 17;
+                }
+            }
+            if (notCase == 13) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceC.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceC.getY()) < 1) {
+                    follower.followPath(specimenSpaceCompleteC, true);
+                    notCase = 13;
+                }
+            }
+
+            if (notCase == 14) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - pickUpSpecimen.getX()) < 1) && Math.abs(follower.getPose().getY() - pickUpSpecimen.getY()) < 1) {
                     follower.followPath(placeSpecimenD_PATH, true);
-                    notCase = 17;
+                    notCase = 15;
+                }
+            }
+            if (notCase == 12) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceD.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceD.getY()) < 1) {
+                    follower.followPath(specimenSpaceD, true);
+                    notCase = 12;
                 }
             }
             if (notCase == 17) {
@@ -396,6 +515,14 @@ public class ultimateAuton extends OpMode{
                 if ((Math.abs(follower.getPose().getX() - placeSpecimenD.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenD.getY()) < 1) {
                     follower.followPath(pickUpSpecimenE_PATH, true);
                     notCase = 18;
+                }
+            }
+            if (notCase == 13) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceD.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceD.getY()) < 1) {
+                    follower.followPath(specimenSpaceCompleteD, true);
+                    notCase = 13;
                 }
             }
             if (notCase == 18) {
@@ -409,9 +536,25 @@ public class ultimateAuton extends OpMode{
             if (notCase == 19) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - placeSpecimenE.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenE.getY()) < 1) {
-                    follower.followPath(park, true);
+                if ((Math.abs(follower.getPose().getX() - spaceE.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceE.getY()) < 1) {
+                    follower.followPath(specimenSpaceE, true);
                     notCase = 20;
+                }
+            }
+            if (notCase == 14) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - placeSpecimenE.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenE.getY()) < 1) {
+                    follower.followPath(concequenceOfMyNaming, true);
+                    notCase = 15;
+                }
+            }
+            if (notCase == 13) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceE.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceE.getY()) < 1) {
+                    follower.followPath(park, true);
+                    notCase = 13;
                 }
             }
     }
