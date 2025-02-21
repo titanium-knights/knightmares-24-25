@@ -126,6 +126,8 @@ public class NB_withClaw_withSpec extends OpMode{
             telemetry.addLine("case " + notCase);
             telemetry.update();
 
+            claw.open();
+
             if((Math.abs(follower.getPose().getX() - specimenBack_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenBack_BASKET.getY()) < 1) {
                 follower.followPath(specimenControllA_PATH,true);
                 notCase = 3;
@@ -134,6 +136,9 @@ public class NB_withClaw_withSpec extends OpMode{
         if(notCase ==3){
             telemetry.addLine("case " + notCase);
             telemetry.update();
+
+            claw.close();
+
             if((Math.abs(follower.getPose().getX() - pickupCloseP_BASKETwCLAW.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_BASKETwCLAW.getY()) < 1) {
 
                 follower.followPath(placeClose_PATH, true);
@@ -143,6 +148,12 @@ public class NB_withClaw_withSpec extends OpMode{
         if(notCase ==4){
             telemetry.addLine("case " + notCase);
             telemetry.update();
+
+            slides.up();
+            slides.extend_auton();
+            clawRot.toDrop();
+            claw.open();
+
             if((Math.abs(follower.getPose().getX() - scoreP.getX()) < 1) && Math.abs(follower.getPose().getY() - scoreP.getY()) < 1) {
 
                 follower.followPath(pickUpMiddle_PATH, true);
@@ -152,6 +163,9 @@ public class NB_withClaw_withSpec extends OpMode{
         if(notCase == 5){
             telemetry.addLine("case " + notCase);
             telemetry.update();
+
+            claw.close();
+
             if((Math.abs(follower.getPose().getX() - pickupMiddleP_BASKETwCLAW.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupMiddleP_BASKETwCLAW.getY()) < 1) {
 
                 follower.followPath(placeMiddle_PATH, true);
@@ -161,6 +175,12 @@ public class NB_withClaw_withSpec extends OpMode{
         if (notCase ==6){
             telemetry.addLine("case " + notCase);
             telemetry.update();
+
+            slides.up();
+            slides.extend_auton();
+            clawRot.toDrop();
+            claw.open();
+
             if((Math.abs(follower.getPose().getX() - scoreP.getX()) < 5) && Math.abs(follower.getPose().getY() - scoreP.getY()) < 5) {
 
                 follower.followPath(pickUpFar_PATH, true);
@@ -170,6 +190,9 @@ public class NB_withClaw_withSpec extends OpMode{
         if(notCase == 7){
             telemetry.addLine("case " + notCase);
             telemetry.update();
+
+            claw.close();
+
             if((Math.abs(follower.getPose().getX() - pickupFarP_BASKETwCLAW.getX()) < 5) && Math.abs(follower.getPose().getY() - pickupFarP_BASKETwCLAW.getY()) < 5) {
 
                 follower.followPath(placeFar_PATH, true);
