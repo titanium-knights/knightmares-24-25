@@ -81,27 +81,27 @@ public class Teleop extends OpMode {
             slideButton = ButtonPressState.DEPRESSED;
         } else if (gamepad1.left_trigger<0.1f) slideButton = ButtonPressState.UNPRESSED;
 
-        if (slides.getRotatorEncoder() < 600 && slides.getEncoder() > 200) {
+        if ((slides.getRotatorEncoder() < 600 && slides.getEncoder() > 200) ) {
             slides.retract();
-        }
-
-        if (gamepad1.left_bumper){
-            slides.retract();
-            telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
-            telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
-            telemetry.update();
-        } else if (gamepad1.right_bumper){
-            if (slides.getRotatorEncoder() < 1000 && slides.getRotatorEncoder() > -1000) {
-                stop();
-            }
-            else {
-                slides.extend();
-            }
-            telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
-            telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
-            telemetry.update();
         } else {
-            slides.stop();
+
+            if (gamepad1.left_bumper) {
+                slides.retract();
+                telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
+                telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
+                telemetry.update();
+            } else if (gamepad1.right_bumper) {
+                if (slides.getRotatorEncoder() < 1000 && slides.getRotatorEncoder() > -1000) {
+                    stop();
+                } else {
+                    slides.extend();
+                }
+                telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
+                telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
+                telemetry.update();
+            } else {
+                slides.stop();
+            }
         }
 
 //        DRIVETRAIN TELEMETRY
@@ -227,132 +227,66 @@ public class Teleop extends OpMode {
                     setAutonAction(1);
                     telemetry.addLine(Integer.toString(autonAction));
                     break;
-                case 1: // stop
-                    while (runtime.seconds() < 0.2) {
-                        telemetry.addLine("case1 " +  runtime.seconds());
-                        telemetry.update();
-                        drive.move(0, 0, 0);
-                    }
-                    runtime.reset();
-                    setAutonAction(2);
-                    break;
-                case 2: // claw
-                    telemetry.addLine("case2");
+                case 1: // move claw
+                    telemetry.addLine("case1");
                     telemetry.update();
                     clawRotator.toDrop();
                     runtime.reset();
-                    setAutonAction(3);
+                    setAutonAction(2);
                     break;
-                case 3: // rotate slides
-                    telemetry.addLine("case3");
+                case 2: // rotate slides
+                    telemetry.addLine("case2");
                     telemetry.update();
                     while (runtime.seconds() < 0.8){
                         slides.rotateRight();
                     }
                     runtime.reset();
-                    setAutonAction(4);
+                    setAutonAction(3);
                     break;
-                case 4: // stop slides
-                    telemetry.addLine("case4");
-                    telemetry.update();
-                    slides.stopRotator();
-                    runtime.reset();
-                    setAutonAction(5);
-                    break;
-                case 5: // extend slides
-                    telemetry.addLine("case5");
+                case 3: // extend slides
+                    telemetry.addLine("case3");
                     telemetry.update();
                     while (runtime.seconds() < 0.8){
                         slides.extend();
                     }
                     runtime.reset();
-                    setAutonAction(6);
+                    setAutonAction(4);
                     break;
-                case 6:
-                    telemetry.addLine("case6");
-                    telemetry.update();
-                    slides.stop();
-                    runtime.reset();
-                    setAutonAction(7);
-                    break;
-                case 7: // rotate claws
-                    telemetry.addLine("case7");
+                case 4: // move claw down
+                    telemetry.addLine("case4");
                     telemetry.update();
                     clawRotator.toPick();
                     runtime.reset();
-                    setAutonAction(8);
+                    setAutonAction(5);
                     break;
-                case 8: // slide retract a little bit
-                    telemetry.addLine("case8");
+                case 5: // retract slides a bit
+                    telemetry.addLine("case5");
                     telemetry.update();
 
                     if (runtime.seconds() > 0.4) {
                         slides.retract();
                     }
                     runtime.reset();
-                    setAutonAction(9);
+                    setAutonAction(6);
                     break;
-                case 9:
-                    telemetry.addLine("case9");
-                    telemetry.update();
-                    slides.stop();
-                    runtime.reset();
-                    setAutonAction(10);
-
-                    break;
-                case 10: // drive forward a bit
-                    telemetry.addLine("case11");
+                case 6: // move back?
+                    telemetry.addLine("case6");
                     telemetry.update();
                     drive.move(0, 1, 0);
                     while(runtime.seconds() < 0.2){
                         drive.move(0, 1, 0);
                     }
                     runtime.reset();
-                    setAutonAction(11);
+                    setAutonAction(7);
                     break;
-                case 11: // stop driving
-                    telemetry.addLine("case12");
-                    telemetry.update();
-                    while (runtime.seconds() < 0.1){
-                        drive.move(0, 0, 0);
-                    }
-
-                    runtime.reset();
-                    setAutonAction(12);
-                    break;
-                case 12: // let go
-                    telemetry.addLine("case13");
+                case 7: // let go of claw
+                    telemetry.addLine("case7");
                     telemetry.update();
                     claw.open();
                     runtime.reset();
-                    setAutonAction(13);
                     break;
-                case 13: // rotate claws
-                    telemetry.addLine("case14");
-                    telemetry.update();
-                    clawRotator.toDrop();
-                    runtime.reset();
-                    setAutonAction(14);
-                    break;
-                case 14: // retract slides
-                    telemetry.addLine("case15");
-                    telemetry.update();
-                    while(runtime.seconds() < 0.3){
-                        slides.retract();
-                    }
-                    runtime.reset();
-                    setAutonAction(15);
-                    break;
-                case 15: // top slides
-                    telemetry.addLine("case16");
-                    telemetry.update();
-                    slides.stop();
-                    runtime.reset();
-                    setAutonAction(16);
-                    ultimateButton = ButtonPressState.UNPRESSED;
 
 
-                    break;
             }
         }
     }
