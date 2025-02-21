@@ -41,21 +41,11 @@ public class NB_withClaw_withSpec extends OpMode{
     //only for basket- for now
     private final Pose scoreP = new Pose(12, 132, Math.toRadians(135));
 
-
-    //the y will need a change during tuning
-    private final Pose placeFarP_BASKET = new Pose(20, 136, Math.toRadians(90));
-
-
     private final Pose pickupCloseP_BASKETwCLAW = new Pose(36, 120, Math.toRadians(0));
     private final Pose pickupMiddleP_BASKETwCLAW = new Pose(36, 132, Math.toRadians(0));
     private final Pose pickupFarP_BASKETwCLAW = new Pose(36, 136, Math.toRadians(45));
 
     private final Pose specimenP_BASKET = new Pose(40, 80, Math.toRadians(0));
-    private final Pose specimenControllP_BASKET = new Pose(40, 112, Math.toRadians(0));
-    private final Pose startControllP_BASKET = new Pose(8, 112, Math.toRadians(0));
-    private final Pose controllBeforeCloseP_BASKET = new Pose(56, 112, Math.toRadians(0));
-
-    private final Pose straightToParkP_HUMAN = new Pose(8, 8, Math.toRadians(0));
     private final Pose straightToParkP_BASKET = new Pose(12, 24, Math.toRadians(0));
 
     private Path startWithSpecimen_PATH, park;
@@ -120,6 +110,7 @@ public class NB_withClaw_withSpec extends OpMode{
             slides.rotateLeft();
             slides.up();
             clawRot.toDrop();
+            slides.down
             if((Math.abs(follower.getPose().getX() - specimenP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_BASKET.getY()) < 1) {
                 follower.followPath(specimenControllA_PATH,true);
                 notCase = 2;
