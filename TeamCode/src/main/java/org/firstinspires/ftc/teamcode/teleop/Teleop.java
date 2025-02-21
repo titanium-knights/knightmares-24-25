@@ -81,7 +81,7 @@ public class Teleop extends OpMode {
             slideButton = ButtonPressState.DEPRESSED;
         } else if (gamepad1.left_trigger<0.1f) slideButton = ButtonPressState.UNPRESSED;
 
-        if (slides.getRotatorEncoder() < 600 && slides.getEncoder() > 200) {
+        if ((slides.getRotatorEncoder() < 600 && slides.getEncoder() > 200) ) {
             slides.retract();
         } else {
 
