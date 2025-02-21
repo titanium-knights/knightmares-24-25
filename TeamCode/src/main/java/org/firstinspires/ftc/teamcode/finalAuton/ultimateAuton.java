@@ -37,12 +37,18 @@ public class ultimateAuton extends OpMode{
 
     //todo change the place specimen numbers by tuning
     private final Pose pickUpSpecimen = new Pose(8, 8, Math.toRadians(270));
+    private final Pose spaceA = new Pose(35, 80, Math.toRadians(90));
     private final Pose placeSpecimenA = new Pose(40, 80, Math.toRadians(0));
+    private final Pose spaceB = new Pose(35, 75, Math.toRadians(270));
     private final Pose placeSpecimenB = new Pose(40, 75, Math.toRadians(0));
+    private final Pose spaceC = new Pose(35, 70, Math.toRadians(270));
     private final Pose placeSpecimenC = new Pose(40, 70, Math.toRadians(0));
+    private final Pose spaceD = new Pose(35, 65, Math.toRadians(270));
     private final Pose placeSpecimenD = new Pose(40, 65, Math.toRadians(0));
+    private final Pose spaceE = new Pose(35, 60, Math.toRadians(270));
     private final Pose placeSpecimenE = new Pose(40, 60, Math.toRadians(0));
     private final Pose specimenP_HUMAN = new Pose(40, 58, Math.toRadians(0));
+    private final Pose spaceF = new Pose(35, 58, Math.toRadians(270));
 
 
     private final Pose startP_HUMAN = new Pose(8, 64, Math.toRadians(0));
@@ -71,25 +77,37 @@ public class ultimateAuton extends OpMode{
             pickUpSpecimenB_PATH, placeSpecimenB_PATH,
             pickUpSpecimenC_PATH, placeSpecimenC_PATH,
             pickUpSpecimenD_PATH, placeSpecimenD_PATH,
-            pickUpSpecimenE_PATH, placeSpecimenE_PATH;
+            pickUpSpecimenE_PATH, placeSpecimenE_PATH,
+            specimenSpaceFIRST, specimenSpaceCompleteFIRST;
 
     private Path startWithSpecimen_PATH, park;
     public void buildPaths() {
 
-        startWithSpecimen_PATH = new Path(new BezierLine(new Point(startP_HUMAN), new Point(specimenP_HUMAN)));
-        startWithSpecimen_PATH.setLinearHeadingInterpolation(startP_HUMAN.getHeading(), specimenP_HUMAN.getHeading());
+        startWithSpecimen_PATH = new Path(new BezierLine(new Point(startP_HUMAN), new Point(spaceF)));
+        startWithSpecimen_PATH.setLinearHeadingInterpolation(startP_HUMAN.getHeading(), spaceF.getHeading());
+
+        specimenSpaceFIRST = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(spaceF), new Point( specimenP_HUMAN )))
+                .setLinearHeadingInterpolation(spaceF.getHeading(),  specimenP_HUMAN .getHeading())
+                .build();
 
         specimenControllA_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(specimenP_HUMAN), new Point( specimenControllP_HUMAN )))
                 .setLinearHeadingInterpolation(specimenP_HUMAN.getHeading(),  specimenControllP_HUMAN .getHeading())
                 .build();
 
+        specimenSpaceCompleteFIRST = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(specimenControllP_HUMAN), new Point( spaceF )))
+                .setLinearHeadingInterpolation(specimenControllP_HUMAN.getHeading(),  spaceF .getHeading())
+                .build();
+
+
 //        specimenControllB_PATH = new Path(new BezierLine(new Point(specimenControllP_HUMAN), new Point(controllBeforeCloseP_HUMAN)));
 //        specimenControllB_PATH.setLinearHeadingInterpolation(specimenControllP_HUMAN.getHeading(), controllBeforeCloseP_HUMAN.getHeading());
 
         specimenControllB_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(specimenControllP_HUMAN), new Point( controllBeforeCloseP_HUMAN )))
-                .setLinearHeadingInterpolation(specimenControllP_HUMAN.getHeading(),  controllBeforeCloseP_HUMAN .getHeading())
+                .addPath(new BezierLine(new Point(spaceF), new Point( controllBeforeCloseP_HUMAN )))
+                .setLinearHeadingInterpolation(spaceF.getHeading(),  controllBeforeCloseP_HUMAN .getHeading())
                 .build();
 
         pickUpClose_PATH = follower.pathBuilder()
@@ -197,8 +215,8 @@ public class ultimateAuton extends OpMode{
             if (notCase == 1) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 1) {
-                    follower.followPath(specimenControllA_PATH, 0.6, true);
+                if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
+                    follower.followPath(specimenSpaceFIRST, 0.6, true);
 //                    clawRot.toPick(); (is this parralel/straight?)
 //                    slides.rotateLeft(); (is it up idk???
 //                    slides.up();
@@ -207,13 +225,39 @@ public class ultimateAuton extends OpMode{
 
                 }
             }
+            if (notCase == 2) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 1) {
+                    follower.followPath(specimenControllA_PATH, 0.6, true);
+    //                    clawRot.toPick(); (is this parralel/straight?)
+    //                    slides.rotateLeft(); (is it up idk???
+    //                    slides.up();
+    //                    clawRot.toDrop(); (should be perpendicular)
+                    notCase = 2;
 
-            //move back path here
+                }
+            }
+
+        if (notCase == 2) {
+            telemetry.addLine("case" + notCase);
+            telemetry.update();
+            if ((Math.abs(follower.getPose().getX() - specimenControllP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_HUMAN.getY()) < 1) {
+                follower.followPath(specimenSpaceCompleteFIRST, 0.6, true);
+//                    clawRot.toPick(); (is this parralel/straight?)
+//                    slides.rotateLeft(); (is it up idk???
+//                    slides.up();
+//                    clawRot.toDrop(); (should be perpendicular)
+                notCase = 2;
+
+            }
+        }
+
 
             if (notCase == 2) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - specimenControllP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_HUMAN.getY()) < 1) {
+                if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
                     follower.followPath(specimenControllB_PATH, 0.6, true);
                     notCase = 3;
                 }
