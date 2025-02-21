@@ -83,25 +83,25 @@ public class Teleop extends OpMode {
 
         if (slides.getRotatorEncoder() < 600 && slides.getEncoder() > 200) {
             slides.retract();
-        }
-
-        if (gamepad1.left_bumper){
-            slides.retract();
-            telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
-            telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
-            telemetry.update();
-        } else if (gamepad1.right_bumper){
-            if (slides.getRotatorEncoder() < 1000 && slides.getRotatorEncoder() > -1000) {
-                stop();
-            }
-            else {
-                slides.extend();
-            }
-            telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
-            telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
-            telemetry.update();
         } else {
-            slides.stop();
+
+            if (gamepad1.left_bumper) {
+                slides.retract();
+                telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
+                telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
+                telemetry.update();
+            } else if (gamepad1.right_bumper) {
+                if (slides.getRotatorEncoder() < 1000 && slides.getRotatorEncoder() > -1000) {
+                    stop();
+                } else {
+                    slides.extend();
+                }
+                telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
+                telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
+                telemetry.update();
+            } else {
+                slides.stop();
+            }
         }
 
 //        DRIVETRAIN TELEMETRY
