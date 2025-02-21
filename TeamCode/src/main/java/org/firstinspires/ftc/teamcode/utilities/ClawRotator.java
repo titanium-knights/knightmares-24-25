@@ -29,6 +29,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
         public static double dropPos = 0.9f;
         public static double pickPos = 0.7f;
 
+        public static double floorPos = 0.4f;
+
         public static Telemetry telemetry;
 
 
@@ -55,6 +57,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             //cRotatorServo.setDirection(Servo.Direction.REVERSE);
             telemetry.addLine("claw to pick");
             cRotatorServo.setPosition(pickPos);
+            telemetry.addLine(Double.toString(cRotatorServo.getPosition()));
+        }
+
+        public void toFloor() {
+            //cRotatorServo.setDirection(Servo.Direction.REVERSE);
+            telemetry.addLine("claw to floor");
+            cRotatorServo.setPosition(floorPos);
             telemetry.addLine(Double.toString(cRotatorServo.getPosition()));
         }
         public double getPosition() {
