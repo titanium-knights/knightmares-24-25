@@ -194,6 +194,7 @@ public class Slides {
         }
         stopRotator();
     }
+
     public void down(){
         setRotTarget(20);
         setRotPower(-0.5);
@@ -201,6 +202,36 @@ public class Slides {
             runRotToPosition();
         }
         stopRotator();
+    }
+
+    public void smallRetract_auton(){
+        setTarget1(900);
+        setTarget2(900);
+        setPower(-0.5);
+        while(getEncoder() > 900) {
+            runToPosition();
+        }
+        stop();
+    }
+
+    public void retract_auton(){
+        setTarget1(20);
+        setTarget2(20);
+        setPower(-0.5);
+        while(getEncoder() > 20) {
+            runToPosition();
+        }
+        stop();
+    }
+
+    public void extend_auton(){
+        setTarget1(1000);
+        setTarget2(1000);
+        setPower(0.5);
+        while(getEncoder() < 1000) {
+            runToPosition();
+        }
+        stop();
     }
 
     // SLIDES MANUAL
