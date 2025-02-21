@@ -213,7 +213,7 @@ public class Teleop extends OpMode {
         runtime.reset();
 
     }
-    public void hangSpecimen() throws InterruptedException {
+    public void hangSpecimen() throws InterruptedException { //Ultimate button
         while(autonAction!=-1){
             switch (autonAction) {
                 case 0: // move back
