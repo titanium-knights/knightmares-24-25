@@ -46,10 +46,11 @@ public class NB_withClaw_withSpec extends OpMode{
     private final Pose pickupFarP_BASKETwCLAW = new Pose(36, 136, Math.toRadians(45));
 
     private final Pose specimenP_BASKET = new Pose(40, 80, Math.toRadians(0));
+    private final Pose specimenBack_BASKET = new Pose(40, 70, Math.toRadians(0));
     private final Pose straightToParkP_BASKET = new Pose(12, 24, Math.toRadians(0));
 
     private Path startWithSpecimen_PATH, park;
-    private PathChain specimenControllA_PATH, specimenControllB_PATH , pickUpClose_PATH, placeClose_PATH, pickUpMiddle_PATH, placeMiddle_PATH, pickUpFar_PATH, placeFar_PATH;
+    private PathChain hangSpecimen_PATH, specimenControllA_PATH, specimenControllB_PATH , pickUpClose_PATH, placeClose_PATH, pickUpMiddle_PATH, placeMiddle_PATH, pickUpFar_PATH, placeFar_PATH;
 
 
     public void buildPaths() {
@@ -57,9 +58,14 @@ public class NB_withClaw_withSpec extends OpMode{
         startWithSpecimen_PATH = new Path(new BezierLine(new Point(startP_BASKET), new Point(specimenP_BASKET)));
         startWithSpecimen_PATH.setLinearHeadingInterpolation(startP_BASKET.getHeading(), specimenP_BASKET.getHeading());
 
+        hangSpecimen_PATH = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(specimenP_BASKET), new Point( specimenBack_BASKET )))
+                .setLinearHeadingInterpolation(specimenP_BASKET.getHeading(),  specimenBack_BASKET .getHeading())
+                .build();
+
         specimenControllA_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(specimenP_BASKET), new Point( pickupCloseP_BASKETwCLAW )))
-                .setLinearHeadingInterpolation(specimenP_BASKET.getHeading(),  pickupCloseP_BASKETwCLAW .getHeading())
+                .addPath(new BezierLine(new Point(specimenBack_BASKET), new Point( pickupCloseP_BASKETwCLAW )))
+                .setLinearHeadingInterpolation(specimenBack_BASKET.getHeading(),  pickupCloseP_BASKETwCLAW .getHeading())
                 .build();
 
         placeClose_PATH = follower.pathBuilder()
@@ -106,62 +112,71 @@ public class NB_withClaw_withSpec extends OpMode{
         if (notCase == 1) {
             telemetry.addLine("case " + notCase);
             telemetry.update();
-            clawRot.toPick();
-            slides.rotateLeft();
+
             slides.up();
+            slides.extend_auton();
             clawRot.toDrop();
-            slides.down
+            slides.smallRetract_auton();
             if((Math.abs(follower.getPose().getX() - specimenP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_BASKET.getY()) < 1) {
-                follower.followPath(specimenControllA_PATH,true);
+                follower.followPath(hangSpecimen_PATH,true);
                 notCase = 2;
             }
         }
-        if(notCase ==2){
+        if (notCase == 2) {
             telemetry.addLine("case " + notCase);
             telemetry.update();
-            if((Math.abs(follower.getPose().getX() - pickupCloseP_BASKETwCLAW.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_BASKETwCLAW.getY()) < 1) {
 
-                follower.followPath(placeClose_PATH, true);
+            if((Math.abs(follower.getPose().getX() - specimenBack_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenBack_BASKET.getY()) < 1) {
+                follower.followPath(specimenControllA_PATH,true);
                 notCase = 3;
             }
         }
         if(notCase ==3){
             telemetry.addLine("case " + notCase);
             telemetry.update();
-            if((Math.abs(follower.getPose().getX() - scoreP.getX()) < 1) && Math.abs(follower.getPose().getY() - scoreP.getY()) < 1) {
+            if((Math.abs(follower.getPose().getX() - pickupCloseP_BASKETwCLAW.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_BASKETwCLAW.getY()) < 1) {
 
-                follower.followPath(pickUpMiddle_PATH, true);
+                follower.followPath(placeClose_PATH, true);
                 notCase = 4;
             }
         }
-        if(notCase == 4){
+        if(notCase ==4){
+            telemetry.addLine("case " + notCase);
+            telemetry.update();
+            if((Math.abs(follower.getPose().getX() - scoreP.getX()) < 1) && Math.abs(follower.getPose().getY() - scoreP.getY()) < 1) {
+
+                follower.followPath(pickUpMiddle_PATH, true);
+                notCase = 5;
+            }
+        }
+        if(notCase == 5){
             telemetry.addLine("case " + notCase);
             telemetry.update();
             if((Math.abs(follower.getPose().getX() - pickupMiddleP_BASKETwCLAW.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupMiddleP_BASKETwCLAW.getY()) < 1) {
 
                 follower.followPath(placeMiddle_PATH, true);
-                notCase = 5;
+                notCase = 6;
             }
         }
-        if (notCase ==5){
+        if (notCase ==6){
             telemetry.addLine("case " + notCase);
             telemetry.update();
             if((Math.abs(follower.getPose().getX() - scoreP.getX()) < 5) && Math.abs(follower.getPose().getY() - scoreP.getY()) < 5) {
 
                 follower.followPath(pickUpFar_PATH, true);
-                notCase = 6;
+                notCase = 7;
             }
         }
-        if(notCase == 6){
+        if(notCase == 7){
             telemetry.addLine("case " + notCase);
             telemetry.update();
             if((Math.abs(follower.getPose().getX() - pickupFarP_BASKETwCLAW.getX()) < 5) && Math.abs(follower.getPose().getY() - pickupFarP_BASKETwCLAW.getY()) < 5) {
 
                 follower.followPath(placeFar_PATH, true);
-                notCase = 7;
+                notCase = 8;
             }
         }
-        if(notCase == 7){
+        if(notCase == 8){
             telemetry.addLine("case " + notCase);
             telemetry.update();
             if((Math.abs(follower.getPose().getX() - scoreP.getX()) < 5) && Math.abs(follower.getPose().getY() - scoreP.getY()) < 5) {
