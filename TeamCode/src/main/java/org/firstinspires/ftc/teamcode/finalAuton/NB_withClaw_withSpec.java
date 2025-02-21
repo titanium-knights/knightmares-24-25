@@ -46,7 +46,7 @@ public class NB_withClaw_withSpec extends OpMode{
     private final Pose pickupFarP_BASKETwCLAW = new Pose(36, 136, Math.toRadians(45));
 
     private final Pose specimenP_BASKET = new Pose(40, 80, Math.toRadians(0));
-    private final Pose specimenBack_BASKET = new Pose(40, 70, Math.toRadians(0));
+    private final Pose specimenBack_BASKET = new Pose(36, 80, Math.toRadians(0));
     private final Pose straightToParkP_BASKET = new Pose(12, 24, Math.toRadians(0));
 
     private Path startWithSpecimen_PATH, park;
