@@ -201,6 +201,7 @@ public class nearHuman_push3_initialSpecimen_human2_pedro extends OpMode{
             case 1:
                 telemetry.addLine("case1");
                 if(follower.getPose().getX() > (specimenP_HUMAN.getX() - 1) && follower.getPose().getY() > (specimenP_HUMAN.getY() - 1)) {
+
                     //slides.hookSpecimen();
                     //clawRot.hookSpecimen();
                     claw.open();

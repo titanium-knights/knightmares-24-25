@@ -199,9 +199,17 @@ public class ultimateAuton extends OpMode{
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 1) {
                     follower.followPath(specimenControllA_PATH, 0.6, true);
+//                    clawRot.toPick(); (is this parralel/straight?)
+//                    slides.rotateLeft(); (is it up idk???
+//                    slides.up();
+//                    clawRot.toDrop(); (should be perpendicular)
                     notCase = 2;
+
                 }
             }
+
+            //move back path here
+
             if (notCase == 2) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
