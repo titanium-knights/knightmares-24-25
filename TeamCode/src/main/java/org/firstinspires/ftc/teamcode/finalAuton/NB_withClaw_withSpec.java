@@ -65,8 +65,6 @@ public class NB_withClaw_withSpec extends OpMode{
 
     private final Pose pickupCloseP_BASKETwCLAW = new Pose(36, 120, Math.toRadians(0));
     private final Pose pickupMiddleP_BASKETwCLAW = new Pose(36, 132, Math.toRadians(0));
-    //the other two, the robot just picks up while facing forward, bc the robot cant go out the bounds of the field
-    // it will just be turning slightly to pick up the sample, this number will probably be changed
     private final Pose pickupFarP_BASKETwCLAW = new Pose(36, 136, Math.toRadians(45));
 
 
