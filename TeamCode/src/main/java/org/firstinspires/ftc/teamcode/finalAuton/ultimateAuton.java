@@ -30,19 +30,19 @@ public class ultimateAuton extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
-    public Claw claw;
-    public ClawRotator clawRot;
+//    public Claw claw;
+//    public ClawRotator clawRot;
     public Slides slides;
     public AutonMethods autonMethods;
 
     //todo change the place specimen numbers by tuning
-    private final Pose pickUpSpecimen = new Pose(136, 136, Math.toRadians(270));
-    private final Pose placeSpecimenA = new Pose(136, 136, Math.toRadians(0));
-    private final Pose placeSpecimenB = new Pose(136, 136, Math.toRadians(0));
-    private final Pose placeSpecimenC = new Pose(136, 136, Math.toRadians(0));
-    private final Pose placeSpecimenD = new Pose(136, 136, Math.toRadians(0));
-    private final Pose placeSpecimenE = new Pose(136, 136, Math.toRadians(0));
-    private final Pose specimenP_HUMAN = new Pose(40, 64, Math.toRadians(0));
+    private final Pose pickUpSpecimen = new Pose(8, 8, Math.toRadians(270));
+    private final Pose placeSpecimenA = new Pose(40, 80, Math.toRadians(0));
+    private final Pose placeSpecimenB = new Pose(40, 75, Math.toRadians(0));
+    private final Pose placeSpecimenC = new Pose(40, 70, Math.toRadians(0));
+    private final Pose placeSpecimenD = new Pose(40, 65, Math.toRadians(0));
+    private final Pose placeSpecimenE = new Pose(40, 60, Math.toRadians(0));
+    private final Pose specimenP_HUMAN = new Pose(40, 58, Math.toRadians(0));
 
 
     private final Pose startP_HUMAN = new Pose(8, 64, Math.toRadians(0));
@@ -63,7 +63,7 @@ public class ultimateAuton extends OpMode{
     private final Pose controllBeforeCloseP_HUMAN = new Pose(56, 36, Math.toRadians(0));
 
     private PathChain pickUpClose_PATH, placeClose_PATH,
-            pickUpFar_PATH, specimenControllB_PATH,
+            pickUpFar_PATH,specimenControllB_PATH,
             moveToFar_PATH, placeMiddle_PATH,
             moveToMiddle_PATH, pickUpMiddle_PATH,
             specimenControllA_PATH, placeFar_PATH,
@@ -83,6 +83,9 @@ public class ultimateAuton extends OpMode{
                 .addPath(new BezierLine(new Point(specimenP_HUMAN), new Point( specimenControllP_HUMAN )))
                 .setLinearHeadingInterpolation(specimenP_HUMAN.getHeading(),  specimenControllP_HUMAN .getHeading())
                 .build();
+
+//        specimenControllB_PATH = new Path(new BezierLine(new Point(specimenControllP_HUMAN), new Point(controllBeforeCloseP_HUMAN)));
+//        specimenControllB_PATH.setLinearHeadingInterpolation(specimenControllP_HUMAN.getHeading(), controllBeforeCloseP_HUMAN.getHeading());
 
         specimenControllB_PATH = follower.pathBuilder()
                 .addPath(new BezierLine(new Point(specimenControllP_HUMAN), new Point( controllBeforeCloseP_HUMAN )))
@@ -195,7 +198,7 @@ public class ultimateAuton extends OpMode{
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 1) {
-                    follower.followPath(specimenControllA_PATH, true);
+                    follower.followPath(specimenControllA_PATH, 0.6, true);
                     notCase = 2;
                 }
             }
@@ -203,7 +206,7 @@ public class ultimateAuton extends OpMode{
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - specimenControllP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_HUMAN.getY()) < 1) {
-                    follower.followPath(specimenControllB_PATH, true);
+                    follower.followPath(specimenControllB_PATH, 0.6, true);
                     notCase = 3;
                 }
             }
@@ -260,6 +263,14 @@ public class ultimateAuton extends OpMode{
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - pickupMiddleP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupMiddleP_HUMAN.getY()) < 1) {
                     follower.followPath(pickUpFar_PATH, true);
+                    notCase = 10;
+                }
+            }
+            if (notCase == 10) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - pickupFarP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupFarP_HUMAN.getY()) < 1) {
+                    follower.followPath(placeFar_PATH, true);
                     notCase = 10;
                 }
             }
@@ -371,15 +382,15 @@ public class ultimateAuton extends OpMode{
             telemetry.addData("y", follower.getPose().getY());
             telemetry.addData("heading", follower.getPose().getHeading());
 
-            if (claw != null) {
-                telemetry.addLine("claw exists");
-            }
-            if (clawRot != null) {
-                telemetry.addLine("claw rotator exists");
-            }
-            if (slides != null) {
-                telemetry.addLine("slides exists");
-            }
+//            if (claw != null) {
+//                telemetry.addLine("claw exists");
+//            }
+//            if (clawRot != null) {
+//                telemetry.addLine("claw rotator exists");
+//            }
+//            if (slides != null) {
+//                telemetry.addLine("slides exists");
+//            }
             telemetry.update();
         }
 
@@ -397,13 +408,13 @@ public class ultimateAuton extends OpMode{
 
             buildPaths();
 
-            claw = new Claw(hardwareMap, telemetry);
-            clawRot = new ClawRotator(hardwareMap, telemetry);
+//            claw = new Claw(hardwareMap, telemetry);
+//            clawRot = new ClawRotator(hardwareMap, telemetry);
             slides = new Slides(hardwareMap);
 
             // Set the claw to positions for init
-            claw.close();
-            clawRot.toPick();
+//            claw.close();
+//            clawRot.toPick();
         }
 
         @Override

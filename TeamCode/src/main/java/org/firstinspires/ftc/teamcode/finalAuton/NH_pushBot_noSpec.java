@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.utilities.Claw;
 import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 
 
-@Autonomous(name = "weHateCasesPart3", group = "Examples")
+@Autonomous(name = "NH_pushBot_noSpec", group = "Examples")
 public class NH_pushBot_noSpec extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
@@ -33,13 +33,13 @@ public class NH_pushBot_noSpec extends OpMode{
     //the y will need a change during tuning
     private final Pose pickupCloseP_HUMAN = new Pose(60, 20, Math.toRadians(270));
     private final Pose pickupMiddleP_HUMAN = new Pose(60, 10, Math.toRadians(270));
-    private final Pose pickupFarP_HUMAN = new Pose(60, 2, Math.toRadians(270));
+    private final Pose pickupFarP_HUMAN = new Pose(60, 3, Math.toRadians(270));
 
     //11 cuz 3 inch for sample + 8 inch for robot
     private final Pose placeCloseP_HUMAN = new Pose(17, 20, Math.toRadians(270));
     private final Pose placeMiddleP_HUMAN = new Pose(17, 10, Math.toRadians(270));
     //will also be used as park
-    private final Pose placeFarP_HUMAN = new Pose(20, 2, Math.toRadians(270));
+    private final Pose placeFarP_HUMAN = new Pose(20, 3, Math.toRadians(270));
 
     //its hundred(angel) not by mistake, there is a chance the block would end up outside the line so angel it + same reasoning for 124 instead of 120
     private final Pose startControllP_HUMAN = new Pose(10, 36, Math.toRadians(0));
