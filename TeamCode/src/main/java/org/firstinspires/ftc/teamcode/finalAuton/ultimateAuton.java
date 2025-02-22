@@ -57,15 +57,15 @@ public class ultimateAuton extends OpMode{
 
     private final Pose startP_HUMAN = new Pose(8, 64, Math.toRadians(180));
 
-    private final Pose pickupCloseP_HUMAN = new Pose(60, 20, Math.toRadians(270));
-    private final Pose pickupMiddleP_HUMAN = new Pose(60, 10, Math.toRadians(270));
-    private final Pose pickupFarP_HUMAN = new Pose(60, 2, Math.toRadians(270));
+    private final Pose pickupCloseP_HUMAN = new Pose(64, 26, Math.toRadians(270));
+    private final Pose pickupMiddleP_HUMAN = new Pose(64, 20, Math.toRadians(270));
+    private final Pose pickupFarP_HUMAN = new Pose(64, 10, Math.toRadians(270));
 
     //11 cuz 3 inch for sample + 8 inch for robot
-    private final Pose placeCloseP_HUMAN = new Pose(17, 20, Math.toRadians(270));
-    private final Pose placeMiddleP_HUMAN = new Pose(17, 10, Math.toRadians(270));
+    private final Pose placeCloseP_HUMAN = new Pose(24, 26, Math.toRadians(270));
+    private final Pose placeMiddleP_HUMAN = new Pose(24, 20, Math.toRadians(270));
     //will also be used as park
-    private final Pose placeFarP_HUMAN = new Pose(20, 2, Math.toRadians(270));
+    private final Pose placeFarP_HUMAN = new Pose(24, 10, Math.toRadians(270));
 
     //none for human since placeFarP_HUMAN is the same thing (after tuning)
 
@@ -301,11 +301,11 @@ public class ultimateAuton extends OpMode{
                 telemetry.update();
 
                 slides.up();
-                slides.extend_auton();
+                // slides.extend_auton();
                 clawRot.toDrop();
-                slides.smallRetract_auton();
+                // slides.smallRetract_auton();
 
-                if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 1) {
+                if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 3) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 3) {
                     follower.followPath(specimenControllA_PATH, 0.6, true);
                     notCase = 3;
                 }
@@ -315,17 +315,12 @@ public class ultimateAuton extends OpMode{
             telemetry.addLine("case" + notCase);
             telemetry.update();
 
-            slides.retract();
+            // slides.retract_auton();
             slides.down();
 
             if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
                 follower.followPath(specimenSpaceCompleteFIRST, 0.6, true);
-//                    clawRot.toPick(); (is this parralel/straight?)
-//                    slides.rotateLeft(); (is it up idk???
-//                    slides.up();
-//                    clawRot.toDrop(); (should be perpendicular)
                 notCase = 4;
-
             }
         }
 
