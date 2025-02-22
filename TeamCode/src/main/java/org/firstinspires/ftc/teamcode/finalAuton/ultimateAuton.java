@@ -115,8 +115,8 @@ public class ultimateAuton extends OpMode{
                 .build();
 
         specimenSpaceCompleteFIRST = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(specimenControllP_HUMAN), new Point( turn2 )))
-                .setLinearHeadingInterpolation(specimenControllP_HUMAN.getHeading(),  turn2 .getHeading())
+                .addPath(new BezierLine(new Point(specimenControllP_HUMAN), new Point( spaceF )))
+                .setLinearHeadingInterpolation(specimenControllP_HUMAN.getHeading(),  spaceF .getHeading())
                 .build();
 
 
@@ -124,8 +124,8 @@ public class ultimateAuton extends OpMode{
 //        specimenControllB_PATH.setLinearHeadingInterpolation(specimenControllP_HUMAN.getHeading(), controllBeforeCloseP_HUMAN.getHeading());
 
         specimenControllB_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(turn2), new Point( controllBeforeCloseP_HUMAN )))
-                .setLinearHeadingInterpolation(turn2.getHeading(),  controllBeforeCloseP_HUMAN .getHeading())
+                .addPath(new BezierLine(new Point(spaceF), new Point( controllBeforeCloseP_HUMAN )))
+                .setLinearHeadingInterpolation(spaceF.getHeading(),  controllBeforeCloseP_HUMAN .getHeading())
                 .build();
 
         pickUpClose_PATH = follower.pathBuilder()
