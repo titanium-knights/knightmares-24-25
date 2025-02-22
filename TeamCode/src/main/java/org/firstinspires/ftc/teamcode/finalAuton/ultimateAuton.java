@@ -306,12 +306,12 @@ public class ultimateAuton extends OpMode{
     //                    slides.rotateLeft(); (is it up idk???
     //                    slides.up();
     //                    clawRot.toDrop(); (should be perpendicular)
-                    notCase = 2;
+                    notCase = 3;
 
                 }
             }
 
-        if (notCase == 2) {
+        if (notCase == 3) {
             telemetry.addLine("case" + notCase);
             telemetry.update();
             if ((Math.abs(follower.getPose().getX() - specimenControllP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_HUMAN.getY()) < 1) {
@@ -320,41 +320,25 @@ public class ultimateAuton extends OpMode{
 //                    slides.rotateLeft(); (is it up idk???
 //                    slides.up();
 //                    clawRot.toDrop(); (should be perpendicular)
-                notCase = 2;
+                notCase = 4;
 
             }
         }
 
 
-            if (notCase == 2) {
+            if (notCase == 4) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - turn.getX()) < 1) && Math.abs(follower.getPose().getY() - turn.getY()) < 1) {
                     follower.followPath(specimenControllB_PATH, 0.6, true);
-                    notCase = 3;
-                }
-            }
-            if (notCase == 3) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - controllBeforeCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - controllBeforeCloseP_HUMAN.getY()) < 1) {
-                    follower.followPath(pickUpClose_PATH, true);
-                    notCase = 4;
-                }
-            }
-            if (notCase == 4) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - pickupCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_HUMAN.getY()) < 1) {
-                    follower.followPath(placeClose_PATH, true);
                     notCase = 5;
                 }
             }
             if (notCase == 5) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - placeCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - placeCloseP_HUMAN.getY()) < 1) {
-                    follower.followPath(moveToMiddle_PATH, true);
+                if ((Math.abs(follower.getPose().getX() - controllBeforeCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - controllBeforeCloseP_HUMAN.getY()) < 1) {
+                    follower.followPath(pickUpClose_PATH, true);
                     notCase = 6;
                 }
             }
@@ -362,23 +346,23 @@ public class ultimateAuton extends OpMode{
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - pickupCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_HUMAN.getY()) < 1) {
-                    follower.followPath(pickUpMiddle_PATH, true);
+                    follower.followPath(placeClose_PATH, true);
                     notCase = 7;
                 }
             }
             if (notCase == 7) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - pickupMiddleP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupMiddleP_HUMAN.getY()) < 1) {
-                    follower.followPath(placeMiddle_PATH, true);
+                if ((Math.abs(follower.getPose().getX() - placeCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - placeCloseP_HUMAN.getY()) < 1) {
+                    follower.followPath(moveToMiddle_PATH, true);
                     notCase = 8;
                 }
             }
             if (notCase == 8) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - placeMiddleP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - placeMiddleP_HUMAN.getY()) < 1) {
-                    follower.followPath(moveToFar_PATH, true);
+                if ((Math.abs(follower.getPose().getX() - pickupCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_HUMAN.getY()) < 1) {
+                    follower.followPath(pickUpMiddle_PATH, true);
                     notCase = 9;
                 }
             }
@@ -386,189 +370,205 @@ public class ultimateAuton extends OpMode{
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - pickupMiddleP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupMiddleP_HUMAN.getY()) < 1) {
-                    follower.followPath(pickUpFar_PATH, true);
+                    follower.followPath(placeMiddle_PATH, true);
                     notCase = 10;
                 }
             }
             if (notCase == 10) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - pickupFarP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupFarP_HUMAN.getY()) < 1) {
-                    follower.followPath(placeFar_PATH, true);
-                    notCase = 10;
-                }
-            }
-            if (notCase == 10) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - placeFarP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - placeFarP_HUMAN.getY()) < 1) {
-                    follower.followPath(pickUpSpecimenA_PATH, true);
+                if ((Math.abs(follower.getPose().getX() - placeMiddleP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - placeMiddleP_HUMAN.getY()) < 1) {
+                    follower.followPath(moveToFar_PATH, true);
                     notCase = 11;
                 }
             }
             if (notCase == 11) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - pickUpSpecimen.getX()) < 1) && Math.abs(follower.getPose().getY() - pickUpSpecimen.getY()) < 1) {
-                    follower.followPath(placeSpecimenA_PATH, true);
+                if ((Math.abs(follower.getPose().getX() - pickupMiddleP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupMiddleP_HUMAN.getY()) < 1) {
+                    follower.followPath(pickUpFar_PATH, true);
                     notCase = 12;
                 }
             }
             if (notCase == 12) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - spaceA.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceA.getY()) < 1) {
-                    follower.followPath(specimenSpaceA, true);
-                    notCase = 12;
-                }
-            }
-
-            if (notCase == 12) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - placeSpecimenA.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenA.getY()) < 1) {
-                    follower.followPath(pickUpSpecimenB_PATH, true);
+                if ((Math.abs(follower.getPose().getX() - pickupFarP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupFarP_HUMAN.getY()) < 1) {
+                    follower.followPath(placeFar_PATH, true);
                     notCase = 13;
                 }
             }
-
             if (notCase == 13) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - spaceA.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceA.getY()) < 1) {
-                    follower.followPath(specimenSpaceCompleteA, true);
-                    notCase = 13;
-                }
-            }
-
-            if (notCase == 13) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - pickUpSpecimen.getX()) < 1) && Math.abs(follower.getPose().getY() - pickUpSpecimen.getY()) < 1) {
-                    follower.followPath(placeSpecimenB_PATH, true);
+                if ((Math.abs(follower.getPose().getX() - placeFarP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - placeFarP_HUMAN.getY()) < 1) {
+                    follower.followPath(pickUpSpecimenA_PATH, true);
                     notCase = 14;
                 }
             }
-
-            if (notCase == 12) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - spaceB.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceB.getY()) < 1) {
-                    follower.followPath(specimenSpaceB, true);
-                    notCase = 12;
-                }
-            }
-            if (notCase == 14) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - placeSpecimenB.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenB.getY()) < 1) {
-                    follower.followPath(pickUpSpecimenC_PATH, true);
-                    notCase = 15;
-                }
-            }
-            if (notCase == 13) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - spaceB.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceB.getY()) < 1) {
-                    follower.followPath(specimenSpaceCompleteB, true);
-                    notCase = 13;
-                }
-            }
             if (notCase == 14) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - pickUpSpecimen.getX()) < 1) && Math.abs(follower.getPose().getY() - pickUpSpecimen.getY()) < 1) {
-                    follower.followPath(placeSpecimenC_PATH, true);
+                    follower.followPath(placeSpecimenA_PATH, true);
                     notCase = 15;
                 }
             }
             if (notCase == 15) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - spaceC.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceC.getY()) < 1) {
-                    follower.followPath(specimenSpaceC, true);
+                if ((Math.abs(follower.getPose().getX() - spaceA.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceA.getY()) < 1) {
+                    follower.followPath(specimenSpaceA, true);
                     notCase = 16;
                 }
             }
+
             if (notCase == 16) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - placeSpecimenC.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenC.getY()) < 1) {
-                    follower.followPath(pickUpSpecimenD_PATH, true);
+                if ((Math.abs(follower.getPose().getX() - placeSpecimenA.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenA.getY()) < 1) {
+                    follower.followPath(pickUpSpecimenB_PATH, true);
                     notCase = 17;
                 }
             }
-            if (notCase == 13) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - spaceC.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceC.getY()) < 1) {
-                    follower.followPath(specimenSpaceCompleteC, true);
-                    notCase = 13;
-                }
-            }
 
-            if (notCase == 14) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - pickUpSpecimen.getX()) < 1) && Math.abs(follower.getPose().getY() - pickUpSpecimen.getY()) < 1) {
-                    follower.followPath(placeSpecimenD_PATH, true);
-                    notCase = 15;
-                }
-            }
-            if (notCase == 12) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - spaceD.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceD.getY()) < 1) {
-                    follower.followPath(specimenSpaceD, true);
-                    notCase = 12;
-                }
-            }
             if (notCase == 17) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - placeSpecimenD.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenD.getY()) < 1) {
-                    follower.followPath(pickUpSpecimenE_PATH, true);
+                if ((Math.abs(follower.getPose().getX() - spaceA.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceA.getY()) < 1) {
+                    follower.followPath(specimenSpaceCompleteA, true);
                     notCase = 18;
                 }
             }
-            if (notCase == 13) {
+
+            if (notCase == 18) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - spaceD.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceD.getY()) < 1) {
-                    follower.followPath(specimenSpaceCompleteD, true);
-                    notCase = 13;
+                if ((Math.abs(follower.getPose().getX() - pickUpSpecimen.getX()) < 1) && Math.abs(follower.getPose().getY() - pickUpSpecimen.getY()) < 1) {
+                    follower.followPath(placeSpecimenB_PATH, true);
+                    notCase = 19;
+                }
+            }
+
+            if (notCase == 19) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceB.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceB.getY()) < 1) {
+                    follower.followPath(specimenSpaceB, true);
+                    notCase = 18;
                 }
             }
             if (notCase == 18) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - pickUpSpecimen.getX()) < 1) && Math.abs(follower.getPose().getY() - pickUpSpecimen.getY()) < 1) {
-                    follower.followPath(placeSpecimenE_PATH, true);
+                if ((Math.abs(follower.getPose().getX() - placeSpecimenB.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenB.getY()) < 1) {
+                    follower.followPath(pickUpSpecimenC_PATH, true);
                     notCase = 19;
                 }
             }
             if (notCase == 19) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - spaceE.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceE.getY()) < 1) {
-                    follower.followPath(specimenSpaceE, true);
+                if ((Math.abs(follower.getPose().getX() - spaceB.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceB.getY()) < 1) {
+                    follower.followPath(specimenSpaceCompleteB, true);
                     notCase = 20;
                 }
             }
-            if (notCase == 14) {
+            if (notCase == 20) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - pickUpSpecimen.getX()) < 1) && Math.abs(follower.getPose().getY() - pickUpSpecimen.getY()) < 1) {
+                    follower.followPath(placeSpecimenC_PATH, true);
+                    notCase = 21;
+                }
+            }
+            if (notCase == 21) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceC.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceC.getY()) < 1) {
+                    follower.followPath(specimenSpaceC, true);
+                    notCase = 22;
+                }
+            }
+            if (notCase == 22) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - placeSpecimenC.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenC.getY()) < 1) {
+                    follower.followPath(pickUpSpecimenD_PATH, true);
+                    notCase = 23;
+                }
+            }
+            if (notCase == 23) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceC.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceC.getY()) < 1) {
+                    follower.followPath(specimenSpaceCompleteC, true);
+                    notCase = 24;
+                }
+            }
+
+            if (notCase == 24) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - pickUpSpecimen.getX()) < 1) && Math.abs(follower.getPose().getY() - pickUpSpecimen.getY()) < 1) {
+                    follower.followPath(placeSpecimenD_PATH, true);
+                    notCase = 25;
+                }
+            }
+            if (notCase == 25) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceD.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceD.getY()) < 1) {
+                    follower.followPath(specimenSpaceD, true);
+                    notCase = 26;
+                }
+            }
+            if (notCase == 26) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - placeSpecimenD.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenD.getY()) < 1) {
+                    follower.followPath(pickUpSpecimenE_PATH, true);
+                    notCase = 27;
+                }
+            }
+            if (notCase == 27) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceD.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceD.getY()) < 1) {
+                    follower.followPath(specimenSpaceCompleteD, true);
+                    notCase = 28;
+                }
+            }
+            if (notCase == 28) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - pickUpSpecimen.getX()) < 1) && Math.abs(follower.getPose().getY() - pickUpSpecimen.getY()) < 1) {
+                    follower.followPath(placeSpecimenE_PATH, true);
+                    notCase = 29;
+                }
+            }
+            if (notCase == 29) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - spaceE.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceE.getY()) < 1) {
+                    follower.followPath(specimenSpaceE, true);
+                    notCase = 30;
+                }
+            }
+            if (notCase == 30) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - placeSpecimenE.getX()) < 1) && Math.abs(follower.getPose().getY() - placeSpecimenE.getY()) < 1) {
                     follower.followPath(concequenceOfMyNaming, true);
-                    notCase = 15;
+                    notCase = 31;
                 }
             }
-            if (notCase == 13) {
+            if (notCase == 31) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - spaceE.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceE.getY()) < 1) {
                     follower.followPath(park, true);
-                    notCase = 13;
+                    notCase = 32;
                 }
             }
     }
