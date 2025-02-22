@@ -117,7 +117,7 @@ public class clickMeJuna_noScam_ extends OpMode{
 
         claw = new Claw(hardwareMap, telemetry);
         clawRot = new ClawRotator(hardwareMap, telemetry);
-        slides = new Slides(hardwareMap);
+        slides = new Slides(hardwareMap, telemetry);
 
     }
 
