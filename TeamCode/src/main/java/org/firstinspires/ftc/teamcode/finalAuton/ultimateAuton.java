@@ -47,8 +47,8 @@ public class ultimateAuton extends OpMode{
     private final Pose placeSpecimenD = new Pose(40, 65, Math.toRadians(180));
     private final Pose spaceE = new Pose(30, 60, Math.toRadians(180));
     private final Pose placeSpecimenE = new Pose(40, 60, Math.toRadians(180));
-    private final Pose specimenP_HUMAN = new Pose(32, 64, Math.toRadians(180));
-    private final Pose spaceF = new Pose(30, 64, Math.toRadians(180));
+    private final Pose specimenP_HUMAN = new Pose(28, 64, Math.toRadians(180));
+    private final Pose spaceF = new Pose(24, 64, Math.toRadians(180));
     private final Pose turn = new Pose(20, 58, Math.toRadians(180));
     private final Pose turn2 = new Pose(30, 58, Math.toRadians(180));
 
@@ -286,6 +286,9 @@ public class ultimateAuton extends OpMode{
             if (notCase == 1) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
+
+                clawRot.toPick();
+
                 if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
                     follower.followPath(specimenSpaceFIRST, true);
                     notCase = 2;
@@ -296,7 +299,6 @@ public class ultimateAuton extends OpMode{
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
 
-                clawRot.toPick();
                 slides.up();
                 slides.extend_auton();
                 clawRot.toDrop();
@@ -305,13 +307,16 @@ public class ultimateAuton extends OpMode{
                 if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 1) {
                     follower.followPath(specimenControllA_PATH, 0.6, true);
                     notCase = 3;
-
                 }
             }
 
         if (notCase == 3) {
             telemetry.addLine("case" + notCase);
             telemetry.update();
+
+            slides.retract();
+            slides.down();
+
             if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
                 follower.followPath(specimenSpaceCompleteFIRST, 0.6, true);
 //                    clawRot.toPick(); (is this parralel/straight?)

@@ -188,7 +188,7 @@ public class Slides {
 
     public void up(){
         setRotTarget(1000);
-        setRotPower(0.5);
+        setRotPower(0.4);
         while(getRotatorEncoder() < 1000) {
             runRotToPosition();
         }
@@ -197,7 +197,7 @@ public class Slides {
 
     public void down(){
         setRotTarget(20);
-        setRotPower(-0.5);
+        setRotPower(-0.4);
         while(getRotatorEncoder() > 20) {
             runRotToPosition();
         }
@@ -225,10 +225,10 @@ public class Slides {
     }
 
     public void extend_auton(){
-        setTarget1(1000);
-        setTarget2(1000);
-        setPower(0.5);
-        while(getEncoder() < 1000) {
+        setTarget1(700);
+        setTarget2(700);
+        setPower(0.3);
+        while(getEncoder() < 700) {
             runToPosition();
         }
         stop();
