@@ -26,8 +26,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             this.telemetry = telemetry;
         }
         public static double neutralPos = 0.05f;
-        public static double dropPos = 0.25f;
-        public static double pickPos = 0.5f;
+        public static double dropPos = 0.34f;
+        public static double pickPos = 0.575f;
 
         public static double floorPos = 0.4f;
 
