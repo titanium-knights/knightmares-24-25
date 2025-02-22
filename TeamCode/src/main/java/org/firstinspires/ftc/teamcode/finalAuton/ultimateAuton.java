@@ -110,13 +110,13 @@ public class ultimateAuton extends OpMode{
                 .build();
 
         specimenControllA_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(specimenP_HUMAN), new Point( specimenControllP_HUMAN )))
-                .setLinearHeadingInterpolation(specimenP_HUMAN.getHeading(),  specimenControllP_HUMAN .getHeading())
+                .addPath(new BezierLine(new Point(specimenP_HUMAN), new Point( spaceF )))
+                .setLinearHeadingInterpolation(specimenP_HUMAN.getHeading(),  spaceF .getHeading())
                 .build();
 
         specimenSpaceCompleteFIRST = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(specimenControllP_HUMAN), new Point( spaceF )))
-                .setLinearHeadingInterpolation(specimenControllP_HUMAN.getHeading(),  spaceF .getHeading())
+                .addPath(new BezierLine(new Point(spaceF), new Point( specimenControllP_HUMAN )))
+                .setLinearHeadingInterpolation(spaceF.getHeading(),  specimenControllP_HUMAN .getHeading())
                 .build();
 
 
@@ -124,8 +124,8 @@ public class ultimateAuton extends OpMode{
 //        specimenControllB_PATH.setLinearHeadingInterpolation(specimenControllP_HUMAN.getHeading(), controllBeforeCloseP_HUMAN.getHeading());
 
         specimenControllB_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(spaceF), new Point( controllBeforeCloseP_HUMAN )))
-                .setLinearHeadingInterpolation(spaceF.getHeading(),  controllBeforeCloseP_HUMAN .getHeading())
+                .addPath(new BezierLine(new Point(specimenControllP_HUMAN), new Point( controllBeforeCloseP_HUMAN )))
+                .setLinearHeadingInterpolation(specimenControllP_HUMAN.getHeading(),  controllBeforeCloseP_HUMAN .getHeading())
                 .build();
 
         pickUpClose_PATH = follower.pathBuilder()
@@ -314,7 +314,7 @@ public class ultimateAuton extends OpMode{
         if (notCase == 3) {
             telemetry.addLine("case" + notCase);
             telemetry.update();
-            if ((Math.abs(follower.getPose().getX() - specimenControllP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_HUMAN.getY()) < 1) {
+            if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
                 follower.followPath(specimenSpaceCompleteFIRST, 0.6, true);
 //                    clawRot.toPick(); (is this parralel/straight?)
 //                    slides.rotateLeft(); (is it up idk???
@@ -329,7 +329,7 @@ public class ultimateAuton extends OpMode{
             if (notCase == 4) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - turn.getX()) < 1) && Math.abs(follower.getPose().getY() - turn.getY()) < 1) {
+                if ((Math.abs(follower.getPose().getX() - specimenControllP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_HUMAN.getY()) < 1) {
                     follower.followPath(specimenControllB_PATH, 0.6, true);
                     notCase = 5;
                 }
