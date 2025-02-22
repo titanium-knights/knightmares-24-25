@@ -48,13 +48,13 @@ public class ultimateAuton extends OpMode{
     private final Pose spaceE = new Pose(30, 60, Math.toRadians(180));
     private final Pose placeSpecimenE = new Pose(40, 60, Math.toRadians(180));
     private final Pose specimenP_HUMAN = new Pose(40, 58, Math.toRadians(180));
-    private final Pose spaceF = new Pose(20, 58, Math.toRadians(0));
+    private final Pose spaceF = new Pose(30, 58, Math.toRadians(180));
     private final Pose turn = new Pose(20, 58, Math.toRadians(180));
     private final Pose turn2 = new Pose(30, 58, Math.toRadians(180));
 
 
 
-    private final Pose startP_HUMAN = new Pose(8, 64, Math.toRadians(0));
+    private final Pose startP_HUMAN = new Pose(8, 64, Math.toRadians(180));
 
     private final Pose pickupCloseP_HUMAN = new Pose(60, 20, Math.toRadians(270));
     private final Pose pickupMiddleP_HUMAN = new Pose(60, 10, Math.toRadians(270));
@@ -287,7 +287,7 @@ public class ultimateAuton extends OpMode{
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
-                    follower.followPath(turn_PATH, true);
+                    follower.followPath(specimenSpaceFIRST, true);
 //                    clawRot.toPick(); (is this parralel/straight?)
 //                    slides.rotateLeft(); (is it up idk???
 //                    slides.up();
@@ -296,33 +296,7 @@ public class ultimateAuton extends OpMode{
 
                 }
             }
-            if (notCase == 2) {
-                telemetry.addLine("case" + notCase);
-                telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - turn.getX()) < 1) && Math.abs(follower.getPose().getY() - turn.getY()) < 1) {
-                    follower.followPath(turn2_PATH,true);
-    //                    clawRot.toPick(); (is this parralel/straight?)
-    //                    slides.rotateLeft(); (is it up idk???
-    //                    slides.up();
-    //                    clawRot.toDrop(); (should be perpendicular)
-                    notCase = 2;
 
-                }
-            }
-
-                if (notCase == 2) {
-            telemetry.addLine("case" + notCase);
-            telemetry.update();
-            if ((Math.abs(follower.getPose().getX() - turn2.getX()) < 1) && Math.abs(follower.getPose().getY() - turn2.getY()) < 1) {
-                follower.followPath(specimenSpaceFIRST,  true);
-                //                    clawRot.toPick(); (is this parralel/straight?)
-                //                    slides.rotateLeft(); (is it up idk???
-                //                    slides.up();
-                //                    clawRot.toDrop(); (should be perpendicular)
-                notCase = 2;
-
-            }
-        }
             if (notCase == 2) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
