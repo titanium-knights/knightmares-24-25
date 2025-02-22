@@ -216,21 +216,23 @@ public class Slides {
         stop();
     }
 
+    public int retract_height_auton = 0;
     public void retract_auton(){
-        setTarget1(50);
-        setTarget2(50);
+        setTarget1(retract_height_auton);
+        setTarget2(retract_height_auton);
         setPower(-0.5);
-        while(getEncoder() > 50) {
+        while(getEncoder() > retract_height_auton) {
             runToPosition();
         }
         stop();
     }
 
+    public int extend_height_auton = 50;
     public void extend_auton(){
-        setTarget1(500);
-        setTarget2(500);
+        setTarget1(extend_height_auton);
+        setTarget2(extend_height_auton);
         setPower(0.3);
-        while(getEncoder() < 500) {
+        while(getEncoder() < extend_height_auton) {
             runToPosition();
         }
         stop();

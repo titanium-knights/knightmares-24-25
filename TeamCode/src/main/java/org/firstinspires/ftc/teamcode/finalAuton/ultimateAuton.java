@@ -37,7 +37,7 @@ public class ultimateAuton extends OpMode{
     public AutonMethods autonMethods;
 
     //todo change the place specimen numbers by tuning
-    private final Pose pickUpSpecimen = new Pose(12, 20, Math.toRadians(270));
+    private final Pose pickUpSpecimen = new Pose(18, 20, Math.toRadians(270));
     private final Pose spaceA = new Pose(30, 80, Math.toRadians(180));
     private final Pose placeSpecimenA = new Pose(40, 80, Math.toRadians(180));
     private final Pose spaceB = new Pose(30, 75, Math.toRadians(180));
@@ -48,8 +48,8 @@ public class ultimateAuton extends OpMode{
     private final Pose placeSpecimenD = new Pose(40, 65, Math.toRadians(180));
     private final Pose spaceE = new Pose(30, 60, Math.toRadians(180));
     private final Pose placeSpecimenE = new Pose(40, 60, Math.toRadians(180));
-    private final Pose specimenP_HUMAN = new Pose(28, 64, Math.toRadians(180));
-    private final Pose spaceF = new Pose(24, 64, Math.toRadians(180));
+    private final Pose specimenP_HUMAN = new Pose(38, 64, Math.toRadians(180));
+    private final Pose spaceF = new Pose(32, 64, Math.toRadians(180));
     private final Pose turn = new Pose(20, 58, Math.toRadians(180));
     private final Pose turn2 = new Pose(30, 58, Math.toRadians(180));
 
@@ -57,20 +57,27 @@ public class ultimateAuton extends OpMode{
 
     private final Pose startP_HUMAN = new Pose(8, 64, Math.toRadians(180));
 
-    private final Pose pickupCloseP_HUMAN = new Pose(64, 26, Math.toRadians(270));
-    private final Pose pickupMiddleP_HUMAN = new Pose(64, 20, Math.toRadians(270));
-    private final Pose pickupFarP_HUMAN = new Pose(64, 10, Math.toRadians(270));
+    private final Pose pickupCloseP_HUMAN = new Pose(62, 26, Math.toRadians(270));
+    private final Pose pickupMiddleP_HUMAN = new Pose(62, 20, Math.toRadians(270));
+    private final Pose pickupFarP_HUMAN = new Pose(62, 10, Math.toRadians(270));
 
     //11 cuz 3 inch for sample + 8 inch for robot
     private final Pose placeCloseP_HUMAN = new Pose(24, 26, Math.toRadians(270));
     private final Pose placeMiddleP_HUMAN = new Pose(24, 20, Math.toRadians(270));
     //will also be used as park
-    private final Pose placeFarP_HUMAN = new Pose(24, 10, Math.toRadians(270));
+    private final Pose placeFarP_HUMAN = new Pose(18, 10, Math.toRadians(270));
 
     //none for human since placeFarP_HUMAN is the same thing (after tuning)
 
-    private final Pose specimenControllP_HUMAN = new Pose(40, 36, Math.toRadians(0));
-    private final Pose controllBeforeCloseP_HUMAN = new Pose(56, 36, Math.toRadians(0));
+    private final Pose specimenControllP_HUMAN = new Pose(32, 35, Math.toRadians(180));
+    private final Pose controllBeforeCloseP_HUMAN = new Pose(62, 35, Math.toRadians(180));
+    private final Pose specimenTurn = new Pose(62, 35, Math.toRadians(270));
+
+    //to not nock off the samples we just put into human zone
+    private final Pose X = new Pose(35, 10, Math.toRadians(270));
+    private final Pose Y = new Pose(18, 50, Math.toRadians(270));
+    private final Pose XYbetween = new Pose(35, 40, Math.toRadians(270));
+
 
     private PathChain pickUpClose_PATH, placeClose_PATH,
             pickUpFar_PATH,specimenControllB_PATH,
@@ -87,7 +94,8 @@ public class ultimateAuton extends OpMode{
             specimenSpaceCompleteD, specimenSpaceD,
             specimenSpaceCompleteC, specimenSpaceC,
             specimenSpaceCompleteB, specimenSpaceB, turn_PATH,
-            specimenSpaceCompleteA,specimenSpaceA, turn2_PATH;
+            specimenSpaceCompleteA,specimenSpaceA, turn2_PATH,
+            turn_specimen, FarTOx_PATH, xTOy_PATH;
 
     private Path startWithSpecimen_PATH, park;
     public void buildPaths() {
@@ -101,6 +109,8 @@ public class ultimateAuton extends OpMode{
                 .addPath(new BezierLine(new Point(turn), new Point( turn2 )))
                 .setLinearHeadingInterpolation(turn.getHeading(),  turn2 .getHeading())
                 .build();
+
+
 
         startWithSpecimen_PATH = new Path(new BezierLine(new Point(startP_HUMAN), new Point(spaceF)));
         startWithSpecimen_PATH.setLinearHeadingInterpolation(startP_HUMAN.getHeading(), spaceF.getHeading());
@@ -129,9 +139,14 @@ public class ultimateAuton extends OpMode{
                 .setLinearHeadingInterpolation(specimenControllP_HUMAN.getHeading(),  controllBeforeCloseP_HUMAN .getHeading())
                 .build();
 
+        turn_specimen = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(controllBeforeCloseP_HUMAN), new Point( specimenTurn )))
+                .setLinearHeadingInterpolation(controllBeforeCloseP_HUMAN.getHeading(),  specimenTurn .getHeading())
+                .build();
+
         pickUpClose_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(controllBeforeCloseP_HUMAN), new Point(pickupCloseP_HUMAN)))
-                .setLinearHeadingInterpolation(controllBeforeCloseP_HUMAN.getHeading(), pickupCloseP_HUMAN.getHeading())
+                .addPath(new BezierLine(new Point(specimenTurn), new Point(pickupCloseP_HUMAN)))
+                .setLinearHeadingInterpolation(specimenTurn.getHeading(), pickupCloseP_HUMAN.getHeading())
                 .build();
 
         placeClose_PATH = follower.pathBuilder()
@@ -169,9 +184,19 @@ public class ultimateAuton extends OpMode{
                 .setLinearHeadingInterpolation(pickupFarP_HUMAN.getHeading(), placeFarP_HUMAN.getHeading())
                 .build();
 
+        FarTOx_PATH = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(placeFarP_HUMAN), new Point(X)))
+                .setLinearHeadingInterpolation(placeFarP_HUMAN.getHeading(), X.getHeading())
+                .build();
+
+        xTOy_PATH = follower.pathBuilder()
+                .addPath(new BezierCurve(new Point(X), new Point(XYbetween), new Point(Y)))
+                .setLinearHeadingInterpolation(X.getHeading(), Y.getHeading())
+                .build();
+
         pickUpSpecimenA_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(placeFarP_HUMAN), new Point(pickUpSpecimen)))
-                .setLinearHeadingInterpolation(placeFarP_HUMAN.getHeading(), pickUpSpecimen.getHeading())
+                .addPath(new BezierLine(new Point(Y), new Point(pickUpSpecimen)))
+                .setLinearHeadingInterpolation(Y.getHeading(), pickUpSpecimen.getHeading())
                 .build();
 
 
@@ -288,7 +313,7 @@ public class ultimateAuton extends OpMode{
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
 
-                clawRot.toPick();
+//                clawRot.toPick();
 
                 if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
                     follower.followPath(specimenSpaceFIRST, true);
@@ -300,10 +325,10 @@ public class ultimateAuton extends OpMode{
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
 
-                slides.up();
-                // slides.extend_auton();
-                clawRot.toDrop();
-                // slides.smallRetract_auton();
+//                slides.up();
+//                // slides.extend_auton();
+//                clawRot.toDrop();
+//                // slides.smallRetract_auton();
 
                 if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 3) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 3) {
                     follower.followPath(specimenControllA_PATH, 0.6, true);
@@ -315,8 +340,8 @@ public class ultimateAuton extends OpMode{
             telemetry.addLine("case" + notCase);
             telemetry.update();
 
-            // slides.retract_auton();
-            slides.down();
+//            // slides.retract_auton();
+//            slides.down();
 
             if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
                 follower.followPath(specimenSpaceCompleteFIRST, 0.6, true);
@@ -333,10 +358,19 @@ public class ultimateAuton extends OpMode{
                     notCase = 5;
                 }
             }
+
+            if (notCase == 4) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - controllBeforeCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_HUMAN.getY()) < 1) {
+                    follower.followPath(turn_specimen, 0.6, true);
+                    notCase = 5;
+                }
+            }
             if (notCase == 5) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - controllBeforeCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - controllBeforeCloseP_HUMAN.getY()) < 1) {
+                if ((Math.abs(follower.getPose().getX() - specimenTurn.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenTurn.getY()) < 1) {
                     follower.followPath(pickUpClose_PATH, true);
                     notCase = 6;
                 }
@@ -344,7 +378,7 @@ public class ultimateAuton extends OpMode{
             if (notCase == 6) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - pickupCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_HUMAN.getY()) < 1) {
+                if ((Math.abs(follower.getPose().getX() - pickupCloseP_HUMAN.getX()) < 3) && Math.abs(follower.getPose().getY() - pickupCloseP_HUMAN.getY()) < 3) {
                     follower.followPath(placeClose_PATH, true);
                     notCase = 7;
                 }
@@ -394,13 +428,31 @@ public class ultimateAuton extends OpMode{
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - pickupFarP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupFarP_HUMAN.getY()) < 1) {
                     follower.followPath(placeFar_PATH, true);
+                    notCase = 12;
+                }
+            }
+
+            if (notCase == 12) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - placeFarP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - placeFarP_HUMAN.getY()) < 1) {
+                    follower.followPath(FarTOx_PATH, 0.2, true);
+                    notCase = 12;
+                }
+            }
+
+            if (notCase == 12) {
+                telemetry.addLine("case" + notCase);
+                telemetry.update();
+                if ((Math.abs(follower.getPose().getX() - X.getX()) < 1) && Math.abs(follower.getPose().getY() - X.getY()) < 1) {
+                    follower.followPath(xTOy_PATH, 0.2, true);
                     notCase = 13;
                 }
             }
             if (notCase == 13) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
-                if ((Math.abs(follower.getPose().getX() - placeFarP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - placeFarP_HUMAN.getY()) < 1) {
+                if ((Math.abs(follower.getPose().getX() - Y.getX()) < 1) && Math.abs(follower.getPose().getY() - Y.getY()) < 1) {
                     follower.followPath(pickUpSpecimenA_PATH, true);
                     notCase = 14;
                 }
@@ -592,6 +644,7 @@ public class ultimateAuton extends OpMode{
             telemetry.addData("y", follower.getPose().getY());
             telemetry.addData("heading", follower.getPose().getHeading());
 
+            follower.telemetryDebug(telemetry);
 //            if (claw != null) {
 //                telemetry.addLine("claw exists");
 //            }

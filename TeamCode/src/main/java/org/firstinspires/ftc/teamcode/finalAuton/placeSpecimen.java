@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.utilities.Slides;
 import org.firstinspires.ftc.teamcode.backupAuton.auton.AutonMethods;
 
 
-@Autonomous(name = "ultimateAuton", group = "Examples")
+@Autonomous(name = "placeSpecimen", group = "Examples")
 public class placeSpecimen extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;

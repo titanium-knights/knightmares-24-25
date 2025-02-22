@@ -179,7 +179,8 @@ public class Teleop extends OpMode {
             cRotatorAtDrop = true;
         } else if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
-            clawRotator.toPick();
+//            clawRotator.toPick();
+            clawRotator.toFloor();
             telemetry.addLine("claw to pick position: " + clawRotator.getPosition());
             cRotatorAtDrop = false;
         } else if (!(gamepad1.a) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
