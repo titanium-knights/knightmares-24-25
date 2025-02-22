@@ -47,8 +47,8 @@ public class ultimateAuton extends OpMode{
     private final Pose placeSpecimenD = new Pose(40, 65, Math.toRadians(180));
     private final Pose spaceE = new Pose(30, 60, Math.toRadians(180));
     private final Pose placeSpecimenE = new Pose(40, 60, Math.toRadians(180));
-    private final Pose specimenP_HUMAN = new Pose(40, 58, Math.toRadians(180));
-    private final Pose spaceF = new Pose(30, 58, Math.toRadians(180));
+    private final Pose specimenP_HUMAN = new Pose(32, 64, Math.toRadians(180));
+    private final Pose spaceF = new Pose(30, 64, Math.toRadians(180));
     private final Pose turn = new Pose(20, 58, Math.toRadians(180));
     private final Pose turn2 = new Pose(30, 58, Math.toRadians(180));
 
