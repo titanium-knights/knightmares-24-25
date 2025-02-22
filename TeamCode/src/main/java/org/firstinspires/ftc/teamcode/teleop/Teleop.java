@@ -59,7 +59,7 @@ public class Teleop extends OpMode {
     @Override
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
-        this.slides = new Slides(hardwareMap);
+        this.slides = new Slides(hardwareMap, telemetry);
         this.pullup = new PullUp(hardwareMap);
         this.clawButton = ButtonPressState.UNPRESSED;
         this.cRotatorButton = ButtonPressState.UNPRESSED;
@@ -81,27 +81,27 @@ public class Teleop extends OpMode {
             slideButton = ButtonPressState.DEPRESSED;
         } else if (gamepad1.left_trigger<0.1f) slideButton = ButtonPressState.UNPRESSED;
 
-        if (slides.getRotatorEncoder() < 600 && slides.getEncoder() > 200) {
+        if ((slides.getRotatorEncoder() < 600 && slides.getEncoder() > 200) ) {
             slides.retract();
-        }
-
-        if (gamepad1.left_bumper){
-            slides.retract();
-            telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
-            telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
-            telemetry.update();
-        } else if (gamepad1.right_bumper){
-            if (slides.getRotatorEncoder() < 1000 && slides.getRotatorEncoder() > -1000) {
-                stop();
-            }
-            else {
-                slides.extend();
-            }
-            telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
-            telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
-            telemetry.update();
         } else {
-            slides.stop();
+
+            if (gamepad1.left_bumper) {
+                slides.retract();
+                telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
+                telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
+                telemetry.update();
+            } else if (gamepad1.right_bumper) {
+                if (slides.getRotatorEncoder() < 1000 && slides.getRotatorEncoder() > -1000) {
+                    stop();
+                } else {
+                    slides.extend();
+                }
+                telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
+                telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
+                telemetry.update();
+            } else {
+                slides.stop();
+            }
         }
 
 //        DRIVETRAIN TELEMETRY

@@ -25,18 +25,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
             //cRotatorServo.setPosition(pickPos);
             this.telemetry = telemetry;
         }
-        public static double neutralPos = 0.5f;
-        public static double dropPos = 0.4f; // 0.4
-        public static double pickPos = 0.7f;
+        public static double neutralPos = 0.05f;
+        public static double dropPos = 0.25f;
+        public static double pickPos = 0.5f;
 
-        public static double floorPos = 0.9f; // 0.9f;
+        public static double floorPos = 0.4f;
 
         public static Telemetry telemetry;
 
 
         public void toDrop() {
             //cRotatorServo.setDirection(Servo.Direction.REVERSE);
-            telemetry.addLine("claw to drop (" + dropPos + ")");
+            telemetry.addLine("claw to drop");
             cRotatorServo.setPosition(dropPos);
             telemetry.addLine(Double.toString(cRotatorServo.getPosition()));
         }
@@ -55,14 +55,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
         public void toPick() {
             //cRotatorServo.setDirection(Servo.Direction.REVERSE);
-            telemetry.addLine("claw to pick (" + pickPos + ")");
+            telemetry.addLine("claw to pick");
             cRotatorServo.setPosition(pickPos);
             telemetry.addLine(Double.toString(cRotatorServo.getPosition()));
         }
 
         public void toFloor() {
             //cRotatorServo.setDirection(Servo.Direction.REVERSE);
-            telemetry.addLine("claw to floor (" + floorPos + ")");
+            telemetry.addLine("claw to floor");
             cRotatorServo.setPosition(floorPos);
             telemetry.addLine(Double.toString(cRotatorServo.getPosition()));
         }

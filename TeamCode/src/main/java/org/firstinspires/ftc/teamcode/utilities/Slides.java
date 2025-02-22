@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.utilities.SlidesState;
 import org.firstinspires.ftc.teamcode.utilities.SlidesRotatorState;
 
@@ -50,12 +51,15 @@ public class Slides {
     DcMotor slideMotor2;
     DcMotor slideRotator;
 
-    public Slides(HardwareMap hmap){
+    public static Telemetry telemetry;
+
+    public Slides(HardwareMap hmap, Telemetry telemetry){
         this.slideMotor1 = hmap.dcMotor.get(CONFIG.slide1);
         this.slideMotor2 = hmap.dcMotor.get(CONFIG.slide2);
         this.slideRotator = hmap.dcMotor.get(CONFIG.slideRot);
         this.pos = 0;
         this.state = SlidesState.LEFT;
+        this.telemetry = telemetry;
 
         slideMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -79,6 +83,7 @@ public class Slides {
         setPower(0);
 
         pos = getEncoder();
+        telemetry.addLine(""+pos);
 
         this.state = SlidesState.STOP;
     }
@@ -97,10 +102,10 @@ public class Slides {
     public boolean rotatorIsBusy() {return slideRotator.isBusy();}
     //set target
     public void setTarget1(int target){
-        slideMotor1.setTargetPosition(-target);
+        slideMotor1.setTargetPosition(target);
     }
     public void setTarget2(int target){
-        slideMotor2.setTargetPosition(-target);
+        slideMotor2.setTargetPosition(target);
     }
     public void setRotTarget(int target){
         slideRotator.setTargetPosition(-target);
@@ -134,8 +139,6 @@ public class Slides {
     public void runToPosition(){
         slideMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slideMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        setPower(0.9);
     }
 
     public void runRotToPosition(){
@@ -188,19 +191,50 @@ public class Slides {
 
     public void up(){
         setRotTarget(1000);
-        setRotPower(0.5);
+        setRotPower(0.4);
         while(getRotatorEncoder() < 1000) {
             runRotToPosition();
         }
         stopRotator();
     }
+
     public void down(){
         setRotTarget(20);
-        setRotPower(-0.5);
+        setRotPower(-0.4);
         while(getRotatorEncoder() > 20) {
             runRotToPosition();
         }
         stopRotator();
+    }
+
+    public void smallRetract_auton(){
+        setTarget1(350);
+        setTarget2(350);
+        setPower(-0.5);
+        while(getEncoder() > 350) {
+            runToPosition();
+        }
+        stop();
+    }
+
+    public void retract_auton(){
+        setTarget1(50);
+        setTarget2(50);
+        setPower(-0.5);
+        while(getEncoder() > 50) {
+            runToPosition();
+        }
+        stop();
+    }
+
+    public void extend_auton(){
+        setTarget1(500);
+        setTarget2(500);
+        setPower(0.3);
+        while(getEncoder() < 500) {
+            runToPosition();
+        }
+        stop();
     }
 
     // SLIDES MANUAL
@@ -259,7 +293,7 @@ public class Slides {
     }
 
     public int getEncoder() {
-        return -slideMotor1.getCurrentPosition();
+        return slideMotor1.getCurrentPosition();
     }
     public int getRotatorEncoder() {
         return -slideRotator.getCurrentPosition();
