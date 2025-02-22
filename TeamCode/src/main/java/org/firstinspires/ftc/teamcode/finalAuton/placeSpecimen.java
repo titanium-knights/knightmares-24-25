@@ -61,6 +61,7 @@ public class placeSpecimen extends OpMode{
         follower.update();
         autonomousPathUpdate();
 
+
         telemetry.addData("slides", slides.getEncoder());
 
         // Feedback to Driver Hub
