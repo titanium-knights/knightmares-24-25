@@ -83,7 +83,6 @@ public class Slides {
         setPower(0);
 
         pos = getEncoder();
-        telemetry.addLine(""+pos);
 
         this.state = SlidesState.STOP;
     }
