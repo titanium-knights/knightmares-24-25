@@ -17,6 +17,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 // import org.firstinspires.ftc.teamcode.config.subsystem.ClawSubsystem;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
@@ -588,6 +589,8 @@ public class ultimateAuton extends OpMode{
             follower.update();
             autonomousPathUpdate();
 
+            telemetry.addData("slides", slides.getEncoder());
+
             // Feedback to Driver Hub
             telemetry.addData("path state", pathState);
             telemetry.addData("x", follower.getPose().getX());
@@ -622,7 +625,7 @@ public class ultimateAuton extends OpMode{
 
             claw = new Claw(hardwareMap, telemetry);
             clawRot = new ClawRotator(hardwareMap, telemetry);
-            slides = new Slides(hardwareMap);
+            slides = new Slides(hardwareMap, telemetry);
 
             claw.close();
         }

@@ -59,7 +59,7 @@ public class Teleop extends OpMode {
     @Override
     public void init() {
         this.drive = new SimpleMecanumDrive(hardwareMap);
-        this.slides = new Slides(hardwareMap);
+        this.slides = new Slides(hardwareMap, telemetry);
         this.pullup = new PullUp(hardwareMap);
         this.clawButton = ButtonPressState.UNPRESSED;
         this.cRotatorButton = ButtonPressState.UNPRESSED;
