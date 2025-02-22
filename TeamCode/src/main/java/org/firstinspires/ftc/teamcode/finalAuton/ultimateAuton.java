@@ -30,8 +30,8 @@ public class ultimateAuton extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
-//    public Claw claw;
-//    public ClawRotator clawRot;
+    public Claw claw;
+    public ClawRotator clawRot;
     public Slides slides;
     public AutonMethods autonMethods;
 
@@ -288,26 +288,23 @@ public class ultimateAuton extends OpMode{
                 telemetry.update();
                 if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
                     follower.followPath(specimenSpaceFIRST, true);
-//                    clawRot.toPick(); (is this parralel/straight?)
-//                    slides.rotateLeft(); (is it up idk???
-//                    slides.up();
-//                    clawRot.toDrop(); (should be perpendicular)
                     notCase = 2;
-
                 }
             }
 
             if (notCase == 2) {
                 telemetry.addLine("case" + notCase);
                 telemetry.update();
+
+                clawRot.toPick();
+                slides.up();
+                slides.extend_auton();
+                clawRot.toDrop();
+                slides.smallRetract_auton();
+
                 if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 1) {
                     follower.followPath(specimenControllA_PATH, 0.6, true);
-    //                    clawRot.toPick(); (is this parralel/straight?)
-    //                    slides.rotateLeft(); (is it up idk???
-    //                    slides.up();
-    //                    clawRot.toDrop(); (should be perpendicular)
                     notCase = 2;
-
                 }
             }
 
@@ -617,13 +614,11 @@ public class ultimateAuton extends OpMode{
 
             buildPaths();
 
-//            claw = new Claw(hardwareMap, telemetry);
-//            clawRot = new ClawRotator(hardwareMap, telemetry);
+            claw = new Claw(hardwareMap, telemetry);
+            clawRot = new ClawRotator(hardwareMap, telemetry);
             slides = new Slides(hardwareMap);
 
-            // Set the claw to positions for init
-//            claw.close();
-//            clawRot.toPick();
+            claw.close();
         }
 
         @Override
