@@ -12,6 +12,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.utilities.SlidesState;
 import org.firstinspires.ftc.teamcode.utilities.SlidesRotatorState;
@@ -99,6 +101,7 @@ public class Slides {
     public boolean isBusy1() {return slideMotor1.isBusy();}
     public boolean isBusy2() {return slideMotor2.isBusy();}
     public boolean rotatorIsBusy() {return slideRotator.isBusy();}
+    
     //set target
     public void setTarget1(int target){
         slideMotor1.setTargetPosition(target);
@@ -322,5 +325,31 @@ public class Slides {
 
     public void setRotPower(double power){
         slideRotator.setPower(-power); // constant removed
+    }
+
+
+
+    public void extendForTime(double seconds) {
+        slideMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slideMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setPower(0.9);
+        ElapsedTime timer = new ElapsedTime();
+        timer.reset();
+        while (timer.seconds() < seconds) {
+            // pop out at one in the morning
+        }
+        stop();
+    }
+
+    public void retractForTime(double seconds) {
+        slideMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slideMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setPower(-0.9);
+        ElapsedTime timer = new ElapsedTime();
+        timer.reset();
+        while (timer.seconds() < seconds) {
+            // i am 2 weeks ahead of the brainrot curve because oc instagram reels
+        }
+        stop();
     }
 }

@@ -130,7 +130,7 @@ public class Teleop extends OpMode {
             slides.rotateRight();
             telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
 
-        } else if (gamepad1.left_trigger > 0.5){
+        } else if (gamepad1.left_trigger > 0.5) {
             slides.rotateLeft();
             telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
             telemetry.update();
