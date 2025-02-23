@@ -38,28 +38,28 @@ public class ultimateAutonWO3rd extends OpMode{
 
     //todo change the place specimen numbers by tuning
 
-        private final Pose pickUpSpecimen = new Pose(18, 48, Math.toRadians(270));
+        private final Pose pickUpSpecimen = new Pose(22, 42, Math.toRadians(270));
     private final Pose spaceA = new Pose(30, 80, Math.toRadians(180));
     private final Pose AForth = new Pose(30, 80, Math.toRadians(270));
     private final Pose ABack = new Pose(30, 80, Math.toRadians(270));
-    private final Pose placeSpecimenA = new Pose(40, 80, Math.toRadians(180));
+    private final Pose placeSpecimenA = new Pose(30, 80, Math.toRadians(180));
     private final Pose spaceB = new Pose(30, 75, Math.toRadians(180));
     private final Pose BForth = new Pose(30, 75, Math.toRadians(270));
     private final Pose BBack = new Pose(30, 75, Math.toRadians(270));
-    private final Pose placeSpecimenB = new Pose(40, 75, Math.toRadians(180));
+    private final Pose placeSpecimenB = new Pose(30, 75, Math.toRadians(180));
     private final Pose spaceC = new Pose(30, 70, Math.toRadians(180));
     private final Pose CForth = new Pose(30, 70, Math.toRadians(270));
     private final Pose CBack = new Pose(30, 70, Math.toRadians(270));
-    private final Pose placeSpecimenC = new Pose(40, 70, Math.toRadians(180));
+    private final Pose placeSpecimenC = new Pose(30, 70, Math.toRadians(180));
     private final Pose spaceD = new Pose(30, 65, Math.toRadians(180));
     private final Pose DForth = new Pose(30, 65, Math.toRadians(270));
     private final Pose DBack = new Pose(30, 65, Math.toRadians(270));
-    private final Pose placeSpecimenD = new Pose(40, 65, Math.toRadians(180));
+    private final Pose placeSpecimenD = new Pose(30, 65, Math.toRadians(180));
     private final Pose spaceE = new Pose(30, 60, Math.toRadians(180));
     private final Pose EForth = new Pose(30, 60, Math.toRadians(270));
-    private final Pose placeSpecimenE = new Pose(40, 60, Math.toRadians(180));
-    private final Pose specimenP_HUMAN = new Pose(24, 64, Math.toRadians(180));
-    private final Pose spaceF = new Pose(18, 64, Math.toRadians(180));
+    private final Pose placeSpecimenE = new Pose(30, 60, Math.toRadians(180));
+    private final Pose specimenP_HUMAN = new Pose(20, 68, Math.toRadians(180));
+    private final Pose spaceF = new Pose(14, 66, Math.toRadians(180));
     private final Pose turn = new Pose(20, 58, Math.toRadians(180));
     private final Pose turn2 = new Pose(30, 58, Math.toRadians(180));
 
@@ -67,24 +67,24 @@ public class ultimateAutonWO3rd extends OpMode{
 
     private final Pose startP_HUMAN = new Pose(8, 64, Math.toRadians(180));
 
-    private final Pose pickupCloseP_HUMAN = new Pose(62, 26, Math.toRadians(270));
-    private final Pose pickupMiddleP_HUMAN = new Pose(62, 24, Math.toRadians(270));
-    private final Pose pickupFarP_HUMAN = new Pose(62, 10, Math.toRadians(270));
+    private final Pose pickupCloseP_HUMAN = new Pose(68, 26, Math.toRadians(270));
+    private final Pose pickupMiddleP_HUMAN = new Pose(68, 18, Math.toRadians(270));
+    private final Pose pickupFarP_HUMAN = new Pose(68, 10, Math.toRadians(270));
 
     //11 cuz 3 inch for sample + 8 inch for robot
     private final Pose placeCloseP_HUMAN = new Pose(24, 26, Math.toRadians(270));
-    private final Pose placeMiddleP_HUMAN = new Pose(24, 24, Math.toRadians(270));
+    private final Pose placeMiddleP_HUMAN = new Pose(24, 18, Math.toRadians(270));
     //will also be used as park
     private final Pose placeFarP_HUMAN = new Pose(18, 10, Math.toRadians(270));
 
     //none for human since placeFarP_HUMAN is the same thing (after tuning)
 
     private final Pose specimenControllP_HUMAN = new Pose(32, 35, Math.toRadians(180));
-    private final Pose controllBeforeCloseP_HUMAN = new Pose(62, 35, Math.toRadians(180));
-    private final Pose specimenTurn = new Pose(62, 35, Math.toRadians(270));
+    private final Pose controllBeforeCloseP_HUMAN = new Pose(64, 35, Math.toRadians(180));
+    private final Pose specimenTurn = new Pose(68, 35, Math.toRadians(270));
 
     //to not nock off the samples we just put into human zone
-    private final Pose X = new Pose(35, 20, Math.toRadians(270));
+    private final Pose X = new Pose(35, 18, Math.toRadians(270));
     private final Pose XYbetween = new Pose(35, 48, Math.toRadians(270));
 
 
@@ -361,8 +361,6 @@ public class ultimateAutonWO3rd extends OpMode{
         if (notCase == 0) {
             telemetry.addLine("case" + notCase);
             telemetry.update();
-//            claw.close();
-//            clawRot.toNeutral();
             follower.followPath(startWithSpecimen_PATH);
             notCase = 1;
         }
@@ -371,9 +369,9 @@ public class ultimateAutonWO3rd extends OpMode{
             telemetry.update();
             if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
 
-                clawRot.toPick();
+//                clawRot.toPick();
 
-                follower.followPath(specimenSpaceFIRST, 0.4, true);
+                follower.followPath(specimenSpaceFIRST, 0.3, true);
                 notCase = 2;
             }
         }
@@ -384,12 +382,12 @@ public class ultimateAutonWO3rd extends OpMode{
 
             if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 3) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 3) {
 
-                slides.up();
-                slides.extendForTime(0.5);
-                clawRot.toDrop();
-                slides.retractForTime(0.15);
+//                slides.up();
+//                slides.extendForTime(0.6);
+//                clawRot.toDrop();
+//                slides.retractForTime(0.2);
 
-                follower.followPath(specimenControllA_PATH, 0.6, true);
+                follower.followPath(specimenControllA_PATH, 0.3, true);
                 notCase = 3;
             }
         }
@@ -400,19 +398,19 @@ public class ultimateAutonWO3rd extends OpMode{
 
             if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {//slides.retract();
 
-                slides.retractForTime(0.37);
-                slides.down();
+//                slides.retractForTime(0.42);
+//                slides.down();
 
-                follower.followPath(specimenSpaceCompleteFIRST, 0.6, true);
-                notCase = 4;
+                follower.followPath(specimenSpaceCompleteFIRST, true);
+                notCase = 100;
             }
         }
 
-        if (notCase == 4) {
+        if (notCase == 100) {
             telemetry.addLine("case" + notCase);
             telemetry.update();
             if ((Math.abs(follower.getPose().getX() - specimenControllP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_HUMAN.getY()) < 1) {
-                follower.followPath(specimenControllB_PATH, 0.6, true);
+                follower.followPath(specimenControllB_PATH, true);
                 notCase = 4;
             }
         }
@@ -421,7 +419,7 @@ public class ultimateAutonWO3rd extends OpMode{
             telemetry.addLine("case" + notCase);
             telemetry.update();
             if ((Math.abs(follower.getPose().getX() - controllBeforeCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_HUMAN.getY()) < 1) {
-                follower.followPath(turn_specimen, 0.6, true);
+                follower.followPath(turn_specimen, true);
                 notCase = 5;
             }
         }
