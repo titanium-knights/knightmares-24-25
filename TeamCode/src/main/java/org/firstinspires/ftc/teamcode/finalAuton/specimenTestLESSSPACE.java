@@ -6,18 +6,14 @@ import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
-import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
 import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Timer;
 import com.pedropathing.util.Constants;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 // import org.firstinspires.ftc.teamcode.config.subsystem.ClawSubsystem;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 import org.firstinspires.ftc.teamcode.utilities.Claw;
@@ -26,8 +22,8 @@ import org.firstinspires.ftc.teamcode.utilities.Slides;
 import org.firstinspires.ftc.teamcode.backupAuton.auton.AutonMethods;
 
 
-@Autonomous(name = "ultimateAutonWO3rd", group = "Examples")
-public class ultimateAutonWO3rd extends OpMode{
+@Autonomous(name = "specimenTestLESSSPACE", group = "Examples")
+public class specimenTestLESSSPACE extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
@@ -58,8 +54,8 @@ public class ultimateAutonWO3rd extends OpMode{
     private final Pose spaceE = new Pose(30, 60, Math.toRadians(180));
     private final Pose EForth = new Pose(30, 60, Math.toRadians(270));
     private final Pose placeSpecimenE = new Pose(30, 60, Math.toRadians(180));
-    private final Pose specimenP_HUMAN = new Pose(15, 68, Math.toRadians(180));
-    private final Pose spaceF = new Pose(12, 68, Math.toRadians(180));
+    private final Pose specimenP_HUMAN = new Pose(17, 68, Math.toRadians(180));
+    private final Pose spaceF = new Pose(14, 68, Math.toRadians(180));
     private final Pose turn = new Pose(20, 58, Math.toRadians(180));
     private final Pose turn2 = new Pose(30, 58, Math.toRadians(180));
 

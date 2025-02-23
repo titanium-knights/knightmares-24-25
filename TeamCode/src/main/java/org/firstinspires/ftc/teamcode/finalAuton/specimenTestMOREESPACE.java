@@ -26,8 +26,8 @@ import org.firstinspires.ftc.teamcode.utilities.Slides;
 import org.firstinspires.ftc.teamcode.backupAuton.auton.AutonMethods;
 
 
-@Autonomous(name = "ultimateAutonWO3rd", group = "Examples")
-public class ultimateAutonWO3rd extends OpMode{
+@Autonomous(name = "specimenTestMOREESPACE", group = "Examples")
+public class specimenTestMOREESPACE extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
@@ -58,8 +58,8 @@ public class ultimateAutonWO3rd extends OpMode{
     private final Pose spaceE = new Pose(30, 60, Math.toRadians(180));
     private final Pose EForth = new Pose(30, 60, Math.toRadians(270));
     private final Pose placeSpecimenE = new Pose(30, 60, Math.toRadians(180));
-    private final Pose specimenP_HUMAN = new Pose(15, 68, Math.toRadians(180));
-    private final Pose spaceF = new Pose(12, 68, Math.toRadians(180));
+    private final Pose specimenP_HUMAN = new Pose(13, 68, Math.toRadians(180));
+    private final Pose spaceF = new Pose(10, 68, Math.toRadians(180));
     private final Pose turn = new Pose(20, 58, Math.toRadians(180));
     private final Pose turn2 = new Pose(30, 58, Math.toRadians(180));
 

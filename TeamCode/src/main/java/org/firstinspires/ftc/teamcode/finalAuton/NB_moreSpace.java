@@ -24,8 +24,8 @@ import org.firstinspires.ftc.teamcode.utilities.ClawRotator;
 import org.firstinspires.ftc.teamcode.utilities.Slides;
 //TODO ADD ARM STUFF
 
-@Autonomous(name = "NB_FINAL", group = "Examples")
-public class NB_FINAL extends OpMode{
+@Autonomous(name = "NB_moreSpace", group = "Examples")
+public class NB_moreSpace extends OpMode{
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
     private int pathState;
@@ -82,8 +82,8 @@ public class NB_FINAL extends OpMode{
     private final Pose controllBeforeCloseP_HUMAN = new Pose(56, 36, Math.toRadians(0));
 
 
-    private final Pose specimenP_BASKET = new Pose(30, 80, Math.toRadians(180));
-    private final Pose specimenSPACE_BASKET = new Pose(20, 80, Math.toRadians(180));
+    private final Pose specimenP_BASKET = new Pose(25,80, Math.toRadians(180));
+    private final Pose specimenSPACE_BASKET = new Pose(15, 80, Math.toRadians(180));
     private final Pose specimenControllP_BASKET = new Pose(40, 112, Math.toRadians(0));
     private final Pose startControllP_BASKET = new Pose(8, 112, Math.toRadians(0));
     private final Pose controllBeforeCloseP_BASKET = new Pose(56, 112, Math.toRadians(0));
@@ -192,7 +192,7 @@ public class NB_FINAL extends OpMode{
             telemetry.addLine("case " + notCase);
             telemetry.update();
             if((Math.abs(follower.getPose().getX() - specimenSPACE_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenSPACE_BASKET.getY()) < 1) {
-                //clawRot.toPick();
+                clawRot.toPick();
                 follower.followPath(specimenSPACE,true);
                 notCase = 2;
             }
@@ -202,10 +202,10 @@ public class NB_FINAL extends OpMode{
             telemetry.update();
             if((Math.abs(follower.getPose().getX() - specimenP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_BASKET.getY()) < 1) {
 
-//                slides.up();
-//                slides.extendForTime(specimenExtendHeight);
-//                clawRot.toDrop();
-//                slides.retractForTime(placeSpecimenRetractHeight);
+                slides.up();
+                slides.extendForTime(specimenExtendHeight);
+                clawRot.toDrop();
+                slides.retractForTime(placeSpecimenRetractHeight);
 
                 follower.followPath(specimenSPACEreverse,true);
                 notCase = 3;
@@ -216,7 +216,7 @@ public class NB_FINAL extends OpMode{
             telemetry.addLine("case " + notCase);
             telemetry.update();
             if((Math.abs(follower.getPose().getX() - specimenSPACE_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenSPACE_BASKET.getY()) < 1) {
-                //clawRot.toPick();
+                clawRot.toPick();
                 follower.followPath(specimenControllA_PATH,true);
                 notCase = 4;
             }
