@@ -41,11 +41,11 @@ public class NB_FINAL extends OpMode{
     private final Pose scoreP = new Pose(12, 132, Math.toRadians(135));
 
     private final Pose pickupCloseP_BASKET = new Pose(68, 118, Math.toRadians(90));
-    private final Pose pickupMiddleP_BASKET = new Pose(68, 126, Math.toRadians(90));
-    private final Pose pickupFarP_BASKET = new Pose(68, 134, Math.toRadians(90));
+    private final Pose pickupMiddleP_BASKET = new Pose(68, 134, Math.toRadians(90));
+    private final Pose pickupFarP_BASKET = new Pose(68, 138, Math.toRadians(90));
 
-    private final Pose SCORE = new Pose(16, 130, Math.toRadians(70));
-    private final Pose SCOREEND = new Pose(14, 134, Math.toRadians(90));
+    private final Pose SCORE = new Pose(12, 130, Math.toRadians(70));
+    private final Pose SCOREEND = new Pose(12, 138, Math.toRadians(90));
 
 
 
@@ -88,7 +88,7 @@ public class NB_FINAL extends OpMode{
     private final Pose controllBeforeCloseP_BASKET = new Pose(56, 112, Math.toRadians(0));
 
     private final Pose straightToParkP_HUMAN = new Pose(8, 8, Math.toRadians(0));
-    private final Pose straightToParkP_BASKET = new Pose(8, 32, Math.toRadians(0));
+    private final Pose straightToParkP_BASKET = new Pose(8, 18, Math.toRadians(0));
 
     private Path startWithSpecimen_PATH, park;
     private PathChain specimenControllA_PATH, specimenSPACE, specimenControllB_PATH,
@@ -168,6 +168,9 @@ public class NB_FINAL extends OpMode{
     }
 
     private int notCase = 0;
+    private double specimenExtendHeight = 0.45;
+    private double placeSpecimenRetractHeight = 0.20;
+    private double finishRetraction = 0.27;
     public void autonomousPathUpdate() {
         if (notCase == 0) {
             telemetry.addLine("case " + notCase);
@@ -179,6 +182,7 @@ public class NB_FINAL extends OpMode{
             telemetry.addLine("case " + notCase);
             telemetry.update();
             if((Math.abs(follower.getPose().getX() - specimenSPACE_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenSPACE_BASKET.getY()) < 1) {
+                //clawRot.toPick();
                 follower.followPath(specimenSPACE,true);
                 notCase = 2;
             }
@@ -187,6 +191,12 @@ public class NB_FINAL extends OpMode{
             telemetry.addLine("case " + notCase);
             telemetry.update();
             if((Math.abs(follower.getPose().getX() - specimenP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenP_BASKET.getY()) < 1) {
+
+//                slides.up();
+//                slides.extendForTime(specimenExtendHeight);
+//                clawRot.toDrop();
+//                slides.retractForTime(placeSpecimenRetractHeight);
+
                 follower.followPath(specimenSPACEreverse,true);
                 notCase = 3;
             }
@@ -196,6 +206,7 @@ public class NB_FINAL extends OpMode{
             telemetry.addLine("case " + notCase);
             telemetry.update();
             if((Math.abs(follower.getPose().getX() - specimenSPACE_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenSPACE_BASKET.getY()) < 1) {
+                //clawRot.toPick();
                 follower.followPath(specimenControllA_PATH,true);
                 notCase = 4;
             }
@@ -220,6 +231,7 @@ public class NB_FINAL extends OpMode{
         if(notCase ==6){
             telemetry.addLine("case " + notCase);
             telemetry.update();
+            clawRot.toNeutral();
             if((Math.abs(follower.getPose().getX() - pickupCloseP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - pickupCloseP_BASKET.getY()) < 1) {
 
                 follower.followPath(placeClose_PATH, true);
