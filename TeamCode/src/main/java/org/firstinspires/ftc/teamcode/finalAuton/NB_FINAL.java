@@ -49,6 +49,7 @@ public class NB_FINAL extends OpMode{
 
 
 
+
     //the y will need a change during tuning
     private final Pose pickupCloseP_HUMAN = new Pose(56, 24, Math.toRadians(270));
     private final Pose pickupMiddleP_HUMAN = new Pose(56, 12, Math.toRadians(270));
@@ -89,12 +90,14 @@ public class NB_FINAL extends OpMode{
 
     private final Pose straightToParkP_HUMAN = new Pose(8, 8, Math.toRadians(0));
     private final Pose straightToParkP_BASKET = new Pose(84, 72, Math.toRadians(0));
+    private final Pose moveMorei = new Pose(80, 72, Math.toRadians(0));
 
-    private Path startWithSpecimen_PATH, park;
+
+    private Path startWithSpecimen_PATH, moveMore;
     private PathChain specimenControllA_PATH, specimenSPACE, specimenControllB_PATH,
             pickUpClose_PATH, placeClose_PATH, moveToMiddle_PATH,
             pickUpMiddle_PATH, placeMiddle_PATH, moveToFar_PATH,
-            pickUpFar_PATH, placeFar_PATH, specimenSPACEreverse;
+            pickUpFar_PATH, placeFar_PATH, specimenSPACEreverse, park;
 
 
     public void buildPaths() {
@@ -163,8 +166,15 @@ public class NB_FINAL extends OpMode{
                 .build();
 
         //basically park
-        park = new Path(new BezierLine(new Point(SCOREEND), new Point(straightToParkP_BASKET)));
-        park.setLinearHeadingInterpolation(SCOREEND.getHeading(), straightToParkP_BASKET.getHeading());
+
+        park = follower.pathBuilder()
+                .addPath(new BezierLine(new Point(SCOREEND), new Point(straightToParkP_BASKET)))
+                .setLinearHeadingInterpolation(SCOREEND.getHeading(), straightToParkP_BASKET.getHeading())
+                .build();
+
+        moveMore = new Path(new BezierLine(new Point(straightToParkP_BASKET), new Point(moveMorei)));
+        moveMore.setLinearHeadingInterpolation(straightToParkP_BASKET.getHeading(), moveMorei.getHeading());
+
     }
 
     private int notCase = 0;
@@ -298,6 +308,14 @@ public class NB_FINAL extends OpMode{
                 telemetry.update();
                 follower.followPath(park,true);
                 slides.up();
+            }
+        }
+
+        if (notCase == 13){
+            if((Math.abs(follower.getPose().getX() - SCOREEND.getX()) < 1) && Math.abs(follower.getPose().getY() - SCOREEND.getY()) < 1) {
+                telemetry.addLine(" case " + notCase);
+                telemetry.update();
+                follower.followPath(moveMore,true);
             }
         }
 
