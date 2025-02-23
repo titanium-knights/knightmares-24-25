@@ -21,13 +21,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
         Servo cRotatorServo;
         public ClawRotator(HardwareMap hmap, Telemetry telemetry) {
             this.cRotatorServo = hmap.servo.get(CONFIG.clawRotator);
-            cRotatorServo.setDirection(Servo.Direction.REVERSE);
+            //cRotatorServo.setDirection(Servo.Direction.REVERSE);
             //cRotatorServo.setPosition(pickPos);
             this.telemetry = telemetry;
         }
-        public static double neutralPos = 0.05;
-        public static double dropPos = 0.1;
-        public static double pickPos = 3.0;
+        public static double neutralPos = 1; // TODO: tune value USING DASHBOARD
+        public static double dropPos = 0.9;
+        public static double pickPos = 0.61;
 
         public static double floorPos = 0.4;
 

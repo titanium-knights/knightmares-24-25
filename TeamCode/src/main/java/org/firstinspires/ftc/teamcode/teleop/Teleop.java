@@ -199,6 +199,9 @@ public class Teleop extends OpMode {
                 throw new RuntimeException(e);
             }
         }
+        if (gamepad1.dpad_down) {
+            clawRotator.toNeutral();
+        }
 
     }
 

@@ -47,6 +47,9 @@ public class NB_FINAL extends OpMode{
     private final Pose SCORE = new Pose(12, 130, Math.toRadians(70));
     private final Pose SCOREEND = new Pose(12, 138, Math.toRadians(90));
 
+    private final Pose midPark = new Pose(12, 138, Math.toRadians(90));
+
+
 
 
 
@@ -89,15 +92,15 @@ public class NB_FINAL extends OpMode{
     private final Pose controllBeforeCloseP_BASKET = new Pose(56, 112, Math.toRadians(0));
 
     private final Pose straightToParkP_HUMAN = new Pose(8, 8, Math.toRadians(0));
-    private final Pose straightToParkP_BASKET = new Pose(84, 72, Math.toRadians(0));
+    private final Pose straightToParkP_BASKET = new Pose(8, 8, Math.toRadians(0));
     private final Pose moveMorei = new Pose(80, 72, Math.toRadians(0));
 
 
-    private Path startWithSpecimen_PATH, moveMore;
+    private Path startWithSpecimen_PATH, park;
     private PathChain specimenControllA_PATH, specimenSPACE, specimenControllB_PATH,
             pickUpClose_PATH, placeClose_PATH, moveToMiddle_PATH,
             pickUpMiddle_PATH, placeMiddle_PATH, moveToFar_PATH,
-            pickUpFar_PATH, placeFar_PATH, specimenSPACEreverse, park;
+            pickUpFar_PATH, placeFar_PATH, specimenSPACEreverse;
 
 
     public void buildPaths() {
@@ -167,13 +170,8 @@ public class NB_FINAL extends OpMode{
 
         //basically park
 
-        park = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(SCOREEND), new Point(straightToParkP_BASKET)))
-                .setLinearHeadingInterpolation(SCOREEND.getHeading(), straightToParkP_BASKET.getHeading())
-                .build();
-
-        moveMore = new Path(new BezierLine(new Point(straightToParkP_BASKET), new Point(moveMorei)));
-        moveMore.setLinearHeadingInterpolation(straightToParkP_BASKET.getHeading(), moveMorei.getHeading());
+        park = new Path(new BezierLine(new Point(SCOREEND), new Point(straightToParkP_BASKET)));
+        park.setLinearHeadingInterpolation(SCOREEND.getHeading(), straightToParkP_BASKET.getHeading());
 
     }
 
@@ -307,16 +305,7 @@ public class NB_FINAL extends OpMode{
                 telemetry.addLine(" case " + notCase);
                 telemetry.update();
                 follower.followPath(park,true);
-                slides.up();
-            }
-        }
-
-        if (notCase == 13){
-            if((Math.abs(follower.getPose().getX() - SCOREEND.getX()) < 1) && Math.abs(follower.getPose().getY() - SCOREEND.getY()) < 1) {
-                telemetry.addLine(" case " + notCase);
-                telemetry.update();
-                follower.followPath(moveMore,true);
-            }
+                clawRot.toNeutral();            }
         }
 
     }
