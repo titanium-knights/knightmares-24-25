@@ -81,7 +81,7 @@ public class Teleop extends OpMode {
             slideButton = ButtonPressState.DEPRESSED;
         } else if (gamepad1.left_trigger<0.1f) slideButton = ButtonPressState.UNPRESSED;
 
-        if ((slides.getRotatorEncoder() < 600 && slides.getEncoder() > 200) ) {
+        if ((slides.getRotatorEncoder() < 900 && slides.getEncoder() > 200) ) {
             slides.retract();
         } else {
 
@@ -91,7 +91,7 @@ public class Teleop extends OpMode {
                 telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
                 telemetry.update();
             } else if (gamepad1.right_bumper) {
-                if (slides.getRotatorEncoder() < 1000 && slides.getRotatorEncoder() > -1000) {
+                if (slides.getRotatorEncoder() < 900 && slides.getRotatorEncoder() > -1000) {
                     stop();
                 } else {
                     slides.extend();
@@ -179,8 +179,8 @@ public class Teleop extends OpMode {
             cRotatorAtDrop = true;
         } else if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
-//            clawRotator.toPick();
-            clawRotator.toFloor();
+            clawRotator.toPick();
+            clawRotator.toPick();
             telemetry.addLine("claw to pick position: " + clawRotator.getPosition());
             cRotatorAtDrop = false;
         } else if (!(gamepad1.a) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
@@ -206,7 +206,7 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
-        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
+        drive.move(-x * multiplier, y * multiplier, -turn * multiplier);
     }
 
     public void setAutonAction (int action) {

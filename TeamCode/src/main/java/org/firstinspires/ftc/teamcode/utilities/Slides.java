@@ -241,25 +241,6 @@ public class Slides {
         stop();
     }
 
-    public void extendForTime (String extendOrRetract) {
-        long moveTime = 1200;
-        long startTime = System.nanoTime();
-        boolean moveSlides = true;
-        setPower(0.9);
-        while (moveSlides) {
-            if (startTime + moveTime > System.nanoTime()) {
-                if (extendOrRetract == "extend") { extend(); }
-                if (extendOrRetract == "retract") { retract(); }
-            } else { moveSlides = false; stop(); }
-        }
-
-    }
-    public void retractForTime (int time) {
-
-    }
-
-
-
     // SLIDES MANUAL
 
     public void retract(){
