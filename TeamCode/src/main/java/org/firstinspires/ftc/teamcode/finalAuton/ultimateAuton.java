@@ -326,10 +326,10 @@ public class ultimateAuton extends OpMode{
             telemetry.addLine("case" + notCase);
             telemetry.update();
 
-//                slides.up();
-//                // slides.extend_auton();
-//                clawRot.toDrop();
-//                // slides.smallRetract_auton();
+            slides.up();
+            slides.extendForTime(1.2);
+            clawRot.toDrop();
+            slides.retractForTime(0.4);
 
             if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 3) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 3) {
                 follower.followPath(specimenControllA_PATH, 0.6, true);
@@ -341,8 +341,8 @@ public class ultimateAuton extends OpMode{
             telemetry.addLine("case" + notCase);
             telemetry.update();
 
-//            // slides.retract_auton();
-//            slides.down();
+            slides.retractForTime(0.8);
+            slides.down();
 
             if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
                 follower.followPath(specimenSpaceCompleteFIRST, 0.6, true);

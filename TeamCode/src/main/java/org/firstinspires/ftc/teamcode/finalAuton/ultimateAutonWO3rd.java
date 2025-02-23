@@ -58,8 +58,8 @@ public class ultimateAutonWO3rd extends OpMode{
     private final Pose spaceE = new Pose(30, 60, Math.toRadians(180));
     private final Pose EForth = new Pose(30, 60, Math.toRadians(270));
     private final Pose placeSpecimenE = new Pose(40, 60, Math.toRadians(180));
-    private final Pose specimenP_HUMAN = new Pose(38, 64, Math.toRadians(180));
-    private final Pose spaceF = new Pose(32, 64, Math.toRadians(180));
+    private final Pose specimenP_HUMAN = new Pose(24, 64, Math.toRadians(180));
+    private final Pose spaceF = new Pose(18, 64, Math.toRadians(180));
     private final Pose turn = new Pose(20, 58, Math.toRadians(180));
     private final Pose turn2 = new Pose(30, 58, Math.toRadians(180));
 
@@ -370,8 +370,10 @@ public class ultimateAutonWO3rd extends OpMode{
             telemetry.addLine("case" + notCase);
             telemetry.update();
             if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
-//                clawRot.toPick();
-                follower.followPath(specimenSpaceFIRST, true);
+
+                clawRot.toPick();
+
+                follower.followPath(specimenSpaceFIRST, 0.4, true);
                 notCase = 2;
             }
         }
@@ -379,11 +381,14 @@ public class ultimateAutonWO3rd extends OpMode{
         if (notCase == 2) {
             telemetry.addLine("case" + notCase);
             telemetry.update();
+
             if ((Math.abs(follower.getPose().getX() - specimenP_HUMAN.getX()) < 3) && Math.abs(follower.getPose().getY() - specimenP_HUMAN.getY()) < 3) {
-                //slides.up();
-                //slides.extend_auton();
-                //clawRot.toDrop();
-                //slides.smallRetract_auton();
+
+                slides.up();
+                slides.extendForTime(0.5);
+                clawRot.toDrop();
+                slides.retractForTime(0.15);
+
                 follower.followPath(specimenControllA_PATH, 0.6, true);
                 notCase = 3;
             }
@@ -392,10 +397,12 @@ public class ultimateAutonWO3rd extends OpMode{
         if (notCase == 3) {
             telemetry.addLine("case" + notCase);
             telemetry.update();
-            if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {
-            //slides.retract();
-            //clawRot.toNeutral();
-            //slides.down();
+
+            if ((Math.abs(follower.getPose().getX() - spaceF.getX()) < 1) && Math.abs(follower.getPose().getY() - spaceF.getY()) < 1) {//slides.retract();
+
+                slides.retractForTime(0.37);
+                slides.down();
+
                 follower.followPath(specimenSpaceCompleteFIRST, 0.6, true);
                 notCase = 4;
             }
