@@ -88,7 +88,7 @@ public class NB_FINAL extends OpMode{
     private final Pose controllBeforeCloseP_BASKET = new Pose(56, 112, Math.toRadians(0));
 
     private final Pose straightToParkP_HUMAN = new Pose(8, 8, Math.toRadians(0));
-    private final Pose straightToParkP_BASKET = new Pose(8, 18, Math.toRadians(0));
+    private final Pose straightToParkP_BASKET = new Pose(84, 72, Math.toRadians(0));
 
     private Path startWithSpecimen_PATH, park;
     private PathChain specimenControllA_PATH, specimenSPACE, specimenControllB_PATH,
@@ -297,6 +297,7 @@ public class NB_FINAL extends OpMode{
                 telemetry.addLine(" case " + notCase);
                 telemetry.update();
                 follower.followPath(park,true);
+                slides.up();
             }
         }
 
@@ -337,6 +338,7 @@ public class NB_FINAL extends OpMode{
 
         claw = new Claw(hardwareMap, telemetry);
         clawRot = new ClawRotator(hardwareMap, telemetry);
+        slides = new Slides(hardwareMap, telemetry);
 
         // Set the claw to positions for init
 

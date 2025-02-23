@@ -356,9 +356,9 @@ public class ultimateAutonWO3rd extends OpMode{
     }
 
     private int notCase = 0;
-    private double specimenExtendHeight = 0.45;
+    private double specimenExtendHeight = 0.35;
     private double placeSpecimenRetractHeight = 0.20;
-    private double finishRetraction = 0.27;
+    private double finishRetraction = 0.17;
     public void autonomousPathUpdate() {
 
         if (notCase == 0) {
