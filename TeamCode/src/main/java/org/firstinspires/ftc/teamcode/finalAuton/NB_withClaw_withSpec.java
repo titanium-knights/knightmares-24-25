@@ -234,7 +234,10 @@ public class NB_withClaw_withSpec extends OpMode{
             telemetry.addLine("case " + notCase);
             telemetry.update();
 
-//            claw.close();
+            //clawRot.toPick();
+//            slides.retract();
+//            slides.down();
+            //claw.close();
 
             if((Math.abs(follower.getPose().getX() - pickupFarP_BASKETwCLAW.getX()) < 5) && Math.abs(follower.getPose().getY() - pickupFarP_BASKETwCLAW.getY()) < 5) {
 
@@ -245,6 +248,10 @@ public class NB_withClaw_withSpec extends OpMode{
         if(notCase == 8){
             telemetry.addLine("case " + notCase);
             telemetry.update();
+            //            slides.up();
+//            slides.extend_auton();
+//            clawRot.toDrop();
+//            claw.open();
             if((Math.abs(follower.getPose().getX() - scoreP.getX()) < 5) && Math.abs(follower.getPose().getY() - scoreP.getY()) < 5) {
 
                 follower.followPath(park, true);
