@@ -361,6 +361,8 @@ public class ultimateAutonWO3rd extends OpMode{
         if (notCase == 0) {
             telemetry.addLine("case" + notCase);
             telemetry.update();
+//            claw.close();
+//            clawRot.toNeutral();
             follower.followPath(startWithSpecimen_PATH);
             notCase = 1;
         }
