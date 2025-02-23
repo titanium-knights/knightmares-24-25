@@ -46,6 +46,11 @@ public class Teleop extends OpMode {
     ButtonPressState slideManualUp;
     ButtonPressState ultimateButton;
 
+    ButtonPressState timeExtendButton;
+
+    ButtonPressState timeRetractButton;
+
+
     boolean slowMode = false;
     boolean pullupstate1 = false;
     boolean pullupstate2 = false;
@@ -67,6 +72,8 @@ public class Teleop extends OpMode {
         this.slideManual = ButtonPressState.UNPRESSED;
         this.slideManualUp = ButtonPressState.UNPRESSED;
         this.ultimateButton = ButtonPressState.UNPRESSED;
+        this.timeExtendButton = ButtonPressState.UNPRESSED;
+        this.timeRetractButton = ButtonPressState.UNPRESSED;
 
         this.claw = new Claw(hardwareMap, telemetry);
         this.clawRotator = new ClawRotator(hardwareMap, telemetry);
@@ -103,6 +110,27 @@ public class Teleop extends OpMode {
                 slides.stop();
             }
         }
+
+        if (gamepad1.dpad_up && (timeExtendButton == ButtonPressState.UNPRESSED)) {
+            slides.extendForTime("extend");
+            timeExtendButton = ButtonPressState.PRESSED_GOOD;
+        } else if (!gamepad1.dpad_up && (timeExtendButton == ButtonPressState.PRESSED_GOOD)) {
+            timeExtendButton = ButtonPressState.UNPRESSED;
+        }
+//        if (gamepad1.dpad_up) {
+//            slides.extendForTime("extend");
+//        }
+
+        if (gamepad1.dpad_down && (timeRetractButton == ButtonPressState.UNPRESSED)) {
+            slides.extendForTime("retract");
+            timeRetractButton = ButtonPressState.PRESSED_GOOD;
+        } else if (!gamepad1.dpad_down && (timeRetractButton == ButtonPressState.PRESSED_GOOD)) {
+            timeRetractButton = ButtonPressState.UNPRESSED;
+        }
+//        if (gamepad1.dpad_up) {
+//            slides.extendForTime("retract");
+//
+//        }
 
 //        DRIVETRAIN TELEMETRY
 //        telemetry.addLine(String.valueOf(drive.getfl()) + "get front left");
@@ -146,6 +174,10 @@ public class Teleop extends OpMode {
             telemetry.update();
         }
 
+        if (gamepad1.dpad_up) {
+            clawRotator.toNeutral();
+        }
+
         // improved code by yours truly:
         if (gamepad1.y && (clawButton == ButtonPressState.UNPRESSED)) {
             if (!clawOpen) {
@@ -179,8 +211,7 @@ public class Teleop extends OpMode {
             cRotatorAtDrop = true;
         } else if (gamepad1.a && (cRotatorButton == ButtonPressState.UNPRESSED) && cRotatorAtDrop) {
             cRotatorButton = ButtonPressState.PRESSED_GOOD;
-//            clawRotator.toPick();
-            clawRotator.toFloor();
+            clawRotator.toPick();
             telemetry.addLine("claw to pick position: " + clawRotator.getPosition());
             cRotatorAtDrop = false;
         } else if (!(gamepad1.a) && (cRotatorButton == ButtonPressState.PRESSED_GOOD)){
@@ -206,7 +237,7 @@ public class Teleop extends OpMode {
 
         //Notation of a ? b : c means if a is true do b, else do c.
         double multiplier = normalPower;
-        drive.move(x * multiplier, y * multiplier, -turn * multiplier);
+        drive.move(-x * multiplier, y * multiplier, -turn * multiplier);
     }
 
     public void setAutonAction (int action) {
