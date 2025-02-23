@@ -43,10 +43,10 @@ public class placeSpecimen extends OpMode{
     }
 
     public void autonomousPathUpdate() {
-        slides.up();
-         slides.extend_auton();
-        clawRot.toDrop();
-         slides.smallRetract_auton();
+         slides.up();
+         slides.extendForTime(1.2);
+         clawRot.toDrop();
+         slides.retractForTime(0.2);
     }
 
     public void setPathState ( int pState){
