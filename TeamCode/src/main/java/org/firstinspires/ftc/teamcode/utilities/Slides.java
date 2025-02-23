@@ -340,4 +340,16 @@ public class Slides {
         }
         stop();
     }
+
+    public void retractForTime(double seconds) {
+        slideMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slideMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setPower(-0.9);
+        ElapsedTime timer = new ElapsedTime();
+        timer.reset();
+        while (timer.seconds() < seconds) {
+            // i am 2 weeks ahead of the brainrot curve because oc instagram reels
+        }
+        stop();
+    }
 }
