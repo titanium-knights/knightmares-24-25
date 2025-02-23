@@ -421,6 +421,7 @@ public class ultimateAutonWO3rd extends OpMode{
         if (notCase == 4) {
             telemetry.addLine("case" + notCase);
             telemetry.update();
+            clawRot.toNeutral();
             if ((Math.abs(follower.getPose().getX() - controllBeforeCloseP_HUMAN.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_HUMAN.getY()) < 1) {
                 follower.followPath(turn_specimen, true);
                 notCase = 5;
@@ -431,7 +432,6 @@ public class ultimateAutonWO3rd extends OpMode{
             telemetry.update();
             if ((Math.abs(follower.getPose().getX() - specimenTurn.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenTurn.getY()) < 1) {
                 follower.followPath(pickUpClose_PATH, true);
-                clawRot.toNeutral();
                 notCase = 6;
             }
         }

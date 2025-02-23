@@ -45,6 +45,8 @@ public class NB_FINAL extends OpMode{
     private final Pose pickupFarP_BASKET = new Pose(68, 134, Math.toRadians(90));
 
     private final Pose SCORE = new Pose(16, 130, Math.toRadians(70));
+    private final Pose SCOREEND = new Pose(14, 134, Math.toRadians(90));
+
 
 
     //the y will need a change during tuning
@@ -156,13 +158,13 @@ public class NB_FINAL extends OpMode{
                 .build();
 
         placeFar_PATH = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickupFarP_BASKET), new Point(SCORE)))
-                .setLinearHeadingInterpolation(pickupFarP_BASKET.getHeading(), SCORE.getHeading())
+                .addPath(new BezierLine(new Point(pickupFarP_BASKET), new Point(SCOREEND)))
+                .setLinearHeadingInterpolation(pickupFarP_BASKET.getHeading(), SCOREEND.getHeading())
                 .build();
 
         //basically park
-        park = new Path(new BezierLine(new Point(SCORE), new Point(straightToParkP_BASKET)));
-        park.setLinearHeadingInterpolation(SCORE.getHeading(), straightToParkP_BASKET.getHeading());
+        park = new Path(new BezierLine(new Point(SCOREEND), new Point(straightToParkP_BASKET)));
+        park.setLinearHeadingInterpolation(SCOREEND.getHeading(), straightToParkP_BASKET.getHeading());
     }
 
     private int notCase = 0;
@@ -201,7 +203,7 @@ public class NB_FINAL extends OpMode{
         if (notCase == 4) {
             telemetry.addLine("case " + notCase);
             telemetry.update();
-            if((Math.abs(follower.getPose().getX() - specimenControllP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - specimenControllP_BASKET.getY()) < 1) {
+            if((Math.abs(follower.getPose().getX() - specimenControllP_BASKET.getX()) < 5) && Math.abs(follower.getPose().getY() - specimenControllP_BASKET.getY()) < 5) {
                 follower.followPath(specimenControllB_PATH,true);
                 notCase = 5;
             }
@@ -209,7 +211,7 @@ public class NB_FINAL extends OpMode{
         if(notCase ==5){
             telemetry.addLine("case " + notCase);
             telemetry.update();
-            if((Math.abs(follower.getPose().getX() - controllBeforeCloseP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - controllBeforeCloseP_BASKET.getY()) < 1) {
+            if((Math.abs(follower.getPose().getX() - controllBeforeCloseP_BASKET.getX()) < 5) && Math.abs(follower.getPose().getY() - controllBeforeCloseP_BASKET.getY()) < 5) {
 
                 follower.followPath(pickUpClose_PATH, true);
                 notCase = 6;
@@ -227,7 +229,7 @@ public class NB_FINAL extends OpMode{
         if(notCase ==7){
             telemetry.addLine("case " + notCase);
             telemetry.update();
-            if((Math.abs(follower.getPose().getX() - placeCloseP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - placeCloseP_BASKET.getY()) < 1) {
+            if((Math.abs(follower.getPose().getX() - SCORE.getX()) < 1) && Math.abs(follower.getPose().getY() - SCORE.getY()) < 1) {
 
                 follower.followPath(moveToMiddle_PATH, true);
                 notCase = 8;
@@ -254,7 +256,7 @@ public class NB_FINAL extends OpMode{
         if(notCase == 10){
             telemetry.addLine("case " + notCase);
             telemetry.update();
-            if((Math.abs(follower.getPose().getX() - placeMiddleP_BASKET.getX()) < 5) && Math.abs(follower.getPose().getY() - placeMiddleP_BASKET.getY()) < 5) {
+            if((Math.abs(follower.getPose().getX() - SCORE.getX()) < 5) && Math.abs(follower.getPose().getY() - SCORE.getY()) < 5) {
 
                 follower.followPath(moveToFar_PATH, true);
                 notCase = 11;
@@ -279,7 +281,7 @@ public class NB_FINAL extends OpMode{
             }
         }
         if (notCase == 13){
-            if((Math.abs(follower.getPose().getX() - placeFarP_BASKET.getX()) < 1) && Math.abs(follower.getPose().getY() - placeFarP_BASKET.getY()) < 1) {
+            if((Math.abs(follower.getPose().getX() - SCOREEND.getX()) < 1) && Math.abs(follower.getPose().getY() - SCOREEND.getY()) < 1) {
                 telemetry.addLine(" case " + notCase);
                 telemetry.update();
                 follower.followPath(park,true);
@@ -325,8 +327,7 @@ public class NB_FINAL extends OpMode{
         clawRot = new ClawRotator(hardwareMap, telemetry);
 
         // Set the claw to positions for init
-        claw.close();
-        clawRot.toPick();
+
     }
 
     @Override
