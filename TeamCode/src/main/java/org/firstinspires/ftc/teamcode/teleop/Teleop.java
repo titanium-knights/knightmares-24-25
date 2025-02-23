@@ -55,6 +55,8 @@ public class Teleop extends OpMode {
     double time;
     int autonAction = 0;
 
+    boolean extended = false;
+
     ElapsedTime runtime = new ElapsedTime();
     @Override
     public void init() {
@@ -87,6 +89,7 @@ public class Teleop extends OpMode {
 
             if (gamepad1.left_bumper) {
                 slides.retract();
+                extended = false;
                 telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
                 telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
                 telemetry.update();
@@ -95,6 +98,7 @@ public class Teleop extends OpMode {
                     stop();
                 } else {
                     slides.extend();
+                    extended = true;
                 }
                 telemetry.addLine("slides rotator: " + String.valueOf(slides.getRotatorEncoder()));
                 telemetry.addLine("slides: " + String.valueOf(slides.getEncoder()));
@@ -131,7 +135,8 @@ public class Teleop extends OpMode {
             telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
 
         } else if (gamepad1.left_trigger > 0.5) {
-            slides.rotateLeft();
+            if (extended) stop();
+            else slides.rotateLeft();
             telemetry.addLine("rotating slides: " + String.valueOf(slides.getRotatorEncoder()));
             telemetry.update();
         } else {
